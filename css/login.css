@@ -1,0 +1,123 @@
+html, body {
+    height:100%;
+    font-size: 12px;
+}
+
+.wrap {
+    display: flex;
+    width:100%;
+    height:100%;
+    flex-flow: row;
+}
+
+.login-left {
+    display: flex;
+    flex-flow: column;
+    width: 50%;
+    height:100%;
+    background: linear-gradient(#7401b6, #2d0a9c);
+    justify-content: center;
+    align-items: center;
+}
+
+    .login-left img {
+        margin-bottom: 60px;
+    }
+
+    .slogan {
+        display: flex;
+        flex-flow: column;
+        text-align: center;
+        font-size: 5rem;
+        margin-bottom: 60px;
+        color: white;
+    }
+
+    .slogan span:last-child {
+        font-weight: bold;
+    }
+    .circle-wrap {
+        display:flex;
+    }
+    .circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color:white;
+    }
+    .circle:last-child {
+        margin-left: 20px;
+    }
+
+.login-right {
+    display: flex;
+    flex-flow: column;
+    width: 50%;
+    height:100%;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+    .login-right img {
+        margin-bottom: 50px;
+    }
+
+    input {
+        width: 400px;
+        height: 50px;
+        border: 1px solid #3cd5f6;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+
+    input:focus{
+        outline: none;
+    }
+
+    .id-input, .pw-input {
+        padding: 15px;
+        background: url(../images/input-check.png) no-repeat 95% 50%;
+        background:none;
+    }
+
+    .id-input:focus, .pw-input:focus {
+        border: 1px solid #4d06a7;
+    }
+
+    .pw-input {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .submit-input{
+        margin-bottom: 35px;
+        font-size: 2rem;
+        cursor: pointer;
+        color:white;
+        background-color: #3cd5f6;
+    }
+
+
+.contact-wrap {
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+}
+
+    .contact-list {
+        margin-bottom: 15px;
+    }
+
+    .contact-list li {
+        float: left;
+    }
+
+    .contact-list li:first-child::after {
+        content: '|';
+        margin: 0px 10px;
+    }
+
+    .contact-list::after {
+        clear:both;
+    }
