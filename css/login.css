@@ -66,6 +66,7 @@ html, body {
 }
 
     .login-right img {
+        width: 150px;
         margin-bottom: 50px;
     }
 
