@@ -76,6 +76,9 @@ html, body {
         border: 1px solid #3cd5f6;
         border-radius: 3px;
         box-sizing: border-box;
+        -webkit-appearance: none;
+        -webkit-border-radius: 3px;
+        -webkit-text-fill-color: #3cd5f6;
     }
     input:focus{
         outline: none;
