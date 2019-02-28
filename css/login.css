@@ -10,6 +10,8 @@ html, body {
     flex-flow: row;
 }
 
+/* left box content start */
+
 .login-left {
     display: flex;
     flex-flow: column;
@@ -32,10 +34,10 @@ html, body {
         margin-bottom: 60px;
         color: white;
     }
-
     .slogan span:last-child {
         font-weight: bold;
     }
+
     .circle-wrap {
         display:flex;
     }
@@ -48,6 +50,10 @@ html, body {
     .circle:last-child {
         margin-left: 20px;
     }
+
+/* left box content end */
+
+/* right box content start */
 
 .login-right {
     display: flex;
@@ -70,54 +76,49 @@ html, body {
         border-radius: 3px;
         box-sizing: border-box;
     }
-
     input:focus{
         outline: none;
     }
-
     .id-input, .pw-input {
         padding: 15px;
         background: url(../images/input-check.png) no-repeat 95% 50%;
-        background:none;
+        background:none;/*check img 숨김처리*/
     }
-
     .id-input:focus, .pw-input:focus {
         border: 1px solid #4d06a7;
     }
-
     .pw-input {
         margin-top: 10px;
         margin-bottom: 20px;
     }
-    
     .submit-input{
-        margin-bottom: 35px;
+        margin-bottom: 20px;
         font-size: 2rem;
         cursor: pointer;
         color:white;
         background-color: #3cd5f6;
     }
 
+    .contact-wrap {
+        text-align: center;
+        font-weight: bold;
+        color: #555;
+    }
 
-.contact-wrap {
-    text-align: center;
-    font-weight: bold;
-    color: #555;
+/* right box content end */
+
+@media screen and (max-width:980px) {
+    .login-left {
+        display: none;
+    }
+
+    .login-right {
+        width: 100%;
+    }
 }
 
-    .contact-list {
-        margin-bottom: 15px;
+@media screen and (max-width:400px) {
+    input {
+        width: 100%;
     }
-
-    .contact-list li {
-        float: left;
-    }
-
-    .contact-list li:first-child::after {
-        content: '|';
-        margin: 0px 10px;
-    }
-
-    .contact-list::after {
-        clear:both;
-    }
+}
