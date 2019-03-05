@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>WORLDSPON</title>
+</head>
+<body>
+    <div id='wrap'>
+        <header>
+            <div class='logo-box'>
+                <img src="./images/header_logo.png" alt="">
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a>광고수익</a>
+                    </li>
+                    <li>
+                        <a>공지사항</a>
+                    </li>
+                    <li>
+                        <a>FAQ</a>
+                    </li>
+                    <li>
+                        <a>1:1문의</a>
+                    </li>
+                    <li>
+                        <a>게임결과</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class='user-info'>
+                <span class='user-name'>WS1234님</span>
+                <button class='login-info'>로그아웃</button>
+            </div>
+        </header>
+        <main>
+            <div class='profit-box'>
+                <div class='prev-month profit-content content-box-layout'>
+                    <span class='profit-left'>1월 총 광고수익금</span>
+                    <span class='profit-right'>123,456,789</span>
+                </div>
+                <div class='current-month profit-content content-box-layout'>
+                    <span class='profit-left'>2월 총 광고수익금</span>
+                    <span class='profit-right'>123,456,789</span>
+
+                </div>
+                <div class='change-percentage profit-content content-box-layout'>
+                    <span class='profit-left'>전주대비 증감률</span>
+                    <span class='profit-right'>123,456,789</span>
+                </div>
+            </div>
+            <!-- profit chart start -->
+            <div class='profit-chart-box content-box-layout pd-40'>
+                <div class='profit-chart-header'>
+                    <h3 class='content-hl'>최근 7일 광고수익금</h3>
+                    <button class='more-btn'>MORE</button>
+                </div>
+                <div class='profit-chart-content'>
+                    <canvas id='index-profit-chart'></canvas>
+                </div>
+            </div>
+            <!-- profit chart end -->
+            <!-- notice, faq box start -->
+            <div class='notice-faq-box'>
+                <div class='notice-box content-box-layout pd-40'>
+                    <div class='notice-box-header border-bottom pdb-30'>
+                        <h3 class='content-hl'>공지사항</h3>
+                        <button class='more-btn'>MORE</button>
+                    </div>
+                    <div class='notice-box-content board pdt-30'>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                    </div>
+                </div>
+                <div class='faq-box content-box-layout pd-40'>
+                    <div class='faq-box-header border-bottom pdb-30'>
+                        <h3 class='content-hl'>FAQ</h3>
+                        <button class='more-btn'>MORE</button>
+                    </div>
+                    <div class='faq-box-content board pdt-30'>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                        <div class='board-content'>
+                            <span class='board-content-header'>게시판 이용 관련 공지사항</span>
+                            <span class='board-content-date'>2019-02-01</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- notice, faq box end -->
+            <!-- gametable start -->
+            <div class='game-result content-box-layout pd-40'>
+                <div class='game-result-header border-bottom pdb-30'>
+                    <h3 class='content-hl'>게임결과</h3>
+                    <button class='more-btn'>MORE</button>
+                </div>
+                <div class='game-result-content pdt-30'>
+                    <div class='zombie-race game-table border-right pdr-40'>
+                        <div class='game-table-header'>
+                            <h3>03.05 좀비레이스 결과</h3>
+                        </div>
+                        <table class='game-table-content'>
+                            <tr class='row'>
+                                <th class='col'>회차</th>
+                                <th>1등</th>
+                                <th>2등</th>
+                                <th>3등</th>
+                                <th>4등</th>
+                                <th>5등</th>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class='zombie-fight game-table border-right pdr-40 pdl-40'>
+                        <div class='game-table-header'>
+                            <h3>03.05 좀비레이스 결과</h3>
+                        </div>
+                        <table class='game-table-content'>
+                            <tr class='row'>
+                                <th class='col'>회차</th>
+                                <th>1등</th>
+                                <th>2등</th>
+                                <th>3등</th>
+                                <th>4등</th>
+                                <th>5등</th>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class='zombie-break game-table pdl-40'>
+                        <div class='game-table-header'>
+                            <h3>03.05 좀비레이스 결과</h3>
+                        </div>
+                        <table class='game-table-content'>
+                            <tr class='row'>
+                                <th class='col'>회차</th>
+                                <th>1등</th>
+                                <th>2등</th>
+                                <th>3등</th>
+                                <th>4등</th>
+                                <th>5등</th>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                            <tr class='row'>
+                                <th class='col'>14</th>
+                                <td>군인</td>
+                                <td>간호사</td>
+                                <td>집배원</td>
+                                <td>프로그래머</td>
+                                <td>육상선수</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/Chart.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
