@@ -1,23 +1,15 @@
 html, body {
     box-sizing: border-box;
     font-size: 12px;
-}
-
-.content-hl {
-    font-size: 35px;
-}
-
-.content-box-layout {
-    border: 1px solid #acacac;
-    background-color: white;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .border-right {
-    border-right: 1px solid #aaa;
+    border-right: 1px solid #dcdcdc;
 }
 
 .border-bottom {
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #dcdcdc;
 }
 
 .pdt-30 {
@@ -40,15 +32,29 @@ html, body {
     padding: 40px;
 }
 
+.content-hl {
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.content-box-layout {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.03), 0 1px 4px rgba(0, 0, 0, 0.02);
+    background-color: white;
+}
+
 .more-btn {
-    width: 135px;
-    height:55px;
+    width: 100px;
+    height:45px;
     margin-left: auto;
     color: white;
     outline: none;
     border: none;
+    font-size: 1.5rem;
+    font-weight: 700;
     border-radius: 5px;
-    background-color: #636363;
+    background-color: #6f569c;
     cursor: pointer;
 }
 
@@ -81,7 +87,8 @@ header {
 
     nav ul li {
         margin-left: 100px;
-        font-size: 25px;
+        font-size: 2rem;
+        font-weight: 700;
     }
 
     .user-info {
@@ -91,12 +98,14 @@ header {
     }
 
     .user-name {
-        font-size: 25px;
+        font-size: 2rem;
+        font-weight: 800;
         margin-right: 20px;
     }
     .login-info {
         padding: 10px 20px;
-        font-size: 18px;
+        font-size: 1.5rem;
+        font-weight: 700;
         color: #707070;
         border: 1px solid #707070;
         border-radius: 5px;
@@ -108,5 +117,5 @@ main {
     grid-row: 2;
     width: 100%;
     padding: 40px 0px;
-    background-color: #f4f4f4;
+    background-color: #f0f4fb;
 }

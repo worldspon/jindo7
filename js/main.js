@@ -20,7 +20,7 @@ let myChart = new Chart(ctx, {
 			],
 			fill: false,
             borderColor: '#6f569c',
-			borderWidth: 2,
+			borderWidth: 5,
 			pointBorderWidth: 2,
 			pointBackgroundColor: 'white',
 			pointRadius: 5

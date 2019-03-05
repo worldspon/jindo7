@@ -75,7 +75,7 @@ html, body {
         height: 50px;
         box-sizing: border-box;
         -webkit-appearance: none;
-        border: 1px solid #3cd5f6;
+        border: 1px solid #1abbef;
         -webkit-border-radius: 3px;
         border-radius: 3px;
     }
@@ -96,7 +96,7 @@ html, body {
     }
     .submit-input{
         margin-bottom: 20px;
-        background-color: #3cd5f6;
+        background-color: #1abbef;
         font-size: 2rem;
         color:white;
         cursor: pointer;
