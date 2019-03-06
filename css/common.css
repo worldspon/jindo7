@@ -1,7 +1,7 @@
 html, body {
     box-sizing: border-box;
+    font-family: 'Gothic A1', sans-serif;
     font-size: 12px;
-    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .border-right {
@@ -14,6 +14,10 @@ html, body {
 
 .pdt-30 {
     padding-top: 30px;
+}
+
+.pdb-20 {
+    padding-bottom: 20px;
 }
 
 .pdb-30 {
@@ -32,12 +36,20 @@ html, body {
     padding-left: 40px;
 }
 
+.pd-20 {
+    padding: 20px;
+}
+
+.pd-30 {
+    padding: 30px;
+}
+
 .pd-40 {
     padding: 40px;
 }
 
 .content-hl {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 800;
 }
 
@@ -49,15 +61,15 @@ html, body {
 }
 
 .more-btn {
-    width: 100px;
-    height:45px;
-    color: white;
+    width: 80px;
+    height:40px;
     outline: none;
     border: none;
-    font-size: 1.5rem;
-    font-weight: 700;
     border-radius: 5px;
-    background-color: #6f569c;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+    background-color: #683b93;
     cursor: pointer;
 }
 
@@ -73,23 +85,23 @@ html, body {
 /* header start */
 .header-wrap {
     display: grid;
-    grid-column: 1;
-    grid-row: 1;
     grid-template-columns: 100%;
     grid-template-rows: auto;
+    grid-column: 1;
+    grid-row: 1;
     padding:20px 40px;
     z-index:999;
-    box-shadow: 2px 1px 5px 3px #eee
+    box-shadow: 2px 1px 5px 3px #f0f4fb;
 }
     header {
+        display: flex;
         grid-column: 1;
         grid-row: 1;
-        display: flex;
         align-items: center;
     }
 
     .logo-box {
-        width: 150px;
+        width: 200px;
         margin-right: 200px;
     }
 
@@ -97,10 +109,16 @@ html, body {
         width: 100%;
     }
 
+    nav img {
+        display:none;
+        width: 30px;
+    }
+
     nav ul{
         display: flex;
         font-size: 1.2rem;
-        font-weight: 700;
+        font-weight: 600;
+        color: #230353;
     }
 
     nav ul li:not(:last-child) {
@@ -114,18 +132,19 @@ html, body {
     }
 
     .user-name {
-        font-size: 1.5rem;
-        font-weight: 800;
         margin-right: 20px;
-    }
-    .login-info {
-        padding: 10px 20px;
         font-size: 1.2rem;
         font-weight: 800;
-        color: #707070;
-        border: 1px solid #666;
+        color: #230353;
+    }
+    .login-info {
+        padding: 5px 10px;
+        border: none;
         border-radius: 5px;
-        background: none;
+        font-size: 1rem;
+        font-weight: 900;
+        color: white;
+        background-color: #1abbef;
         cursor: pointer;
     }
 
@@ -137,11 +156,11 @@ html, body {
 
 .main-wrap {
     display: grid;
-    grid-column: 1;
-    grid-row: 2;
     grid-template-columns: 100%;
     grid-template-rows: auto;
-    background-color: #f0f4fb;
+    grid-column: 1;
+    grid-row: 2;
+    background-color: #eff3fa;
 }
 main {
     grid-column: 1;

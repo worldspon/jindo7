@@ -2,23 +2,22 @@ main {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: repeat(4, auto);
-    padding:40px;
-    grid-row-gap: 40px;
+    grid-row-gap: 20px;
+    padding:20px;
 }
 /* profit-box start */
 .profit-box {
-    grid-column: 1;
-    grid-row: 1;
     display:grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     grid-column-gap: 20px;
+    grid-column: 1;
+    grid-row: 1;
 }
 
     .prev-month {
         grid-column: 1;
         grid-row: 1;
-
     }
 
     .current-month {
@@ -35,12 +34,8 @@ main {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
-        padding: 30px 0px;
-        font-weight: 700;
-    }
-
-    .profit-left {
+        font-size: 1.2rem;
+        padding: 20px 0px;
         font-weight: 700;
     }
 
@@ -51,8 +46,7 @@ main {
     .profit-left::after {
         content: '';
         position: relative;
-        bottom: -2px;
-        margin: 0px 30px;
+        margin: 0px 20px;
         border: 1px solid #aaa;
     }
 /* profit-box end */
@@ -61,32 +55,31 @@ main {
 /* profit-chart-box start */
 
 .profit-chart-box {
-    grid-column: 1;
-    grid-row: 2;
     display:grid;
     grid-template-columns: 100%;
     grid-template-rows: repeat(2, auto);
+    grid-column: 1;
+    grid-row: 2;
 }
 
     .profit-chart-header {
+        display: flex;
         grid-column: 1;
         grid-row: 1;
-        display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 50px;
     }
 
     .profit-chart-content {
+        display: flex;
         grid-column: 1;
         grid-row: 2;
-        display: flex;
     }
 
     #index-profit-chart {
+        display: flex;
         grid-column: 1;
         grid-row: 2;
-        display: flex;
     }
 
 /* profit-chart-box end */
@@ -94,21 +87,21 @@ main {
 /* notice, faq box start */
 
 .notice-faq-box {
-    grid-column: 1;
-    grid-row: 3;
     display:grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
-    grid-column-gap: 40px;
+    grid-column-gap: 20px;
+    grid-column: 1;
+    grid-row: 3;
 }
 
 /* notice box start */
     .notice-box {
-        grid-column: 1;
-        grid-row: 1;
         display: grid;
         grid-template-columns: 100%;
         grid-template-rows: repeat(2, auto);
+        grid-column: 1;
+        grid-row: 1;
     }
 
     .notice-box-header {
@@ -119,11 +112,11 @@ main {
 /* notice box end */
 /* faq box start */
     .faq-box {
-        grid-column: 2;
-        grid-row: 1;
         display: grid;
         grid-template-columns: 100%;
         grid-template-rows: repeat(2, auto);
+        grid-column: 2;
+        grid-row: 1;
     }
 
     .faq-box-header {
@@ -136,9 +129,10 @@ main {
 /* common board content start */
     .board-content {
         display: flex;
-        font-size: 1.5rem;
-        color: #757474;
         justify-content: space-between;
+        font-size: 1.2rem;
+        color: #757474;
+
     }
 
     .board > .board-content:not(:last-child) {
@@ -149,26 +143,26 @@ main {
 /* notice, faq box end */
 
 .game-result {
-    grid-column: 1;
-    grid-row: 4;
     display:grid;
     grid-template-columns: 100%;
     grid-template-rows: repeat(2, auto);
+    grid-column: 1;
+    grid-row: 4;
 }
     .game-result-header {
+        display: flex;
         grid-column: 1;
         grid-row: 1;
-        display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
     .game-result-content {
-        grid-column: 1;
-        grid-row: 2;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: auto;
+        grid-column: 1;
+        grid-row: 2;
     }
 
     .zombie-race {
@@ -190,14 +184,14 @@ main {
         display:grid;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, auto);
-        grid-row-gap: 40px;
+        grid-row-gap: 20px;
     }
 
     .game-table-header {
         grid-column: 1;
         grid-row: 1;
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: 1.3rem;
+        font-weight: 800;
     }
 
     .game-table-content {
@@ -209,7 +203,8 @@ main {
 
     .game-table-content {
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        font-weight: 600;
         color: #757474;
     }
 
@@ -218,9 +213,10 @@ main {
     }
     
     .game-table-row > * {
-        padding: 30px 0px;
+        padding: 20px 0px;
     }
 
     .col {
         border-right: 1px solid #dcdcdc;
+        width:20%;
     }

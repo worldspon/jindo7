@@ -3,7 +3,6 @@ var ctx = document.getElementById("index-profit-chart");
 ctx = document.getElementById("index-profit-chart").getContext("2d");
 var myChart = new Chart(ctx, {
     type: 'line',
-    height: 100,
     data: {
         labels: ["","15일","16일","17일","18일","19일","20일","21일",""],
         datasets: [{
@@ -24,20 +23,27 @@ var myChart = new Chart(ctx, {
 			borderWidth: 5,
 			pointBorderWidth: 2,
 			pointBackgroundColor: 'white',
-			pointRadius: 5
+            pointRadius: 5,
+            fontColor: 'red',
+            fontSize: 25
         }]
     },
     options: {
         options: {
             maintainAspectRatio: false,
+            fontColor: 'red',
+            fontSize: 25
 
         },
         
         layout: {
-
+            fontColor: 'red',
+            fontSize: 25
         },
 		legend: {
             display: false,
+            fontColor: 'red',
+            fontSize: 25
 		},
         scales: {
             yAxes: [{
@@ -53,3 +59,4 @@ var myChart = new Chart(ctx, {
     }
 });
 
+Chart.defaults.global.defaultFontSize = 14;
