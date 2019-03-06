@@ -29,21 +29,12 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        options: {
-            maintainAspectRatio: false,
-            fontColor: 'red',
-            fontSize: 25
-
-        },
-        
-        layout: {
-            fontColor: 'red',
-            fontSize: 25
-        },
+        responsive: true,
+        maintainAspectRatio: false,
+        fontColor: 'red',
+        fontSize: 25,
 		legend: {
             display: false,
-            fontColor: 'red',
-            fontSize: 25
 		},
         scales: {
             yAxes: [{
@@ -52,6 +43,7 @@ var myChart = new Chart(ctx, {
                 }
 			}],
 			xAxes: [{
+                display: true,
                 ticks: {
                 }
 			}]
@@ -59,4 +51,16 @@ var myChart = new Chart(ctx, {
     }
 });
 
-Chart.defaults.global.defaultFontSize = 14;
+let chartAfterRender = document.getElementById("index-profit-chart");
+
+window.addEventListener('resize', function(){
+    if(window.innerWidth <= 960 ){
+        chartAfterRender.style.height = '300px';
+        myChart.update();
+    }else {
+        chartAfterRender.style.height = '400px';
+        myChart.update();
+    }
+});
+
+//Chart.defaults.global.defaultFontSize = 14; font size
