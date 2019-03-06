@@ -1,0 +1,121 @@
+@media screen and (max-width: 2260px) {
+    #wrap {
+        grid-template-columns: 30px 1fr 30px;
+    }
+
+    main {
+        grid-template-columns: 30px 1fr 30px;
+    }
+}
+
+
+@media screen and (max-width: 1400px) {
+    header {
+        display: grid;
+        grid-column: 2;
+        grid-row: 1;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: repeat(2, auto);
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+    }
+    
+    .user-info {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+    }
+
+    .logo-box {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    nav {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    nav ul {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    nav ul li {
+        margin-left: 0;
+    }
+
+    nav ul li:not(:first-child) {
+        margin-left: 80px;
+    }
+
+    .profit-box {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, auto);
+        grid-row-gap: 20px;
+    }
+
+    .prev-month {
+        grid-column: 1;
+        grid-row: 1;
+
+    }
+
+    .current-month {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .change-percentage {
+        grid-column: 1;
+        grid-row: 3;
+    }
+    
+    .profit-content {
+        padding: 30px 0px;
+    }
+
+    .notice-faq-box {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, auto);
+        grid-row-gap: 20px;
+    }
+
+    .notice-box {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .faq-box {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .game-result-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, auto);
+        grid-row-gap: 20px;
+    }
+
+    .zombie-race {
+        grid-column: 1;
+        grid-row: 1;
+        padding: 0;
+        border: none;
+    }
+
+    .zombie-fight {
+        grid-column: 1;
+        grid-row: 2;
+        padding: 0;
+        border: none;
+    }
+
+    .zombie-break {
+        grid-column: 1;
+        grid-row: 3;
+        padding: 0;
+        border: none;
+    }
+
+
+}

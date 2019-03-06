@@ -1,5 +1,4 @@
-let ctx = document.getElementById("index-profit-chart");
-ctx.height = 80;
+/*let ctx = document.getElementById("index-profit-chart");
 ctx = document.getElementById("index-profit-chart").getContext("2d");
 let myChart = new Chart(ctx, {
     type: 'line',
@@ -27,6 +26,7 @@ let myChart = new Chart(ctx, {
         }]
     },
     options: {
+        responsive: true,
         layout: {
 
         },
@@ -46,4 +46,4 @@ let myChart = new Chart(ctx, {
 			}]
         }
     }
-});
+});*/
