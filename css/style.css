@@ -1,15 +1,15 @@
 main {
     display: grid;
-    grid-template-columns: 1fr 2200px 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: repeat(4, auto);
+    padding:40px;
     grid-row-gap: 40px;
 }
 /* profit-box start */
 .profit-box {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
     display:grid;
-    width:100%;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     grid-column-gap: 20px;
@@ -36,7 +36,7 @@ main {
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
-        padding: 50px 0px;
+        padding: 30px 0px;
         font-weight: 700;
     }
 
@@ -51,43 +51,42 @@ main {
     .profit-left::after {
         content: '';
         position: relative;
-        bottom: -3px;
-        margin: 0px 50px;
+        bottom: -2px;
+        margin: 0px 30px;
         border: 1px solid #aaa;
     }
-
 /* profit-box end */
 
 
 /* profit-chart-box start */
 
 .profit-chart-box {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 2;
     display:grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: repeat(2, auto);
 }
 
     .profit-chart-header {
         grid-column: 1;
         grid-row: 1;
-        width:100%;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 50px;
     }
 
     .profit-chart-content {
-        width:100%;
         grid-column: 1;
         grid-row: 2;
-
+        display: flex;
     }
 
     #index-profit-chart {
-        
-
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
     }
 
 /* profit-chart-box end */
@@ -95,7 +94,7 @@ main {
 /* notice, faq box start */
 
 .notice-faq-box {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 3;
     display:grid;
     grid-template-columns: repeat(2, 1fr);
@@ -108,13 +107,14 @@ main {
         grid-column: 1;
         grid-row: 1;
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
         grid-template-rows: repeat(2, auto);
     }
 
     .notice-box-header {
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 /* notice box end */
 /* faq box start */
@@ -122,13 +122,14 @@ main {
         grid-column: 2;
         grid-row: 1;
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
         grid-template-rows: repeat(2, auto);
     }
 
     .faq-box-header {
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 /* faq box end */
 
@@ -137,9 +138,7 @@ main {
         display: flex;
         font-size: 1.5rem;
         color: #757474;
-    }
-    .board-content-date {
-        margin-left: auto;
+        justify-content: space-between;
     }
 
     .board > .board-content:not(:last-child) {
@@ -150,10 +149,10 @@ main {
 /* notice, faq box end */
 
 .game-result {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 4;
     display:grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: repeat(2, auto);
 }
     .game-result-header {
@@ -161,6 +160,7 @@ main {
         grid-row: 1;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
     .game-result-content {
@@ -203,6 +203,8 @@ main {
     .game-table-content {
         grid-column: 1;
         grid-row: 2;
+        table-layout: fixed;
+        width: 100%;
     }
 
     .game-table-content {
@@ -216,11 +218,8 @@ main {
     }
     
     .game-table-row > * {
-        width:16.66%;
         padding: 30px 0px;
     }
-
-
 
     .col {
         border-right: 1px solid #dcdcdc;

@@ -1,7 +1,9 @@
-/*let ctx = document.getElementById("index-profit-chart");
+
+var ctx = document.getElementById("index-profit-chart");
 ctx = document.getElementById("index-profit-chart").getContext("2d");
-let myChart = new Chart(ctx, {
+var myChart = new Chart(ctx, {
     type: 'line',
+    height: 100,
     data: {
         labels: ["","15일","16일","17일","18일","19일","20일","21일",""],
         datasets: [{
@@ -26,19 +28,22 @@ let myChart = new Chart(ctx, {
         }]
     },
     options: {
-        responsive: true,
+        options: {
+            maintainAspectRatio: false,
+
+        },
+        
         layout: {
 
         },
 		legend: {
             display: false,
-            verticalAlign: "center" 
 		},
         scales: {
             yAxes: [{
                 ticks: {
                     beginAtZero:true,
-                },
+                }
 			}],
 			xAxes: [{
                 ticks: {
@@ -46,4 +51,5 @@ let myChart = new Chart(ctx, {
 			}]
         }
     }
-});*/
+});
+

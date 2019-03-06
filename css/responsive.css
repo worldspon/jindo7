@@ -1,19 +1,16 @@
 @media screen and (max-width: 2260px) {
-    #wrap {
-        grid-template-columns: 30px 1fr 30px;
+    html {
+        font-size: 11px;
     }
-
     main {
-        grid-template-columns: 30px 1fr 30px;
+        padding: 40px;
     }
 }
 
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1300px) {
     header {
         display: grid;
-        grid-column: 2;
-        grid-row: 1;
         grid-template-columns: auto 1fr;
         grid-template-rows: repeat(2, auto);
         grid-column-gap: 20px;
@@ -28,6 +25,7 @@
     .logo-box {
         grid-column: 1;
         grid-row: 2;
+        margin-right: 0;
     }
 
     nav {
@@ -45,7 +43,7 @@
     }
 
     nav ul li:not(:first-child) {
-        margin-left: 80px;
+        margin-left: 0px;
     }
 
     .profit-box {
@@ -100,6 +98,7 @@
         grid-column: 1;
         grid-row: 1;
         padding: 0;
+        padding-top: 40px;
         border: none;
     }
 
@@ -107,6 +106,7 @@
         grid-column: 1;
         grid-row: 2;
         padding: 0;
+        padding-top: 40px;
         border: none;
     }
 
@@ -114,6 +114,7 @@
         grid-column: 1;
         grid-row: 3;
         padding: 0;
+        padding-top: 40px;
         border: none;
     }
 
