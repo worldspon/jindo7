@@ -1,7 +1,18 @@
 'use strict;'
 
+const mainWrap = document.querySelector('.main-wrap');
 const mainChartParent = document.querySelector('.profit-chart-content');
+const headerWrap = document.querySelector('.header-wrap');
+const nav = document.querySelector('nav');
+const navBg = document.querySelector('.sub-nav-bg');
+const subMenu = document.querySelectorAll('.sub-menu');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuImg = document.querySelector('.mobile-menu-img');
+
 let mainChart='';
+
+
+eventReg();
 createMainChart();
 
 
@@ -10,24 +21,71 @@ let chartAfterRender = document.getElementById("index-profit-chart");
 
 // window resize시 canvas size 변경
 window.addEventListener('resize', () => {
+    hideSubMenu();
+    hideMobileMenu();
     if(window.innerWidth <= 500 ){
         chartAfterRender.style.height = '200px';
         mainChart.update();
+        eventReg();
     }else if(window.innerWidth <= 960 ){
         chartAfterRender.style.height = '300px';
         mainChart.update();
+        eventReg();
     }else {
         chartAfterRender.style.height = '500px';
         mainChart.update();
+        eventReg();
     }
 });
 
 //Chart.defaults.global.defaultFontSize = 14; font size
 
 
+function eventReg() {
+    if(window.innerWidth <= 960) {
+        nav.removeEventListener('mouseover',showSubMenu, true);
+        navBg.removeEventListener('mouseout', hideSubMenu, true);
+        mobileMenuImg.addEventListener('click', showMobileMenu, true);
+    } else {
+        nav.addEventListener('mouseover', showSubMenu, true);
+        navBg.addEventListener('mouseout', hideSubMenu, true);
+        mobileMenuImg.removeEventListener('click', showMobileMenu, true);
+    }
+}
 
 
+function showSubMenu() {
+    if(window.innerWidth > 1300) {
+        navBg.style.height = '140px';
+    } else {
+        navBg.style.height = '180px';
+    }
 
+    headerWrap.style.boxShadow = 'none';
+    Array.from(subMenu).forEach((el)=>{
+        el.style.display = 'block';
+    });
+
+    navBg.style.display = 'block';
+};
+
+function hideSubMenu() {
+    headerWrap.style.boxShadow = '2px 5px 5px -1px #f0f4fb';
+    Array.from(subMenu).forEach((el)=>{
+        el.style.display = 'none';
+    });
+    navBg.style.display = 'none';
+};
+
+function showMobileMenu() {
+    mobileMenu.style.display = 'block';
+    mainWrap.addEventListener('click', hideMobileMenu, true);
+};
+
+function hideMobileMenu() {
+    mobileMenu.style.display = 'none';
+    mainWrap.removeEventListener('click', hideMobileMenu, true);
+};
 
 
 

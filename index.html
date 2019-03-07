@@ -19,19 +19,88 @@
 </head>
 <body>
     <div id='wrap'>
+        <div class='sub-nav-bg'></div>
         <div class='header-wrap'>
             <header>
                 <div class='logo-box'>
-                    <a href='javascript:void(0);'><img src='./images/header_logo.png' alt='main-logo'></a>
+                    <a href='./index.html'><img src='./images/header_logo.png' alt='main-logo'></a>
                 </div>
                 <nav>
-                    <img src="./images/menu.png" alt="">
-                    <ul>
+                    <img src="./images/menu.png" alt="mobile-menu-image" class='mobile-menu-img'>
+                    <ul class='main-menu'>
+                        <li>
+                            <a href='javascript:void(0);' class='ad-profit-nav'>광고수익</a>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);' class='notice-nav'>공지사항</a>
+                            <ul class='notice-sub-menu sub-menu'>
+                                <li>
+                                    <a href='javascript:void(0);' class='notice-nav'>공지사항</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);' class='faq-nav'>업데이트</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);' class='support-nav'>이벤트</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);' class='faq-nav'>FAQ</a>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);' class='support-nav'>1:1문의</a>
+                            <ul class='support-sub-menu sub-menu'>
+                                <li>
+                                    <a href='javascript:void(0);' class='notice-nav'>공지사항</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);' class='faq-nav'>업데이트</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);' class='support-nav'>이벤트</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);' class='game-result-nav'>게임결과</a>
+                            <ul class='game-result-sub-menu sub-menu'>
+                                <li>
+                                    <a href='javascript:void(0);' class='notice-nav'>좀비레이스</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);' class='faq-nav'>좀비격투</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);' class='support-nav'>좀비격파</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class='user-info'>
+                    <span class='user-name'>WS1234님</span>
+                    <button class='login-info'>로그아웃</button>
+                </div>
+                <div class='mobile-menu pdt-40'>
+                    <ul class='mobile-menu-main'>
                         <li>
                             <a href='javascript:void(0);'>광고수익</a>
                         </li>
                         <li>
                             <a href='javascript:void(0);'>공지사항</a>
+                            <ul class='mobile-menu-sub'>
+                                <li>
+                                    <a href='javascript:void(0);'>공지사항</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>업데이트</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>이벤트</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href='javascript:void(0);'>FAQ</a>
@@ -43,10 +112,6 @@
                             <a href='javascript:void(0);'>게임결과</a>
                         </li>
                     </ul>
-                </nav>
-                <div class='user-info'>
-                    <span class='user-name'>WS1234님</span>
-                    <button class='login-info'>로그아웃</button>
                 </div>
             </header>
         </div>
