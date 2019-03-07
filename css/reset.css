@@ -31,7 +31,11 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
-ol, ul {
+a {
+	text-decoration: none;
+	color:inherit;
+}
+ol, ul, li {
 	list-style: none;
 }
 blockquote, q {
