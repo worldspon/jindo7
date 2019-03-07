@@ -1,6 +1,27 @@
+
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
+    url('../font/GothicA1-Regular.woff2') format('woff2');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
+    url('../font/GothicA1-Bold.woff2') format('woff2');
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
+    url('../font/GothicA1-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+}
+
+
 html, body {
     box-sizing: border-box;
-    font-family: 'Gothic A1', sans-serif;
+    font-family: 'Gothic A1';
     font-size: 12px;
 }
 
@@ -67,7 +88,7 @@ html, body {
     border: none;
     border-radius: 5px;
     font-size: 1.2rem;
-    font-weight: 800;
+    font-weight: 700;
     color: white;
     background-color: #683b93;
     cursor: pointer;
@@ -75,8 +96,11 @@ html, body {
 
 /* wrap grid */
 #wrap {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 100%;
     grid-template-columns: 100%;
+    -ms-grid-rows: (auto)[2];
     grid-template-rows: repeat(2, auto);
 }
 
@@ -84,10 +108,15 @@ html, body {
 
 /* header start */
 .header-wrap {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 100%;
     grid-template-columns: 100%;
+    -ms-grid-rows: auto;
     grid-template-rows: auto;
+    -ms-grid-column: 1;
     grid-column: 1;
+    -ms-grid-row: 1;
     grid-row: 1;
     padding:20px 40px;
     z-index:999;
@@ -95,8 +124,10 @@ html, body {
 }
     header {
         display: flex;
+        -ms-grid-column: 1;
         grid-column: 1;
         grid-row: 1;
+        -ms-grid-row: 1;
         align-items: center;
     }
 
@@ -109,6 +140,11 @@ html, body {
         width: 100%;
     }
 
+    nav {
+        display: flex;
+        align-items: center;
+    }
+
     nav img {
         display:none;
         width: 30px;
@@ -117,12 +153,12 @@ html, body {
     nav ul{
         display: flex;
         font-size: 1.2rem;
-        font-weight: 600;
+        font-weight: 700;
         color: #230353;
     }
 
     nav ul li:not(:last-child) {
-        margin-right: 100px;
+        margin-right: 80px;
     }
 
     .user-info {
@@ -134,7 +170,7 @@ html, body {
     .user-name {
         margin-right: 20px;
         font-size: 1.2rem;
-        font-weight: 800;
+        font-weight: 700;
         color: #230353;
     }
     .login-info {
@@ -142,7 +178,7 @@ html, body {
         border: none;
         border-radius: 5px;
         font-size: 1rem;
-        font-weight: 900;
+        font-weight: 800;
         color: white;
         background-color: #1abbef;
         cursor: pointer;
@@ -155,15 +191,22 @@ html, body {
 /* main start */
 
 .main-wrap {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 100%;
     grid-template-columns: 100%;
+    -ms-grid-rows: auto;
     grid-template-rows: auto;
+    -ms-grid-column: 1;
     grid-column: 1;
+    -ms-grid-row: 2;
     grid-row: 2;
     background-color: #eff3fa;
 }
 main {
+    -ms-grid-column: 1;
     grid-column: 1;
+    -ms-grid-row: 2;
     grid-row: 2;
 }
 

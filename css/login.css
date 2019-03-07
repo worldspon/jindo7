@@ -1,5 +1,25 @@
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
+    url('../font/GothicA1-Regular.woff2') format('woff2');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
+    url('../font/GothicA1-Bold.woff2') format('woff2');
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
+    url('../font/GothicA1-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+}
+
 html, body {
     height:100%;
+    font-family: 'Gothic A1';
     font-size: 12px;
 }
 
@@ -35,7 +55,7 @@ html, body {
         color: white;
     }
     .slogan span:last-child {
-        font-weight: bold;
+        font-weight: 800;
     }
 
     .circle-wrap {
@@ -104,7 +124,7 @@ html, body {
 
     .contact-wrap {
         text-align: center;
-        font-weight: bold;
+        font-weight: 700;
         color: #555;
     }
 

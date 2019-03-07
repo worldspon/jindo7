@@ -11,26 +11,37 @@
         font-size: 11px;
     }
     header {
+        display: -ms-grid;
         display: grid;
+        -ms-grid-columns: auto 20px 1fr;
         grid-template-columns: auto 1fr;
+        -ms-grid-rows: auto 20px auto;
         grid-template-rows: repeat(2, auto);
         grid-column-gap: 20px;
         grid-row-gap: 20px;
     }
     
     .user-info {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 3;
         grid-column: 1 / span 2;
+        -ms-grid-row: 1;
         grid-row: 1;
+        justify-content: flex-end;
     }
 
     .logo-box {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 3;
         grid-row: 2;
         margin-right: 0;
     }
 
     nav {
+        -ms-grid-column: 3;
         grid-column: 2;
+        -ms-grid-row: 3;
         grid-row: 2;
     }
 
@@ -40,24 +51,31 @@
     }
 
     .profit-box {
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+        -ms-grid-rows: auto 20px auto 20px auto;
         grid-template-rows: repeat(3, auto);
         grid-row-gap: 20px;
     }
 
     .prev-month {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 1;
         grid-row: 1;
-
     }
 
     .current-month {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 3;
         grid-row: 2;
     }
 
     .change-percentage {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 5;
         grid-row: 3;
     }
     
@@ -66,29 +84,39 @@
     }
 
     .notice-faq-box {
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+        -ms-grid-rows: auto 20px auto;
         grid-template-rows: repeat(2, auto);
         grid-row-gap: 20px;
     }
 
     .notice-box {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 1;
         grid-row: 1;
     }
 
     .faq-box {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 3;
         grid-row: 2;
     }
 
     .game-result-content {
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+        -ms-grid-rows: auto 20px auto 20px auto;
         grid-template-rows: repeat(3, auto);
         grid-row-gap: 20px;
     }
 
     .zombie-race {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 1;
         grid-row: 1;
         padding: 0;
         padding-top: 30px;
@@ -96,7 +124,9 @@
     }
 
     .zombie-fight {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 3;
         grid-row: 2;
         padding: 0;
         padding-top: 30px;
@@ -104,7 +134,9 @@
     }
 
     .zombie-break {
+        -ms-grid-column: 1;
         grid-column: 1;
+        -ms-grid-row: 5;
         grid-row: 3;
         padding: 0;
         padding-top: 30px;
