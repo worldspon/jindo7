@@ -67,7 +67,6 @@ main {
 
 
 /* profit-chart-box start */
-
 .profit-chart-box {
     display:-ms-grid;
     display:grid;
@@ -104,11 +103,9 @@ main {
         -ms-grid-row: 2;
         grid-row: 2;
     }
-
 /* profit-chart-box end */
 
 /* notice, faq box start */
-
 .notice-faq-box {
     display:-ms-grid;
     display:grid;
@@ -122,7 +119,7 @@ main {
     grid-row: 3;
 }
 
-/* notice box start */
+    /* notice box start */
     .notice-box {
         display: -ms-grid;
         display: grid;
@@ -152,8 +149,9 @@ main {
         -ms-grid-row: 2;
         grid-row: 2;
     }
-/* notice box end */
-/* faq box start */
+    /* notice box end */
+
+    /* faq box start */
     .faq-box {
         display: -ms-grid;
         display: grid;
@@ -179,9 +177,9 @@ main {
         -ms-grid-row: 2;
         grid-row: 2;
     }
-/* faq box end */
+    /* faq box end */
 
-/* common board content start */
+    /* common board content start */
     .board-content {
         display: flex;
         justify-content: space-between;
@@ -193,10 +191,12 @@ main {
     .board > .board-content:not(:last-child) {
         margin-bottom: 35px;
     }
-/* common board content end */
+    /* common board content end */
 
 /* notice, faq box end */
 
+
+/* game-result start */
 .game-result {
     display:-ms-grid;
     display:grid;
@@ -299,3 +299,4 @@ main {
         border-right: 1px solid #dcdcdc;
         width:20%;
     }
+/* game-result end */

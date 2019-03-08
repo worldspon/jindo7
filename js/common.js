@@ -15,9 +15,19 @@ const mobileMenuList = document.querySelectorAll('.mobile-menu-main-list');
 // 접속시 screen size에 따른 event 등록/제거
 commonEventReg();
 
-window.addEventListener('resize', () => {
+window.addEventListener('resize', resizeFnc);
+
+
+/**
+ * @brief resize event 발생시 화면에 맞는 event로 갱신
+ * @author JJH
+ */
+function resizeFnc() {
+    // resize시 열려있는 모든 서브 메뉴를 닫음 //
     hideSubMenu();
     hideMobileMenu();
+    //--------------------------------------//
+
     if(window.innerWidth <= 500 ){
         commonEventReg();
     }else if(window.innerWidth <= 960 ){
@@ -25,21 +35,28 @@ window.addEventListener('resize', () => {
     }else {
         commonEventReg();
     }
-});
+}
 
-
+/**
+ * @brief 첫접속 또는 resize시 현재 화면 크기에 따라 nav event, mobile menu event를 추가/제거하는 함수
+ * @author JJH
+ */
 function commonEventReg() {
     if(window.innerWidth <= 960) {
-        nav.removeEventListener('mouseover',showSubMenu, true);
-        navBg.removeEventListener('mouseout', hideSubMenu, true);
-        mobileMenuImg.addEventListener('click', showMobileMenu, true);
+        nav.removeEventListener('mouseover',showSubMenu);
+        navBg.removeEventListener('mouseout', hideSubMenu);
+        mobileMenuImg.addEventListener('click', showMobileMenu);
     } else {
-        nav.addEventListener('mouseover', showSubMenu, true);
-        navBg.addEventListener('mouseout', hideSubMenu, true);
-        mobileMenuImg.removeEventListener('click', showMobileMenu, true);
+        nav.addEventListener('mouseover', showSubMenu);
+        navBg.addEventListener('mouseout', hideSubMenu);
+        mobileMenuImg.removeEventListener('click', showMobileMenu);
     }
 };
 
+/**
+ * @brief nav mouseover시 menu가 나타나게하는 함수
+ * @author JJH
+ */
 function showSubMenu() {
     if(window.innerWidth > 1300) {
         navBg.style.height = '140px';
@@ -55,6 +72,11 @@ function showSubMenu() {
     navBg.style.display = 'block';
 };
 
+
+/**
+ * @brief sub nav bg에 mouseout시 menu를 숨기는 함수
+ * @author JJH
+ */
 function hideSubMenu() {
     headerWrap.style.boxShadow = '2px 5px 5px -1px #f0f4fb';
     Array.from(subMenu).forEach((el)=>{
@@ -63,6 +85,11 @@ function hideSubMenu() {
     navBg.style.display = 'none';
 };
 
+
+/**
+ * @brief mobile menu img click시 mobile menu를 보여주는 함수
+ * @author JJH
+ */
 function showMobileMenu() {
     mobileMenu.style.display = 'block';
     mobileMenu.style.right = '0px';
@@ -72,6 +99,11 @@ function showMobileMenu() {
     mobileAfterMenuImg.addEventListener('click',hideMobileMenu, true);
 };
 
+
+/**
+ * @brief mobile after menu img click시 mobile menu를 숨기는 함수
+ * @author JJH
+ */
 function hideMobileMenu() {
     mobileMenu.style.right = '-9999px';
     mobileMenu.classList.remove('mobile-menu-slide-in');

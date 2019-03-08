@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/responsive.css">
     <link rel="stylesheet" href="./css/animation.css">
     <title>WORLDSPON</title>
@@ -21,29 +21,36 @@
 </head>
 <body>
     <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
         <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
         <div class='header-wrap'>
             <header>
                 <div class='logo-box'>
                     <a href='./index.html'><img src='./images/header_logo.png' alt='main-logo'></a>
                 </div>
+                <!-- nav start -->
                 <nav>
+                    <!-- mobile menu image -->
                     <img src="./images/menu.png" alt="mobile-menu-image" class='mobile-menu-img'>
+
+                    <!-- nav main menu list start -->
                     <ul class='main-menu'>
                         <li>
                             <a href='javascript:void(0);' class='ad-profit-nav'>광고수익</a>
                         </li>
                         <li>
-                            <a href='javascript:void(0);' class='notice-nav'>공지사항</a>
+                            <a href='javascript:void(0);'>공지사항</a>
                             <ul class='notice-sub-menu sub-menu'>
                                 <li>
-                                    <a href='javascript:void(0);' class='notice-nav'>공지사항</a>
+                                    <a href='javascript:void(0);'>공지사항</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);' class='faq-nav'>업데이트</a>
+                                    <a href='javascript:void(0);'>업데이트</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);' class='support-nav'>이벤트</a>
+                                    <a href='javascript:void(0);'>이벤트</a>
                                 </li>
                             </ul>
                         </li>
@@ -54,13 +61,10 @@
                             <a href='javascript:void(0);' class='support-nav'>1:1문의</a>
                             <ul class='support-sub-menu sub-menu'>
                                 <li>
-                                    <a href='javascript:void(0);' class='notice-nav'>공지사항</a>
+                                    <a href='javascript:void(0);'>1:1문의</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);' class='faq-nav'>업데이트</a>
-                                </li>
-                                <li>
-                                    <a href='javascript:void(0);' class='support-nav'>이벤트</a>
+                                    <a href='javascript:void(0);'>내문의</a>
                                 </li>
                             </ul>
                         </li>
@@ -68,23 +72,29 @@
                             <a href='javascript:void(0);' class='game-result-nav'>게임결과</a>
                             <ul class='game-result-sub-menu sub-menu'>
                                 <li>
-                                    <a href='javascript:void(0);' class='notice-nav'>좀비레이스</a>
+                                    <a href='javascript:void(0);'>좀비레이스</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);' class='faq-nav'>좀비격투</a>
+                                    <a href='javascript:void(0);'>좀비격투</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);' class='support-nav'>좀비격파</a>
+                                    <a href='javascript:void(0);'>좀비격파</a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
+                    <!-- nav main menu list end -->
                 </nav>
+                <!-- nav end -->
+
 
                 <div class='user-info'>
                     <span class='user-name'>WS1234님</span>
                     <button class='login-info'>로그아웃</button>
                 </div>
+
+
+                <!-- mobile menu start -->
                 <div class='mobile-menu'>
                     <img src='./images/menu_after.png' alt='mobile-menu-after-img' class='mobile-menu-after-img'>
                     <ul class='mobile-menu-main'>
@@ -135,18 +145,24 @@
                         </li>
                     </ul>
                 </div>
+                <!-- mobile menu end -->
             </header>
         </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
         <div class='main-wrap'>
             <main>
+
+                <!-- profit box start -->
                 <div class='profit-box'>
                     <div class='prev-month profit-content content-box-layout'>
                         <span class='profit-left'>1월 총 광고수익금</span>
-                        <span class='profit-right'>123,456,789</span>
+                        <span class='profit-right'></span>
                     </div>
                     <div class='current-month profit-content content-box-layout'>
                         <span class='profit-left'>2월 총 광고수익금</span>
-                        <span class='profit-right'>123,456,789</span>
+                        <span class='profit-right'></span>
     
                     </div>
                     <div class='change-percentage profit-content content-box-layout'>
@@ -154,6 +170,8 @@
                         <span class='profit-right'>123,456,789</span>
                     </div>
                 </div>
+                <!-- profit box end -->
+
                 <!-- profit chart start -->
                 <div class='profit-chart-box content-box-layout pd-40'>
                     <div class='profit-chart-header pdb-20'>
@@ -166,8 +184,11 @@
                 </div>
                 </div>
                 <!-- profit chart end -->
+
                 <!-- notice, faq box start -->
                 <div class='notice-faq-box'>
+
+                    <!-- notice box start -->
                     <div class='notice-box content-box-layout pd-40'>
                         <div class='notice-box-header border-bottom pdb-20'>
                             <h3 class='content-hl'>공지사항</h3>
@@ -196,6 +217,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- notice box end -->
+
+                    <!-- faq box start -->
                     <div class='faq-box content-box-layout pd-40'>
                         <div class='faq-box-header border-bottom pdb-20'>
                             <h3 class='content-hl'>FAQ</h3>
@@ -224,15 +248,21 @@
                             </div>
                         </div>
                     </div>
+                    <!-- faq box end -->
                 </div>
                 <!-- notice, faq box end -->
+
                 <!-- gametable start -->
                 <div class='game-result content-box-layout pd-40'>
                     <div class='game-result-header border-bottom pdb-20'>
                         <h3 class='content-hl'>게임결과</h3>
                         <button class='more-btn'>MORE</button>
                     </div>
+
+                    <!-- game result content start -->
                     <div class='game-result-content'>
+
+                        <!-- zombie race start-->
                         <div class='zombie-race game-table border-right pdr-40 pdt-40'>
                             <div class='game-table-header'>
                                 <h3>03.05 좀비레이스 결과</h3>
@@ -288,6 +318,9 @@
                                 </tr>
                             </table>
                         </div>
+                        <!-- zombie race end-->
+
+                        <!-- zombie fight start-->
                         <div class='zombie-fight game-table border-right pdr-40 pdl-40 pdt-40'>
                             <div class='game-table-header'>
                                 <h3>03.05 좀비격투 결과</h3>
@@ -337,6 +370,9 @@
                                 </tr>
                             </table>
                         </div>
+                        <!-- zombie fight end-->
+
+                        <!-- zombie break start-->
                         <div class='zombie-break game-table pdl-40 pdt-40'>
                             <div class='game-table-header'>
                                 <h3>03.05 좀비격파 결과</h3>
@@ -392,15 +428,18 @@
                                 </tr>
                             </table>
                         </div>
+                        <!-- zombie break end-->
                     </div>
+                    <!-- game result content end -->
                 </div>
                 <!-- gametable end -->
             </main> 
         </div>
+        <!-- main-wrap end -->
     </div>
 
-    <script src="./js/Chart.js"></script>
+    <script src="./js/Chart.min.js"></script>
     <script src="./js/common.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>
