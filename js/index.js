@@ -11,7 +11,7 @@ let mainChart='';
 
 
 
-// 상단 수익금 
+// 상단 수익금
 let profitPromise = AsyncValidateFnc('js/index.json');
 let chartPromise = AsyncValidateFnc('js/index.json');
 
@@ -58,40 +58,51 @@ profitPromise.then((data)=>{
     }
 });
 
+
 chartPromise.then((data)=>{
+    let myData = JSON.parse(data);
     let nowDate = new Date().getDate();
     let dateAry =[]
     let valueAry=[];
+    console.log(nowDate-6);
+    console.log(nowDate);
 
-    for(let i=(nowDate-6); i++; i>=nowDate) {
-        dateAry.push(i);
+    dateAry.push('');
+    valueAry.push(null);
+    for (var i = (nowDate-6); i <= nowDate; i++) {
+      dateAry.push(`${i}일`);
+      Array.from(myData.dailyProfit).forEach((el)=> {
+        if(el[i] != undefined){
+          valueAry.push(el[i]);
+        }
+      });
     }
-    console.log(dateAry);
-});
+    dateAry.push('');
+    valueAry.push(null);
 
-
-
-// 차트 생성
-createMainChart();
-
-
-// 차트 생성 후 canvas 객체
-let chartAfterRender = document.getElementById("index-profit-chart");
-
-// window resize시 canvas size 변경
-window.addEventListener('resize', () => {
-    if(window.innerWidth <= 500 ){
-        chartAfterRender.style.height = '200px';
-        mainChart.update();
-    }else if(window.innerWidth <= 960 ){
-        chartAfterRender.style.height = '300px';
-        mainChart.update();
-    }else {
-        chartAfterRender.style.height = '500px';
-        mainChart.update();
+    for (el of dateAry) {
+      myData.dailyProfit
     }
-});
 
+    createMainChart(dateAry, valueAry);
+
+
+    let chartAfterRender = document.getElementById("index-profit-chart");
+
+    // window resize시 canvas size 변경
+    window.addEventListener('resize', () => {
+        if(window.innerWidth <= 500 ){
+            chartAfterRender.style.height = '200px';
+            mainChart.update();
+        }else if(window.innerWidth <= 960 ){
+            chartAfterRender.style.height = '300px';
+            mainChart.update();
+        }else {
+            chartAfterRender.style.height = '500px';
+            mainChart.update();
+        }
+    });
+});
 
 
 
@@ -123,7 +134,7 @@ function AsyncValidateFnc(url) {
  * @author JJH
  * @see 최초 로드시 canvas 크기 지정 함수
  */
-function createMainChart() {
+function createMainChart(dateAry, valueAry) {
     let canvasHeight = 0;
 
     //창크기에 따라 height 값 지정
@@ -134,20 +145,20 @@ function createMainChart() {
     }else {
         canvasHeight = 500
     }
-    
+
 
     //canvas 부모 div에 canvas 추가
     mainChartParent.innerHTML = `<canvas id='index-profit-chart' style='height:${canvasHeight}px;'></canvas>`;
-    
+
     let ctx = document.getElementById("index-profit-chart");
     ctx = document.getElementById("index-profit-chart").getContext("2d");
     mainChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['','1일','2일','3일','4일','5일','6일','7일',''],
+            labels: dateAry,
             datasets: [{
                 label: false,
-                data: [null,1,2,3,4,5,6,7,null],
+                data: valueAry,
                 fill: false,
                 borderColor: '#6f569c',
                 borderWidth: 5,
@@ -182,8 +193,9 @@ function createMainChart() {
     });
 };
 //Chart.defaults.global.defaultFontSize = 14; font size
-
+/*
 console.log(mainChart.data);
-mainChart.data.labels = ['','1일','2일','3일','4일','5일','6일','7일',''];
+mainChart.data.labels = ['',1,2,3,4,5,6,7,''];
 mainChart.data.datasets[0].data = [null,1,2,3,4,5,6,7,null];
 mainChart.update();
+*/
