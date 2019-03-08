@@ -1,0 +1,40 @@
+.mobile-menu-slide-in {
+    -moz-animation-duration: 0.5s;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -moz-animation-name: mobile-menu-slide-in;
+    -webkit-animation-name: mobile-menu-slide-in;
+    animation-name: mobile-menu-slide-in;
+
+}
+
+.mobile-menu-slide-out {
+    -moz-animation-duration: 0.5s;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -moz-animation-name: mobile-menu-slide-out;
+    -webkit-animation-name: mobile-menu-slide-out;
+    animation-name: mobile-menu-slide-out;
+
+}
+
+
+@keyframes mobile-menu-slide-in {
+    from {
+        right: -200px;
+    }
+
+    to {
+        right: 0px;
+    }
+}
+      
+@keyframes mobile-menu-slide-out {
+    from {
+        right: 0px;
+    }
+
+    to {
+        right: -200px;
+    }
+}

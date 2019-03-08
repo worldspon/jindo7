@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
+    <link rel="stylesheet" href="./css/animation.css">
     <title>WORLDSPON</title>
     <script>
-        var agent = navigator.userAgent.toLowerCase();
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
         if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
             alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
         }
@@ -83,13 +85,14 @@
                     <span class='user-name'>WS1234님</span>
                     <button class='login-info'>로그아웃</button>
                 </div>
-                <div class='mobile-menu pdt-40'>
+                <div class='mobile-menu'>
+                    <img src='./images/menu_after.png' alt='mobile-menu-after-img' class='mobile-menu-after-img'>
                     <ul class='mobile-menu-main'>
                         <li>
-                            <a href='javascript:void(0);'>광고수익</a>
+                            <a class='mobile-menu-main-list'>광고수익</a>
                         </li>
                         <li>
-                            <a href='javascript:void(0);'>공지사항</a>
+                            <a class='mobile-menu-main-list'>공지사항</a>
                             <ul class='mobile-menu-sub'>
                                 <li>
                                     <a href='javascript:void(0);'>공지사항</a>
@@ -103,13 +106,32 @@
                             </ul>
                         </li>
                         <li>
-                            <a href='javascript:void(0);'>FAQ</a>
+                            <a class='mobile-menu-main-list'>FAQ</a>
                         </li>
                         <li>
-                            <a href='javascript:void(0);'>1:1문의</a>
+                            <a class='mobile-menu-main-list'>1:1문의</a>
+                            <ul class='mobile-menu-sub'>
+                                <li>
+                                    <a href='javascript:void(0);'>문의하기</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>내 문의</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href='javascript:void(0);'>게임결과</a>
+                            <a class='mobile-menu-main-list'>게임결과</a>
+                            <ul class='mobile-menu-sub'>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비레이스</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비격투</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비격파</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -378,6 +400,7 @@
     </div>
 
     <script src="./js/Chart.js"></script>
+    <script src="./js/common.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>
