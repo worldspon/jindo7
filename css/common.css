@@ -106,6 +106,8 @@ html, body {
     grid-template-columns: 100%;
     -ms-grid-rows: (auto)[2];
     grid-template-rows: repeat(2, auto);
+    max-width: 2560px;
+    margin:0 auto;
 }
 /* wrap grid */
 
@@ -192,6 +194,7 @@ html, body {
             top:0px;
             z-index: 5;
             width: 100%;
+            max-width: 2560px;
             box-shadow: 2px 5px 5px -1px #f0f4fb;
             background-color: white;
         }
