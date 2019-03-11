@@ -17,11 +17,6 @@ commonEventReg();
 
 window.addEventListener('resize', resizeFnc);
 
-// mobile sub menu 펼침 이벤트
-Array.from(mobileMenuList).forEach((el) => {
-    el.addEventListener('click',()=>{showMobileSubMenu(el)}, true);
-});
-
 
 /**
  * @brief resize event 발생시 화면에 맞는 event로 갱신
@@ -118,12 +113,10 @@ function hideMobileMenu() {
 };
 
 
-/**
- * 
- * @brief mobile 메뉴 클릭시 서브메뉴 펼침/숨김
- * @author JJH
- * @param el click한 객체의 node id
- */
+Array.from(mobileMenuList).forEach((el) => {
+    el.addEventListener('click',()=>{showMobileSubMenu(el)}, true);
+});
+
 function showMobileSubMenu(el) {
     if(el.nextSibling.nextSibling!=null) {
         if(el.nextSibling.nextSibling.style.display=='') {

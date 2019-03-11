@@ -8,18 +8,16 @@ const changePercentageRight = document.querySelector('.change-percentage > .prof
 const mainChartParent = document.querySelector('.profit-chart-content');
 const noticeBoxContent = document.querySelector('.notice-box-content');
 const faqBoxContent = document.querySelector('.faq-box-content');
-const gameTableContent = document.querySelectorAll('.game-table-content');
 let mainChart='';
 
 
-//비동기통신
+
+// 수익금 비동기 통신
 profitAsync('js/index.json');
+// 차트 비동기 통신
 chartAsync('js/index.json');
 noticeAsync('js/index.json');
 faqAsync('js/index.json');
-raceAsync('js/index.json');
-fightAsync('js/index.json');
-breakAsync('js/index.json');
 
 
 
@@ -40,7 +38,6 @@ function AsyncValidateFnc(url) {
 };
 
 
-
 /**
  * @brief 수익금 비동기통신, promise 생성 후 검증
  * @author JJH
@@ -54,7 +51,6 @@ async function profitAsync(url) {
         console.log(error);
     }
 };
-
 
 
 /**
@@ -71,13 +67,6 @@ async function chartAsync(url) {
     }
 };
 
-
-
-/**
- * @brief 공지사항 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
 async function noticeAsync(url) {
     try {
         let data = await AsyncValidateFnc(url);
@@ -88,12 +77,6 @@ async function noticeAsync(url) {
 };
 
 
-
-/**
- * @brief FAQ 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
 async function faqAsync(url) {
     try {
         let data = await AsyncValidateFnc(url);
@@ -104,53 +87,41 @@ async function faqAsync(url) {
 };
 
 
+function setFaqData(data){
+    let myData = JSON.parse(data);
+    let tempHtml='';
 
-/**
- * @brief 좀비레이스 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function raceAsync(url){
-    try {
-        let data = await AsyncValidateFnc(url);
-        setRaceData(data);
-    } catch (error) {
-        console.log(error);
-    }
+    myData.faq.forEach(el => {
+        console.log(el);
+        tempHtml+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${el.title}</span>
+            <span class='board-content-date'>${el.date}</span>
+        </div>`;
+    });
+
+    faqBoxContent.innerHTML = tempHtml;
+    console.log(tempHtml);
+    console.log(myData.notice[0].title);
+}
+
+function setNoticeData(data){
+    let myData = JSON.parse(data);
+    let tempHtml='';
+
+    myData.notice.forEach(el => {
+        console.log(el);
+        tempHtml+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${el.title}</span>
+            <span class='board-content-date'>${el.date}</span>
+        </div>`;
+    });
+
+    noticeBoxContent.innerHTML = tempHtml;
+    console.log(tempHtml);
+    console.log(myData.notice[0].title);
 };
-
-
-
-/**
- * @brief 좀비격투 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function fightAsync(url){
-    try {
-        let data = await AsyncValidateFnc(url);
-        setFightData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-
-
-/**
- * @brief 좀비격파 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function breakAsync(url){
-    try {
-        let data = await AsyncValidateFnc(url);
-        setBreakData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 
 
 /**
@@ -262,149 +233,6 @@ function setChartData(data){
 };
 
 
-
-/**
- * @brief 공지사항 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setNoticeData(data){
-    let myData = JSON.parse(data);
-    let tempHtml='';
-
-    myData.notice.forEach(el => {
-        tempHtml+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${el.title}</span>
-            <span class='board-content-date'>${el.date}</span>
-        </div>`;
-    });
-
-    noticeBoxContent.innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief FAQ 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setFaqData(data){
-    let myData = JSON.parse(data);
-    let tempHtml='';
-
-    myData.faq.forEach(el => {
-        tempHtml+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${el.title}</span>
-            <span class='board-content-date'>${el.date}</span>
-        </div>`;
-    });
-
-    faqBoxContent.innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief 좀비레이스 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setRaceData(data) {
-    
-    let myData = JSON.parse(data);
-    let tempHtml=
-    `<tr class='game-table-row'>
-        <th class='col'>회차</th>
-        <th>1등</th>
-        <th>2등</th>
-        <th>3등</th>
-        <th>4등</th>
-        <th>5등</th>
-    </tr>`;
-
-    myData.zombierace.forEach((el)=> {
-        tempHtml +=
-        `<tr class='game-table-row'>
-            <th class='col'>${el.turn}</th>`
-        for(let i of el.result) {
-            tempHtml+= `<td>${i}</td>`;
-        };
-        tempHtml +=`</tr>`
-    });
-
-    gameTableContent[0].innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief 좀비격투 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setFightData(data) {
-    
-    let myData = JSON.parse(data);
-    let tempHtml=
-    `<tr class='game-table-row'>
-        <th class='col'>회차</th>
-        <th>좌측</th>
-        <th>우측</th>
-        <th>승자</th>
-        <th>KO여부</th>
-    </tr>`;
-
-    myData.zombiefight.forEach((el)=> {
-        tempHtml +=
-        `<tr class='game-table-row'>
-            <th class='col'>${el.turn}</th>`
-        for(let i of el.result) {
-            tempHtml+= `<td>${i}</td>`;
-        };
-        tempHtml +=`</tr>`
-    });
-
-    gameTableContent[1].innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief 좀비격파 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setBreakData(data) {
-    
-    let myData = JSON.parse(data);
-    let tempHtml=
-    `<tr class='game-table-row'>
-        <th class='col'>회차</th>
-        <th>좌측</th>
-        <th>격파수</th>
-        <th>우측</th>
-        <th>격파수</th>
-        <th>승자</th>
-    </tr>`;
-
-    myData.zombiebreak.forEach((el)=> {
-        tempHtml +=
-        `<tr class='game-table-row'>
-            <th class='col'>${el.turn}</th>`
-        for(let i of el.result) {
-            tempHtml+= `<td>${i}</td>`;
-        };
-        tempHtml +=`</tr>`
-    });
-
-    gameTableContent[2].innerHTML = tempHtml;
-};
-
-
-
 /**
  * @brief 차트 생성
  * @author JJH
@@ -470,6 +298,11 @@ function createMainChart(dateAry, valueAry) {
         }
     });
 };
+
+
+
+
+
 
 
 
