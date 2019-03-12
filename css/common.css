@@ -304,3 +304,86 @@ main {
     grid-row: 1;
 }
 /* main end */
+
+
+
+
+/* responsive start */
+@media screen and (max-width: 2260px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+/* tablet */
+@media screen and (max-width: 1300px) {
+    html {
+        font-size: 11px;
+    }
+    header {
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: auto 20px 1fr;
+        grid-template-columns: auto 1fr;
+        -ms-grid-rows: auto 20px auto;
+        grid-template-rows: repeat(2, auto);
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+    }
+    
+    .user-info {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 3;
+        grid-column: 1 / span 2;
+        -ms-grid-row: 1;
+        grid-row: 1;
+        justify-content: flex-end;
+    }
+
+    .logo-box {
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 3;
+        grid-row: 2;
+        margin-right: 0;
+    }
+
+    nav {
+        -ms-grid-column: 3;
+        grid-column: 2;
+        -ms-grid-row: 3;
+        grid-row: 2;
+    }
+
+    .main-menu {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+
+
+/* mobile */
+
+@media screen and (max-width: 960px) {
+
+    nav {
+        display: flex;
+        align-items: center;
+    }
+    .main-menu {
+        display: none;
+    }
+
+    .mobile-menu-img {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    html {
+        font-size: 8px;
+    }
+
+}

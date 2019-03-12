@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/adprofit.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <link rel="stylesheet" href="./css/animation.css">
+    <title>WORLDSPON</title>
+    
+    <script>
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
+        <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
+        <div class='header-wrap'>
+            <header>
+                <div class='logo-box'>
+                    <a href='./index.html'><img src='./images/header_logo.png' alt='main-logo'></a>
+                </div>
+                <!-- nav start -->
+                <nav>
+                    <!-- mobile menu image -->
+                    <img src="./images/menu.png" alt="mobile-menu-image" class='mobile-menu-img'>
+
+                    <!-- nav main menu list start -->
+                    <ul class='main-menu'>
+                        <li>
+                            <a href='javascript:void(0);' class='ad-profit-nav'>광고수익</a>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);'>공지사항</a>
+                            <ul class='notice-sub-menu sub-menu'>
+                                <li>
+                                    <a href='javascript:void(0);'>공지사항</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>업데이트</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>이벤트</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);' class='faq-nav'>FAQ</a>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);' class='support-nav'>1:1문의</a>
+                            <ul class='support-sub-menu sub-menu'>
+                                <li>
+                                    <a href='javascript:void(0);'>1:1문의</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>내문의</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href='javascript:void(0);' class='game-result-nav'>게임결과</a>
+                            <ul class='game-result-sub-menu sub-menu'>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비레이스</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비격투</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비격파</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- nav main menu list end -->
+                </nav>
+                <!-- nav end -->
+
+
+                <div class='user-info'>
+                    <span class='user-name'>WS1234님</span>
+                    <button class='login-info'>로그아웃</button>
+                </div>
+
+
+                <!-- mobile menu start -->
+                <div class='mobile-menu'>
+                    <img src='./images/menu_after.png' alt='mobile-menu-after-img' class='mobile-menu-after-img'>
+                    <ul class='mobile-menu-main'>
+                        <li>
+                            <a class='mobile-menu-main-list'>광고수익</a>
+                        </li>
+                        <li>
+                            <a class='mobile-menu-main-list'>공지사항</a>
+                            <ul class='mobile-menu-sub'>
+                                <li>
+                                    <a href='javascript:void(0);'>공지사항</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>업데이트</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>이벤트</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class='mobile-menu-main-list'>FAQ</a>
+                        </li>
+                        <li>
+                            <a class='mobile-menu-main-list'>1:1문의</a>
+                            <ul class='mobile-menu-sub'>
+                                <li>
+                                    <a href='javascript:void(0);'>문의하기</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>내 문의</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class='mobile-menu-main-list'>게임결과</a>
+                            <ul class='mobile-menu-sub'>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비레이스</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비격투</a>
+                                </li>
+                                <li>
+                                    <a href='javascript:void(0);'>좀비격파</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- mobile menu end -->
+            </header>
+        </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
+        <div class='main-wrap'>
+            <main>
+                <!-- profit box start -->
+                <div class='profit-box'>
+                    <div class='total-profit profit-content content-box-layout'>
+                        <span class='profit-left'>3월 총수익</span>
+                        <span class='profit-right'>$42,855</span>
+                    </div>
+                    <div class='deduction-profit profit-content content-box-layout'>
+                        <span class='profit-left'>3월 차감액</span>
+                        <span class='profit-right'>$1,105</span>
+    
+                    </div>
+                    <div class='pure-profit profit-content content-box-layout'>
+                        <span class='profit-left'>3월 순수익</span>
+                        <span class='profit-right'>$41,750</span>
+                    </div>
+                </div>
+                <!-- profit box end -->
+
+               <!-- profit chart start -->
+               <div class='adprofit-chart-box content-box-layout pd-40'>
+                    <div class='adprofit-chart-header pdb-20'>
+                        <h3 class='content-hl'>3월 광고수익금</h3>
+                        <div class='profit-data-wrap'>
+                            <div class='left-data'>
+                                <span class='data-hl'>Data 1</span>
+                                <select class='data-select-box'>
+                                    <option value="2019-01">2019-01</option>
+                                    <option value="2019-02">2019-02</option>
+                                    <option value="2019-03" selected="selected">2019-03</option>
+                                </select>
+                            </div>
+                            <div class='right-data'>
+                                <span class='data-hl'>Data 2</span>
+                                <select class='data-select-box'>
+                                    <option value="선택" selected="selected">선택</option>
+                                    <option value="2019-01">2019-01</option>
+                                    <option value="2019-02">2019-02</option>
+                                    <option value="2019-03">2019-03</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='adprofit-chart-content'>
+                        <!--main.js에서 아래 html 추가-->
+                        <!--<canvas id='index-profit-chart'></canvas>-->
+                    </div>
+                </div>
+                <!-- profit chart end -->
+
+                <!-- notice, faq box start -->
+                <div class='situation-comparison-box'>
+
+                    <!-- notice box start -->
+                    <div class='situation-box content-box-layout pd-40'>
+                        <div class='situation-box-header border-bottom pdb-20'>
+                            <h3 class='content-hl'>광고수익</h3>
+                        </div>
+                        <div class='situation-chart-content board pdt-30'>
+                            <canvas id='situation-profit-chart'></canvas>
+                        </div>
+                    </div>
+                    <!-- notice box end -->
+
+                    <!-- faq box start -->
+                    <div class='comparison-box content-box-layout pd-40'>
+                        <div class='comparison-box-header border-bottom pdb-20'>
+                            <h3 class='content-hl'>수익비교</h3>
+                        </div>
+                        <div class='comparison-box-content board pdt-30'>
+                            <div class='comparison-profit'>
+                                <div class='comparison-profit-left'>
+                                    <span class='comparison-sub-title'>3월 최고수익</span>
+                                    <span class='current-month-high'>8,904</span>
+                                </div>
+                                <div class='comparison-profit-right'>
+                                    <span class='comparison-sub-title'>월 최고수익 평균</span>
+                                    <span class='month-avg-high'>9,588</span>
+                                </div>
+                            </div>
+
+                            <div class='comparison-profit'>
+                                <div class='comparison-profit-left'>
+                                    <span class='comparison-sub-title'>3월 최저수익</span>
+                                    <span class='current-month-low'>3,870</span>
+                                </div>
+                                <div class='comparison-profit-right'>
+                                    <span class='comparison-sub-title'>월 최저수익 평균</span>
+                                    <span class='month-avg-low'>3,277</span>
+                                </div>
+                            </div>
+
+                            <div class='comparison-profit'>
+                                <div class='comparison-profit-left'>
+                                    <span class='comparison-sub-title'>3월 평균수익</span>
+                                    <span class='current-month-avg'>8,904</span>
+                                </div>
+                                <div class='comparison-profit-right'>
+                                    <span class='comparison-sub-title'>월 평균수익</span>
+                                    <span class='month-total-low'>3,277</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- faq box end -->
+                </div>
+                <!-- notice, faq box end -->
+            </main> 
+        </div>
+        <!-- main-wrap end -->
+    </div>
+
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>-->
+    <script src='./js/polyfill.min.js'></script>
+    <script src='./js/Chart.min.js'></script>
+    <script src='./js/common.js'></script>
+    <script src='./js/adprofit.js'></script>
+</body>
+</html>

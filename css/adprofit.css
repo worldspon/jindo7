@@ -3,8 +3,8 @@ main {
     display: grid;
     -ms-grid-columns: 100%;
     grid-template-columns: 100%;
-    -ms-grid-rows: auto 20px auto 20px auto 20px auto;
-    grid-template-rows: repeat(4, auto);
+    -ms-grid-rows: auto 20px auto 20px auto;
+    grid-template-rows: repeat(3, auto);
     grid-row-gap: 20px;
     padding:20px;
 }
@@ -24,21 +24,21 @@ main {
     grid-row: 1;
 }
 
-    .prev-month {
+    .total-profit {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 1;
         grid-row: 1;
     }
 
-    .current-month {
+    .deduction-profit {
         -ms-grid-column: 3;
         grid-column: 2;
         -ms-grid-row: 1;
         grid-row: 1;;
     }
 
-    .change-percentage {
+    .pure-profit {
         -ms-grid-column: 5;
         grid-column: 3;
         -ms-grid-row: 1;
@@ -68,7 +68,7 @@ main {
 
 
 /* profit-chart-box start */
-.profit-chart-box {
+.adprofit-chart-box {
     display:-ms-grid;
     display:grid;
     -ms-grid-columns: 100%;
@@ -81,7 +81,7 @@ main {
     grid-row: 2;
 }
 
-    .profit-chart-header {
+    .adprofit-chart-header {
         display: flex;
         grid-column: 1;
         grid-row: 1;
@@ -89,7 +89,43 @@ main {
         justify-content: space-between;
     }
 
-    .profit-chart-content {
+    .profit-data-wrap {
+        display:grid;
+        grid-template-columns: repeat(2, 100px);
+        grid-template-rows: auto;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .left-data {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .right-data {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .data-hl {
+        display: block;
+        padding: 5px 0px;
+    }
+
+    .data-select-box {
+        display: block;
+        width: 100%;
+        font-size: 1.2rem;
+        text-align-last: center;
+        
+    }
+
+    .data-select-box > *{
+        padding-left: 20px;
+    }
+
+    .adprofit-chart-content {
         display: flex;
         -ms-grid-column: 1;
         grid-column: 1;
@@ -97,7 +133,7 @@ main {
         grid-row: 2;
     }
 
-    #index-profit-chart {
+    #ad-profit-chart {
         display: flex;
         -ms-grid-column: 1;
         grid-column: 1;
@@ -106,22 +142,22 @@ main {
     }
 /* profit-chart-box end */
 
-/* notice, faq box start */
-.notice-faq-box {
+/* situation, comparison box start */
+.situation-comparison-box {
     display:-ms-grid;
     display:grid;
     -ms-grid-columns: 1fr 20px 1fr;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 49.6%);
     grid-template-rows: auto;
-    grid-column-gap: 20px;
+    grid-column-gap: 0.8%;
     -ms-grid-column: 1;
     grid-column: 1;
     -ms-grid-row: 5;
     grid-row: 3;
 }
 
-    /* notice box start */
-    .notice-box {
+    /* situation box start */
+    .situation-box {
         display: -ms-grid;
         display: grid;
         -ms-grid-columns: 100%;
@@ -134,7 +170,7 @@ main {
         grid-row: 1;
     }
 
-    .notice-box-header {
+    .situation-box-header {
         display: flex;
         -ms-grid-column: 1;
         grid-column: 1;
@@ -142,18 +178,27 @@ main {
         grid-row: 1;
         align-items: center;
         justify-content: space-between;
+        height:40px;
     }
 
-    .notice-box-content {
+    .situation-box-content {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 2;
         grid-row: 2;
     }
-    /* notice box end */
 
-    /* faq box start */
-    .faq-box {
+    .situation-chart-content {
+        display: flex;
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 2;
+        grid-row: 2;
+    }
+    /* situation box end */
+
+    /* comparison box start */
+    .comparison-box {
         display: -ms-grid;
         display: grid;
         -ms-grid-columns: 100%;
@@ -164,143 +209,55 @@ main {
         grid-column: 2;
         -ms-grid-row: 1;
         grid-row: 1;
+
     }
 
-    .faq-box-header {
+    .comparison-box-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        height:40px;
     }
 
-    .faq-box-content {
+    .comparison-box-content {
+        display: flex;
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 2;
         grid-row: 2;
+        flex-flow: column;
+        padding-left: 15px;
+        padding-right: 15px;
     }
-    /* faq box end */
+    /* comparisonbox end */
 
     /* common board content start */
-    .board-content {
+    .comparison-profit {
         display: flex;
         justify-content: space-between;
         font-size: 1.2rem;
         color: #757474;
-
+        flex-flow: row;
     }
 
-    .board > .board-content:not(:last-child) {
+    .comparison-profit:not(:last-child) {
         margin-bottom: 35px;
     }
+
+
+    .comparison-sub-title::after {
+        content: '';
+        position: relative;
+        margin: 0px 20px;
+        border: 1px solid #aaa;
+    }
+
+    
+
     /* common board content end */
 
-/* notice, faq box end */
+/* situation, comparison box end */
 
-
-/* game-result start */
-.game-result {
-    display:-ms-grid;
-    display:grid;
-    -ms-grid-columns: 100%;
-    grid-template-columns: 100%;
-    -ms-grid-rows: (auto)[2];
-    grid-template-rows: repeat(2, auto);
-    -ms-grid-column: 1;
-    grid-column: 1;
-    -ms-grid-row: 7;
-    grid-row: 4;
-}
-    .game-result-header {
-        display: flex;
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 1;
-        grid-row: 1;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .game-result-content {
-        display: -ms-grid;
-        display: grid;
-        -ms-grid-columns: (1fr)[3];
-        grid-template-columns: repeat(3, 1fr);
-        -ms-grid-rows: auto;
-        grid-template-rows: auto;
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 2;
-        grid-row: 2;
-    }
-
-    .zombie-race {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 1;
-        grid-row: 1;
-    }
-
-    .zombie-fight {
-        -ms-grid-column: 2;
-        grid-column: 2;
-        -ms-grid-row: 1;
-        grid-row: 1;
-    }
-
-    .zombie-break {
-        -ms-grid-column: 3;
-        grid-column: 3;
-        -ms-grid-row: 1;
-        grid-row: 1;
-    }
-
-
-    .game-table {
-        display:-ms-grid;
-        display:grid;
-        -ms-grid-columns: 100%;
-        grid-template-columns: 100%;
-        -ms-grid-rows: auto 20px auto;
-        grid-template-rows: repeat(2, auto);
-        grid-row-gap: 20px;
-    }
-
-    .game-table-header {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 1;
-        grid-row: 1;
-        font-size: 1.3rem;
-        font-weight: 700;
-    }
-
-    .game-table-content {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 3;
-        grid-row: 2;
-        table-layout: fixed;
-        width: 100%;
-        text-align: center;
-        font-size: 1.3rem;
-        font-weight: 400;
-        color: #757474;
-    }
-
-
-    .game-table-row:not(:last-child) {
-        border-bottom: 1px solid #dcdcdc;
-    }
-    
-    .game-table-row > * {
-        padding: 20px 0px;
-    }
-
-    .col {
-        border-right: 1px solid #dcdcdc;
-        width:20%;
-    }
-/* game-result end */
 
 
 
@@ -318,21 +275,21 @@ main {
         grid-row-gap: 20px;
     }
 
-    .prev-month {
+    .total-profit  {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 1;
         grid-row: 1;
     }
 
-    .current-month {
+    .deduction-profit {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 3;
         grid-row: 2;
     }
 
-    .change-percentage {
+    .pure-profit {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 5;
@@ -344,63 +301,42 @@ main {
     }
     /* profit box end */
 
-    .notice-faq-box {
-        -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
+    .situation-comparison-box {
+        -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
         -ms-grid-rows: auto 20px auto;
         grid-template-rows: repeat(2, auto);
         grid-row-gap: 20px;
     }
 
-    .notice-box {
+    .situation-box {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 1;
         grid-row: 1;
     }
 
-    .faq-box {
+    .comparison-box {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 3;
         grid-row: 2;
     }
 
-    .game-result-content {
-        -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
-        -ms-grid-rows: auto 20px auto 20px auto;
-        grid-template-rows: repeat(3, auto);
-        grid-row-gap: 20px;
+    .comparison-profit {
+        font-size: 1.2rem;
     }
 
-    .zombie-race {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 1;
-        grid-row: 1;
-        padding: 0;
-        padding-top: 30px;
-        border: none;
+    .comparison-box-content {
+        padding-left: 0;
+        padding-right: 0;
     }
 
-    .zombie-fight {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 3;
-        grid-row: 2;
-        padding: 0;
-        padding-top: 30px;
-        border: none;
-    }
-
-    .zombie-break {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 5;
-        grid-row: 3;
-        padding: 0;
-        padding-top: 30px;
-        border: none;
+    .comparison-sub-title::after {
+        content: '';
+        position: relative;
+        margin: 0px 5px;
+        border: 1px solid #aaa;
     }
 }
+
