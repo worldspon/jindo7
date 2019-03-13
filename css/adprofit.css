@@ -348,3 +348,20 @@ main {
     }
 }
 
+
+@media screen and (max-width: 500px) {
+    .adprofit-chart-header {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-row-gap: 10px;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .adprofit-chart-header > h3 {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+}

@@ -21,157 +21,76 @@ let dataOption1, dataOption2;
 // 현재 가지고 있는 데이터의 연 월 저장
 let dataYear, dataMonth;
 
-// 당월 광고수익금 차트
+// line chart
 const adProfitChart = document.querySelector('.adprofit-chart-content');
 let labelAry=[];
 let valAry1 = [];
 let valAry2 = [];
+let tabletlabelAry=[];
+let tabletvalAry1 = [];
+let tabletvalAry2 = [];
 let mobilelabelAry=[];
 let mobilevalAry1 = [];
 let mobilevalAry2 = [];
 let canvasHeight2 = 0;
 let myLineChart;
-let mobileFlag = false;
+
+// bar chart
+const situationChart = document.querySelector('.situation-chart-content');
+let myBarChart;
+
 
 
 
 profitAsync('js/adprofit.json',nowYear,nowMonth);
 selectAsync('js/adprofit.json',nowYear,nowMonth);
 lineChartAsync('js/adprofit.json');
-//createLineChart(myData.dailyprofit);
-
-console.log(`${nowYear}${nowMonth}`);
-
-Array.from(dataSelectBox).forEach((el)=> {
-    el.addEventListener('change', ()=> {
-        updateSelect();
-    });
-})
-
+barChartAsync('js/adprofit.json');
 
 
 
 /**
- * @brief 첫 접속시 상단 수익금 박스 초기화를 위한 통신
+ * @brief bar chart 생성을 위한 함수
  * @author JJH
- * @param url 데이터 url
- * @param yy 현재 년도
- * @param mm 현재 월
+ * @param data JSON data
  */
-async function lineChartAsync(url,data1=`${nowYear}${nowMonth}`,data2=``) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        createLineChart(data, data1, data2);
-    } catch (error) {
-        dataSelectBox[0].removeAttribute('disabled');
-        dataSelectBox[1].removeAttribute('disabled');
-        console.log(error);
-    }
-}
-
-
-
-
-
-
-function createLineChart(data, data1, data2) {
-
-    let lineChartHeight = 0;
-    //창크기에 따라 height 값 지정
-    if(window.innerWidth <= 500 ){
-        lineChartHeight = 200
-    }else if(window.innerWidth <= 960 ){
-        lineChartHeight = 300
-    }else {
-        lineChartHeight = 500
-    }
-
+function createBarChart(data) {
     let myData = JSON.parse(data);
-    let dataYear1 = data1.slice(0,4);
-    let dataYear2 = data2.slice(0,4);
-    let dataMonth1 = data1.slice(4);
-    let dataMonth2 = data2.slice(4);
-    let labelLength;
-    labelAry=[];
-    valAry1 = [];
-    valAry2 = [];
-    mobilelabelAry=[];
-    mobilevalAry1 = [];
-    mobilevalAry2 = [];
+    myData = myData.ad[nowYear];
 
-    myData = myData.ad
-    valAry1 = myData[dataYear1][dataMonth1].dailyprofit;
+    let curMonth=0,prevMonth=0,pprevMonth=0;
 
-    valAry1.forEach((el,index)=>{
-        if((index==0)||(index%5==4)&&index<=25){
-            mobilevalAry1.push(el);
+    // 현재달은 조회일 하루전 데이터까지 합산
+    myData[nowMonth].dailyprofit.forEach((el, index)=>{
+        if(index<=nowDay-2) {
+            curMonth+=el;
         }
-    })
+    });
 
-    if(data2 != '') {
-        valAry2 = myData[dataYear2][dataMonth2].dailyprofit;
-        valAry2.forEach((el,index)=>{
-            if((index==0)||(index%5==4)&&index<=25){
-                mobilevalAry2.push(el);
-            }
-        })
-    }
+    myData[nowMonth-1].dailyprofit.forEach((el)=>{
+            prevMonth+=el;
+    });
 
-    adProfitChart.innerHTML = `<canvas id='ad-profit-chart' style='height:${lineChartHeight}px;'></canvas>`;
-    let ctx = document.getElementById("ad-profit-chart");
-    ctx = document.getElementById("ad-profit-chart").getContext("2d");
+    myData[nowMonth-2].dailyprofit.forEach((el)=>{
+        pprevMonth+=el;
+    });
+    
 
-    labelLength = Math.max(valAry1.length, valAry2.length);
-    for(let i=1; i<=labelLength; i++) {
-        labelAry.push(`${i}일`);
-    }
-
-    labelAry.forEach((el,index)=>{
-        if((index==0)||(index%5==4)&&index<=25){
-            mobilelabelAry.push(el);
-        }
-    })
-    labelAry.unshift('');
-    labelAry.push('');
-
-    valAry1.unshift(null);
-    valAry2.unshift(null);
-    valAry1.push(null);
-    valAry2.push(null);
-
-    mobilevalAry1.unshift(null);
-    mobilevalAry2.unshift(null);
-    mobilevalAry1.push(null);
-    mobilevalAry2.push(null);
-    mobilelabelAry.unshift('');
-    mobilelabelAry.push('');
-
-    console.log(mobilelabelAry);
-    console.log(mobilevalAry1);
-    console.log(mobilevalAry2);
-
-    myLineChart = new Chart(ctx, {
-        type: 'line',
+    // 캔버스 생성
+    situationChart.innerHTML = `<canvas id='situation-profit-chart' style="height:220px;"></canvas>`;
+    
+    let ctx = document.getElementById("situation-profit-chart");
+    ctx = document.getElementById("situation-profit-chart").getContext("2d");
+    myBarChart = new Chart(ctx, {
+        type: 'horizontalBar',
         data: {
-            // dateAry!!!
-            labels: labelAry,
+            labels: [`${nowMonth}월`, `${nowMonth-1}월`, `${nowMonth-2}월`],
             datasets: [{
                 label: false,
-                // valueAry!!!
-                data: valAry1,
+                data: [curMonth, prevMonth, pprevMonth],
                 fill: false,
                 borderColor: '#6f569c',
-                borderWidth: 5,
-                pointBorderWidth: 2,
-                pointBackgroundColor: 'white',
-                pointRadius: 5,
-                tension: 0
-            },
-            {
-                // valueAry!!!
-                data: valAry2,
-                fill: false,
-                borderColor: '#ff0000',
+                backgroundColor: '#6f569c',
                 borderWidth: 5,
                 pointBorderWidth: 2,
                 pointBackgroundColor: 'white',
@@ -187,7 +106,10 @@ function createLineChart(data, data1, data2) {
             },
             scales: {
                 yAxes: [{
-                    offsetGridLines:false,
+                    barPercentage: 0.8,
+                    gridLines: {
+                        display: false
+                    },
                     ticks: {
                         beginAtZero: true,
                     }
@@ -198,100 +120,47 @@ function createLineChart(data, data1, data2) {
                     },
                     offsetGridLines:false,
                     ticks: {
+                        beginAtZero: true
                     }
                 }]
             }
         }
     });
-
-    let lineChartAfter = document.getElementById('ad-profit-chart');
-
-    window.addEventListener('resize', () => {
-        if(window.innerWidth <= 500 ){
-            lineChartAfter.style.height = '200px';
-            myLineChart.data.labels = mobilelabelAry;
-            myLineChart.data.datasets[0].data = mobilevalAry1;
-            myLineChart.data.datasets[1].data = mobilevalAry2;
-            myLineChart.update();
-        }else if(window.innerWidth <= 960 ){
-            lineChartAfter.style.height = '300px';
-            myLineChart.data.labels = labelAry;
-            myLineChart.data.datasets[0].data = valAry1;
-            myLineChart.data.datasets[1].data = valAry2;
-            myLineChart.update();
-        }else {
-            lineChartAfter.style.height = '500px';
-            myLineChart.data.labels = labelAry;
-            myLineChart.data.datasets[0].data = valAry1;
-            myLineChart.data.datasets[1].data = valAry2;
-            myLineChart.update();
-        }
-    });
 }
 
 
-/*
-
-adProfitChart.innerHTML = `<canvas id='ad-profit-chart' style='height:${canvasHeight1}px;'></canvas>`;
-
-let ctx = document.getElementById("ad-profit-chart");
-ctx = document.getElementById("ad-profit-chart").getContext("2d");
-mainChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        // dateAry!!!
-        labels: labelAry,
-        datasets: [{
-            label: false,
-            // valueAry!!!
-            data: valAry,
-            fill: false,
-            borderColor: '#6f569c',
-            borderWidth: 5,
-            pointBorderWidth: 2,
-            pointBackgroundColor: 'white',
-            pointRadius: 5,
-            tension: 0.1
-        },
-        {
-            // valueAry!!!
-            data: valAry2,
-            fill: false,
-            borderColor: '#ff0000',
-            borderWidth: 5,
-            pointBorderWidth: 2,
-            pointBackgroundColor: 'white',
-            pointRadius: 5,
-            tension: 0.1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-            display: false,
-        },
-        scales: {
-            yAxes: [{
-                offsetGridLines:false,
-                ticks: {
-                    beginAtZero: true,
-                }
-            }],
-            xAxes: [{
-                gridLines: {
-                    display: false
-                },
-                offsetGridLines:false,
-                ticks: {
-                }
-            }]
-        }
-    }
-});
 
 
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Array.from(dataSelectBox).forEach((el)=> {
+    el.addEventListener('change', ()=> {
+        updateSelect();
+    });
+})
+
+
+
+
+
+
 
 /**
  * @brief promise 객체 생성
@@ -307,8 +176,6 @@ function AsyncValidateFnc(url) {
       xhr.send();
     });
 }
-
-
 
 
 
@@ -347,6 +214,44 @@ async function selectAsync(url,yy,mm) {
     try {
         let data = await AsyncValidateFnc(url);
         setSelectBox(data,yy,mm);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+/**
+ * @brief line chart 생성을 위한 비동기통신
+ * @author JJH
+ * @param url 데이터 url
+ * @param data1 첫번째 데이터 연월, 없을시 현재년월 데이터
+ * @param data2 첫번째 데이터 연월, 없을시 공백
+ */
+async function lineChartAsync(url,data1=`${nowYear}${nowMonth}`,data2=``) {
+    try {
+        dataSelectBox[0].disabled = 'true';
+        dataSelectBox[1].disabled = 'true';
+        let data = await AsyncValidateFnc(url);
+        createLineChart(data, data1, data2);
+    } catch (error) {
+        dataSelectBox[0].removeAttribute('disabled');
+        dataSelectBox[1].removeAttribute('disabled');
+        console.log(error);
+    }
+}
+
+
+
+/**
+ * @brief bar chart 생성을 위한 비동기통신
+ * @author JJH
+ * @param url 데이터 url
+ */
+async function barChartAsync(url) {
+    try {
+        let data = await AsyncValidateFnc(url);
+        createBarChart(data);
     } catch (error) {
         console.log(error);
     }
@@ -404,7 +309,6 @@ function setProfitData(data,yy,mm) {
     dataSelectBox[0].removeAttribute('disabled');
     dataSelectBox[1].removeAttribute('disabled');
 }
-
 
 
 
@@ -467,7 +371,7 @@ function setSelectBox(data, yy, mm) {
 
 
 /**
- * @brief selected 속성을 기반으로 select bos option을 바꾸는 함수
+ * @brief selected 속성을 기반으로 select box option을 바꾸는 함수
  * @author JJH
  * @see 참고사항
  *      해당 함수에서 참조하는 dataYear, dataMonth는 setSelectBox함수에서
@@ -543,80 +447,212 @@ function updateSelect() {
 
 
 
+/**
+ * @brief line chart 생성을 위한 함수
+ * @author JJH
+ * @param url 데이터 url
+ * @param data1 첫번째 데이터 연월
+ * @param data2 첫번째 데이터 연월
+ */
+function createLineChart(data, data1, data2) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const BB = document.querySelector('.situation-chart-content');
-
-let dummyval = [null,345,432,654,123,76,256,333,null];
-let dummylab = ['','1일','5일','10일','15일','20일','25일','30일',''];
-
-
-
-BB.innerHTML = `<canvas id='situation-profit-chart' style="height:220px;"></canvas>`;
-
-let ctx2 = document.getElementById("situation-profit-chart");
-ctx2 = document.getElementById("situation-profit-chart").getContext("2d");
-var myBarChart = new Chart(ctx2, {
-    type: 'horizontalBar',
-    data: {
-        // dateAry!!!
-        labels: ['3월','2월','1월'],
-        datasets: [{
-            label: false,
-            // valueAry!!!
-            data: [454,392,544],
-            fill: false,
-            borderColor: '#6f569c',
-            backgroundColor: '#6f569c',
-            borderWidth: 5,
-            pointBorderWidth: 2,
-            pointBackgroundColor: 'white',
-            pointRadius: 5,
-            tension: 0.1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-            display: false,
-        },
-        scales: {
-            yAxes: [{
-                barPercentage: 0.5,
-                gridLines: {
-                    display: false
-                },
-                ticks: {
-                    beginAtZero: true,
-                }
-            }],
-            xAxes: [{
-                gridLines: {
-                    display: false
-                },
-                offsetGridLines:false,
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
+    let lineChartHeight = 0;
+    //창크기에 따라 height 값 지정
+    if(window.innerWidth <= 500 ){
+        lineChartHeight = 200
+    }else if(window.innerWidth <= 960 ){
+        lineChartHeight = 300
+    }else {
+        lineChartHeight = 500
     }
-});
+
+    let myData = JSON.parse(data);
+    myData = myData.ad
+    let dataYear1 = data1.slice(0,4);
+    let dataYear2 = data2.slice(0,4);
+    let dataMonth1 = data1.slice(4);
+    let dataMonth2 = data2.slice(4);
+    let labelLength;
+
+    // 최초 접속시 화면에 표현할 데이터(mobile, tablet, PC)
+    let firstLabel, firstValue1, firstValue2;
+
+
+    // device별 표시할 데이터 배열
+    labelAry=[];
+    valAry1 = [];
+    valAry2 = [];
+
+    // 3일 단위
+    tabletlabelAry=[];
+    tabletvalAry1 = [];
+    tabletvalAry2 = [];
+
+    // 5일 단위
+    mobilelabelAry=[];
+    mobilevalAry1 = [];
+    mobilevalAry2 = [];
+
+
+
+    // 데이터 저장
+    valAry1 = myData[dataYear1][dataMonth1].dailyprofit;
+    // 기기별 데이터 분리
+    valAry1.forEach((el,index)=>{
+        if((index==0)||(index%3==2)&&index<=27){
+            tabletvalAry1.push(el);
+        }
+        if((index==0)||(index%5==4)&&index<=25){
+            mobilevalAry1.push(el);
+        }
+    })
+
+    if(data2 != '') {
+        valAry2 = myData[dataYear2][dataMonth2].dailyprofit;
+        valAry2.forEach((el,index)=>{
+            if((index==0)||(index%3==2)&&index<=27){
+                tabletvalAry2.push(el);
+            }
+            if((index==0)||(index%5==4)&&index<=25){
+                mobilevalAry2.push(el);
+            }
+        })
+    }
+
+    labelLength = Math.max(valAry1.length, valAry2.length);
+
+    for(let i=1; i<=labelLength; i++) {
+        labelAry.push(`${i}일`);
+    }
+
+    labelAry.forEach((el,index)=>{
+        if((index==0)||(index%3==2)&&index<=27){
+            tabletlabelAry.push(el);
+        }
+        if((index==0)||(index%5==4)&&index<=25){
+            mobilelabelAry.push(el);
+        }
+    })
+
+    // 차트 내부 공백을 위한 데이터 앞 뒤 공백처리
+    labelAry.unshift('');
+    labelAry.push('');
+    valAry1.unshift(null);
+    valAry2.unshift(null);
+    valAry1.push(null);
+    valAry2.push(null);
+
+    tabletlabelAry.unshift('');
+    tabletlabelAry.push('');
+    tabletvalAry1.unshift(null);
+    tabletvalAry2.unshift(null);
+    tabletvalAry1.push(null);
+    tabletvalAry2.push(null);
+
+    mobilelabelAry.unshift('');
+    mobilelabelAry.push('');
+    mobilevalAry1.unshift(null);
+    mobilevalAry2.unshift(null);
+    mobilevalAry1.push(null);
+    mobilevalAry2.push(null);
+
+
+    if(window.innerWidth <= 500 ){
+        firstLabel = mobilelabelAry;
+        firstValue1 = mobilevalAry1;
+        firstValue2 = mobilevalAry2;
+
+    }else if(window.innerWidth <= 960 ){
+        firstLabel = tabletlabelAry;
+        firstValue1 = tabletvalAry1;
+        firstValue2 = tabletvalAry2;
+    }else {
+        firstLabel = labelAry;
+        firstValue1 = valAry1;
+        firstValue2 = valAry2;
+    }
+
+    // 캔버스 생성
+    adProfitChart.innerHTML = `<canvas id='ad-profit-chart' style='height:${lineChartHeight}px;'></canvas>`;
+    let ctx = document.getElementById("ad-profit-chart");
+    ctx = document.getElementById("ad-profit-chart").getContext("2d");
+
+    myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            // dateAry!!!
+            labels: firstLabel,
+            datasets: [{
+                label: false,
+                // valueAry!!!
+                data: firstValue1,
+                fill: false,
+                borderColor: '#6f569c',
+                borderWidth: 5,
+                pointBorderWidth: 2,
+                pointBackgroundColor: 'white',
+                pointRadius: 5,
+                tension: 0
+            },
+            {
+                // valueAry!!!
+                data: firstValue2,
+                fill: false,
+                borderColor: '#ff0000',
+                borderWidth: 5,
+                pointBorderWidth: 2,
+                pointBackgroundColor: 'white',
+                pointRadius: 5,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    offsetGridLines:false,
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    },
+                    offsetGridLines:false,
+                    ticks: {
+                    }
+                }]
+            }
+        }
+    });
+
+    // 차트 생성 후 canvas id
+    let lineChartAfter = document.getElementById('ad-profit-chart');
+
+    window.addEventListener('resize', () => {
+        if(window.innerWidth <= 500 ){
+            lineChartAfter.style.height = '200px';
+            myLineChart.data.labels = mobilelabelAry;
+            myLineChart.data.datasets[0].data = mobilevalAry1;
+            myLineChart.data.datasets[1].data = mobilevalAry2;
+            myLineChart.update();
+        }else if(window.innerWidth <= 960 ){
+            lineChartAfter.style.height = '300px';
+            myLineChart.data.labels = tabletlabelAry;
+            myLineChart.data.datasets[0].data = tabletvalAry1;
+            myLineChart.data.datasets[1].data = tabletvalAry2;
+            myLineChart.update();
+        }else {
+            lineChartAfter.style.height = '500px';
+            myLineChart.data.labels = labelAry;
+            myLineChart.data.datasets[0].data = valAry1;
+            myLineChart.data.datasets[1].data = valAry2;
+            myLineChart.update();
+        }
+    });
+}
