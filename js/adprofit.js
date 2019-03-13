@@ -23,8 +23,15 @@ let dataYear, dataMonth;
 
 // 당월 광고수익금 차트
 const adProfitChart = document.querySelector('.adprofit-chart-content');
-let canvasHeight1 = 0;
+let labelAry=[];
+let valAry1 = [];
+let valAry2 = [];
+let mobilelabelAry=[];
+let mobilevalAry1 = [];
+let mobilevalAry2 = [];
 let canvasHeight2 = 0;
+let myLineChart;
+let mobileFlag = false;
 
 
 
@@ -65,35 +72,52 @@ async function lineChartAsync(url,data1=`${nowYear}${nowMonth}`,data2=``) {
 
 
 
-//창크기에 따라 height 값 지정
-if(window.innerWidth <= 500 ){
-    canvasHeight1 = 200
-}else if(window.innerWidth <= 960 ){
-    canvasHeight1 = 300
-}else {
-    canvasHeight1 = 500
-}
-
 
 
 function createLineChart(data, data1, data2) {
+
+    let lineChartHeight = 0;
+    //창크기에 따라 height 값 지정
+    if(window.innerWidth <= 500 ){
+        lineChartHeight = 200
+    }else if(window.innerWidth <= 960 ){
+        lineChartHeight = 300
+    }else {
+        lineChartHeight = 500
+    }
+
     let myData = JSON.parse(data);
     let dataYear1 = data1.slice(0,4);
     let dataYear2 = data2.slice(0,4);
     let dataMonth1 = data1.slice(4);
     let dataMonth2 = data2.slice(4);
-    let labelAry=[];
-    let valAry1 = [];
-    let valAry2 = [];
     let labelLength;
+    labelAry=[];
+    valAry1 = [];
+    valAry2 = [];
+    mobilelabelAry=[];
+    mobilevalAry1 = [];
+    mobilevalAry2 = [];
 
     myData = myData.ad
     valAry1 = myData[dataYear1][dataMonth1].dailyprofit;
+
+    valAry1.forEach((el,index)=>{
+        if((index==0)||(index%5==4)&&index<=25){
+            mobilevalAry1.push(el);
+        }
+    })
+
     if(data2 != '') {
         valAry2 = myData[dataYear2][dataMonth2].dailyprofit;
+        valAry2.forEach((el,index)=>{
+            if((index==0)||(index%5==4)&&index<=25){
+                mobilevalAry2.push(el);
+            }
+        })
     }
 
-    adProfitChart.innerHTML = `<canvas id='ad-profit-chart' style='height:${canvasHeight1}px;'></canvas>`;
+    adProfitChart.innerHTML = `<canvas id='ad-profit-chart' style='height:${lineChartHeight}px;'></canvas>`;
     let ctx = document.getElementById("ad-profit-chart");
     ctx = document.getElementById("ad-profit-chart").getContext("2d");
 
@@ -101,6 +125,12 @@ function createLineChart(data, data1, data2) {
     for(let i=1; i<=labelLength; i++) {
         labelAry.push(`${i}일`);
     }
+
+    labelAry.forEach((el,index)=>{
+        if((index==0)||(index%5==4)&&index<=25){
+            mobilelabelAry.push(el);
+        }
+    })
     labelAry.unshift('');
     labelAry.push('');
 
@@ -109,7 +139,18 @@ function createLineChart(data, data1, data2) {
     valAry1.push(null);
     valAry2.push(null);
 
-    new Chart(ctx, {
+    mobilevalAry1.unshift(null);
+    mobilevalAry2.unshift(null);
+    mobilevalAry1.push(null);
+    mobilevalAry2.push(null);
+    mobilelabelAry.unshift('');
+    mobilelabelAry.push('');
+
+    console.log(mobilelabelAry);
+    console.log(mobilevalAry1);
+    console.log(mobilevalAry2);
+
+    myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
             // dateAry!!!
@@ -124,7 +165,7 @@ function createLineChart(data, data1, data2) {
                 pointBorderWidth: 2,
                 pointBackgroundColor: 'white',
                 pointRadius: 5,
-                tension: 0.1
+                tension: 0
             },
             {
                 // valueAry!!!
@@ -135,7 +176,7 @@ function createLineChart(data, data1, data2) {
                 pointBorderWidth: 2,
                 pointBackgroundColor: 'white',
                 pointRadius: 5,
-                tension: 0.1
+                tension: 0
             }]
         },
         options: {
@@ -160,6 +201,30 @@ function createLineChart(data, data1, data2) {
                     }
                 }]
             }
+        }
+    });
+
+    let lineChartAfter = document.getElementById('ad-profit-chart');
+
+    window.addEventListener('resize', () => {
+        if(window.innerWidth <= 500 ){
+            lineChartAfter.style.height = '200px';
+            myLineChart.data.labels = mobilelabelAry;
+            myLineChart.data.datasets[0].data = mobilevalAry1;
+            myLineChart.data.datasets[1].data = mobilevalAry2;
+            myLineChart.update();
+        }else if(window.innerWidth <= 960 ){
+            lineChartAfter.style.height = '300px';
+            myLineChart.data.labels = labelAry;
+            myLineChart.data.datasets[0].data = valAry1;
+            myLineChart.data.datasets[1].data = valAry2;
+            myLineChart.update();
+        }else {
+            lineChartAfter.style.height = '500px';
+            myLineChart.data.labels = labelAry;
+            myLineChart.data.datasets[0].data = valAry1;
+            myLineChart.data.datasets[1].data = valAry2;
+            myLineChart.update();
         }
     });
 }
