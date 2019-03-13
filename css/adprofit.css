@@ -103,9 +103,17 @@ main {
         grid-row: 1;
     }
 
+    .left-data > .data-hl {
+        color: #6f569c;
+    }
+
     .right-data {
         grid-column: 2;
         grid-row: 1;
+    }
+
+    .right-data > .data-hl {
+        color:#ff0000;
     }
 
     .data-hl {
@@ -113,6 +121,7 @@ main {
         padding: 5px 0px;
     }
 
+/*
     .data-select-box {
         display: block;
         width: 100%;
@@ -124,7 +133,7 @@ main {
     .data-select-box > *{
         padding-left: 20px;
     }
-
+*/
     .adprofit-chart-content {
         display: flex;
         -ms-grid-column: 1;
@@ -226,8 +235,7 @@ main {
         -ms-grid-row: 2;
         grid-row: 2;
         flex-flow: column;
-        padding-left: 15px;
-        padding-right: 15px;
+
     }
     /* comparisonbox end */
 
@@ -324,7 +332,7 @@ main {
     }
 
     .comparison-profit {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .comparison-box-content {
