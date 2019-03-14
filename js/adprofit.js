@@ -39,6 +39,18 @@ let myLineChart;
 const situationChart = document.querySelector('.situation-chart-content');
 let myBarChart;
 
+// comparison profit
+let curMonHighTitle = document.querySelector('.current-month-high-title');
+let curMonHigh = document.querySelector('.current-month-high');
+let curMonLowTitle = document.querySelector('.current-month-low-title');
+let curMonLow = document.querySelector('.current-month-low');
+let curMonAvgTitle = document.querySelector('.current-month-avg-title');
+let curMonAvg = document.querySelector('.current-month-avg');
+
+let monAvgHigh = document.querySelector('.month-avg-high');
+let monAvgLow = document.querySelector('.month-avg-low');
+let monTotalLow = document.querySelector('.month-total-low');
+
 
 
 
@@ -46,86 +58,43 @@ profitAsync('js/adprofit.json',nowYear,nowMonth);
 selectAsync('js/adprofit.json',nowYear,nowMonth);
 lineChartAsync('js/adprofit.json');
 barChartAsync('js/adprofit.json');
+comparisonAsync('js/adprofit.json');
 
 
 
 /**
- * @brief bar chart 생성을 위한 함수
+ * @brief 첫 접속시 상단 수익금 박스 초기화를 위한 통신
  * @author JJH
- * @param data JSON data
+ * @param url 데이터 url
+ * @param yy 현재 년도
+ * @param mm 현재 월
  */
-function createBarChart(data) {
+async function comparisonAsync(url) {
+    try {
+        let data = await AsyncValidateFnc(url);
+        setComparisonData(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+function setComparisonData(data) {
     let myData = JSON.parse(data);
-    myData = myData.ad[nowYear];
+    myData = myData.comparison;
 
-    let curMonth=0,prevMonth=0,pprevMonth=0;
+    curMonHighTitle.innerText = `${nowMonth}월 최고수익`
+    curMonHigh.innerText = myData.curhigh;
+    curMonLowTitle.innerText = `${nowMonth}월 최저수익`
+    curMonLow.innerText = myData.curlow;
+    curMonAvgTitle.innerText = `${nowMonth}월 평균수익`
+    curMonAvg.innerText = myData.curavg;
+    monAvgHigh.innerText = myData.monhighavg;
+    monAvgLow.innerText = myData.monlowavg;
+    monTotalLow.innerText = myData.monavg;
 
-    // 현재달은 조회일 하루전 데이터까지 합산
-    myData[nowMonth].dailyprofit.forEach((el, index)=>{
-        if(index<=nowDay-2) {
-            curMonth+=el;
-        }
-    });
-
-    myData[nowMonth-1].dailyprofit.forEach((el)=>{
-            prevMonth+=el;
-    });
-
-    myData[nowMonth-2].dailyprofit.forEach((el)=>{
-        pprevMonth+=el;
-    });
-    
-
-    // 캔버스 생성
-    situationChart.innerHTML = `<canvas id='situation-profit-chart' style="height:220px;"></canvas>`;
-    
-    let ctx = document.getElementById("situation-profit-chart");
-    ctx = document.getElementById("situation-profit-chart").getContext("2d");
-    myBarChart = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: {
-            labels: [`${nowMonth}월`, `${nowMonth-1}월`, `${nowMonth-2}월`],
-            datasets: [{
-                label: false,
-                data: [curMonth, prevMonth, pprevMonth],
-                fill: false,
-                borderColor: '#6f569c',
-                backgroundColor: '#6f569c',
-                borderWidth: 5,
-                pointBorderWidth: 2,
-                pointBackgroundColor: 'white',
-                pointRadius: 5,
-                tension: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false,
-            },
-            scales: {
-                yAxes: [{
-                    barPercentage: 0.8,
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                    }
-                }],
-                xAxes: [{
-                    gridLines: {
-                        display: false
-                    },
-                    offsetGridLines:false,
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
 }
 
 
@@ -137,28 +106,12 @@ function createBarChart(data) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// select box에 change event 추가
 Array.from(dataSelectBox).forEach((el)=> {
     el.addEventListener('change', ()=> {
         updateSelect();
     });
 })
-
-
-
-
 
 
 
@@ -260,7 +213,7 @@ async function barChartAsync(url) {
 
 
 /**
- * @brief 상단 수익금 및 차트 제목, 차트내용을 변경하는 함수
+ * @brief 상단 수익금 및 차트 제목, 최초 차트내용을 변경하는 함수
  * @author JJH
  * @param url 데이터 url
  * @param yy 현재 년도
@@ -378,7 +331,10 @@ function setSelectBox(data, yy, mm) {
  *      할당 된 것으로 setSelectBox 함수 변경시 따로 설정해야한다.
  */
 function updateSelect() {
+
+    // selected 된 value 값 저장
     let dataSelect1, dataSelect2;
+    // 각 value를 연도, 월 로 구분하여 저장
     let dataSelectYear1, dataSelectMonth1;
     let dataSelectYear2, dataSelectMonth2;
     let tempHtml = '';
@@ -391,6 +347,7 @@ function updateSelect() {
         }
     });
 
+    // 첫번째 selected 된 value가 각 box의 제목과 내용이 됨
     profitAsync('js/adprofit.json',dataSelectYear1,dataSelectMonth1);
 
     dataOption2.forEach((el)=>{
@@ -401,6 +358,11 @@ function updateSelect() {
         }
     });
 
+    /**
+     * select box option 규칙
+     * data1과 data2에 선택된 값은 option에 그리지 않는다.
+     * data2에서 select를 선택하면 차트2가 사라진다.
+     */
     dataYear.forEach((el)=>{
         dataMonth[el].forEach((eel)=>{
             if(el != dataSelectYear2 || eel != dataSelectMonth2) {
@@ -580,11 +542,9 @@ function createLineChart(data, data1, data2) {
     myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            // dateAry!!!
             labels: firstLabel,
             datasets: [{
                 label: false,
-                // valueAry!!!
                 data: firstValue1,
                 fill: false,
                 borderColor: '#6f569c',
@@ -595,7 +555,6 @@ function createLineChart(data, data1, data2) {
                 tension: 0
             },
             {
-                // valueAry!!!
                 data: firstValue2,
                 fill: false,
                 borderColor: '#ff0000',
@@ -653,6 +612,87 @@ function createLineChart(data, data1, data2) {
             myLineChart.data.datasets[0].data = valAry1;
             myLineChart.data.datasets[1].data = valAry2;
             myLineChart.update();
+        }
+    });
+}
+
+
+
+/**
+ * @brief bar chart 생성을 위한 함수
+ * @author JJH
+ * @param data JSON data
+ */
+function createBarChart(data) {
+    let myData = JSON.parse(data);
+    myData = myData.ad[nowYear];
+
+    let curMonth=0,prevMonth=0,pprevMonth=0;
+
+    // 현재달은 조회일 하루전 데이터까지 합산
+    myData[nowMonth].dailyprofit.forEach((el, index)=>{
+        if(index<=nowDay-2) {
+            curMonth+=el;
+        }
+    });
+
+    myData[nowMonth-1].dailyprofit.forEach((el)=>{
+            prevMonth+=el;
+    });
+
+    myData[nowMonth-2].dailyprofit.forEach((el)=>{
+        pprevMonth+=el;
+    });
+    
+
+    // 캔버스 생성
+    situationChart.innerHTML = `<canvas id='situation-profit-chart' style="height:220px;"></canvas>`;
+    
+    let ctx = document.getElementById("situation-profit-chart");
+    ctx = document.getElementById("situation-profit-chart").getContext("2d");
+    myBarChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: [`${nowMonth}월`, `${nowMonth-1}월`, `${nowMonth-2}월`],
+            datasets: [{
+                label: false,
+                data: [curMonth, prevMonth, pprevMonth],
+                fill: false,
+                borderColor: '#6f569c',
+                backgroundColor: '#6f569c',
+                borderWidth: 5,
+                pointBorderWidth: 2,
+                pointBackgroundColor: 'white',
+                pointRadius: 5,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    barPercentage: 0.8,
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    },
+                    offsetGridLines:false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
     });
 }

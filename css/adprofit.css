@@ -235,6 +235,8 @@ main {
         -ms-grid-row: 2;
         grid-row: 2;
         flex-flow: column;
+        padding-left:20px;
+        padding-right:20px;
 
     }
     /* comparisonbox end */
@@ -243,7 +245,7 @@ main {
     .comparison-profit {
         display: flex;
         justify-content: space-between;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         color: #757474;
         flex-flow: row;
     }
@@ -332,13 +334,9 @@ main {
     }
 
     .comparison-profit {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
 
-    .comparison-box-content {
-        padding-left: 0;
-        padding-right: 0;
-    }
 
     .comparison-sub-title::after {
         content: '';
@@ -362,6 +360,15 @@ main {
     .adprofit-chart-header > h3 {
         grid-column: 1;
         grid-row: 1;
+    }
+
+    .comparison-profit {
+        font-size: 1.2rem;
+    }
+    
+    .comparison-box-content {
+        padding-left: 0;
+        padding-right: 0;
     }
 
 }
