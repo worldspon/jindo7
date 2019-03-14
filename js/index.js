@@ -20,6 +20,7 @@ faqAsync('js/index.json');
 raceAsync('js/index.json');
 fightAsync('js/index.json');
 breakAsync('js/index.json');
+dropAsync('js/index.json');
 
 
 
@@ -146,6 +147,22 @@ async function breakAsync(url){
     try {
         let data = await AsyncValidateFnc(url);
         setBreakData(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
+/**
+ * @brief 좀비격파 비동기통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ */
+async function dropAsync(url){
+    try {
+        let data = await AsyncValidateFnc(url);
+        setDropData(data);
     } catch (error) {
         console.log(error);
     }
@@ -401,6 +418,38 @@ function setBreakData(data) {
     });
 
     gameTableContent[2].innerHTML = tempHtml;
+};
+
+
+/**
+ * @brief 좀비격파 그리는 함수
+ * @author JJH
+ * @param data 통신 완료시 받아온 data
+ */
+function setDropData(data) {
+    
+    let myData = JSON.parse(data);
+    let tempHtml=
+    `<tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>1번좀비</th>
+        <th>2번좀비</th>
+        <th>3번좀비</th>
+        <th>4번좀비</th>
+        <th>5번좀비</th>
+    </tr>`;
+
+    myData.zombiedrop.forEach((el)=> {
+        tempHtml +=
+        `<tr class='game-table-row'>
+            <th class='col'>${el.turn}</th>`
+        for(let i of el.result) {
+            tempHtml+= `<td>${i}</td>`;
+        };
+        tempHtml +=`</tr>`
+    });
+
+    gameTableContent[3].innerHTML = tempHtml;
 };
 
 
