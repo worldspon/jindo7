@@ -82,6 +82,7 @@ async function comparisonAsync(url) {
 
 
 function setComparisonData(data) {
+    console.log(Math.round(2.1999999))
     let myData = JSON.parse(data);
     myData = myData.comparison;
 
@@ -90,10 +91,10 @@ function setComparisonData(data) {
     curMonLowTitle.innerText = `${nowMonth}월 최저수익`
     curMonLow.innerText = myData.curlow;
     curMonAvgTitle.innerText = `${nowMonth}월 평균수익`
-    curMonAvg.innerText = myData.curavg;
-    monAvgHigh.innerText = myData.monhighavg;
-    monAvgLow.innerText = myData.monlowavg;
-    monTotalLow.innerText = myData.monavg;
+    curMonAvg.innerText = Math.round(myData.curavg);
+    monAvgHigh.innerText = Math.round(myData.monhighavg);
+    monAvgLow.innerText = Math.round(myData.monlowavg);
+    monTotalLow.innerText = Math.round(myData.monavg);
 
 }
 
