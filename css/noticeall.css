@@ -1,0 +1,119 @@
+main {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1400px 1fr;
+    grid-template-columns: 1fr 1400px 1fr;
+    -ms-grid-rows: auto 20px auto;
+    grid-template-rows: repeat(2, auto);
+    grid-row-gap: 20px;
+    padding: 20px 0px;
+}
+
+.notice-common-box {
+    display: flex;
+    grid-column: 2;
+    grid-row: 1;
+    padding: 25px 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+    .notice-nav {
+        display: flex;
+        font-size: 1.2rem;
+        color: #757474;
+    }
+
+    .notice-nav li:not(:first-child) {
+        margin-left: 50px;
+    }
+
+
+
+
+
+.notice-content-box {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 25px 30px;
+}
+
+
+    .notice-title-box {
+        display: grid;
+        grid-template-columns: 1fr 100px;
+        grid-template-rows: 1;
+        font-size: 1.3rem;
+        padding: 0px 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #aaa;
+    }
+
+    .notice-title {
+        grid-column: 1;
+        grid-row: 1;
+        text-align: center;
+    }
+    .notice-create-date {
+        grid-column: 2;
+        grid-row: 1;
+        text-align: center;
+    }
+
+    .notice-content {
+        display: grid;
+        grid-template-columns: 1fr 100px;
+        grid-template-rows: 1;
+        padding: 20px 20px;
+    }
+
+    .notice-content-hl {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .notice-content-hl > a {
+        font-size: 1.2rem;
+    }
+
+    .preface {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+        color : #757474;
+    }
+
+    .preface-head::after {
+        content: '';
+        position: relative;
+        margin: 0px 5px;
+        border: 1px solid #aaa;
+        background-color:#aaa;
+    }
+
+    .notice-content-date-box {
+        display: flex;
+        align-self: center;
+        grid-column: 2;
+        grid-row: 1;
+        justify-content: center;
+        font-size: 1.2rem;
+        color : #757474;
+    }
+
+
+@media screen and (max-width: 1400px) {
+    main {
+        -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+
+    }
+
+    .notice-common-box {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .notice-content-box {
+        grid-column: 1;
+        grid-row: 2;
+    }
+}
