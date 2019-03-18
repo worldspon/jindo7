@@ -67,7 +67,7 @@ main {
 /* profit-box end */
 
 
-/* profit-chart-box start */
+/* adprofit-chart-box start */
 .adprofit-chart-box {
     display:-ms-grid;
     display:grid;
@@ -130,19 +130,6 @@ main {
         padding: 5px 0px;
     }
 
-/*
-    .data-select-box {
-        display: block;
-        width: 100%;
-        font-size: 1.2rem;
-        text-align-last: center;
-        
-    }
-
-    .data-select-box > *{
-        padding-left: 20px;
-    }
-*/
     .adprofit-chart-content {
         display: flex;
         -ms-grid-column: 1;
@@ -158,7 +145,7 @@ main {
         -ms-grid-row: 2;
         grid-row: 2;
     }
-/* profit-chart-box end */
+/* adprofit-chart-box end */
 
 /* situation, comparison box start */
 .situation-comparison-box {
@@ -251,7 +238,7 @@ main {
     }
     /* comparisonbox end */
 
-    /* common board content start */
+    /* comparison profit start */
     .comparison-profit {
         display: flex;
         justify-content: space-between;
@@ -275,7 +262,7 @@ main {
 
     
 
-    /* common board content end */
+    /* comparison profit end */ 
 
 /* situation, comparison box end */
 
@@ -283,7 +270,6 @@ main {
 
 
 /* responsive start */
-
 
 /* tablet */
 @media screen and (max-width: 1300px) {
@@ -381,10 +367,10 @@ main {
     }
 
     .profit-data-wrap {
-        grid-column: 1;
         -ms-grid-column: 1;
-        grid-row: 2;
+        grid-column: 1;
         -ms-grid-row: 3;
+        grid-row: 2;
     }
 
     .comparison-profit {
