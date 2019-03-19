@@ -2,15 +2,27 @@
 
 const noticeContent = document.querySelector('.notice-content');
 const pageNum = document.querySelectorAll('.page-number');
+let lastPage;
+let last
+let nowPage = 1;
+let nowPhrase = 1;
+
+/*
+표현할 phrase 범위(phrase page n)
+
+*/
 
 Array.from(pageNum).forEach((el)=>{
-    el.addEventListener('click', function(){ console.log('a'); })
+    el.addEventListener('click', function() {
+        console.log(this.innerText);
+    });
 })
 
-let lastPage;
-let nowPage;
+function a(some){
+    console.log(some);
+}
 
-profitAsync('js/noticeall.json');
+firstLoadAsync('js/noticeall.json');
 
 function AsyncValidateFnc(url) {
     return new Promise((resolve, reject) => {
@@ -22,32 +34,26 @@ function AsyncValidateFnc(url) {
     });
 };
 
-async function profitAsync(url) {
+async function firstLoadAsync(url) {
     try {
         let data = await AsyncValidateFnc(url);
-        setProfitData(data);
+        setPageData(data);
     } catch (error) {
         console.log(error);
     }
 };
 
 
-function setProfitData(data){
+function setPageData(data){
 
     let myData = JSON.parse(data);
     myData = myData.notice;
     let contentLength = myData.length;
 
-    if((contentLength % 5)> 0) {
-        lastPage = Math.floor(contentLength / 5) + 1;
-    } else {
-        lastPage = Math.floor(contentLength / 5);
-    }
-    console.log(lastPage);
-/*
-    if(contentLength <= 20) {
+    lastPage = (contentLength % 5)> 0 ? Math.floor(contentLength / 5) + 1 : Math.floor(contentLength / 5);
 
-    }*/
+    console.log(lastPage);
+
 };
 
 function pagination() {
