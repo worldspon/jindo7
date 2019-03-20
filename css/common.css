@@ -178,7 +178,7 @@ html, body {
             position: absolute;
             font-size: 0.8rem;
             top:30px;
-            left: 6px;
+            left: 10px;
             text-align: center;
             background-color:white;
         }
@@ -197,6 +197,9 @@ html, body {
             max-width: 2560px;
             box-shadow: 2px 5px 5px -1px #f0f4fb;
             background-color: white;
+        }
+        .game-result-sub-menu {
+            left:6px;
         }
     /* sub menu end */
 
