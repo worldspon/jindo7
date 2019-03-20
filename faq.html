@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/noticeall.css">
+    <link rel="stylesheet" href="./css/faq.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>WORLDSPON</title>
@@ -161,40 +161,26 @@
         <div class='main-wrap'>
             <main>
                 <!-- notice common box start -->
-                <div class='notice-common-box content-box-layout'>
-                    <h3 class='content-hl'>공지사항</h3>
-                    <ul class='notice-nav'>
-                        <li style="font-weight: 800; color:black;">전체</li>
-                        <li>공지사항</li>
-                        <li>이벤트</li>
-                        <li>업데이트</li>
-                    </ul>
+                <div class='faq-common-box content-box-layout'>
+                    <h3 class='content-hl'>FAQ</h3>
                 </div>
                 <!-- notice common box end -->
 
                 <!-- notice content box start -->
-                <div class='notice-content-box content-box-layout'>
+                <div class='faq-content-box content-box-layout'>
                     <!-- notice title box start -->
-                    <div class='notice-title-box'>
-                        <div class='notice-title'>
-                            <span>제목</span>
-                        </div>
-                        <div class='notice-create-date'>
-                            <span>작성일</span>
-                        </div>
+                    <div class='faq-search-box'>
+                        <select>
+                            <option>제목</option>
+                        </select>
+                        <input type="text" class='faq-search-input'>
+                        <button type="submit"><i class="fa fa-search serach-icon"></i></button>
                     </div>
                     <!-- notice title box end -->
 
-                    <div class='notice-content border-bottom'>
-                        <div class='notice-content-hl'>
-                            <div class='preface'>
-                                <span class='preface-head'>공지사항</span>
-                                <span class='preface-num'>No.48</span>
-                            </div>
-                            <a>이 공지사항은 영국에서부터 시작되어...</a>
-                        </div>
-                        <div class='notice-content-date-box'>
-                            <span class='notice-content-date'>2019.03.15</span>
+                    <div class='faq-content border-bottom'>
+                        <div class='faq-content-hl'>
+                            <a><span class='question-span'>Q.</span> 이 FAQ는 영국에서 최초로 시작되어...</a>
                         </div>
                     </div>
             
@@ -210,13 +196,6 @@
                             <li><img src="./images/next.png" alt=""></li>
                             <li><img src="./images/last.png" alt=""></li>
                         </ul>
-                    </div>
-                    <div class='search-box'>
-                        <select>
-                            <option>제목+내용</option>
-                        </select>
-                        <input type="text" class='search-input'>
-                        <button type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <!-- notice content box end -->
