@@ -99,7 +99,7 @@ function firstPageLoad(data, viewPage) {
                     <span class='preface-head'>${myData[i].preface}</span>
                     <span class='preface-num'>No.${myData[i].num}</span>
                 </div>
-                <a>${myData[i].title}</a>
+                <a href='javascript:void(0);'>${myData[i].title}</a>
             </div>
             <div class='notice-content-date-box'>
                 <span class='notice-content-date'>${myData[i].date}</span>
