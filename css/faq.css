@@ -63,7 +63,7 @@ main {
     .faq-content-hl {
         display:flex;
         align-items: center;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         color: #333;
         font-weight: 600;
     }

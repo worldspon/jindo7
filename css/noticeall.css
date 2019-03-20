@@ -31,9 +31,6 @@ main {
     }
 
 
-
-
-
 .notice-content-box {
     -ms-grid-column: 2;
     grid-column: 2;
@@ -120,36 +117,53 @@ main {
 
 .pagination {
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-top: 20px;
 }
+    .page-btn {
+        width: 25px;
+        margin: 0 2px;
+        cursor: pointer;
+    }
 
     .pagination-inner {
         display: flex;
         align-items: center;
         font-size: 1.3rem;
+        margin: 0 5px;
     }
 
     .pagination-inner > li {
         cursor: pointer;
     }
 
-    .pagination-inner > li > img {
-        width: 25px;
-    }
 
     .pagination-inner > li:not(:last-child) {
         margin-right: 15px;
     }
 
-
 .search-box {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    padding-bottom: 20px;
 }
 
     .search-input {
+        width: 250px;
+        margin-left: 5px;
+    }
+
+    .serach-icon {
+        color: white;
+    }
+
+    button[type='submit'] {
+        border:none;
+        border-radius: 3px;
+        padding: 0px 10px;
+        background-color: #a1a1a1;
         margin-left: 5px;
     }
 
