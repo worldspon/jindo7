@@ -14,8 +14,6 @@ let pageNum, lastPage, startPage, endPage, contentLength;
 let nowPage=1;
 const maxContent = 20;
 const countPage = 5;
-let nowPhrase = 1;
-let pagePhrase = 5;
 
 
 firstLoadAsync(noticeUrl, 1);
@@ -140,7 +138,6 @@ function firstPageLoad(data, viewPage) {
     Array.from(pageNum).forEach((el)=>{
         el.addEventListener('click', function() {
             viewPage = parseInt(this.innerText);
-            console.log(viewPage);
             setPageAsync('js/noticeall.json', viewPage);
         });
     });
@@ -162,7 +159,6 @@ function setPageData(data, viewPage){
     startContent = (viewPage-1)*maxContent;
     endContent = viewPage*maxContent;
 
-    console.log(`start : ${startContent}, end : ${endContent}, len : ${contentLength}`);
 
     let tempHtml='';
 
@@ -214,14 +210,8 @@ function setPageData(data, viewPage){
     Array.from(pageNum).forEach((el)=>{
         el.addEventListener('click', function() {
             viewPage = parseInt(this.innerText);
-            console.log(viewPage);
             setPageAsync(noticeUrl, viewPage);
         });
     });
     nowPage=viewPage;
-    console.log(nowPage);
 };
-
-function pagination(getPage) {
-    console.log(getPage);
-}

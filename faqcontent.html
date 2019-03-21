@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/noticeall.css">
+    <link rel="stylesheet" href="./css/faqcontent.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>WORLDSPON</title>
@@ -161,69 +161,38 @@
         <div class='main-wrap'>
             <main>
                 <!-- notice common box start -->
-                <div class='notice-common-box content-box-layout'>
-                    <h3 class='content-hl'>공지사항</h3>
-                    <ul class='notice-nav'>
-                        <li style="font-weight: 800; color:black;">전체</li>
-                        <li>공지사항</li>
-                        <li>이벤트</li>
-                        <li>업데이트</li>
-                    </ul>
+                <div class='faq-common-box content-box-layout'>
+                    <h3 class='content-hl'>FAQ</h3>
                 </div>
                 <!-- notice common box end -->
 
                 <!-- notice content box start -->
-                <div class='notice-content-box content-box-layout'>
+                <div class='faq-content-box content-box-layout'>
                     <!-- notice title box start -->
-                    <div class='notice-title-box'>
-                        <div class='notice-title'>
-                            <span>제목</span>
-                        </div>
-                        <div class='notice-create-date'>
-                            <span>작성일</span>
-                        </div>
+                    <div class='faq-top-line'>
                     </div>
                     <!-- notice title box end -->
 
-                    <div class='notice-content-wrap'>
-                        <!-- 반복되는 부분
-                        <div class='notice-content border-bottom'>
-                            <div class='notice-content-hl'>
-                                <div class='preface'>
-                                    <span class='preface-head'>공지사항</span>
-                                    <span class='preface-num'>No.48</span>
-                                </div>
-                                <a>이 공지사항은 영국에서 최초로 시작되어...</a>
+                    <div class='faq-content-wrap'>
+                        <div class='faq-content-title'>
+                            <div class='faq-title-l'>
+                                <span>Q. 문의</span>
                             </div>
-                            <div class='notice-content-date-box'>
-                                <span class='notice-content-date'>2019.03.15</span>
+                            <div class='faq-title-r'>
+                                <span>스폰이 뭔가요?</span>
                             </div>
                         </div>
-                        반복되는 부분 -->
+                        <div class='faq-content'>
+                            <div class='faq-content-l'>
+                                <span>A. 답변</span>
+                            </div>
+                            <div class='faq-content-r'>
+                                <span>이 FAQ는 영국에서 최초로 시작되어 일년에 한 바퀴 돌면서 받는 사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 FAQ는 4일 안에 당신 곁을 떠나야 합니다. 이 FAQ를 포함해서 7통을 행운이 필요한 사람에게 보내 주셔야 합니다. 복사를 해도 좋습니다. 혹 미신이라 하실지 모르지만 사실입니다. 대한민국 경기도 안산시 상록구 고목로3길 4-22 삼성스마트빌 402호에 사는 정주호라는 사람은 2019년에 이 FAQ를 받았습니다. 그는 회사 홈페이지에 FAQ를 붙여넣어 익명의 사람들에게 노출시켰습니다. 며칠 뒤에 복권이 당첨되어 587억을 받았습니다. 어떤 이는 이 편지를 받았으나 96시간 이내 자신의 손에서 떠나야 한다는 사실을 잊었습니다. 그는 곧 사직되었습니다. 나중에야 이 사실을 알고 7통의 FAQ를 보냈는데 다시 좋은 직장을 얻었습니다. 미국의 케네디 대통령은 이 FAQ를 받았지만 그냥 버렸습니다. 결국 9일 후 그는 암살 당했습니다. 기억해 주세요. 이 FAQ를 보내면 7년의 행운이 있을 것이고 그렇지 않으면 3년의 불행이 있을 것입니다. 그리고 이 FAQ를 버리거나 낙서를 해서는 절대로 안됩니다. 7통입니다. 이 FAQ를 받은 사람은 행운이 깃들 것입니다. 힘들겠지만 좋은게 좋다고 생각하세요. 7년의 행운을 빌면서..</span>
+                            </div>
+                        </div>
                     </div>
             
-                    <div class='pagination'>
-                        <img class="first-btn page-btn" src="./images/first.png" alt="">
-                        <img class="prev-btn page-btn" src="./images/prev.png" alt="">
-                        <ul class='pagination-inner'>
-                            <!--
-                            <li class='page-number'>1</li>
-                            <li class='page-number'>2</li>
-                            <li class='page-number'>3</li>
-                            <li class='page-number'>4</li>
-                            <li class='page-number'>5</li>
-                            -->
-                        </ul>
-                        <img class="next-btn page-btn" src="./images/next.png" alt="">
-                        <img class="last-btn page-btn" src="./images/last.png" alt="">
-                    </div>
-                    <div class='search-box'>
-                        <select>
-                            <option>제목+내용</option>
-                        </select>
-                        <input type="text" class='search-input'>
-                        <button type="submit"><i class="fa fa-search serach-icon"></i></button>
-                    </div>
+                    <button class='list-btn'>목록</button>
                 </div>
                 <!-- notice content box end -->
             </main>
@@ -237,6 +206,6 @@
     <script src='./js/polyfill.min.js'></script>
     <script src='./js/Chart.min.js'></script>
     <script src='./js/common.js'></script>
-    <script src='./js/noticeall.js'></script>
+    <!--<script src='./js/faq.js'></script>-->
 </body>
 </html>

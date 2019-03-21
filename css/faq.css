@@ -75,23 +75,27 @@ main {
 
 .pagination {
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-top: 20px;
 }
+    .page-btn {
+        width: 25px;
+        margin: 0 2px;
+        cursor: pointer;
+    }
 
     .pagination-inner {
         display: flex;
         align-items: center;
         font-size: 1.3rem;
+        margin: 0 5px;
     }
 
     .pagination-inner > li {
         cursor: pointer;
     }
 
-    .pagination-inner > li > img {
-        width: 25px;
-    }
 
     .pagination-inner > li:not(:last-child) {
         margin-right: 15px;

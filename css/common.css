@@ -8,6 +8,12 @@
 @font-face {
     font-family: 'Gothic A1';
     src: local('Gothic A1'),
+    url('../font/GothicA1-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
     url('../font/GothicA1-Bold.woff2') format('woff2');
     font-weight: 700;
 }
@@ -24,6 +30,10 @@ html, body {
     box-sizing: border-box;
     font-family: 'Gothic A1';
     font-size: 12px;
+}
+
+a {
+    cursor: pointer;
 }
 
 .border-right {
