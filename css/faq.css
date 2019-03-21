@@ -78,9 +78,10 @@ main {
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
     .page-btn {
-        width: 25px;
+        width: 30px;
         margin: 0 2px;
         cursor: pointer;
     }
@@ -92,14 +93,40 @@ main {
         margin: 0 5px;
     }
 
-    .pagination-inner > li {
+    
+    .page-number {
+        padding: 8px 10px;
+        border: 1px solid #aaa;
+        font-size: 1rem;
         cursor: pointer;
     }
 
 
-    .pagination-inner > li:not(:last-child) {
-        margin-right: 15px;
+    .page-number:not(:last-child) {
+        margin-right: 5px;
     }
+
+.jump-help {
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    color: #555;
+}
+
+.jump-help > * {
+    display: inline-block;
+}
+
+.jump-help span:first-child {
+    margin-bottom: 10px;
+}
+
+.jump-help a {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid #666;
+    border-radius: 3px;
+}
 
 
 
@@ -128,18 +155,14 @@ main {
 
 @media screen and (max-width: 550px) {
     .faq-content {
-
         padding-left:20px;
     }
 
+    .page-btn {
+        width: 25px;
     }
-        .faq-common-box > h3 {
-            -ms-grid-column: 1;
-            grid-column: 1;
-            -ms-grid-row: 1;
-            grid-row: 1;
-        }
-    
 
-
+    .page-number {
+        padding: 6px 8px;
+    }
 }

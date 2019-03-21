@@ -122,7 +122,7 @@ main {
     margin-top: 20px;
 }
     .page-btn {
-        width: 25px;
+        width: 30px;
         margin: 0 2px;
         cursor: pointer;
     }
@@ -130,17 +130,20 @@ main {
     .pagination-inner {
         display: flex;
         align-items: center;
-        font-size: 1.3rem;
         margin: 0 5px;
+        font-size: 1.3rem;
     }
 
-    .pagination-inner > li {
+    .page-number {
+        padding: 8px 10px;
+        border: 1px solid #aaa;
+        font-size: 1rem;
         cursor: pointer;
     }
 
 
-    .pagination-inner > li:not(:last-child) {
-        margin-right: 15px;
+    .page-number:not(:last-child) {
+        margin-right: 5px;
     }
 
 .search-box {
@@ -160,11 +163,11 @@ main {
     }
 
     button[type='submit'] {
-        border:none;
-        border-radius: 3px;
-        padding: 0px 10px;
-        background-color: #a1a1a1;
+        padding: 0 10px;
         margin-left: 5px;
+        border:0;
+        border-radius: 3px;
+        background-color: #a1a1a1;
     }
 
 
@@ -217,6 +220,14 @@ main {
         }
         .notice-nav li:not(:first-child) {
             margin-left: 20px;
+        }
+
+        .page-btn {
+            width: 25px;
+        }
+    
+        .page-number {
+            padding: 6px 8px;
         }
 
 }

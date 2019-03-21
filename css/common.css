@@ -88,7 +88,7 @@ a {
 }
 
 .content-box-layout {
-    border: none;
+    border: 0;
     border-radius: 5px;
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.03);
     background-color: white;
@@ -97,9 +97,9 @@ a {
 .more-btn {
     width: 80px;
     height:40px;
-    outline: none;
     border: none;
     border-radius: 5px;
+    outline: none;
     font-size: 1.2rem;
     font-weight: 700;
     color: white;
@@ -117,7 +117,7 @@ a {
     -ms-grid-rows: (auto)[2];
     grid-template-rows: repeat(2, auto);
     max-width: 2560px;
-    margin:0 auto;
+    margin: 0 auto;
 }
 /* wrap grid */
 
@@ -142,8 +142,8 @@ a {
         position: relative;
         -ms-grid-column: 1;
         grid-column: 1;
-        grid-row: 1;
         -ms-grid-row: 1;
+        grid-row: 1;
         align-items: center;
     }
 
@@ -186,9 +186,9 @@ a {
         .sub-menu {
             display: none;
             position: absolute;
-            font-size: 0.8rem;
             top:30px;
             left: 10px;
+            font-size: 0.8rem;
             text-align: center;
             background-color:white;
         }
@@ -228,7 +228,7 @@ a {
         }
         .login-info {
             padding: 5px 10px;
-            border: none;
+            border: 0;
             border-radius: 5px;
             font-size: 1rem;
             font-weight: 800;
