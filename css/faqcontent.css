@@ -30,12 +30,6 @@ main {
     padding: 25px 30px;
 }
 
-    .faq-top-line {
-        padding: 10px 0px;
-        border-bottom: 1px solid #aaa;
-    }
-
-
     .faq-content-title {
         display: grid;
         grid-template-columns: auto 1fr;
