@@ -1,7 +1,115 @@
 'use strict';
 
-const mainWrap = document.querySelector('.main-wrap');
+
 const headerWrap = document.querySelector('.header-wrap');
+
+headerWrap.innerHTML = `<header>
+<div class='logo-box'>
+    <a href='./index.html'><img src='./images/header_logo.png' alt='main-logo'></a>
+</div>
+<!-- nav start -->
+<nav>
+    <!-- mobile menu image -->
+    <img src="./images/menu.png" alt="mobile-menu-image" class='mobile-menu-img'>
+
+    <!-- nav main menu list start -->
+    <ul class='main-menu'>
+        <li>
+            <a href='./adprofit.html' class='ad-profit-nav'>광고수익</a>
+        </li>
+        <li class='pc-notice-menu'>
+            <a href='noticeall.html'>공지사항</a>
+            <ul class='notice-sub-menu sub-menu'>
+                <li>
+                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
+                </li>
+                <li>
+                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
+                </li>
+                <li>
+                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href='./faq.html' class='faq-nav'>FAQ</a>
+        </li>
+        <li>
+            <a href='javascript:void(0);' class='support-nav'>1:1문의</a>
+            <ul class='support-sub-menu sub-menu'>
+                <li>
+                    <a href='javascript:void(0);'>문의하기</a>
+                </li>
+                <li>
+                    <a href='myq.html'>내문의</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href='javascript:void(0);' class='game-result-nav'>게임결과</a>
+        </li>
+    </ul>
+    <!-- nav main menu list end -->
+</nav>
+<!-- nav end -->
+
+
+<div class='user-info'>
+    <span class='user-name'>WS1234님</span>
+    <button class='login-info'>로그아웃</button>
+</div>
+
+
+<!-- mobile menu start -->
+<div class='mobile-menu'>
+    <img src='./images/menu_after.png' alt='mobile-menu-after-img' class='mobile-menu-after-img'>
+    <ul class='mobile-menu-main'>
+        <li>
+            <a href='./adprofit.html' class='mobile-menu-main-list'>광고수익</a>
+        </li>
+        <li>
+            <a class='mobile-menu-main-list'>공지사항</a>
+            <ul class='mobile-menu-sub'>
+                <li>
+                    <a href='noticeall.html'>전체</a>
+                </li>
+                <li>
+                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
+                </li>
+                <li>
+                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
+                </li>
+                <li>
+                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href='./faq.html' class='mobile-menu-main-list'>FAQ</a>
+        </li>
+        <li>
+            <a class='mobile-menu-main-list'>1:1문의</a>
+            <ul class='mobile-menu-sub'>
+                <li>
+                    <a href='javascript:void(0);'>문의하기</a>
+                </li>
+                <li>
+                    <a href='javascript:void(0);'>내 문의</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href='javascript:void(0);' class='mobile-menu-main-list'>게임결과</a>
+        </li>
+    </ul>
+</div>
+<!-- mobile menu end -->
+</header>`;
+
+
+
+
+const mainWrap = document.querySelector('.main-wrap');
 const nav = document.querySelector('nav');
 const navBg = document.querySelector('.sub-nav-bg');
 const subMenu = document.querySelectorAll('.sub-menu');
@@ -9,8 +117,6 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const mobileMenuImg = document.querySelector('.mobile-menu-img');
 const mobileAfterMenuImg = document.querySelector('.mobile-menu-after-img');
 const mobileMenuList = document.querySelectorAll('.mobile-menu-main-list');
-
-
 
 // 접속시 screen size에 따른 event 등록/제거
 commonEventReg();
@@ -135,3 +241,22 @@ function showMobileSubMenu(el) {
         }
     }
 };
+
+
+
+const noticeMenu = document.querySelectorAll('.notice-sub-menu > li > a');
+const mobileNoticeMenu = document.querySelectorAll('.mobile-menu-sub > li > a');
+
+Array.from(noticeMenu).forEach((el)=>{
+    el.addEventListener('click', function() {
+        console.log(el.dataset.notice);
+        window.location = `noticeall?noticeType/${el.innerText}`;
+    });
+});
+
+Array.from(mobileNoticeMenu).forEach((el)=>{
+    el.addEventListener('click', function() {
+        console.log(el.dataset.notice);
+        window.location = `noticeall?noticeType/${el.innerText}`;
+    });
+});

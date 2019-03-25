@@ -87,13 +87,14 @@ main {
     }
 
     .myq-content-hl {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 1;
         grid-row: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
     }
     .myq-content-hl > a {
         font-size: 1.3rem;
