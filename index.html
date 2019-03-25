@@ -34,23 +34,23 @@
                 <nav>
                     <!-- mobile menu image -->
                     <img src="./images/menu.png" alt="mobile-menu-image" class='mobile-menu-img'>
-
+                
                     <!-- nav main menu list start -->
                     <ul class='main-menu'>
                         <li>
                             <a href='./adprofit.html' class='ad-profit-nav'>광고수익</a>
                         </li>
-                        <li>
-                            <a href='./noticeall.html'>공지사항</a>
+                        <li class='pc-notice-menu'>
+                            <a href='noticeall.html'>공지사항</a>
                             <ul class='notice-sub-menu sub-menu'>
                                 <li>
-                                    <a href='./noticeall.html'>공지사항</a>
+                                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);'>업데이트</a>
+                                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);'>이벤트</a>
+                                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
                                 </li>
                             </ul>
                         </li>
@@ -61,7 +61,7 @@
                             <a href='javascript:void(0);' class='support-nav'>1:1문의</a>
                             <ul class='support-sub-menu sub-menu'>
                                 <li>
-                                    <a href='javascript:void(0);'>1:1문의</a>
+                                    <a href='javascript:void(0);'>문의하기</a>
                                 </li>
                                 <li>
                                     <a href='myq.html'>내문의</a>
@@ -70,33 +70,19 @@
                         </li>
                         <li>
                             <a href='javascript:void(0);' class='game-result-nav'>게임결과</a>
-                            <ul class='game-result-sub-menu sub-menu'>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비레이스</a>
-                                </li>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비격투</a>
-                                </li>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비격파</a>
-                                </li>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비낙하</a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <!-- nav main menu list end -->
                 </nav>
                 <!-- nav end -->
-
-
+                
+                
                 <div class='user-info'>
                     <span class='user-name'>WS1234님</span>
                     <button class='login-info'>로그아웃</button>
                 </div>
-
-
+                
+                
                 <!-- mobile menu start -->
                 <div class='mobile-menu'>
                     <img src='./images/menu_after.png' alt='mobile-menu-after-img' class='mobile-menu-after-img'>
@@ -108,13 +94,16 @@
                             <a class='mobile-menu-main-list'>공지사항</a>
                             <ul class='mobile-menu-sub'>
                                 <li>
-                                    <a href='./noticeall.html'>공지사항</a>
+                                    <a href='noticeall.html'>전체</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);'>업데이트</a>
+                                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
                                 </li>
                                 <li>
-                                    <a href='javascript:void(0);'>이벤트</a>
+                                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
+                                </li>
+                                <li>
+                                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
                                 </li>
                             </ul>
                         </li>
@@ -133,21 +122,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a class='mobile-menu-main-list'>게임결과</a>
-                            <ul class='mobile-menu-sub'>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비레이스</a>
-                                </li>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비격투</a>
-                                </li>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비격파</a>
-                                </li>
-                                <li>
-                                    <a href='javascript:void(0);'>좀비낙하</a>
-                                </li>
-                            </ul>
+                            <a href='javascript:void(0);' class='mobile-menu-main-list'>게임결과</a>
                         </li>
                     </ul>
                 </div>
