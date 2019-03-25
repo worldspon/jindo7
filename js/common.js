@@ -35,10 +35,10 @@ headerWrap.innerHTML = `<header>
             <a href='./faq.html' class='faq-nav'>FAQ</a>
         </li>
         <li>
-            <a href='javascript:void(0);' class='support-nav'>1:1문의</a>
+            <a href='directq.html' class='support-nav'>1:1문의</a>
             <ul class='support-sub-menu sub-menu'>
                 <li>
-                    <a href='javascript:void(0);'>문의하기</a>
+                    <a href='directq.html'>문의하기</a>
                 </li>
                 <li>
                     <a href='myq.html'>내문의</a>
