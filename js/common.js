@@ -94,7 +94,7 @@ headerWrap.innerHTML = `<header>
                     <a href='directq.html'>문의하기</a>
                 </li>
                 <li>
-                    <a href='javascript:void(0);'>내 문의</a>
+                    <a href='myq.html'>내 문의</a>
                 </li>
             </ul>
         </li>
