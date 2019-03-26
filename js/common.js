@@ -46,7 +46,7 @@ headerWrap.innerHTML = `<header>
             </ul>
         </li>
         <li>
-            <a href='javascript:void(0);' class='game-result-nav'>게임결과</a>
+            <a href='result.html' class='game-result-nav'>게임결과</a>
         </li>
     </ul>
     <!-- nav main menu list end -->
@@ -99,7 +99,7 @@ headerWrap.innerHTML = `<header>
             </ul>
         </li>
         <li>
-            <a href='javascript:void(0);' class='mobile-menu-main-list'>게임결과</a>
+            <a href='result.html' class='mobile-menu-main-list'>게임결과</a>
         </li>
     </ul>
 </div>
