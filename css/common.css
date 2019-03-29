@@ -36,6 +36,18 @@ a {
     cursor: pointer;
 }
 
+.btn-top {
+    display: none;
+    position: fixed;
+    background: #fff;
+    border: 1px solid #666;
+    padding: 5px 10px;
+    cursor: pointer;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+}
+
 .border-right {
     border-right: 1px solid #dcdcdc;
 }

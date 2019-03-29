@@ -4,6 +4,8 @@ let winWidth = window.innerWidth;
 let pcFlag = false;
 let nowMon = new Date().getMonth()+1;
 let nowDay = new Date().getDate();
+
+const main = document.querySelector('main');
 const raceHl = document.querySelector('.zombie-race .content-hl');
 const breakHl = document.querySelector('.zombie-break .content-hl');
 const fightHl = document.querySelector('.zombie-fight .content-hl');
@@ -21,6 +23,7 @@ let fightTb = document.querySelector('.zombie-fight table tbody');
 let breakTb = document.querySelector('.zombie-break table tbody');
 let dropTb = document.querySelector('.zombie-drop table tbody');
 let mdTable = document.querySelector('.md-wrap table');
+
 
 
 if(winWidth > 1860) {
@@ -61,7 +64,6 @@ prevDataLoad(prevUrl);
 
 
 
-
 mdCloseBtn.addEventListener('click', ()=>{
     mdWrap.style.display = 'none';
 });
@@ -70,13 +72,16 @@ Array.from(btnToday).forEach((el) => {
     el.addEventListener('click', () => {
         mdWrap.style.display = 'block';
         createModalTable(el.dataset.type);
+        main.offsetHeight > mdWrap.offsetHeight ? mdWrap.style.height =main.offsetHeight + 'px' : mdWrap.style.height = 'auto';
     })
 });
 
 Array.from(btnPrev).forEach((el) => {
     el.addEventListener('click', () => {
         mdWrap.style.display = 'block';
+        let a = main.offsetHeight;
         createPrevTable(el.dataset.type);
+        main.offsetHeight > mdWrap.offsetHeight ? mdWrap.style.height =main.offsetHeight + 'px' : mdWrap.style.height = 'auto';
     })
 });
 

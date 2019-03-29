@@ -104,11 +104,12 @@ headerWrap.innerHTML = `<header>
     </ul>
 </div>
 <!-- mobile menu end -->
+<button class="btn-top">TOP</button>
 </header>`;
 
 
 
-
+const btnTop = document.querySelector('.btn-top');
 const mainWrap = document.querySelector('.main-wrap');
 const nav = document.querySelector('nav');
 const navBg = document.querySelector('.sub-nav-bg');
@@ -127,6 +128,23 @@ window.addEventListener('resize', resizeFnc);
 Array.from(mobileMenuList).forEach((el) => {
     el.addEventListener('click',()=>{showMobileSubMenu(el)}, true);
 });
+
+btnTop.addEventListener('click', ()=>{
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+});
+
+
+window.addEventListener('scroll', ()=>{
+    if(window.scrollY > 200) {
+        btnTop.style.display = 'block';
+    }
+
+    if(window.scrollY < 200) {
+        btnTop.style.display = 'none';
+    }
+})
+
 
 
 /**
