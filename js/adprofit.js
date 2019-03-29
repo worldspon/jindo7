@@ -62,8 +62,27 @@ comparisonAsync('js/adprofit.json');
 
 
 
+
+
 /**
- * @brief 첫 접속시 상단 수익금 박스 초기화를 위한 통신
+ * @brief promise 객체 생성
+ * @author JJH
+ * @see url만 바꿔서 쓰면 된다.
+ */
+function AsyncValidateFnc(url) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(xhr.responseText);
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.send();
+    });
+}
+
+
+
+/**
+ * @brief 첫 접속시 하단 수익비교 박스 초기화를 위한 통신
  * @author JJH
  * @param url 데이터 url
  * @param yy 현재 년도
@@ -80,7 +99,13 @@ async function comparisonAsync(url) {
 
 
 
-
+/**
+ * @brief 첫 접속시 상단 수익금 박스 초기화를 위한 통신
+ * @author JJH
+ * @param url 데이터 url
+ * @param yy 현재 년도
+ * @param mm 현재 월
+ */
 function setComparisonData(data) {
     console.log(Math.round(2.1999999))
     let myData = JSON.parse(data);
@@ -114,22 +139,6 @@ Array.from(dataSelectBox).forEach((el)=> {
     });
 })
 
-
-
-/**
- * @brief promise 객체 생성
- * @author JJH
- * @see url만 바꿔서 쓰면 된다.
- */
-function AsyncValidateFnc(url) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      xhr.onload = () => resolve(xhr.responseText);
-      xhr.onerror = () => reject(xhr.statusText);
-      xhr.send();
-    });
-}
 
 
 

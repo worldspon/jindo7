@@ -11,17 +11,25 @@ const faqUrl = 'js/noticeall.json';
 
 
 let pageNum, lastPage, startPage, endPage, contentLength;
+//현재 페이지
 let nowPage=1;
+// 한 페이지 최대 게시물
 const maxContent = 20;
+// 한 phrase에 표현 될 게시판 수
 const countPage = 5;
 
 
+// 첫 로드시 1페이지 마크업
 firstLoadAsync(faqUrl, 1);
 
+
+// 처음 버튼 클릭시 첫 페이지로
 firstBtn.addEventListener('click', ()=>{
     setPageAsync(faqUrl, 1);
 });
 
+
+// 이전 버튼 클릭시 1phrase 이전 페이지로 이동
 prevBtn.addEventListener('click', ()=>{
     if(nowPage-countPage >= 1) {
         nowPage -= countPage;
@@ -32,6 +40,8 @@ prevBtn.addEventListener('click', ()=>{
     }
 });
 
+
+// 다음 버튼 클릭시 1phrase 다음 페이지로 이동
 nextBtn.addEventListener('click', ()=>{
     console.log(lastPage);
     if(nowPage+countPage < lastPage) {
@@ -43,10 +53,19 @@ nextBtn.addEventListener('click', ()=>{
     }
 });
 
+
+// 마지막 버튼 클릭시 마지막으로
 lastBtn.addEventListener('click', ()=>{
     setPageAsync(faqUrl, lastPage);
 })
 
+
+
+/**
+ * @brief promise 객체 생성
+ * @author JJH
+ * @see url만 바꿔서 쓰면 된다.
+ */
 function AsyncValidateFnc(url) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -57,6 +76,14 @@ function AsyncValidateFnc(url) {
     });
 };
 
+
+
+/**
+ * @brief 페이지 최초 로드시 비동기 통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ * @param nowPage 현재 페이지
+ */
 async function firstLoadAsync(url, nowPage) {
     try {
         let data = await AsyncValidateFnc(url);
@@ -66,6 +93,15 @@ async function firstLoadAsync(url, nowPage) {
     }
 };
 
+
+
+
+/**
+ * @brief 현재 페이지 값을 받아 해당 페이지를 로드하는 비동기 통신
+ * @author JJH
+ * @param url 통신할 url
+ * @param nowPage 현재 페이지
+ */
 async function setPageAsync(url, nowPage) {
     try {
         let data = await AsyncValidateFnc(url);
@@ -75,6 +111,15 @@ async function setPageAsync(url, nowPage) {
     }
 };
 
+
+
+
+/**
+ * @brief 페이지 최초 로드시 비동기 통신, promise 생성 후 검증
+ * @author JJH
+ * @param data json 데이터
+ * @param viewPage 보여줄 페이지, nowPage 기본값으로 제어 가능
+ */
 function firstPageLoad(data, viewPage) {
 
     let myData = JSON.parse(data);
@@ -132,6 +177,14 @@ function firstPageLoad(data, viewPage) {
 }
 
 
+
+
+/**
+ * @brief 버튼으로 이동한 페이지 로드
+ * @author JJH
+ * @param data json 데이터
+ * @param viewPage 보여줄 페이지
+ */
 function setPageData(data, viewPage){
 
     let myData = JSON.parse(data);

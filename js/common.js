@@ -243,7 +243,9 @@ function showMobileSubMenu(el) {
 };
 
 
-
+/*
+공지사항 메뉴 클릭 시 서버에 공지사항 type을 보내줌
+*/
 const noticeMenu = document.querySelectorAll('.notice-sub-menu > li > a');
 const mobileNoticeMenu = document.querySelectorAll('.mobile-menu-sub > li > a');
 
@@ -260,3 +262,6 @@ Array.from(mobileNoticeMenu).forEach((el)=>{
         window.location = `noticeall?noticeType/${el.innerText}`;
     });
 });
+/*
+공지사항 메뉴 클릭 시 서버에 공지사항 type을 보내줌
+*/

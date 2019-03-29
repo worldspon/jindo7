@@ -40,14 +40,20 @@ main {
     align-items: baseline;
     padding:15px;
 }
-.btn-result {
+
+.btn-today,
+.btn-yesterday {
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     background: #636363;
     padding: 8px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.btn-today {
+    display: none;
 }
 
 .zb-tb {
@@ -128,6 +134,9 @@ main {
         grid-column-gap: 20px;
         grid-row-gap: 20px;
     }
+    .btn-today {
+        display: inline-block;
+    }
     .zombie-race {
         -ms-grid-column: 1;
         grid-column: 1;
@@ -153,13 +162,7 @@ main {
         -ms-grid-row: 3;
         grid-row: 2;
     }
-    .btn-down-wrap{
-        background-image: url(../images/arrow.png);
-        background-repeat: no-repeat;
-        background-position: right center;
-        background-size: 17px 12px;
-        padding-right: 28px;
-    }
+
 }
 
 @media screen and (max-width: 1300px){
