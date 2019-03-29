@@ -65,7 +65,7 @@ headerWrap.innerHTML = `<header>
     <img src='./images/menu_after.png' alt='mobile-menu-after-img' class='mobile-menu-after-img'>
     <ul class='mobile-menu-main'>
         <li>
-            <a href='./adprofit.html' class='mobile-menu-main-list'>광고수익</a>
+            <a href='adprofit.html' class='mobile-menu-main-list'>광고수익</a>
         </li>
         <li>
             <a class='mobile-menu-main-list'>공지사항</a>
@@ -85,7 +85,7 @@ headerWrap.innerHTML = `<header>
             </ul>
         </li>
         <li>
-            <a href='./faq.html' class='mobile-menu-main-list'>FAQ</a>
+            <a href='faq.html' class='mobile-menu-main-list'>FAQ</a>
         </li>
         <li>
             <a class='mobile-menu-main-list'>1:1문의</a>

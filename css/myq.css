@@ -149,6 +149,10 @@ main {
         font-weight: 600;
         background-color: #6cb366;
     }
+    
+    .btn-dp-none {
+        display:none;
+    }
 
 .pagination {
     display: flex;

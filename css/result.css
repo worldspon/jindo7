@@ -42,7 +42,7 @@ main {
 }
 
 .btn-today,
-.btn-yesterday {
+.btn-prev {
     color: #fff;
     font-size: 1.1rem;
     background: #636363;
