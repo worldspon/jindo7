@@ -8,16 +8,19 @@ const changePercentageRight = document.querySelector('.change-percentage > .prof
 const mainChartParent = document.querySelector('.profit-chart-content');
 const noticeBoxContent = document.querySelector('.notice-box-content');
 const faqBoxContent = document.querySelector('.faq-box-content');
+const gameTableContent = document.querySelectorAll('.game-table-content');
 let mainChart='';
 
 
-
-// 수익금 비동기 통신
+//비동기통신
 profitAsync('js/index.json');
-// 차트 비동기 통신
 chartAsync('js/index.json');
 noticeAsync('js/index.json');
 faqAsync('js/index.json');
+raceAsync('js/index.json');
+fightAsync('js/index.json');
+breakAsync('js/index.json');
+dropAsync('js/index.json');
 
 
 
@@ -38,6 +41,7 @@ function AsyncValidateFnc(url) {
 };
 
 
+
 /**
  * @brief 수익금 비동기통신, promise 생성 후 검증
  * @author JJH
@@ -51,6 +55,7 @@ async function profitAsync(url) {
         console.log(error);
     }
 };
+
 
 
 /**
@@ -67,6 +72,13 @@ async function chartAsync(url) {
     }
 };
 
+
+
+/**
+ * @brief 공지사항 비동기통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ */
 async function noticeAsync(url) {
     try {
         let data = await AsyncValidateFnc(url);
@@ -77,6 +89,12 @@ async function noticeAsync(url) {
 };
 
 
+
+/**
+ * @brief FAQ 비동기통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ */
 async function faqAsync(url) {
     try {
         let data = await AsyncValidateFnc(url);
@@ -87,41 +105,69 @@ async function faqAsync(url) {
 };
 
 
-function setFaqData(data){
-    let myData = JSON.parse(data);
-    let tempHtml='';
 
-    myData.faq.forEach(el => {
-        console.log(el);
-        tempHtml+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${el.title}</span>
-            <span class='board-content-date'>${el.date}</span>
-        </div>`;
-    });
-
-    faqBoxContent.innerHTML = tempHtml;
-    console.log(tempHtml);
-    console.log(myData.notice[0].title);
-}
-
-function setNoticeData(data){
-    let myData = JSON.parse(data);
-    let tempHtml='';
-
-    myData.notice.forEach(el => {
-        console.log(el);
-        tempHtml+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${el.title}</span>
-            <span class='board-content-date'>${el.date}</span>
-        </div>`;
-    });
-
-    noticeBoxContent.innerHTML = tempHtml;
-    console.log(tempHtml);
-    console.log(myData.notice[0].title);
+/**
+ * @brief 좀비레이스 비동기통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ */
+async function raceAsync(url){
+    try {
+        let data = await AsyncValidateFnc(url);
+        setRaceData(data);
+    } catch (error) {
+        console.log(error);
+    }
 };
+
+
+
+/**
+ * @brief 좀비격투 비동기통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ */
+async function fightAsync(url){
+    try {
+        let data = await AsyncValidateFnc(url);
+        setFightData(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
+/**
+ * @brief 좀비격파 비동기통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ */
+async function breakAsync(url){
+    try {
+        let data = await AsyncValidateFnc(url);
+        setBreakData(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
+/**
+ * @brief 좀비격파 비동기통신, promise 생성 후 검증
+ * @author JJH
+ * @param url 통신할 url
+ */
+async function dropAsync(url){
+    try {
+        let data = await AsyncValidateFnc(url);
+        setDropData(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 
 /**
@@ -233,6 +279,181 @@ function setChartData(data){
 };
 
 
+
+/**
+ * @brief 공지사항 그리는 함수
+ * @author JJH
+ * @param data 통신 완료시 받아온 data
+ */
+function setNoticeData(data){
+    let myData = JSON.parse(data);
+    let tempHtml='';
+
+    myData.notice.forEach(el => {
+        tempHtml+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${el.title}</span>
+            <span class='board-content-date'>${el.date}</span>
+        </div>`;
+    });
+
+    noticeBoxContent.innerHTML = tempHtml;
+};
+
+
+
+/**
+ * @brief FAQ 그리는 함수
+ * @author JJH
+ * @param data 통신 완료시 받아온 data
+ */
+function setFaqData(data){
+    let myData = JSON.parse(data);
+    let tempHtml='';
+
+    myData.faq.forEach(el => {
+        tempHtml+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${el.title}</span>
+            <span class='board-content-date'>${el.date}</span>
+        </div>`;
+    });
+
+    faqBoxContent.innerHTML = tempHtml;
+};
+
+
+
+/**
+ * @brief 좀비레이스 그리는 함수
+ * @author JJH
+ * @param data 통신 완료시 받아온 data
+ */
+function setRaceData(data) {
+    
+    let myData = JSON.parse(data);
+    let tempHtml=
+    `<tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>1등</th>
+        <th>2등</th>
+        <th>3등</th>
+        <th>4등</th>
+        <th>5등</th>
+    </tr>`;
+
+    myData.zombierace.forEach((el)=> {
+        tempHtml +=
+        `<tr class='game-table-row'>
+            <th class='col'>${el.turn}</th>`
+        for(let i of el.result) {
+            tempHtml+= `<td>${i}</td>`;
+        };
+        tempHtml +=`</tr>`
+    });
+
+    gameTableContent[0].innerHTML = tempHtml;
+};
+
+
+
+/**
+ * @brief 좀비격투 그리는 함수
+ * @author JJH
+ * @param data 통신 완료시 받아온 data
+ */
+function setFightData(data) {
+    
+    let myData = JSON.parse(data);
+    let tempHtml=
+    `<tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>좌측</th>
+        <th>우측</th>
+        <th>승자</th>
+        <th>KO여부</th>
+    </tr>`;
+
+    myData.zombiefight.forEach((el)=> {
+        tempHtml +=
+        `<tr class='game-table-row'>
+            <th class='col'>${el.turn}</th>`
+        for(let i of el.result) {
+            tempHtml+= `<td>${i}</td>`;
+        };
+        tempHtml +=`</tr>`
+    });
+
+    gameTableContent[1].innerHTML = tempHtml;
+};
+
+
+
+/**
+ * @brief 좀비격파 그리는 함수
+ * @author JJH
+ * @param data 통신 완료시 받아온 data
+ */
+function setBreakData(data) {
+    
+    let myData = JSON.parse(data);
+    let tempHtml=
+    `<tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>좌측</th>
+        <th>격파수</th>
+        <th>우측</th>
+        <th>격파수</th>
+        <th>승자</th>
+    </tr>`;
+
+    myData.zombiebreak.forEach((el)=> {
+        tempHtml +=
+        `<tr class='game-table-row'>
+            <th class='col'>${el.turn}</th>`
+        for(let i of el.result) {
+            tempHtml+= `<td>${i}</td>`;
+        };
+        tempHtml +=`</tr>`
+    });
+
+    gameTableContent[2].innerHTML = tempHtml;
+};
+
+
+/**
+ * @brief 좀비격파 그리는 함수
+ * @author JJH
+ * @param data 통신 완료시 받아온 data
+ */
+function setDropData(data) {
+    
+    let myData = JSON.parse(data);
+    let tempHtml=
+    `<tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>1번좀비</th>
+        <th>2번좀비</th>
+        <th>3번좀비</th>
+        <th>4번좀비</th>
+        <th>5번좀비</th>
+    </tr>`;
+
+    myData.zombiedrop.forEach((el)=> {
+        tempHtml +=
+        `<tr class='game-table-row'>
+            <th class='col'>${el.turn}</th>`
+        for(let i of el.result) {
+            tempHtml+= `<td>${i}</td>`;
+        };
+        tempHtml +=`</tr>`
+    });
+
+    gameTableContent[3].innerHTML = tempHtml;
+};
+
+
+
 /**
  * @brief 차트 생성
  * @author JJH
@@ -298,116 +519,3 @@ function createMainChart(dateAry, valueAry) {
         }
     });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 상단 수익금 표기 로직
-/*profitPromise.then((data)=>{
-    // 화폐 표기 format 저장
-    let currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
-    let myData = JSON.parse(data);
-    // 데이터 조회를 위해 월 데이터를 YYYYMM 형식으로 저장
-    let nowMonth = `${new Date().getFullYear()}0${new Date().getMonth()+1}`;
-    let prevMonth, nowMonthValue, prevMonthValue, chPercentage;
-
-
-    // 현재월이 1월인 경우 대응
-    if((new Date().getMonth())==0) {
-        prevMonth =`${new Date().getFullYear()}0${new Date().getMonth()+11}`;
-        currentMonthLeft.innerText = `${new Date().getMonth()+1}월 총 광고수익금`;
-        prevMonthLeft.innerText = `${new Date().getMonth()+11}월 총 광고수익금`;
-    } else {
-        prevMonth =`${new Date().getFullYear()}0${new Date().getMonth()}`;
-        currentMonthLeft.innerText = `${new Date().getMonth()+1}월 총 광고수익금`;
-        prevMonthLeft.innerText = `${new Date().getMonth()}월 총 광고수익금`;
-    }
-
-    // 키, 값 조회 후 존재하면 입력 - 전월
-    Array.from(myData.totalProfit).forEach((el) => {
-        if(el[prevMonth]!=undefined) {
-            prevMonthValue = el[prevMonth];
-            prevMonthRight.innerText = `${currencyFormat.format(el[prevMonth])}`;
-        }
-    });
-    // 키, 값 조회 후 존재하면 입력 - 당월
-    Array.from(myData.totalProfit).forEach((el) => {
-        if(el[nowMonth]!=undefined) {
-            nowMonthValue = el[nowMonth];
-            currentMonthRight.innerText = `${currencyFormat.format(el[nowMonth])}`;
-        }
-    });
-
-    
-    // 증감률 계산
-    chPercentage =((nowMonthValue-prevMonthValue)/nowMonthValue)*100;
-
-    if(!(Number.isInteger(chPercentage))) {
-        changePercentageRight.innerText = `${chPercentage.toFixed(2)}%`;
-    } else {
-        changePercentageRight.innerText = `${chPercentage}%`;
-    }
-    if(chPercentage != 0) {
-        changePercentageRight.style.color = chPercentage > 0 ? 'green' : 'red';
-    }
-});*/
-
-/*
-chartPromise.then((data)=>{
-    let myData = JSON.parse(data);
-    let nowDate = new Date().getDate();
-    let dateAry =[]
-    let valueAry=[];
-
-    dateAry.push('');
-    valueAry.push(null);
-    for (var i = (nowDate-6); i <= nowDate; i++) {
-      dateAry.push(`${i}일`);
-      Array.from(myData.dailyProfit).forEach((el)=> {
-        if(el[i] != undefined){
-          valueAry.push(el[i]);
-        }
-      });
-    }
-    dateAry.push('');
-    valueAry.push(null);
-
-    for (el of dateAry) {
-      myData.dailyProfit
-    }
-
-    createMainChart(dateAry, valueAry);
-
-
-    let chartAfterRender = document.getElementById("index-profit-chart");
-
-    // window resize시 canvas size 변경
-    window.addEventListener('resize', () => {
-        if(window.innerWidth <= 500 ){
-            chartAfterRender.style.height = '200px';
-            mainChart.update();
-        }else if(window.innerWidth <= 960 ){
-            chartAfterRender.style.height = '300px';
-            mainChart.update();
-        }else {
-            chartAfterRender.style.height = '500px';
-            mainChart.update();
-        }
-    });
-});
-*/
