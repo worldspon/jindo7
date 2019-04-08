@@ -129,7 +129,6 @@ input:focus {
 }
 
 @media screen and (max-width: 1770px) {
-
     main {
         width :90%;
     }
@@ -140,10 +139,14 @@ input:focus {
 }
 
 @media screen and (max-width: 900px) {
-
-
+    html, body {
+        font-size: 10px;
+    }
     .bg {
         width: 60%;
+    }
+    main {
+        padding: 100px 0;
     }
 }
 
@@ -154,7 +157,7 @@ input:focus {
     }
 }
 
-@media screen and (max-height: 860px) {
+@media screen and (max-height: 810px) {
     html, body {
         height: auto;
     }
