@@ -48,7 +48,7 @@ main {
     align-items: center;
     flex-flow: column;
     width: 1600px;
-    padding: 200px 0;
+    padding: 150px 0;
     z-index: 999;
     border-radius: 10px;
     background-color: blue;
@@ -154,11 +154,5 @@ input:focus {
 
     input {
         width: 80%;
-    }
-}
-
-@media screen and (max-height: 700px) {
-    html, body {
-        height: auto;
     }
 }
