@@ -7,6 +7,12 @@
 @font-face {
     font-family: 'Gothic A1';
     src: local('Gothic A1'),
+    url('../font/GothicA1-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Gothic A1';
+    src: local('Gothic A1'),
     url('../font/GothicA1-Bold.woff2') format('woff2');
     font-weight: 700;
 }
@@ -18,130 +24,138 @@
 }
 
 html, body {
-    height:100%;
+    overflow-x: hidden;
     font-family: 'Gothic A1';
+    height: 100%;
     font-size: 12px;
 }
 
-.wrap {
+#wrapper {
     display: flex;
-    flex-flow: row;
-    width:100%;
-    height:100%;
-}
-
-/* left box content start */
-
-.login-left {
-    display: flex;
-    flex-flow: column;
-    width: 50%;
-    height:100%;
-    background: linear-gradient(#7401b6, #2d0a9c);
+    position: relative;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 50px 0;
+    background: linear-gradient(-46deg,#7401b6,#2d0a9c 75%);
+    box-sizing: border-box;
 }
 
-    .login-left img {
-        margin-bottom: 60px;
-    }
-
-    .slogan {
-        display: flex;
-        flex-flow: column;
-        margin-bottom: 60px;
-        font-size: 5rem;
-        text-align: center;
-        color: white;
-    }
-    .slogan span:last-child {
-        font-weight: 800;
-    }
-
-    .circle-wrap {
-        display:flex;
-    }
-    .circle {
-        border-radius: 50%;
-        background-color:white;
-        width: 20px;
-        height: 20px;
-    }
-    .circle:last-child {
-        margin-left: 20px;
-    }
-
-/* left box content end */
-
-/* right box content start */
-
-.login-right {
+main {
     display: flex;
-    flex-flow: column;
-    width: 50%;
-    height:100%;
-    background-color: white;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    width: 1600px;
+    padding: 200px 0;
+    z-index: 999;
+    border-radius: 10px;
+    background-color: blue;
+    background: linear-gradient(46deg,#fff 30%,#ddd);
+    box-shadow: 0 10px 20px 10px rgba(40,40,40,0.5);
 }
 
-    .login-right img {
-        width: 150px;
-        margin-bottom: 50px;
+.bg {
+    width: 25%;
+}
+
+.bodybg1 {
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.bodybg2 {
+    position: absolute;
+    bottom :0;
+    right :0;
+    opacity: 0.5;
+}
+
+.login-logo {
+    width: 120px;
+    margin-bottom: 55px;
+}
+
+input {
+    width: 470px;
+    height: 75px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type="text"]
+{
+    font-weight: 600;
+    color: #aaa;
+    font-size:1.5rem;
+    margin-bottom: 10px;
+    padding: 0 15px;
+    background-image: url('../images/login_check.png');
+    background-repeat: no-repeat;
+    background-position: center right 15px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-weight: 600;
+    color: #aaa;
+    opacity: 1; /* Firefox */
+}
+
+
+input[type="submit"]
+{
+    font-size:2rem;
+    color: white;
+    font-weight: 600;
+    background: linear-gradient(90deg, #6503b1 30%,#300a9d);
+    cursor: pointer;
+    margin-bottom: 50px;
+    
+}
+
+input:focus {
+    border: 1px solid #4d06a7;
+    outline: none;
+}
+
+.copyright {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+@media screen and (max-width: 1770px) {
+
+    main {
+        width :90%;
     }
 
-    input {
-        width: 400px;
-        height: 50px;
-        box-sizing: border-box;
-        -webkit-appearance: none;
-        border: 1px solid #1abbef;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-    }
-    input:focus{
-        outline: none;
-    }
-    .id-input, .pw-input {
-        padding: 15px;
-        background: url(../images/input-check.png) no-repeat 95% 50%;
-        background:none;/*check img 숨김처리*/
-    }
-    .id-input:focus, .pw-input:focus {
-        border: 1px solid #4d06a7;
-    }
-    .pw-input {
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-    .submit-input{
-        margin-bottom: 20px;
-        background-color: #1abbef;
-        font-size: 2rem;
-        color:white;
-        cursor: pointer;
-    }
-
-    .contact-wrap {
-        text-align: center;
-        font-weight: 700;
-        color: #555;
-    }
-
-/* right box content end */
-
-@media screen and (max-width:980px) {
-    .login-left {
-        display: none;
-    }
-
-    .login-right {
-        width: 100%;
+    .bg {
+        width: 40%;
     }
 }
 
-@media screen and (max-width:440px) {
+@media screen and (max-width: 900px) {
+
+
+    .bg {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+
     input {
-        width: 90%;
+        width: 80%;
+    }
+}
+
+@media screen and (max-height: 860px) {
+    html, body {
+        height: auto;
     }
 }
