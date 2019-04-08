@@ -8,7 +8,7 @@ let main = document.querySelector('main');
 console.log(main.offsetHeight);
 
 window.addEventListener('resize', function() {
-    if(window.innerHeight <= main.offsetHeight) {
+    if(window.innerHeight <= (main.offsetHeight+100)) {
         body.style.height = 'auto';
         html.style.height = 'auto';
     } else {
