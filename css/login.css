@@ -157,7 +157,7 @@ input:focus {
     }
 }
 
-@media screen and (max-height: 780px) {
+@media screen and (max-height: 700px) {
     html, body {
         height: auto;
     }
