@@ -148,6 +148,10 @@ input:focus {
     main {
         padding: 100px 0;
     }
+
+    input {
+        height: 50px;
+    }
 }
 
 @media screen and (max-width: 580px) {
