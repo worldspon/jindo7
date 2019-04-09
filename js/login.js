@@ -36,7 +36,7 @@ window.addEventListener('resize', function() {
 // id 입력시 check img 표시
 inputId.addEventListener('keyup', function(){
     if(inputId.value.length >= 2) {
-        inputId.style.backgroundImage = 'url("../images/login_check.png")';
+        inputId.style.backgroundImage = 'url("./images/login_check.png")';
         idFlag = true;
     } else {
         inputId.style.backgroundImage = 'none';
@@ -47,7 +47,7 @@ inputId.addEventListener('keyup', function(){
 // pw 입력시 check img 표시
 inputPw.addEventListener('keyup', function(){
     if(inputPw.value.length >= 4) {
-        inputPw.style.backgroundImage = 'url("../images/login_check.png")';
+        inputPw.style.backgroundImage = 'url("./images/login_check.png")';
         pwFlag = true;
     } else {
         inputPw.style.backgroundImage = 'none';
