@@ -86,14 +86,14 @@ input {
     border-radius: 3px;
 }
 
-input[type="text"]
+input[type="text"], input[type="password"]
 {
     font-weight: 600;
     color: #aaa;
     font-size:1.5rem;
     margin-bottom: 10px;
     padding: 0 15px;
-    background-image: url('../images/login_check.png');
+    /* background-image: url('../images/login_check.png'); */
     background-repeat: no-repeat;
     background-position: center right 15px;
 }
@@ -119,6 +119,10 @@ input[type="submit"]
 input:focus {
     border: 1px solid #4d06a7;
     outline: none;
+}
+
+.pk-value, .encrypt-id, .encrypt-pw {
+    display: none;
 }
 
 .copyright {
