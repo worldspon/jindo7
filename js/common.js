@@ -56,7 +56,7 @@ headerWrap.innerHTML = `<header>
 
 <div class='user-info'>
     <span class='user-name'>WS1234님</span>
-    <button class='login-info'>로그아웃</button>
+    <button class='logout'>로그아웃</button>
 </div>
 
 
@@ -108,7 +108,7 @@ headerWrap.innerHTML = `<header>
 </header>`;
 
 
-
+const logOut = document.querySelector('.logout');
 const btnTop = document.querySelector('.btn-top');
 const mainWrap = document.querySelector('.main-wrap');
 const nav = document.querySelector('nav');
@@ -143,7 +143,13 @@ window.addEventListener('scroll', ()=>{
     if(window.scrollY < 200) {
         btnTop.style.display = 'none';
     }
-})
+});
+
+
+// 로그아웃 이벤트 등록
+logOut.addEventListener('click', function() {
+    logoutAsync('/logout');
+});
 
 
 
@@ -283,3 +289,44 @@ Array.from(mobileNoticeMenu).forEach((el)=>{
 /*
 공지사항 메뉴 클릭 시 서버에 공지사항 type을 보내줌
 */
+
+
+
+/**
+ * @brief promise 객체 생성
+ * @author JJH
+ * @see url만 바꿔서 쓰면 된다.
+ */
+function AsyncValidateFnc(url) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(xhr.responseText);
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.send();
+    });
+};
+
+
+
+/**
+ * @brief logout 시도
+ * @author JJH
+ * @param url 통신할 url
+ */
+async function logoutAsync(url) {
+    try {
+        let data = await AsyncValidateFnc(url);
+        data = JSON.parse(data);
+        if(data.error != 0) {
+            alert(data.msg);
+            window.location(data.location);
+        } else {
+            alert(data.msg);
+            window.location(data.location);
+        }
+    } catch (error) {
+        alert('통신이 원활하지 않습니다. 다시 시도해주세요.');
+        window.location.reload();
+    }
+};

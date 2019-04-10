@@ -127,7 +127,7 @@ async function loginAsync() {
         let data = JSON.parse(loginResult);
 
         if(data.errorCode==0) {
-            window.location('/main');
+            window.location(data.location);
         }else {
             encryptId.value = '';
             encryptPw.value = '';
