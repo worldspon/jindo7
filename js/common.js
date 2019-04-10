@@ -329,3 +329,5 @@ async function logoutAsync(url) {
         window.location.reload();
     }
 };
+
+export {noticeType};

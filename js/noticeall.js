@@ -1,5 +1,7 @@
 'use strict;'
 
+import {noticeType} from './common.js';
+
 const noticeContent = document.querySelector('.notice-content');
 const noticeContentWrap = document.querySelector('.notice-content-wrap');
 const pagenationInner = document.querySelector('.pagination-inner');
@@ -7,7 +9,7 @@ const firstBtn = document.querySelector('.first-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const lastBtn = document.querySelector('.last-btn');
-const noticeUrl = 'js/noticeall.json';
+
 
 
 let pageNum, lastPage, startPage, endPage, contentLength;
@@ -23,17 +25,17 @@ firstLoadAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
 
 // 처음 버튼 클릭시 첫 페이지로
 firstBtn.addEventListener('click', ()=>{
-    setPageAsync(noticeUrl, 1);
+    setPageAsync(`/notice/fetch?page=${0}&type=${noticeType}`, 1);
 });
 
 // 이전 버튼 클릭시 1phrase 이전 페이지로 이동
 prevBtn.addEventListener('click', ()=>{
     if(nowPage-countPage >= 1) {
         nowPage -= countPage;
-        setPageAsync(noticeUrl, nowPage);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
     } else {
         nowPage = 1;
-        setPageAsync(noticeUrl, 1);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, 1);
     }
 });
 
@@ -43,17 +45,17 @@ nextBtn.addEventListener('click', ()=>{
     console.log(lastPage);
     if(nowPage+countPage < lastPage) {
         nowPage += countPage;
-        setPageAsync(noticeUrl, nowPage);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
     } else {
         nowPage = lastPage;
-        setPageAsync(noticeUrl, lastPage);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
     }
 });
 
 
 // 마지막 버튼 클릭시 마지막으로
 lastBtn.addEventListener('click', ()=>{
-    setPageAsync(noticeUrl, lastPage);
+    setPageAsync(`/notice/fetch?page=${lastPage-1}&type=${noticeType}`, lastPage);
 });
 
 
@@ -212,13 +214,13 @@ function setPageData(data, viewPage){
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
-                    <span class='preface-head'>${myData[i].preface}</span>
-                    <span class='preface-num'>No.${myData[i].num}</span>
+                    <span class='preface-head'>${myData[i].typeToKorean}</span>
+                    <span class='preface-num'>No.${myData[i].id}</span>
                 </div>
                 <a href='noticecontent.html'>${myData[i].title}</a>
             </div>
             <div class='notice-content-date-box'>
-                <span class='notice-content-date'>${myData[i].date}</span>
+                <span class='notice-content-date'>${myData[i].created}</span>
             </div>
         </div>`;
         }
@@ -227,13 +229,13 @@ function setPageData(data, viewPage){
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
-                    <span class='preface-head'>${myData[i].preface}</span>
-                    <span class='preface-num'>No.${myData[i].num}</span>
+                    <span class='preface-head'>${myData[i].typeToKorean}</span>
+                    <span class='preface-num'>No.${myData[i].id}</span>
                 </div>
                 <a href='noticecontent.html'>${myData[i].title}</a>
             </div>
             <div class='notice-content-date-box'>
-                <span class='notice-content-date'>${myData[i].date}</span>
+                <span class='notice-content-date'>${myData[i].created}</span>
             </div>
         </div>`;
         }
@@ -254,10 +256,8 @@ function setPageData(data, viewPage){
     Array.from(pageNum).forEach((el)=>{
         el.addEventListener('click', function() {
             viewPage = parseInt(this.innerText);
-            setPageAsync(noticeUrl, viewPage);
+            setPageAsync(`/notice/fetch?page=${viewPage-1}&type=${noticeType}`, viewPage);
         });
     });
     nowPage=viewPage;
 };
-
-console.log(noticeType);
