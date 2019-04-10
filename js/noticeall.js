@@ -19,7 +19,7 @@ const maxContent = 20;
 const countPage = 5;
 
 // 첫 로드시 1페이지 마크업
-firstLoadAsync(noticeUrl, 1);
+firstLoadAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
 
 // 처음 버튼 클릭시 첫 페이지로
 firstBtn.addEventListener('click', ()=>{
@@ -118,8 +118,8 @@ async function setPageAsync(url, nowPage) {
 function firstPageLoad(data, viewPage) {
 
     let myData = JSON.parse(data);
+    contentLength = myData.totalElement
     myData = myData.notice;
-    contentLength = myData.length;
 
     lastPage = (contentLength % maxContent)> 0 ? Math.floor(contentLength / maxContent) + 1 : Math.floor(contentLength / maxContent);
 
@@ -134,13 +134,13 @@ function firstPageLoad(data, viewPage) {
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
-                    <span class='preface-head'>${myData[i].preface}</span>
-                    <span class='preface-num'>No.${myData[i].num}</span>
+                    <span class='preface-head'>${myData[i].typeToKorean}</span>
+                    <span class='preface-num'>No.${myData[i].id}</span>
                 </div>
                 <a href='noticecontent.html'>${myData[i].title}</a>
             </div>
             <div class='notice-content-date-box'>
-                <span class='notice-content-date'>${myData[i].date}</span>
+                <span class='notice-content-date'>${myData[i].created}</span>
             </div>
         </div>`;
         }
@@ -149,13 +149,13 @@ function firstPageLoad(data, viewPage) {
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
-                    <span class='preface-head'>${myData[i].preface}</span>
-                    <span class='preface-num'>No.${myData[i].num}</span>
+                    <span class='preface-head'>${myData[i].typeToKorean}</span>
+                    <span class='preface-num'>No.${myData[i].id}</span>
                 </div>
                 <a href='noticecontent.html'>${myData[i].title}</a>
             </div>
             <div class='notice-content-date-box'>
-                <span class='notice-content-date'>${myData[i].date}</span>
+                <span class='notice-content-date'>${myData[i].created}</span>
             </div>
         </div>`;
         }
@@ -178,7 +178,7 @@ function firstPageLoad(data, viewPage) {
     Array.from(pageNum).forEach((el)=>{
         el.addEventListener('click', function() {
             viewPage = parseInt(this.innerText);
-            setPageAsync('js/noticeall.json', viewPage);
+            setPageAsync(`/notice/fetch?page=${viewPage-1}&type=${noticeType}`, viewPage);
         });
     });
 }
@@ -259,3 +259,5 @@ function setPageData(data, viewPage){
     });
     nowPage=viewPage;
 };
+
+console.log(noticeType);

@@ -18,16 +18,16 @@ headerWrap.innerHTML = `<header>
             <a href='./adprofit.html' class='ad-profit-nav'>광고수익</a>
         </li>
         <li class='pc-notice-menu'>
-            <a href='noticeall.html'>공지사항</a>
+            <a href='noticeall.html' data-notice="ALL">공지사항</a>
             <ul class='notice-sub-menu sub-menu'>
                 <li>
-                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
+                    <a href='noticeall.html' data-notice="NOTICE">공지사항</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
+                    <a href='noticeall.html' data-notice="UPDATE">업데이트</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
+                    <a href='noticeall.html' data-notice="EVENT">이벤트</a>
                 </li>
             </ul>
         </li>
@@ -71,16 +71,16 @@ headerWrap.innerHTML = `<header>
             <a class='mobile-menu-main-list'>공지사항</a>
             <ul class='mobile-menu-sub'>
                 <li>
-                    <a href='noticeall.html'>전체</a>
+                    <a href='noticeall.html' data-notice="ALL">전체</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
+                    <a href='noticeall.html' data-notice="NOTICE">공지사항</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
+                    <a href='noticeall.html' data-notice="UPDATE">업데이트</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
+                    <a href='noticeall.html' data-notice="EVENT">이벤트</a>
                 </li>
             </ul>
         </li>
@@ -118,6 +118,7 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const mobileMenuImg = document.querySelector('.mobile-menu-img');
 const mobileAfterMenuImg = document.querySelector('.mobile-menu-after-img');
 const mobileMenuList = document.querySelectorAll('.mobile-menu-main-list');
+let noticeType = 'ALL';
 
 // 접속시 screen size에 따른 event 등록/제거
 commonEventReg();
@@ -275,15 +276,13 @@ const mobileNoticeMenu = document.querySelectorAll('.mobile-menu-sub > li > a');
 
 Array.from(noticeMenu).forEach((el)=>{
     el.addEventListener('click', function() {
-        console.log(el.dataset.notice);
-        window.location = `noticeall?noticeType/${el.innerText}`;
+        noticeType = el.dataset.notice;
     });
 });
 
 Array.from(mobileNoticeMenu).forEach((el)=>{
     el.addEventListener('click', function() {
-        console.log(el.dataset.notice);
-        window.location = `noticeall?noticeType/${el.innerText}`;
+        noticeType = el.dataset.notice;
     });
 });
 /*
