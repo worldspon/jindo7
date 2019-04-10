@@ -57,26 +57,21 @@ inputPw.addEventListener('keyup', function(){
     
 });
 
-// capslock 감지
+// capslock 감지 및 enter 입력시 함수 호출
 inputPw.addEventListener('keydown', function(e){
     if (e.getModifierState("CapsLock")) {
         tooltipText.style.display = 'block';
     } else {
         tooltipText.style.display = 'none';
     }
+    if (e.keyCode == 13) {
+        submitClick()
+    }
 });
 
 
 // 로그인 버튼 클릭시 검증 및 검증 완료시 비동기통신
-submitBtn.addEventListener('click', function(){
-    if(!idFlag) {
-        alert('아이디를 입력하세요');
-    } else if(!pwFlag) {
-        alert('비밀번호를 입력하세요');
-    } else {
-        loginAsync();
-    }
-});
+submitBtn.addEventListener('click', submitClick);
 
 
 
@@ -96,6 +91,22 @@ function AsyncValidateFnc(type,url,param=false) {
       xhr.onerror = () => reject(xhr.statusText);
       !param ? xhr.send() : xhr.send(param);
     });
+};
+
+
+
+/**
+ * @brief submit click event 발생 시 검증 및 통신 시작 함수
+ * @author JJH
+ */
+function submitClick() {
+    if(!idFlag) {
+        alert('아이디를 입력하세요');
+    } else if(!pwFlag) {
+        alert('비밀번호를 입력하세요');
+    } else {
+        loginAsync();
+    }
 };
 
 
