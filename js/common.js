@@ -318,12 +318,12 @@ async function logoutAsync(url) {
     try {
         let data = await AsyncValidateFnc(url);
         data = JSON.parse(data);
-        if(data.error != 0) {
+        if(data.errorCode != 0) {
             alert(data.msg);
-            window.location(data.location);
+            window.location.href = data.location;
         } else {
             alert(data.msg);
-            window.location(data.location);
+            window.location.href = data.location;
         }
     } catch (error) {
         alert('통신이 원활하지 않습니다. 다시 시도해주세요.');
