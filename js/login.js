@@ -5,6 +5,7 @@ const html = document.documentElement;
 const main = document.querySelector('main');
 const inputId = document.querySelector('.input-id');
 const inputPw = document.querySelector('.input-pw');
+const tooltipText = document.querySelector('.tooltiptext');
 const submitBtn = document.querySelector('.submit-btn');
 const pkValue = document.querySelector('.pk-value');
 const encryptId = document.querySelector('.encrypt-id');
@@ -55,6 +56,16 @@ inputPw.addEventListener('keyup', function(){
     }
     
 });
+
+// capslock 감지
+inputPw.addEventListener('keydown', function(e){
+    if (e.getModifierState("CapsLock")) {
+        tooltipText.style.display = 'block';
+    } else {
+        tooltipText.style.display = 'none';
+    }
+});
+
 
 // 로그인 버튼 클릭시 검증 및 검증 완료시 비동기통신
 submitBtn.addEventListener('click', function(){
@@ -127,7 +138,7 @@ async function loginAsync() {
         let data = JSON.parse(loginResult);
 
         if(data.errorCode==0) {
-            window.location(data.location);
+            window.location.href = data.location;
         }else {
             encryptId.value = '';
             encryptPw.value = '';
