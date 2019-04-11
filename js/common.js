@@ -2,7 +2,7 @@
 
 
 const headerWrap = document.querySelector('.header-wrap');
-
+/*
 headerWrap.innerHTML = `<header>
 <div class='logo-box'>
     <a href='./index.html'><img src='./images/header_logo.png' alt='main-logo'></a>
@@ -106,7 +106,7 @@ headerWrap.innerHTML = `<header>
 <!-- mobile menu end -->
 <button class="btn-top">TOP</button>
 </header>`;
-
+*/
 
 const logOut = document.querySelector('.logout');
 const btnTop = document.querySelector('.btn-top');
@@ -276,6 +276,7 @@ const mobileNoticeMenu = document.querySelectorAll('.mobile-menu-sub > li > a');
 Array.from(noticeMenu).forEach((el)=>{
     el.addEventListener('click', function() {
         noticeType = el.dataset.notice;
+        console.log(noticeType);
     });
 });
 
@@ -328,5 +329,3 @@ async function logoutAsync(url) {
         window.location.reload();
     }
 };
-
-export {noticeType};

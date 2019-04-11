@@ -1,7 +1,6 @@
 'use strict;'
 
-
-
+const category = document.querySelectorAll('.notice-nav li a');
 const noticeContent = document.querySelector('.notice-content');
 const noticeContentWrap = document.querySelector('.notice-content-wrap');
 const pagenationInner = document.querySelector('.pagination-inner');
@@ -9,8 +8,6 @@ const firstBtn = document.querySelector('.first-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const lastBtn = document.querySelector('.last-btn');
-
-
 
 let pageNum, lastPage, startPage, endPage, contentLength;
 //현재 페이지
@@ -20,8 +17,58 @@ const maxContent = 20;
 // 한 phrase에 표현 될 게시판 수
 const countPage = 5;
 
+let noticeType = window.location.href.slice(window.location.href.indexOf('type')+5);
+let totalPage = pagenationInner.dataset.total;
+
+lastPage = (totalPage % maxContent)> 0 ? Math.floor(totalPage / maxContent) + 1 : Math.floor(totalPage / maxContent);
+
+let firstPageTemp ='';
+
+if(totalPage>80) {
+    for(let i = 0; i<=4; i++){
+        i==0 ? firstPageTemp += `<li class='page-number' style='font-weight:700;'>${i+1}</li>` : firstPageTemp += `<li class='page-number'>${i+1}</li>`;
+    }
+} else {
+    for(let i = 0; i<=Math.floor(totalPage/20); i++){
+        i==0 ? firstPageTemp += `<li class='page-number' style='font-weight:700;'>${i+1}</li>` : firstPageTemp += `<li class='page-number'>${i+1}</li>`;
+    }
+}
+
+pagenationInner.innerHTML = firstPageTemp;
+
+pageNum = document.querySelectorAll('.page-number');
+
+Array.from(pageNum).forEach((el)=>{
+    el.addEventListener('click', function() {
+        let viewPage = parseInt(this.innerText);
+        setPageAsync(`/notice/fetch?page=${viewPage-1}&type=${noticeType}`, viewPage);
+    });
+});
+
+
+
+
+Array.from(category).forEach((el)=>{
+    el.addEventListener('click', ()=>{
+        noticeType = el.dataset.notice;
+        categoryBold(noticeType)
+        firstLoadAsync(`/notice/fetch?page=${0}&type=${noticeType}`, 1);
+    });
+});
+
+function categoryBold(type) {
+    Array.from(category).forEach((el)=>{
+        el.style.fontWeight = '400';
+        el.style.color = '#757474';
+        if(type == el.dataset.notice) {
+            el.style.fontWeight = '800';
+            el.style.color = 'black'; 
+        }
+    });
+}
+
 // 첫 로드시 1페이지 마크업
-firstLoadAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
+// firstLoadAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
 
 // 처음 버튼 클릭시 첫 페이지로
 firstBtn.addEventListener('click', ()=>{
@@ -42,7 +89,6 @@ prevBtn.addEventListener('click', ()=>{
 
 // 다음 버튼 클릭시 1phrase 다음 페이지로 이동
 nextBtn.addEventListener('click', ()=>{
-    console.log(lastPage);
     if(nowPage+countPage < lastPage) {
         nowPage += countPage;
         setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
@@ -55,6 +101,7 @@ nextBtn.addEventListener('click', ()=>{
 
 // 마지막 버튼 클릭시 마지막으로
 lastBtn.addEventListener('click', ()=>{
+    console.log(lastPage);
     setPageAsync(`/notice/fetch?page=${lastPage-1}&type=${noticeType}`, lastPage);
 });
 
@@ -166,11 +213,28 @@ function firstPageLoad(data, viewPage) {
     tempHtml='';
 
 
+    // for(let i = 1; i<=4; i++){
+    //     viewPage==i ? tempHtml += `<li class='page-number' style='font-weight:700;'>${i}</li>` : tempHtml += `<li class='page-number'>${i}</li>`;
+        
+    // }
+
+
+    // pagenationInner.innerHTML = tempHtml;
+
+    // pageNum = document.querySelectorAll('.page-number');
+
+    // Array.from(pageNum).forEach((el)=>{
+    //     el.addEventListener('click', function() {
+    //         viewPage = parseInt(this.innerText);
+    //         setPageAsync(`/notice/fetch?page=${viewPage-1}&type=${noticeType}`, viewPage);
+    //     });
+    // });
+
+
     for(let i = startPage; i<=endPage; i++){
         viewPage==i ? tempHtml += `<li class='page-number' style='font-weight:700;'>${i}</li>` : tempHtml += `<li class='page-number'>${i}</li>`;
         
     }
-
 
     pagenationInner.innerHTML = tempHtml;
 
@@ -194,6 +258,7 @@ function firstPageLoad(data, viewPage) {
  */
 function setPageData(data, viewPage){
     let myData = JSON.parse(data);
+    contentLength = myData.notice.length;
     myData = myData.notice;
 
     let startContent, endContent;
@@ -209,6 +274,7 @@ function setPageData(data, viewPage){
 
     if(contentLength<=maxContent) {
         for(let i=0; i<contentLength; i++) {
+            // debugger
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
@@ -224,6 +290,7 @@ function setPageData(data, viewPage){
         }
     } else {
         for(let i=0; i<maxContent; i++) {
+            // debugger
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
@@ -291,3 +358,4 @@ function setPageData(data, viewPage){
     });
     nowPage=viewPage;
 };
+
