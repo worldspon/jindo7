@@ -118,7 +118,6 @@ const mobileMenu = document.querySelector('.mobile-menu');
 const mobileMenuImg = document.querySelector('.mobile-menu-img');
 const mobileAfterMenuImg = document.querySelector('.mobile-menu-after-img');
 const mobileMenuList = document.querySelectorAll('.mobile-menu-main-list');
-let noticeType = 'ALL';
 
 // 접속시 screen size에 따른 event 등록/제거
 commonEventReg();

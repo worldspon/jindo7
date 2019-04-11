@@ -1,6 +1,6 @@
 'use strict;'
 
-import {noticeType} from './common.js';
+
 
 const noticeContent = document.querySelector('.notice-content');
 const noticeContentWrap = document.querySelector('.notice-content-wrap');
@@ -124,7 +124,6 @@ function firstPageLoad(data, viewPage) {
     myData = myData.notice;
 
     lastPage = (contentLength % maxContent)> 0 ? Math.floor(contentLength / maxContent) + 1 : Math.floor(contentLength / maxContent);
-
     startPage = Math.floor((viewPage-1)/countPage)*countPage + 1
     endPage = startPage+countPage-1;
     endPage>lastPage ? endPage=lastPage : endPage=endPage;
@@ -194,7 +193,6 @@ function firstPageLoad(data, viewPage) {
  * @param viewPage 보여줄 페이지
  */
 function setPageData(data, viewPage){
-
     let myData = JSON.parse(data);
     myData = myData.notice;
 
@@ -209,8 +207,8 @@ function setPageData(data, viewPage){
 
     let tempHtml='';
 
-    if(endContent >= contentLength) {
-        for(let i=startContent; i<contentLength; i++) {
+    if(contentLength<=maxContent) {
+        for(let i=0; i<contentLength; i++) {
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
@@ -225,7 +223,7 @@ function setPageData(data, viewPage){
         </div>`;
         }
     } else {
-        for(let i=startContent; i<endContent; i++) {
+        for(let i=0; i<maxContent; i++) {
             tempHtml+= `<div class='notice-content border-bottom'>
             <div class='notice-content-hl'>
                 <div class='preface'>
@@ -240,6 +238,38 @@ function setPageData(data, viewPage){
         </div>`;
         }
     }
+
+    // if(endContent >= contentLength) {
+    //     for(let i=startContent; i<contentLength; i++) {
+    //         tempHtml+= `<div class='notice-content border-bottom'>
+    //         <div class='notice-content-hl'>
+    //             <div class='preface'>
+    //                 <span class='preface-head'>${myData[i].typeToKorean}</span>
+    //                 <span class='preface-num'>No.${myData[i].id}</span>
+    //             </div>
+    //             <a href='noticecontent.html'>${myData[i].title}</a>
+    //         </div>
+    //         <div class='notice-content-date-box'>
+    //             <span class='notice-content-date'>${myData[i].created}</span>
+    //         </div>
+    //     </div>`;
+    //     }
+    // } else {
+    //     for(let i=startContent; i<endContent; i++) {
+    //         tempHtml+= `<div class='notice-content border-bottom'>
+    //         <div class='notice-content-hl'>
+    //             <div class='preface'>
+    //                 <span class='preface-head'>${myData[i].typeToKorean}</span>
+    //                 <span class='preface-num'>No.${myData[i].id}</span>
+    //             </div>
+    //             <a href='noticecontent.html'>${myData[i].title}</a>
+    //         </div>
+    //         <div class='notice-content-date-box'>
+    //             <span class='notice-content-date'>${myData[i].created}</span>
+    //         </div>
+    //     </div>`;
+    //     }
+    // }
 
     noticeContentWrap.innerHTML = tempHtml;
     tempHtml ='';
