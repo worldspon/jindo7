@@ -162,12 +162,17 @@ main {
         color: white;
     }
 
-    button[type='submit'] {
+    .search-btn {
         padding: 0 10px;
         margin-left: 5px;
         border:0;
         border-radius: 3px;
+        cursor: pointer;
         background-color: #a1a1a1;
+    }
+
+    .search-btn:focus {
+        outline: none;
     }
 
 

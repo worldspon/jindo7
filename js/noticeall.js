@@ -8,6 +8,8 @@ const firstBtn = document.querySelector('.first-btn');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const lastBtn = document.querySelector('.last-btn');
+const searchInput = document.querySelector('.search-input');
+const searchBtn = document.querySelector('.search-btn');
 
 let pageNum, lastPage, startPage, endPage, contentLength;
 //현재 페이지
@@ -66,6 +68,11 @@ function categoryBold(type) {
         }
     });
 }
+///notice/fetch?page=${0}&type=ALL&searchWord=${encodeURIComponent(searchInput.value)}
+
+searchBtn.addEventListener('click', function() {
+    setPageAsync(`/notice/fetch?page=${0}&type=ALL&searchWord=${encodeURIComponent(searchInput.value)}`, 1);
+})
 
 // 첫 로드시 1페이지 마크업
 // firstLoadAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
@@ -79,7 +86,7 @@ firstBtn.addEventListener('click', ()=>{
 prevBtn.addEventListener('click', ()=>{
     if(nowPage-countPage >= 1) {
         nowPage -= countPage;
-        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}&searchWord=`, nowPage);
     } else {
         nowPage = 1;
         setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, 1);
@@ -101,7 +108,6 @@ nextBtn.addEventListener('click', ()=>{
 
 // 마지막 버튼 클릭시 마지막으로
 lastBtn.addEventListener('click', ()=>{
-    console.log(lastPage);
     setPageAsync(`/notice/fetch?page=${lastPage-1}&type=${noticeType}`, lastPage);
 });
 
