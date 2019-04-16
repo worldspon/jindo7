@@ -19,8 +19,11 @@ const maxContent = 20;
 // 한 phrase에 표현 될 게시판 수
 const countPage = 5;
 
+let searchKeyword = '';
+
 let noticeType = window.location.href.slice(window.location.href.indexOf('type')+5);
 let totalPage = pagenationInner.dataset.total;
+delete pagenationInner.dataset.total;
 
 lastPage = (totalPage % maxContent)> 0 ? Math.floor(totalPage / maxContent) + 1 : Math.floor(totalPage / maxContent);
 
@@ -53,6 +56,8 @@ Array.from(pageNum).forEach((el)=>{
 Array.from(category).forEach((el)=>{
     el.addEventListener('click', ()=>{
         noticeType = el.dataset.notice;
+        searchKeyword='';
+        searchInput.value = '';
         categoryBold(noticeType)
         firstLoadAsync(`/notice/fetch?page=${0}&type=${noticeType}`, 1);
     });
@@ -71,25 +76,34 @@ function categoryBold(type) {
 ///notice/fetch?page=${0}&type=ALL&searchWord=${encodeURIComponent(searchInput.value)}
 
 searchBtn.addEventListener('click', function() {
-    setPageAsync(`/notice/fetch?page=${0}&type=ALL&searchWord=${encodeURIComponent(searchInput.value)}`, 1);
-})
+    searchKeyword = encodeURIComponent(searchInput.value);
+    noticeType = 'ALL';
+    setPageAsync(`/notice/fetch?page=${0}&type=ALL&searchWord=${searchKeyword}`, 1, searchKeyword);
+});
+
+searchInput.addEventListener('keyup', function(e) {
+    if(e.keyCode==13) {
+        let clickEventObject = new Event('click');
+        searchBtn.dispatchEvent(clickEventObject);
+    }
+});
 
 // 첫 로드시 1페이지 마크업
 // firstLoadAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
 
 // 처음 버튼 클릭시 첫 페이지로
 firstBtn.addEventListener('click', ()=>{
-    setPageAsync(`/notice/fetch?page=${0}&type=${noticeType}`, 1);
+    setPageAsync(`/notice/fetch?page=${0}&type=${noticeType}&searchWord=${searchKeyword}`, 1, searchKeyword);
 });
 
 // 이전 버튼 클릭시 1phrase 이전 페이지로 이동
 prevBtn.addEventListener('click', ()=>{
     if(nowPage-countPage >= 1) {
         nowPage -= countPage;
-        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}&searchWord=`, nowPage);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}&searchWord=${searchKeyword}`, nowPage, searchKeyword);
     } else {
         nowPage = 1;
-        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, 1);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}&searchWord=${searchKeyword}`, 1, searchKeyword);
     }
 });
 
@@ -98,17 +112,17 @@ prevBtn.addEventListener('click', ()=>{
 nextBtn.addEventListener('click', ()=>{
     if(nowPage+countPage < lastPage) {
         nowPage += countPage;
-        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}&searchWord=${searchKeyword}`, nowPage, searchKeyword);
     } else {
         nowPage = lastPage;
-        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}`, nowPage);
+        setPageAsync(`/notice/fetch?page=${nowPage-1}&type=${noticeType}&searchWord=${searchKeyword}`, nowPage, searchKeyword);
     }
 });
 
 
 // 마지막 버튼 클릭시 마지막으로
 lastBtn.addEventListener('click', ()=>{
-    setPageAsync(`/notice/fetch?page=${lastPage-1}&type=${noticeType}`, lastPage);
+    setPageAsync(`/notice/fetch?page=${lastPage-1}&type=${noticeType}&searchWord=${searchKeyword}`, lastPage, searchKeyword);
 });
 
 
@@ -153,10 +167,10 @@ async function firstLoadAsync(url, nowPage) {
  * @param url 통신할 url
  * @param nowPage 현재 페이지
  */
-async function setPageAsync(url, nowPage) {
+async function setPageAsync(url, nowPage, keyWord = '') {
     try {
         let data = await AsyncValidateFnc(url);
-        setPageData(data, nowPage);
+        setPageData(data, nowPage, keyWord);
     } catch (error) {
         console.log(error);
     }
@@ -173,7 +187,7 @@ async function setPageAsync(url, nowPage) {
 function firstPageLoad(data, viewPage) {
 
     let myData = JSON.parse(data);
-    contentLength = myData.totalElement
+    contentLength = myData.totalElement;
     myData = myData.notice;
 
     lastPage = (contentLength % maxContent)> 0 ? Math.floor(contentLength / maxContent) + 1 : Math.floor(contentLength / maxContent);
@@ -262,8 +276,12 @@ function firstPageLoad(data, viewPage) {
  * @param data json 데이터
  * @param viewPage 보여줄 페이지
  */
-function setPageData(data, viewPage){
+function setPageData(data, viewPage, searchKey){
     let myData = JSON.parse(data);
+
+    contentLength = myData.totalElement;
+    lastPage = (contentLength % maxContent)> 0 ? Math.floor(contentLength / maxContent) + 1 : Math.floor(contentLength / maxContent);
+
     contentLength = myData.notice.length;
     myData = myData.notice;
 
@@ -274,6 +292,7 @@ function setPageData(data, viewPage){
 
     startContent = (viewPage-1)*maxContent;
     endContent = viewPage*maxContent;
+
 
 
     let tempHtml='';
@@ -346,7 +365,6 @@ function setPageData(data, viewPage){
 
     noticeContentWrap.innerHTML = tempHtml;
     tempHtml ='';
-
     for(let i = startPage; i<=endPage; i++){
         viewPage==i ? tempHtml += `<li class='page-number' style='font-weight:700;'>${i}</li>` : tempHtml += `<li class='page-number'>${i}</li>`;
         
@@ -359,7 +377,7 @@ function setPageData(data, viewPage){
     Array.from(pageNum).forEach((el)=>{
         el.addEventListener('click', function() {
             viewPage = parseInt(this.innerText);
-            setPageAsync(`/notice/fetch?page=${viewPage-1}&type=${noticeType}`, viewPage);
+            setPageAsync(`/notice/fetch?page=${viewPage-1}&type=${noticeType}&searchWord=${searchKey}`, viewPage, searchKey);
         });
     });
     nowPage=viewPage;
