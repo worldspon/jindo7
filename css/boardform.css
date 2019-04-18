@@ -31,10 +31,15 @@ main {
     .board-writing-title, .board-writing-content {
         width: 100%;        
         padding: 20px 25px;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         box-sizing: border-box;
         color: #555;
         border:1px solid #939393;
+        outline: none;
+    }
+
+    .board-writing-title:focus, .board-writing-content:focus {
+        border: 1px solid #4d06a7;
     }
 
     .board-writing-title::placeholder{
@@ -90,79 +95,34 @@ main {
 }
 
 @media screen and (max-width: 1000px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 100px 100px 100px;
-        grid-template-columns: 1fr 100px 100px 100px;
-        padding: 0 20px 20px;
-    }
-
-    .board-content {
-        -ms-grid-columns: 1fr 100px 100px 100px;
-        grid-template-columns: 1fr 100px 100px 100px;
-        padding: 25px 20px;
-    }
-
-    .board-ft-content-box {
-        -ms-grid-columns: 100%;
-        grid-template-columns: 100%;
-        -ms-grid-rows: auto 25px auto;
-        grid-template-rows: repeat(2, auto);
-        grid-row-gap: 25px;
-    }
-
-    .pagination {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 3;
-        grid-row: 2;
-    }
-    .write-board-box {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 1;
-        grid-row: 1;
-        text-align: right;
-    }
-
-}
-
-/*
-@media screen and (max-width: 750px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 60px 60px 80px;
-        grid-template-columns: 1fr 60px 60px 80px;
-        padding: 0 15px 20px;
-    }
-
-    .board-content {
-        -ms-grid-columns: 1fr 60px 60px 80px;
-        grid-template-columns: 1fr 60px 60px 80px;
-        padding: 25px 15px;
-    }
-
-}
-
-@media screen and (max-width: 600px) {
     .board-common-box {
-        padding: 25px 30px;
+        padding: 25px 35px;
     }
     
     .board-content-box {
-        padding:25px 15px;
+        padding: 25px 30px;
     }
 
-    .btn-write-board {
-        padding: 4px 8px;
+    .board-writing-title, .board-writing-content {
+        padding: 10px 15px;
     }
 
-    .page-btn {
-        width: 25px;
+    .board-writing-content {
+        height:550px;
     }
-
-    .page-number {
-        padding: 6px 8px;
-    }
-
-
 }
-*/
+
+@media screen and (max-width: 750px) {
+    .board-common-box {
+        padding: 25px 20px;
+    }
+    
+    .board-content-box {
+        padding: 25px 15px;
+    }
+
+    .board-writing-content {
+        height: 400px;
+        margin: 10px 0;
+    }
+}

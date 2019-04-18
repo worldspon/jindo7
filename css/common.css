@@ -341,7 +341,7 @@ main {
 }
 
 /* tablet */
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1400px) {
     html {
         font-size: 11px;
     }
@@ -386,6 +386,11 @@ main {
     }
 }
 
+@media screen and (max-width: 1400px) {
+    .main-menu > li:not(:last-child){
+        margin-right: 65px;
+    }
+}
 
 
 /* mobile */
