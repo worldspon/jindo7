@@ -49,7 +49,7 @@ let curMonAvg = document.querySelector('.current-month-avg');
 
 let monAvgHigh = document.querySelector('.month-avg-high');
 let monAvgLow = document.querySelector('.month-avg-low');
-let monTotalLow = document.querySelector('.month-total-low');
+let monTotalAvg = document.querySelector('.month-total-avg');
 
 
 
@@ -100,26 +100,70 @@ async function comparisonAsync(url) {
 
 
 /**
- * @brief 첫 접속시 상단 수익금 박스 초기화를 위한 통신
+ * @brief 첫 접속시 하단 수익비교 박스 데이터 입력 함수
  * @author JJH
  * @param url 데이터 url
  * @param yy 현재 년도
  * @param mm 현재 월
  */
 function setComparisonData(data) {
-    console.log(Math.round(2.1999999))
     let myData = JSON.parse(data);
-    myData = myData.comparison;
+    let curHigh = curLow = curAvg = monMaxAvg = monMinAvg = monAvg = avgCount = 0;
+    let curValAry = [];
+    let currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0});
+
+    // 데이터의 연도 배열
+    dataYear = myData.year;
+
+    // 데이터의 월 객체
+    dataMonth = myData.month;
+
+    myData = myData.ad;
+
+    dataYear.forEach((el)=>{
+
+        dataMonth[el].forEach((eel)=>{
+            let dummyAry = [];
+            let dummyObj = myData[el][eel];
+            for(index in dummyObj.dailyprofit) {
+                dummyAry.push(dummyObj.dailyprofit[index]-dummyObj.deduction[index]);
+            }
+            if(el==nowYear && eel==nowMonth) {
+                dummyAry.length = nowDay-1;
+            }
+            monMaxAvg += Math.max(...dummyAry);
+            monMinAvg += Math.min(...dummyAry);
+            monAvg += dummyAry.reduce((a,b)=>a+b) / dummyAry.length;
+            avgCount++;
+
+        });
+    });
+
+    monMaxAvg /= avgCount;
+    monMinAvg /= avgCount;
+    monAvg /= avgCount;
+
+
+    curValAry = myData[nowYear][nowMonth].dailyprofit;
+    for(const i in curValAry) {
+        curValAry[i] -= myData[nowYear][nowMonth].deduction[i];
+    }
+    curValAry.length = nowDay-1;
+    curHigh = Math.max(...curValAry);
+    curLow = Math.min(...curValAry);
+
+    curAvg = (curValAry.reduce((a,b)=>a+b)/curValAry.length).toFixed(2);
+    // totalProfit.innerHTML = `${currencyFormat.format(total)}`;
 
     curMonHighTitle.innerText = `${nowMonth}월 최고수익`
-    curMonHigh.innerText = myData.curhigh;
+    curMonHigh.innerText = currencyFormat.format(curHigh);
     curMonLowTitle.innerText = `${nowMonth}월 최저수익`
-    curMonLow.innerText = myData.curlow;
+    curMonLow.innerText = currencyFormat.format(curLow);
     curMonAvgTitle.innerText = `${nowMonth}월 평균수익`
-    curMonAvg.innerText = Math.round(myData.curavg);
-    monAvgHigh.innerText = Math.round(myData.monhighavg);
-    monAvgLow.innerText = Math.round(myData.monlowavg);
-    monTotalLow.innerText = Math.round(myData.monavg);
+    curMonAvg.innerText = currencyFormat.format(Math.round(curAvg));
+    monAvgHigh.innerText = currencyFormat.format(monMaxAvg.toFixed(2));
+    monAvgLow.innerText = currencyFormat.format(monMinAvg.toFixed(2));
+    monTotalAvg.innerText = currencyFormat.format(monAvg.toFixed(2));
 
 }
 
@@ -240,20 +284,33 @@ function setProfitData(data,yy,mm) {
 
     let total = 0, deduction = 0, pure = 0;
     let count = 0;
-    deduction = myData.deduction;
+    // deduction = myData.deduction;
 
     if(mm == (new Date().getMonth()+1)) {
         for (const it of myData.dailyprofit) {
             total += it;
             count++;
-            if(count>=nowDay) {
+            if(count>=nowDay-1) {
                 break;
             }
         }
-        deduction = (total * deduction).toFixed(2);
+        count = 0;
+
+        for (const it of myData.deduction) {
+            deduction += it;
+            count++;
+            if(count>=nowDay-1) {
+                break;
+            }
+        }
+        // deduction = (total * deduction).toFixed(2);
     } else {
         for (const it of myData.dailyprofit) {
             total += it;
+        }
+
+        for (const it of myData.deduction) {
+            deduction += it;
         }
     }
 
@@ -466,11 +523,25 @@ function createLineChart(data, data1, data2) {
     mobilevalAry2 = [];
 
 
-
     // 데이터 저장
+    // valAry1 = myData[dataYear1][dataMonth1].dailyprofit;
     valAry1 = myData[dataYear1][dataMonth1].dailyprofit;
+
+    
+    // 순수익 계산
+    for (const key in valAry1) {
+        valAry1[key] -= myData[dataYear1][dataMonth1].deduction[key];
+    }
+
+    
+
+    // 현재월 조회시 오늘-1일까지만 데이터 저장
+    if(nowYear==dataYear1 && nowMonth == dataMonth1) {
+        valAry1.length = nowDay-1;
+    }
     // 기기별 데이터 분리
     valAry1.forEach((el,index)=>{
+
         if((index==0)||(index%3==2)&&index<=27){
             tabletvalAry1.push(el);
         }
@@ -480,7 +551,19 @@ function createLineChart(data, data1, data2) {
     })
 
     if(data2 != '') {
+
         valAry2 = myData[dataYear2][dataMonth2].dailyprofit;
+
+        // 순수익 계산
+        for (const key in valAry2) {
+            valAry2[key] -= myData[dataYear2][dataMonth2].deduction[key];
+        }
+
+        // 현재월 조회시 오늘-1일까지만 데이터 저장
+        if(nowYear==dataYear2 && nowMonth == dataMonth2) {
+            valAry2.length = nowDay-1;
+        }
+
         valAry2.forEach((el,index)=>{
             if((index==0)||(index%3==2)&&index<=27){
                 tabletvalAry2.push(el);
@@ -641,17 +724,17 @@ function createBarChart(data) {
 
     // 현재달은 조회일 하루전 데이터까지 합산
     myData[nowMonth].dailyprofit.forEach((el, index)=>{
-        if(index<=nowDay-2) {
-            curMonth+=el;
+        if(index<=nowDay-1) {
+            curMonth+=(el- myData[nowMonth].deduction[index]);
         }
     });
 
-    myData[nowMonth-1].dailyprofit.forEach((el)=>{
-            prevMonth+=el;
+    myData[nowMonth-1].dailyprofit.forEach((el, index)=>{
+        prevMonth+=(el- myData[nowMonth-1].deduction[index]);
     });
 
-    myData[nowMonth-2].dailyprofit.forEach((el)=>{
-        pprevMonth+=el;
+    myData[nowMonth-2].dailyprofit.forEach((el, index)=>{
+        pprevMonth+=(el- myData[nowMonth-2].deduction[index]);
     });
     
 
