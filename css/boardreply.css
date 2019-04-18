@@ -42,14 +42,14 @@ main {
 
 .board-info-content-box {
     line-height: 2.3em;
-    padding:20px 0;
+    padding: 20px 0;
     text-align: right;
 }
 
-.board-nickname, .board-info-detail {
-    font-size: 1.3rem;
-    color: #888;
-}
+    .board-nickname, .board-info-detail {
+        font-size: 1.3rem;
+        color: #888;
+    }
 
 .board-reply-count {
     display: inline-block;
@@ -60,7 +60,7 @@ main {
     line-height: 1.5em;
     font-size: 1.4rem;
     color: #555;
-    padding:40px 0 80px;
+    padding: 40px 0 80px;
 }
 
 .btn-board-adjustment-wrap {
@@ -68,13 +68,13 @@ main {
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid #555;
-    padding:15px 0 60px;
+    padding: 15px 0 60px;
 }
 
 .btn-adjust-board {
     font-size: 1.3rem;
     padding: 7px 20px;
-    border:1px solid #666;
+    border: 1px solid #666;
     border-radius: 3px;
     cursor: pointer;
     outline: none;
@@ -108,8 +108,8 @@ main {
 }
 
 .reply-some-words {
-    width:100%;
-    height:100px;
+    width: 100%;
+    height: 100px;
     border: none;
     resize: none;
     margin-top: 20px;
@@ -126,6 +126,7 @@ main {
     color: #fff;
     background: #7718f1;
     border:1px solid #7718f1;
+    cursor: pointer;
 }
 
 .see-reply-box {
@@ -144,7 +145,6 @@ main {
 }
 
 
-/*
 @media screen and (max-width: 1440px) {
     main {
         -ms-grid-columns: 100%;
@@ -164,92 +164,71 @@ main {
         grid-column: 1;
         -ms-grid-row: 3;
         grid-row: 2;
+        padding: 25px 30px;
     }
-}
-
-@media screen and (max-width: 1300px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 130px 130px 130px;
-        grid-template-columns: 1fr 130px 130px 130px;
-
-    }
-
-    .board-content {
-        -ms-grid-columns: 1fr 130px 130px 130px;
-        grid-template-columns: 1fr 130px 130px 130px;
-
-    }
-}
-
-@media screen and (max-width: 1000px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 100px 100px 100px;
-        grid-template-columns: 1fr 100px 100px 100px;
-        padding: 0 20px 20px;
-    }
-
-    .board-content {
-        -ms-grid-columns: 1fr 100px 100px 100px;
-        grid-template-columns: 1fr 100px 100px 100px;
-        padding: 25px 20px;
-    }
-
-    .board-ft-content-box {
-        -ms-grid-columns: 100%;
-        grid-template-columns: 100%;
-        -ms-grid-rows: (auto)[2];
-        grid-template-rows: repeat(2, auto);
-        grid-row-gap: 25px;
-    }
-
-    .pagination {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    .write-board-box {
-        grid-column: 1;
-        grid-row: 1;
-        text-align: right;
-    }
-
 }
 
 @media screen and (max-width: 750px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 50px 50px 50px;
-        grid-template-columns: 1fr 60px 60px 80px;
-        padding: 0 15px 20px;
-    }
-
-    .board-content {
-        -ms-grid-columns: 1fr 100px 100px 100px;
-        grid-template-columns: 1fr 60px 60px 80px;
+    .board-content-box {
         padding: 25px 15px;
     }
 
+    .board-title-small-box {
+        flex-flow: column;
+        align-items: flex-start;
+    }
+
+    .board-info-content-box {
+        display: flex;
+    }
+    
+    .board-nickname, .board-info-detail {
+        font-size: 1.4rem;
+    }
+
+    .board-nickname {
+        margin-right: 15px;
+    }
+
+    .board-reply-count {
+        margin-left: 10px;
+    }
+    
+    .board-text-box {
+        padding:30px 0 50px;
+    }
+
+    .btn-board-adjustment-wrap {
+        padding: 15px 0 45px;
+    }
+    
+    .border-reply-history {
+        padding: 25px 15px;
+    }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 460px) {
     .board-common-box {
         padding: 25px 30px;
     }
+    .board-nickname, .board-info-detail {
+        font-size: 1.2rem;
+    }
+
+    .board-nickname {
+        margin-right: 10px;
+    }
+
+    .board-reply-count {
+        margin-left: 5px;
+    }
+
+    .write-down-reply-box {
+        margin: 10px 0 25px;
+    }
     
-    .board-content-box {
-        padding:25px 15px;
+    .reply-detail-box {
+        padding: 15px;
     }
-
-    .btn-write-board {
-        padding: 4px 8px;
-    }
-
-    .page-btn {
-        width: 25px;
-    }
-
-    .page-number {
-        padding: 6px 8px;
-    }
-
 
 }
-*/
