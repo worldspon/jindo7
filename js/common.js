@@ -51,6 +51,9 @@ headerWrap.innerHTML = `<header>
         <li>
             <a href='board.html' class='board-nav'>게시판</a>
         </li>
+        <li>
+            <a href='adlist.html' class='board-nav'>한줄광고신청</a>
+        </li>
     </ul>
     <!-- nav main menu list end -->
 </nav>
@@ -106,6 +109,9 @@ headerWrap.innerHTML = `<header>
         </li>
         <li>
             <a href='board.html' class='mobile-menu-main-list'>게시판</a>
+        </li>
+        <li>
+            <a href='addlist.html' class='board-nav'>한줄광고신청</a>
         </li>
     </ul>
 </div>
