@@ -16,6 +16,8 @@ const pureProfit = document.querySelector('.pure-profit > .profit-right');
 // 광고 수익금
 const adprofitChartHl = document.querySelector('.adprofit-chart-header > h3');
 let dataSelectBox = document.querySelectorAll('.data-select-box');
+
+let mainJsonData;
 // select option node id 저장
 let dataOption1, dataOption2;
 // 현재 가지고 있는 데이터의 연 월 저장
@@ -51,14 +53,66 @@ let monAvgHigh = document.querySelector('.month-avg-high');
 let monAvgLow = document.querySelector('.month-avg-low');
 let monTotalAvg = document.querySelector('.month-total-avg');
 
+const asyncURL =`./js/adprofit.json`;
 
 
+mainAsync(asyncURL);
 
-profitAsync('js/adprofit.json',nowYear,nowMonth);
-selectAsync('js/adprofit.json',nowYear,nowMonth);
-lineChartAsync('js/adprofit.json');
-barChartAsync('js/adprofit.json');
-comparisonAsync('js/adprofit.json');
+/**
+ * @brief 첫 비동기 통신
+ * @author JJH
+ * @param url 데이터 url
+ * @param yy 현재 년도
+ * @param mm 현재 월
+*/
+async function mainAsync(url) {
+    try {
+        mainJsonData = await AsyncValidateFnc(url);
+        mainJsonData = JSON.parse(mainJsonData);
+        renderData(mainJsonData);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function renderData(mainJsonData) {
+
+    let nowData = mainJsonData.ad[nowYear][nowMonth];
+
+    // myData.ad[nowYear][nowMonth];
+    if(nowData) {
+        // 상단 수익금
+
+        setProfitData(mainJsonData,nowYear,nowMonth);
+
+        setSelectBox(mainJsonData,nowYear,nowMonth);
+
+        createLineChart(mainJsonData,`${nowYear}${nowMonth}`, ``);
+
+        createBarChart(mainJsonData);
+
+        setComparisonData(mainJsonData);
+
+
+    } else {
+        if(nowMonth==1) {
+            nowYear-=1;
+            nowMonth = 12;    
+        } else {
+            nowMonth -= 1;
+        }
+            setProfitData(mainJsonData,nowYear,nowMonth);
+
+            setSelectBox(mainJsonData,nowYear,nowMonth);
+
+            createLineChart(mainJsonData,`${nowYear}${nowMonth}`, ``);
+
+            createBarChart(mainJsonData);
+
+            setComparisonData(mainJsonData);
+    }
+}
+
 
 
 
@@ -82,24 +136,6 @@ function AsyncValidateFnc(url) {
 
 
 /**
- * @brief 첫 접속시 하단 수익비교 박스 초기화를 위한 통신
- * @author JJH
- * @param url 데이터 url
- * @param yy 현재 년도
- * @param mm 현재 월
- */
-async function comparisonAsync(url) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        setComparisonData(data);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
-
-/**
  * @brief 첫 접속시 하단 수익비교 박스 데이터 입력 함수
  * @author JJH
  * @param url 데이터 url
@@ -107,7 +143,7 @@ async function comparisonAsync(url) {
  * @param mm 현재 월
  */
 function setComparisonData(data) {
-    let myData = JSON.parse(data);
+    let myData = Object.assign({},data);
     let curHigh = curLow = curAvg = monMaxAvg = monMinAvg = monAvg = avgCount = 0;
     let curValAry = [];
     let currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0});
@@ -185,87 +221,6 @@ Array.from(dataSelectBox).forEach((el)=> {
 
 
 
-
-
-/**
- * @brief 첫 접속시 상단 수익금 박스 초기화를 위한 통신
- * @author JJH
- * @param url 데이터 url
- * @param yy 현재 년도
- * @param mm 현재 월
- */
-async function profitAsync(url,yy,mm) {
-    try {
-        // 통신중일시 select box disabled
-        dataSelectBox[0].disabled = 'true';
-        dataSelectBox[1].disabled = 'true';
-        let data = await AsyncValidateFnc(url);
-        setProfitData(data,yy,mm);
-    } catch (error) {
-        dataSelectBox[0].removeAttribute('disabled');
-        dataSelectBox[1].removeAttribute('disabled');
-        console.log(error);
-    }
-}
-
-
-
-/**
- * @brief 첫 접속시 select box 초기화를 위한 통신
- * @author JJH
- * @param url 데이터 url
- * @param yy 현재 년도
- * @param mm 현재 월
- */
-async function selectAsync(url,yy,mm) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        setSelectBox(data,yy,mm);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
-
-/**
- * @brief line chart 생성을 위한 비동기통신
- * @author JJH
- * @param url 데이터 url
- * @param data1 첫번째 데이터 연월, 없을시 현재년월 데이터
- * @param data2 첫번째 데이터 연월, 없을시 공백
- */
-async function lineChartAsync(url,data1=`${nowYear}${nowMonth}`,data2=``) {
-    try {
-        dataSelectBox[0].disabled = 'true';
-        dataSelectBox[1].disabled = 'true';
-        let data = await AsyncValidateFnc(url);
-        createLineChart(data, data1, data2);
-    } catch (error) {
-        dataSelectBox[0].removeAttribute('disabled');
-        dataSelectBox[1].removeAttribute('disabled');
-        console.log(error);
-    }
-}
-
-
-
-/**
- * @brief bar chart 생성을 위한 비동기통신
- * @author JJH
- * @param url 데이터 url
- */
-async function barChartAsync(url) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        createBarChart(data);
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-
-
 /**
  * @brief 상단 수익금 및 차트 제목, 최초 차트내용을 변경하는 함수
  * @author JJH
@@ -277,8 +232,7 @@ function setProfitData(data,yy,mm) {
 
     //화폐 표기를 위한 포멧 설정
     let currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0});
-
-    let myData = JSON.parse(data);
+    let myData = Object.assign({},data);
     myData = myData.ad[yy][mm];
 
 
@@ -326,8 +280,8 @@ function setProfitData(data,yy,mm) {
 
 
     // 통신종료시 select box disabled 해제
-    dataSelectBox[0].removeAttribute('disabled');
-    dataSelectBox[1].removeAttribute('disabled');
+    // dataSelectBox[0].removeAttribute('disabled');
+    // dataSelectBox[1].removeAttribute('disabled');
 }
 
 
@@ -343,7 +297,7 @@ function setProfitData(data,yy,mm) {
  *      연도, 월 정보를 통신 없이 얻기 위함임.
  */
 function setSelectBox(data, yy, mm) {
-    let myData = JSON.parse(data);
+    let myData = Object.assign({},data);
     let tempHtml = '';
     adprofitChartHl.innerText = `${mm}월 광고수익금`
     
@@ -415,7 +369,8 @@ function updateSelect() {
     });
 
     // 첫번째 selected 된 value가 각 box의 제목과 내용이 됨
-    profitAsync('js/adprofit.json',dataSelectYear1,dataSelectMonth1);
+    // profitAsync('js/adprofit.json',dataSelectYear1,dataSelectMonth1);
+    setProfitData(mainJsonData,dataSelectYear1,dataSelectMonth1);
 
     dataOption2.forEach((el)=>{
         if(el.selected) {
@@ -455,7 +410,8 @@ function updateSelect() {
                 }
             });
         });
-        lineChartAsync('js/adprofit.json',dataSelect1)
+        // lineChartAsync('js/adprofit.json',dataSelect1);
+        createLineChart(mainJsonData, dataSelect1);
     } else {
         tempHtml += `<option value="select">select</option>`;
         dataYear.forEach((el)=>{
@@ -469,7 +425,8 @@ function updateSelect() {
                 }
             })
         });
-        lineChartAsync('js/adprofit.json',dataSelect1, dataSelect2);
+        createLineChart(mainJsonData, dataSelect1,dataSelect2);
+        // lineChartAsync('js/adprofit.json',dataSelect1, dataSelect2);
     }
     dataSelectBox[1].innerHTML = tempHtml;
 }
@@ -483,7 +440,7 @@ function updateSelect() {
  * @param data1 첫번째 데이터 연월
  * @param data2 첫번째 데이터 연월
  */
-function createLineChart(data, data1, data2) {
+function createLineChart(data, data1=`${nowYear}${nowMonth}`, data2=``) {
 
     let lineChartHeight = 0;
     //창크기에 따라 height 값 지정
@@ -494,9 +451,11 @@ function createLineChart(data, data1, data2) {
     }else {
         lineChartHeight = 500
     }
+    let myData = Object.assign({},data);
 
-    let myData = JSON.parse(data);
     myData = myData.ad
+
+
     let dataYear1 = data1.slice(0,4);
     let dataYear2 = data2.slice(0,4);
     let dataMonth1 = data1.slice(4);
@@ -511,7 +470,6 @@ function createLineChart(data, data1, data2) {
     labelAry=[];
     valAry1 = [];
     valAry2 = [];
-
     // 3일 단위
     tabletlabelAry=[];
     tabletvalAry1 = [];
@@ -525,14 +483,14 @@ function createLineChart(data, data1, data2) {
 
     // 데이터 저장
     // valAry1 = myData[dataYear1][dataMonth1].dailyprofit;
-    valAry1 = myData[dataYear1][dataMonth1].dailyprofit;
-
+    valAry1 = Object.assign([],myData[dataYear1][dataMonth1].dailyprofit);
     
     // 순수익 계산
     for (const key in valAry1) {
         valAry1[key] -= myData[dataYear1][dataMonth1].deduction[key];
     }
 
+    
     
 
     // 현재월 조회시 오늘-1일까지만 데이터 저장
@@ -552,7 +510,8 @@ function createLineChart(data, data1, data2) {
 
     if(data2 != '') {
 
-        valAry2 = myData[dataYear2][dataMonth2].dailyprofit;
+        // valAry2 = myData[dataYear2][dataMonth2].dailyprofit;
+        valAry2 = Object.assign([],myData[dataYear2][dataMonth2].dailyprofit);
 
         // 순수익 계산
         for (const key in valAry2) {
@@ -596,7 +555,6 @@ function createLineChart(data, data1, data2) {
     valAry2.unshift(null);
     valAry1.push(null);
     valAry2.push(null);
-
     tabletlabelAry.unshift('');
     tabletlabelAry.push('');
     tabletvalAry1.unshift(null);
@@ -717,7 +675,7 @@ function createLineChart(data, data1, data2) {
  * @param data JSON data
  */
 function createBarChart(data) {
-    let myData = JSON.parse(data);
+    let myData = Object.assign({},data);
     myData = myData.ad[nowYear];
 
     let curMonth=0,prevMonth=0,pprevMonth=0;
