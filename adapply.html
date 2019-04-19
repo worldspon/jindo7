@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/adapply.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>WORLDSPON</title>
+    
+    <script>
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
+        <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
+        <div class='header-wrap'>
+        </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
+        <div class='main-wrap'>
+            <main>
+                <!-- notice common box start -->
+                <div class='apply-common-box content-box-layout'>
+                    <h3 class='content-hl'>한줄광고신청</h3>
+                </div>
+                <!-- notice common box end -->
+
+                <!-- notice content box start -->
+                <div class='apply-content-box content-box-layout'>
+                    <div class='ad-apply-notice-wrap'>
+                        <p class='apply-notice-hd'>한줄광고신청 유의사항</p>
+                        <ul class='apply-read-box'>
+                            <li class='read-list ad-list-one'> 광고를 등록하면 월드스폰 앱 채팅화면 상단에 광고가 출력됩니다.</li>
+                            <li class='read-list ad-list-two'> 신청기간에 따라 스폰이 소모됩니다.</li>
+                            <li class='read-list ad-list-three'> 신청내역 화면에서 현재 진행 중인 광고의 문구를 수정 할 수 있습니다.</li>
+                        </ul>
+                        <button class='see-apply-list'>신청내역</button>
+                    </div>
+                    <div class='ad-apply-statment-wrap'>
+                        <div class='ad-payment-way-box'>
+                            <select class='ad-how-long'>
+                                <option value='1'>1일</option>
+                                <option value='3'>3일</option>
+                                <option value='5'>5일</option>
+                                <option value='7'>7일</option>
+                                <option value='15'>15일</option>
+                                <option value='30'>30일</option>
+                                <option value='90'>90일</option>
+                            </select>
+                            <div class='ad-price-box'>광고가격<span class='detail-price'>17</span>스폰</div>
+                        </div>
+                        <textarea class='ad-text-space' placeholder='광고내용은 80자까지'></textarea>
+                        <div class='btn-ad-apply-box'>
+                            <button class='applyad btn-apply-ad'>등록</button>
+                            <button class='cancelad btn-apply-ad'>취소</button>
+                        </div>
+                    </div>
+                </div> 
+                <!-- notice content box end -->
+            </main>
+        </div>
+        <!-- main-wrap end -->
+    </div>
+
+
+    <script src='./js/polyfill.min.js'></script>
+    <script src='./js/Chart.min.js'></script>
+    <script src='./js/common.js'></script>
+    <script src="./js/noticecontent.js"></script>
+</body>
+</html>

@@ -341,6 +341,18 @@ main {
 }
 
 /* tablet */
+@media screen and (max-width: 1700px) {
+    .main-menu > li:not(:last-child) {
+        margin-right: 60px;
+    }
+}
+
+@media screen and (max-width: 1550px) {
+    .main-menu > li:not(:last-child) {
+        margin-right: 45px;
+    }
+}
+
 @media screen and (max-width: 1400px) {
     html {
         font-size: 11px;
@@ -384,11 +396,15 @@ main {
         width: 100%;
         justify-content: flex-end;
     }
-}
-
-@media screen and (max-width: 1400px) {
+    
     .main-menu > li:not(:last-child){
         margin-right: 65px;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .main-menu > li:not(:last-child){
+        margin-right: 40px;
     }
 }
 

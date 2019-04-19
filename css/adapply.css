@@ -1,0 +1,207 @@
+main {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1400px 1fr;
+    grid-template-columns: 1fr 1400px 1fr;
+    -ms-grid-rows: auto 20px auto;
+    grid-template-rows: repeat(2, auto);
+    grid-row-gap: 20px;
+    padding: 20px 0px;
+}
+
+.apply-common-box {
+    display: flex;
+    -ms-grid-column: 2;
+    grid-column: 2;
+    -ms-grid-row: 1;
+    grid-row: 1;
+    padding: 25px 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.apply-content-box {
+    -ms-grid-column: 2;
+    grid-column: 2;
+    -ms-grid-row: 3;
+    grid-row: 2;
+    padding: 130px 140px;
+}
+
+    .ad-apply-notice-wrap {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .apply-notice-hd {
+        color: #333;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    
+    .apply-read-box {
+        margin: 40px 0;
+        color: #333;
+        line-height: 2em;
+        font-size: 1.5rem;
+    }
+    
+    .read-list {
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .read-list:before {
+        position: absolute;
+        top: 0px;
+        left:0px;
+    }
+    
+    .ad-list-one:before {
+        content: '1.';
+    }
+
+    .ad-list-two:before {
+        content: '2.';
+    }
+
+    .ad-list-three:before {
+        content: '3.';
+    }
+
+    .see-apply-list {
+        padding: 8px 15px;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #662d91;
+        border: 1px solid #662d91;
+        border-radius: 3px;
+        background: transparent;
+        cursor: pointer;
+    }
+    
+    .see-apply-list:hover, .see-apply-list:focus {
+        color: #fff;
+        background:#662d91;
+    }
+
+    .ad-apply-statment-wrap {
+        margin-top: 80px;
+    }
+    
+    .ad-payment-way-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .ad-how-long {
+        font-size: 1.2rem;
+        border: 1px solid #555;
+        padding: 6px 20px;
+        color: #333;
+        outline: none;
+    }
+
+    .ad-price-box {
+        color: #333;
+        font-size: 1.5rem;
+        text-align: right;
+    }
+
+    .detail-price {
+        display: inline-block;
+        width: 45px;
+        color: #f00;
+        margin-right: 5px;
+    }
+
+    .ad-text-space {
+        width: 100%;
+        height:140px;
+        padding: 20px;
+        margin: 15px 0 40px;
+        border: 1px solid #333;
+        box-sizing: border-box;
+        resize: none;
+        outline: none;
+    }
+    .ad-text-space:focus {
+        border: 1px solid #4d06a7;
+    }
+
+    .btn-ad-apply-box {
+        text-align: center;
+    }
+
+    .btn-apply-ad {
+        padding: 8px 20px;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #662d91;
+        border: 1px solid #662d91;
+        border-radius: 3px;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .btn-apply-ad:hover, .btn-apply-ad:focus {
+        color: #fff;
+        background: #662d91;
+    }
+    .applyad {
+        margin-right: 10px;
+    }
+
+@media screen and (max-width: 1440px) {
+    main {
+        -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+        padding : 20px;
+    }
+
+    .apply-common-box {
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 1;
+        grid-row: 1;
+    }
+
+    .apply-content-box {
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 3;
+        grid-row: 2;
+        padding: 130px 70px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .apply-content-box {
+        padding: 90px 30px;
+    }
+    
+    .apply-common-box {
+        padding: 25px 30px;
+    }
+
+    .ad-apply-statment-wrap {
+        margin-top: 50px;
+    }
+    
+    .ad-text-space {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .apply-content-box {
+        padding: 50px 15px;
+    }
+
+    .ad-how-long {
+        padding: 8px 25px;
+    }
+}
