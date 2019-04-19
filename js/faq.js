@@ -1,5 +1,7 @@
 'use strict;'
 
+const searchInput = document.querySelector('.faq-search-input');
+const searchBtn = document.querySelector('.faq-search-btn');
 const faqContent = document.querySelector('.faq-content');
 const faqContentWrap = document.querySelector('.faq-content-wrap');
 const pagenationInner = document.querySelector('.pagination-inner');
@@ -9,6 +11,25 @@ const nextBtn = document.querySelector('.next-btn');
 const lastBtn = document.querySelector('.last-btn');
 const faqUrl = 'js/noticeall.json';
 
+
+
+
+
+
+// 검색 기능
+/////////////////////////////////////////////////////////////////////
+searchBtn.addEventListener('click', function() {
+    searchKeyword = encodeURIComponent(searchInput.value);
+    console.log(searchKeyword);
+});
+
+searchInput.addEventListener('keyup', function(e) {
+    if(e.keyCode==13) {
+        let clickEventObject = new Event('click');
+        searchBtn.dispatchEvent(clickEventObject);
+    }
+});
+/////////////////////////////////////////////////////////////////////
 
 let pageNum, lastPage, startPage, endPage, contentLength;
 //현재 페이지
