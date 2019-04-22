@@ -47,10 +47,10 @@
                         <label for="dq-find">상담분류</label>
                         <select id="dq-find" required>
                             <option value="" disabled selected>상담분류를 선택해주세요.</option>
-                            <option value="appfunction">앱 기능</option>
-                            <option value="exchange">거래소</option>
-                            <option value="gamezone">게임존</option>
-                            <option value="etc">기타</option>
+                            <option value="APP">앱 기능</option>
+                            <option value="TRADE_MARKET">거래소</option>
+                            <option value="GAMEZONE">게임존</option>
+                            <option value="ETC">기타</option>
                         </select>
                     </div>
                     <div class="phone-wrap dq-box">
@@ -64,7 +64,8 @@
                     <div class="talk-wrap dq-box">
                         <label for="describe-dq">내용</label>
                         <textarea type="text" id="describe-dq" placeholder="내용을 입력해주세요.(질문에 번호를 매겨 질문하면 보다 더 정확한 답변을 받으실 수 있습니다)"></textarea>
-                    </div>                 
+                        <div id="hidden-div" style="display: none;"></div>
+                    </div>
                     <button type="submit" class="btn-help">문의하기</button>
                 </div>
                 <!-- faq content box end -->
@@ -77,5 +78,6 @@
     <script src='./js/polyfill.min.js'></script>
     <script src='./js/Chart.min.js'></script>
     <script src='./js/common.js'></script>
+    <script src='./js/directq.js'></script>
 </body>
 </html>
