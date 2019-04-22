@@ -308,7 +308,7 @@ Array.from(mobileNoticeMenu).forEach((el)=>{
  * @author JJH
  * @see url만 바꿔서 쓰면 된다.
  */
-function AsyncValidateFnc(url) {
+function commonAsyncValidateFnc(url) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("GET", url);
@@ -327,7 +327,7 @@ function AsyncValidateFnc(url) {
  */
 async function logoutAsync(url) {
     try {
-        let data = await AsyncValidateFnc(url);
+        let data = await commonAsyncValidateFnc(url);
         data = JSON.parse(data);
         if(data.errorCode != 0) {
             alert(data.msg);

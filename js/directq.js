@@ -13,7 +13,7 @@ let optionVal = '';
 
 selectBox.addEventListener('change', selectOptionFnc);
 
-btnHelp.addEventListener('click', ()=>{  
+btnHelp.addEventListener('click', ()=>{
     asyncFnc(checkFlag());
 });
 
@@ -56,6 +56,7 @@ function checkFlag() {
 async function asyncFnc(flag) {
 
     if(flag) {
+        hiddenDiv.innerText = textArea.value;
         let qJson = {
             'type' : optionVal.trim(),
             'phoneType' : phType.value.trim(),
@@ -64,7 +65,6 @@ async function asyncFnc(flag) {
         }
 
         qJson = JSON.stringify(qJson);
-
         let data = await AsyncValidateFnc('POST', 'http://192.168.0.24:8080/myQ/directQ', qJson);
         data = JSON.parse(data);
         if(data.errorCode > 0) {
