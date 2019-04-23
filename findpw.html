@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/boardform.css">
+    <link rel="stylesheet" href="./css/findpw.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>WORLDSPON</title>
@@ -34,25 +34,25 @@
         <!-- main-wrap start -->
         <div class='main-wrap'>
             <main>
-                <!-- board common box start -->
-                <div class='board-common-box content-box-layout'>
-                    <h3 class='content-hl'>게시판</h3>
+                <!-- findpw common box start -->
+                <div class='findpw-content-box content-box-layout'>
+                    <div class="findpw-image-box">
+                        <img class="findpw-question-mark" src="./images/img_password.png" alt="pw_image">
+                    </div>
+                    <ul class="findpw-notice-box">
+                        <li class="findpw-list pw-one">스마트아이디 입력란에 본인의 스마트아이디를 입력한다.</li>
+                        <li class="findpw-list pw-two">메일발송 버튼을 누른다.</li>
+                        <li class="findpw-list pw-three">가입 당시 입력한 메일 주소 또는 구글 메일 주소로 발송된 링크에서 비밀번호를 변경한다.</li>
+                        <li class="findpw-list pw-four">변경한 비민번호를 이용하여 로그인한다.</li>
+                    </ul>
+                    <div class="findpw-smart-id-box">
+                        <input class="smart-id" type="text" placeholder="스마트아이디 입력">
+                    </div>
+                    <div class="findpw-send-email">
+                        <button class="send-email">메일 발송</button>
+                    </div>
                 </div>
-                <!-- board common box end -->
-
-                <!-- boardform content box start -->
-                <div class='board-content-box content-box-layout'>
-                    <div class='board-writing-title-box'>
-                        <input class='board-writing-title' type='text' placeholder='제목을 입력해주세요.'>
-                    </div>
-                    <div class='board-writing-content-box'>
-                        <textarea class='board-writing-content' placeholder='안녕하세요. 월드스폰입니다. 스폰은 spon입니다. 스폰은 귀중한 여러분의 자산입니다.'></textarea>
-                    </div>
-                    <div class='board-writing-btn-box'>
-                        <button class='btn-writing'>작성</button>
-                    </div>
-                </div>
-                <!-- boardform content box end -->
+                <!-- findpw common box end -->
             </main>
         </div>
         <!-- main-wrap end -->
