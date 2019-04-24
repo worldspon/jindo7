@@ -435,6 +435,10 @@ main {
 
 
 @media screen and (max-width: 750px) {
+    .adlist-common-box {
+        padding: 25px 30px;
+    }
+
     .adlist-content-box {
         padding: 25px 10px;
     }

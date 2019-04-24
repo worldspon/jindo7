@@ -297,13 +297,13 @@ main {
     .board-title-box {
         -ms-grid-columns: 1fr 60px 60px 80px;
         grid-template-columns: 1fr 60px 60px 80px;
-        padding: 0 15px 20px;
+        padding: 0 10px 20px;
     }
 
     .board-content {
         -ms-grid-columns: 1fr 60px 60px 80px;
         grid-template-columns: 1fr 60px 60px 80px;
-        padding: 25px 15px;
+        padding: 25px 10px;
     }
 
 }
@@ -314,7 +314,7 @@ main {
     }
     
     .board-content-box {
-        padding:25px 15px;
+        padding:25px 10px;
     }
 
     .btn-write-board {

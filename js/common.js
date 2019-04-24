@@ -205,7 +205,7 @@ function commonEventReg() {
  * @author JJH
  */
 function showSubMenu() {
-    if(window.innerWidth > 1300) {
+    if(window.innerWidth > 1400) {
         navBg.style.height = '140px';
     } else {
         navBg.style.height = '180px';

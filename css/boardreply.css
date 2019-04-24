@@ -111,7 +111,7 @@ main {
     height: 100px;
     border: none;
     resize: none;
-    margin-top: 20px;
+    margin-top: 10px;
     outline: none;
 }
 
@@ -132,14 +132,14 @@ main {
     border-top: 1px solid #939393;
 }
 
-.border-reply-history {
+.board-reply-history {
     padding: 35px 25px;
 }
 
 .board-view-reply {
     color: #555;
     font-size: 1.25rem;
-    margin-top: 20px;
+    margin-top: 10px;
     line-height: 1.3em;
 }
 
@@ -179,8 +179,9 @@ main {
 
     .board-info-content-box {
         display: flex;
+        padding: 5px 0 10px;
     }
-    
+
     .board-nickname, .board-info-detail {
         font-size: 1.4rem;
     }
@@ -194,15 +195,19 @@ main {
     }
     
     .board-text-box {
-        padding:30px 0 50px;
+        padding:10px 0 30px;
     }
 
     .btn-board-adjustment-wrap {
-        padding: 15px 0 45px;
+        padding: 15px 0 35px;
     }
     
-    .border-reply-history {
-        padding: 25px 15px;
+    .board-reply-history {
+        padding: 15px 10px;
+    }
+
+    .reply-detail-box {
+        padding: 15px 10px;
     }
 }
 
@@ -224,10 +229,6 @@ main {
 
     .write-down-reply-box {
         margin: 10px 0 25px;
-    }
-    
-    .reply-detail-box {
-        padding: 15px;
     }
 
 }
