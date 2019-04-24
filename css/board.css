@@ -17,7 +17,6 @@ main {
     grid-row: 1;
     padding: 25px 50px;
     align-items: center;
-    justify-content: flex-start;
 }
 
 .board-content-box {
@@ -33,7 +32,7 @@ main {
         display: -ms-grid;
         display: grid;
         -ms-grid-columns: 1fr 150px 150px 150px;
-        grid-template-columns: 1fr 150px 150px 150px;
+        grid-template-columns: 1fr repeat(3, 150px);
         -ms-grid-rows: 1;
         grid-template-rows: 1;
         font-size: 1.3rem;
