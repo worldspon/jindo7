@@ -1,13 +1,16 @@
-'use strict;'
+'use strict';
+
 
 let winWidth = window.innerWidth;
-let pcFlag = false;
+let pcFlag = winWidth > 1860 ? true : false;
 let nowMon = new Date().getMonth()+1;
 let nowDay = new Date().getDate();
-let startTime = new Date(new Date().getFullYear(), nowMon-1, nowDay, 00, 00, 00, 00).getTime();
+let startTime = new Date(new Date().getFullYear(), nowMon-1, nowDay, '00', '00', '00', '00').getTime();
 let nowTime = Date.now();
-let fiveMcountTime = Math.floor((nowTime - startTime)/300000);
-let threeMcountTime = Math.floor((nowTime - startTime)/180000);
+let flowTime = nowTime - startTime;
+
+let fiveMcountTime = Math.floor(flowTime/300000);
+let threeMcountTime = Math.floor(flowTime/180000);
 
 const main = document.querySelector('main');
 const raceHl = document.querySelector('.zombie-race .content-hl');
@@ -28,10 +31,83 @@ let mdTable = document.querySelector('.md-wrap table');
 
 let raceToday, raceYesterday, breakToday, breakYesterday, fightToday, fightYesterday, dropToday, dropYesterday;
 
-if(winWidth > 1860) {
-    pcFlag = true;
-} else if(winWidth < 1860) {
-    pcFlag = false;
+//(5분) 다음게임 종료까지 흐른시간
+let restTimeFive = 300000 - (flowTime%300000);
+let restMFive = Math.floor(restTimeFive/60000);
+let restSFive = Math.floor((restTimeFive%60000)/1000);
+let restMsFive = (restTimeFive%60000)%1000+1000;
+
+let restTimeThree = 180000 - (flowTime%180000);
+let restMThree = Math.floor(restTimeThree/60000);
+let restSThree = Math.floor((restTimeThree%60000)/1000);
+let restMsThree = (restTimeThree%60000)%1000+1000;
+
+let raceCount = document.querySelector('.race-countdown');
+let fightCount = document.querySelector('.fight-countdown');
+let breakCount = document.querySelector('.break-countdown');
+let dropCount = document.querySelector('.drop-countdown');
+
+raceCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+fightCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+breakCount.innerText = `잔여시간 : 0${restMThree}:${restSThree > 9 ? restSThree : `0${restSThree}`}`;
+dropCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+
+setTimeout(()=>{
+    fivemCount();
+    setInterval(fivemCount,1000);
+},restMsFive)
+
+setTimeout(()=>{
+    threemCount();
+    setInterval(threemCount,1000);
+},restMsThree)
+
+function fivemCount() {
+    if((restMFive > 0 && restSFive > 0) || (restMFive <= 0 && restSFive > 0)) {
+        restSFive--;
+        raceCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+        fightCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+        dropCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+    } else if(restMFive > 0 && restSFive <= 0) {
+        restMFive--;
+        restSFive = 59;
+        raceCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+        fightCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+        dropCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+    } else if(restMFive <= 0 && restSFive <= 0) {
+        restMFive = 4;
+        restSFive = 59;
+        raceCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+        fightCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+        dropCount.innerText = `잔여시간 : 0${restMFive}:${restSFive > 9 ? restSFive : `0${restSFive}`}`;
+
+        nowTime = Date.now();
+        flowTime = nowTime - startTime;
+        fiveMcountTime = Math.floor(flowTime/300000);
+        gameDataLoad('zombieRace', 'today');
+        gameDataLoad('zombieFight', 'today');
+        gameDataLoad('zombieDrop', 'today');
+    }
+}
+
+function threemCount() {
+
+    if((restMThree > 0 && restSThree > 0) || (restMThree <= 0 && restSThree > 0)) {
+        restSThree--;
+        breakCount.innerText = `잔여시간 : 0${restMThree}:${restSThree > 9 ? restSThree : `0${restSThree}`}`;
+    } else if(restMThree > 0 && restSThree <= 0) {
+        restMThree--;
+        restSThree = 59;
+        breakCount.innerText = `잔여시간 : 0${restMThree}:${restSThree > 9 ? restSThree : `0${restSThree}`}`;
+    } else if(restMThree <= 0 && restSThree <= 0) {
+        restMThree = 2;
+        restSThree = 59;
+        breakCount.innerText = `잔여시간 : 0${restMThree}:${restSThree > 9 ? restSThree : `0${restSThree}`}`;
+        nowTime = Date.now();
+        flowTime = nowTime - startTime;
+        threeMcountTime = Math.floor(flowTime/180000);
+        gameDataLoad('zombieBreak', 'today');
+    }
 }
 
 window.addEventListener('resize', () => {
@@ -48,7 +124,7 @@ window.addEventListener('resize', () => {
         }
     }
 
-    if(winWidth < 1860 ) {
+    if(winWidth <= 1860 ) {
         if(pcFlag) {
             pcFlag = false;
             createMobileTable(raceToday, 'zombieRace');
@@ -73,7 +149,6 @@ gameDataLoad('zombieBreak', 'today');
 gameDataLoad('zombieDrop', 'today');
 
 // prevDataLoad(prevUrl);
-
 
 
 mdCloseBtn.addEventListener('click', ()=>{
@@ -124,7 +199,6 @@ function AsyncValidateFnc(url) {
 async function gameDataLoad(type,date='today') {
     try {
         let data;
-
         switch (type) {
             case 'zombieRace': {
 

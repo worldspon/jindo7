@@ -37,12 +37,23 @@ main {
 .zom-top {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
     padding:15px;
+}
+
+.countdown-span {
+    color: red;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.count-wrap {
+    text-align: center;
 }
 
 .btn-today,
 .btn-prev {
+    box-sizing: border-box;
     color: #fff;
     font-size: 1.1rem;
     background: #636363;
