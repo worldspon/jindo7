@@ -73,16 +73,23 @@ main {
         margin-bottom: 20px;
     }
 
-.list-btn {
-    display:block;
-    margin-left: auto;
-    color: white;
+.btn-content-box {
+    display: flex;
+    justify-content: space-between;
     margin-top: 10px;
+}
+
+.list-btn, .btn-ad, .btn-del {
+    color: white;
     padding: 5px 10px;
     border: none;
     border-radius: 3px;
     background-color: #a1a1a1;
     cursor: pointer;
+}
+
+.btn-ad {
+    margin-right: 5px;
 }
 
 
