@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/changepw.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>WORLDSPON</title>
+    
+    <script>
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
+        <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
+        <div class='header-wrap'>
+
+        </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
+        <div class='main-wrap'>
+            <main>
+                <!-- changepw content box start -->
+                <div class='changepw-content-box content-box-layout'>
+                    <p class="chg-pw-title">비밀번호 변경</p>
+                    <div class="check-pw">
+                        <input class="check-personal-pw" type="password" name="chg-password" placeholder="변경하실 비밀번호를 입력해 주세요." maxlength="20">
+                    </div>
+                    <div class="recheck-pw">
+                        <input class="recheck-personal-pw" type="password" name="chg-password" placeholder="비밀번호 확인" maxlength="20">
+                    </div>
+                    <div class="btn-change-pw-box">
+                        <button class="btn-change-pw">변경</button>
+                    </div>
+                </div>
+                <!-- changepw content box end -->
+            </main>
+        </div>
+        <!-- main-wrap end -->
+    </div>
+
+
+    <script src='./js/polyfill.min.js'></script>
+    <script src='./js/Chart.min.js'></script>
+    <script src='./js/common.js'></script>
+    <script src='./js/myq.js'></script>
+</body>
+</html>
