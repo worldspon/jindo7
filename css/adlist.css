@@ -121,10 +121,10 @@ main {
             font-size: 1.3rem;
             width: 100%;
             color: #555;
-            overflow: hidden;
+            /* overflow: hidden;
             white-space: nowrap;
             -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
+            text-overflow: ellipsis; */
         }
 
     .ad-end-date-box {
@@ -178,6 +178,7 @@ main {
             padding: 13px 25px;
             border-radius: 3px;
             background: #959595;
+            cursor: pointer;
         }
 
         .ad-done-box {

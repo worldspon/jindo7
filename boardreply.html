@@ -84,7 +84,7 @@
                                     <div class='own-smart-name'>
                                         <span>본인스마트아이디</span>
                                     </div>
-                                    <textarea class='reply-some-words' placeholder="내용입력창입니다."></textarea>
+                                    <textarea class='reply-some-words' placeholder="내용입력창입니다." maxlength="500"></textarea>
                                 </div>
                                 <div class='board-reply-upload-box'>
                                     <button class='board-reply-upload'>등록</button>
@@ -137,6 +137,19 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class='pagination'>
+                                <img class="first-btn page-btn" src="./images/first.png" alt="">
+                                <img class="prev-btn page-btn" src="./images/prev.png" alt="">
+                                <ul class='pagination-inner'>
+                                    <li class='page-number'>1</li>
+                                    <li class='page-number'>2</li>
+                                    <li class='page-number'>3</li>
+                                    <li class='page-number'>4</li>
+                                    <li class='page-number'>5</li>
+                                </ul>
+                                <img class="next-btn page-btn" src="./images/next.png" alt="">
+                                <img class="last-btn page-btn" src="./images/last.png" alt="">
+                            </div>
                         </div>
                         <!-- see reply box end -->
 
@@ -153,6 +166,6 @@
     <script src='./js/polyfill.min.js'></script>
     <script src='./js/Chart.min.js'></script>
     <script src='./js/common.js'></script>
-    <script src='./js/myq.js'></script>
+    <script src='./js/boardreplay.js'></script>
 </body>
 </html>
