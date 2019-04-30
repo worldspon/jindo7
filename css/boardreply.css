@@ -143,6 +143,37 @@ main {
     line-height: 1.3em;
 }
 
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .page-btn {
+        width: 30px;
+        margin: 0 2px;
+        cursor: pointer;
+    }
+
+    .pagination-inner {
+        display: flex;
+        align-items: center;
+        margin: 0 5px;
+        font-size: 1.3rem;
+    }
+
+    .page-number {
+        padding: 8px 10px;
+        border: 1px solid #aaa;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .page-number:not(:last-child) {
+        margin-right: 5px;
+    }
+
+
 
 @media screen and (max-width: 1440px) {
     main {
