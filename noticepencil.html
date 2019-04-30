@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link href="./css/summernote-lite.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/noticepencil.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>WORLDSPON</title>
+    
+    <script>
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
+        <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
+        <div class='header-wrap'>
+        </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
+        <div class='main-wrap'>
+            <main>
+                <!-- notice common box start -->
+                <div class='notice-common-box content-box-layout'>
+                    <h3 class='content-hl'>공지사항</h3>
+                </div>
+                <!-- notice common box end -->
+
+                <!-- notice pencil box start -->
+                <div class='notice-pencil-box content-box-layout'>
+                    <div class="notice-editor-box">
+                        <div class="notice-main-title-box">
+                            <select class="notice-editor-tab">
+                                <option value="공지사항">공지사항</option>
+                                <option value="업데이트">업데이트</option>
+                                <option value="이벤트">이벤트</option>
+                            </select>
+                            <div class="notice-editor-title">
+                                <input class="edit-title" type="text" placeholder="제목" maxlength="40">
+                            </div>
+                        </div>
+                        <form class="editor-big-wrapper" method="post">
+                            <textarea id="summernote" name="editordata"></textarea>
+                        </form>
+                    </div>
+                    <div class="btn-notice-box">
+                        <button class="btn-back">취소</button>
+                        <button class="btn-gogo">확인</button>
+                    </div>
+                </div>
+                <!-- notice pencil box end -->
+            </main>
+        </div>
+        <!-- main-wrap end -->
+    </div>
+
+    <script src="./js/jquery-3.2.1.slim.min.js"></script>
+    <script src="./js/summernote-lite.js"></script>
+
+    <script>
+        $('#summernote').summernote({
+            placeholder: '내용을 입력해주세요.',
+            tabsize: 2,
+            height: 600
+        });
+    </script>
+
+    <script src='./js/polyfill.min.js'></script>
+    <script src='./js/Chart.min.js'></script>
+    <script src='./js/common.js'></script>
+</body>
+</html>
