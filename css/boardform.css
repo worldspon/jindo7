@@ -59,7 +59,7 @@ main {
         padding-top: 15px;
     }
     
-    .btn-writing {
+    .btn-writing, .btn-cancel {
         border: 1px solid #666;
         border-radius: 3px;
         padding: 7px 20px;
@@ -67,6 +67,7 @@ main {
         font-size: 1.4rem;
         background: #a1a1a1;
         cursor: pointer;
+        margin-left: 10px;
     }
      
     

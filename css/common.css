@@ -198,11 +198,11 @@ a {
         .sub-menu {
             display: none;
             position: absolute;
+            width: 110%;
             top:30px;
-            left: 10px;
+            left: -3px;
             font-size: 0.8rem;
             text-align: center;
-            background-color:white;
         }
         
 
@@ -353,7 +353,7 @@ main {
     }
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1450px) {
     html {
         font-size: 11px;
     }
@@ -402,7 +402,7 @@ main {
     }
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1210px) {
     .main-menu > li:not(:last-child){
         margin-right: 40px;
     }
@@ -411,7 +411,7 @@ main {
 
 /* mobile */
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1040px) {
 
     nav {
         display: flex;

@@ -174,8 +174,6 @@ main {
     }
 
 
-
-
 @media screen and (max-width: 1440px) {
     main {
         -ms-grid-columns: 100%;

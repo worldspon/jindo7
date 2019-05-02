@@ -47,12 +47,37 @@ headerWrap.innerHTML = `<header>
         </li>
         <li>
             <a href='result.html' class='game-result-nav'>게임결과</a>
+            <ul class='notice-sub-menu sub-menu'>
+                <li>
+                    <a href='result.html'>게임기록</a>
+                </li>
+                <li>
+                    <a>배팅기록</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href='board.html' class='board-nav'>게시판</a>
         </li>
         <li>
             <a href='adlist.html' class='board-nav'>한줄광고신청</a>
+        </li>
+        <li>
+            <a href='adlist.html' class='board-nav'>관리자</a>
+            <ul class='notice-sub-menu sub-menu'>
+                <li>
+                    <a>게임머니</a>
+                </li>
+                <li>
+                    <a>거래기록</a>
+                </li>
+                <li>
+                    <a>캐시비관리</a>
+                </li>
+                <li>
+                    <a>서비스관리</a>
+                </li>
+            </ul>
         </li>
     </ul>
     <!-- nav main menu list end -->
@@ -105,13 +130,38 @@ headerWrap.innerHTML = `<header>
             </ul>
         </li>
         <li>
-            <a href='result.html' class='mobile-menu-main-list'>게임결과</a>
+            <a class='mobile-menu-main-list'>게임결과</a>
+            <ul class='mobile-menu-sub'>
+                <li>
+                    <a href="result.html">게임기록</a>
+                </li>
+                <li>
+                    <a href="result.html">베팅결과</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href='board.html' class='mobile-menu-main-list'>게시판</a>
         </li>
         <li>
             <a href='addlist.html' class='board-nav'>한줄광고신청</a>
+        </li>
+        <li>
+            <a class='mobile-menu-main-list'>관리자</a>
+            <ul class='mobile-menu-sub'>
+                <li>
+                    <a>게임머니</a>
+                </li>
+                <li>
+                    <a>거래기록</a>
+                </li>
+                <li>
+                    <a>캐시비관리</a>
+                </li>
+                <li>
+                    <a>서비스관리</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
@@ -189,7 +239,7 @@ function resizeFnc() {
  * @author JJH
  */
 function commonEventReg() {
-    if(window.innerWidth <= 960) {
+    if(window.innerWidth <= 1040) {
         nav.removeEventListener('mouseover',showSubMenu);
         navBg.removeEventListener('mouseout', hideSubMenu);
         mobileMenuImg.addEventListener('click', showMobileMenu);
@@ -205,10 +255,10 @@ function commonEventReg() {
  * @author JJH
  */
 function showSubMenu() {
-    if(window.innerWidth > 1400) {
-        navBg.style.height = '140px';
+    if(window.innerWidth > 1450) {
+        navBg.style.height = '150px';
     } else {
-        navBg.style.height = '180px';
+        navBg.style.height = '190px';
     }
 
     headerWrap.style.boxShadow = 'none';
