@@ -20,7 +20,7 @@ main {
 .bet-history {
     margin-left: 30px;
     color: #555;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: normal;
 }
 
@@ -39,7 +39,7 @@ main {
     padding: 15px 0;
     border-radius: 5px;
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     background: #666;
     cursor: pointer;
     outline: none;
@@ -64,7 +64,7 @@ table {
 
 .tb-main-title {
     margin-bottom: 15px;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     text-align: left;
 }
 
@@ -79,12 +79,14 @@ tbody {
 
 .one-line> th, .one-line> td{
     padding: 20px 0;
+    font-size: 1.2rem;
+    vertical-align: middle;
+    line-height: 1.4em;
 }
 .one-line> th:not(:last-child), .one-line> td:not(:last-child) {
     border-right: 1px solid #d4d4d4;
 }
 
-/*
 @media screen and (max-width: 1440px) {
     main {
         -ms-grid-columns: 100%;
@@ -92,107 +94,61 @@ tbody {
         padding : 20px;
     }
 
-    .board-common-box {
+    .myresult-common-box {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 1;
         grid-row: 1;
+        padding: 25px 50px;
     }
-
-    .board-content-box {
+    
+    .mybet-content-box {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 3;
         grid-row: 2;
+    }
+
+    .myresult-content-box {
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 5;
+        grid-row: 3;
     }
 }
 
 @media screen and (max-width: 1300px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 130px 130px 130px;
-        grid-template-columns: 1fr 130px 130px 130px;
-
-    }
-
-    .board-content {
-        -ms-grid-columns: 1fr 130px 130px 130px;
-        grid-template-columns: 1fr 130px 130px 130px;
-
+    .myresult-content-box {
+        padding: 25px 15px;
     }
 }
 
-@media screen and (max-width: 1000px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 100px 100px 100px;
-        grid-template-columns: 1fr 100px 100px 100px;
-        padding: 0 20px 20px;
+@media screen and (max-width: 700px) {
+    main {
+        grid-row-gap: 15px;
     }
 
-    .board-content {
-        -ms-grid-columns: 1fr 100px 100px 100px;
-        grid-template-columns: 1fr 100px 100px 100px;
-        padding: 25px 20px;
+    .myresult-common-box {
+        padding: 25px 0 25px 30px;
     }
 
-    .board-ft-content-box {
-        -ms-grid-columns: 100%;
-        grid-template-columns: 100%;
-        -ms-grid-rows: auto 25px auto;
-        grid-template-rows: repeat(2, auto);
-        grid-row-gap: 25px;
+    .bet-history {
+        margin-left: 10px;
     }
-
-    .pagination {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 3;
-        grid-row: 2;
-    }
-    .write-board-box {
-        -ms-grid-column: 1;
-        grid-column: 1;
-        -ms-grid-row: 1;
-        grid-row: 1;
-        text-align: right;
-    }
-
 }
 
-@media screen and (max-width: 750px) {
-    .board-title-box {
-        -ms-grid-columns: 1fr 60px 60px 80px;
-        grid-template-columns: 1fr 60px 60px 80px;
-        padding: 0 10px 20px;
-    }
-
-    .board-content {
-        -ms-grid-columns: 1fr 60px 60px 80px;
-        grid-template-columns: 1fr 60px 60px 80px;
+@media screen and (max-width: 550px) {
+    .myresult-content-box {
+        -ms-grid-rows: auto 15px auto 15px auto;
         padding: 25px 10px;
     }
 
-}
-
-@media screen and (max-width: 600px) {
-    .board-common-box {
-        padding: 25px 30px;
+    .one-line> th, .one-line> td {
+        padding: 15px 0;
+        font-size: 1rem;
     }
     
-    .board-content-box {
-        padding:25px 10px;
+    .more-spare {
+        display: block;
     }
-
-    .btn-write-board {
-        padding: 4px 8px;
-    }
-
-    .page-btn {
-        width: 25px;
-    }
-
-    .page-number {
-        padding: 6px 8px;
-    }
-
 }
-*/

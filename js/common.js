@@ -52,7 +52,7 @@ headerWrap.innerHTML = `<header>
                     <a href='result.html'>게임기록</a>
                 </li>
                 <li>
-                    <a>배팅기록</a>
+                    <a href='myresult.html'>배팅기록</a>
                 </li>
             </ul>
         </li>
@@ -136,7 +136,7 @@ headerWrap.innerHTML = `<header>
                     <a href="result.html">게임기록</a>
                 </li>
                 <li>
-                    <a href="result.html">베팅결과</a>
+                    <a href="myresult.html">베팅결과</a>
                 </li>
             </ul>
         </li>
