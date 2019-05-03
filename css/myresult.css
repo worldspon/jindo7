@@ -87,6 +87,7 @@ tbody {
     border-right: 1px solid #d4d4d4;
 }
 
+
 @media screen and (max-width: 1440px) {
     main {
         -ms-grid-columns: 100%;
@@ -135,9 +136,14 @@ tbody {
     .bet-history {
         margin-left: 10px;
     }
+
+    .count-star {
+        width: 70px;
+    }
+
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 650px) {
     .myresult-content-box {
         -ms-grid-rows: auto 15px auto 15px auto;
         padding: 25px 10px;
@@ -150,5 +156,22 @@ tbody {
     
     .more-spare {
         display: block;
+    }
+
+    .count-star {
+        width: 50px;
+    }
+
+    .result-grade {
+        width: 65px;
+    }
+}
+@media screen and (max-width: 500px) {    
+    .count-star {
+        width: 30px;
+    }
+
+    .result-grade {
+        width: 40px;
     }
 }
