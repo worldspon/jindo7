@@ -246,4 +246,29 @@ tbody {
     .result-grade {
         width: 40px;
     }
+
+
+    .drop-date {
+        width: 60px;
+    }
+    .drop-times {
+        width: 20px;
+    }
+    
+    .selected-num {
+        width:80px;
+    }
+
+    .goal-money, .goal-rank {
+        width: 40px;
+    }
+    .goal-times {
+        width: 20px;
+    }
+    .goal-spons {
+        width: 20px;
+    }
+    .high-grade {
+        width: 20px;
+    }
 }
