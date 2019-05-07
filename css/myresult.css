@@ -118,9 +118,45 @@ tbody {
     }
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1300px){
     .myresult-content-box {
         padding: 25px 15px;
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .drop-times {
+        width: 80px;
+    }
+    .goal-times {
+        width: 80px;
+    }
+    .high-grade {
+        width:80px;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .drop-times {
+        width: 60px;
+    }
+    .goal-times {
+        width: 60px;
+    }
+    .high-grade {
+        width:60px;
+    }
+}
+
+@media screen and (max-width: 850px){
+    .drop-times {
+        width: 30px;
+    }
+    .goal-times {
+        width: 40px;
+    }
+    .high-grade {
+        width:60px;
     }
 }
 
@@ -165,7 +201,43 @@ tbody {
     .result-grade {
         width: 65px;
     }
+
+    
+    .drop-times {
+        width: 35px;
+    }
+    .goal-times {
+        width: 40px;
+    }
+    .goal-spons {
+        width: 60px;
+    }
+    .high-grade {
+        width: 35px;
+    }
+
 }
+@media screen and (max-width: 550px) {
+    .drop-date {
+        width: 65px;
+    }
+    .drop-times {
+        width: 25px;
+    }
+    .goal-money, .goal-rank {
+        width: 50px;
+    }
+    .goal-times {
+        width: 25px;
+    }
+    .goal-spons {
+        width: 25px;
+    }
+    .high-grade {
+        width: 30px;
+    }
+}
+
 @media screen and (max-width: 500px) {    
     .count-star {
         width: 30px;

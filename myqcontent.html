@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
+    <link href="./css/summernote-lite.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/myqcontent.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -82,6 +83,20 @@
                                 <span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,</span>
                             </div>
                         </div>
+                        <div class='myq-content'>
+                            <div class='myq-content-l'>
+                                <span>A. 답변</span>
+                            </div>
+                            <div class='myq-answer-box myq-content-r'>
+                                <form method="post">
+                                    <textarea id="summernote" name="editordata"></textarea>
+                                </form>
+                                <div class="btn-myq-answer-box">
+                                    <button class="btn-myq-btn btn-myq-confirm">확인</button>
+                                    <button class="btn-myq-btn btn-myq-cancel">취소</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
             
                     <button class='list-btn'>목록</button>
@@ -93,6 +108,8 @@
     </div>
 
 
+    <script src="./js/jquery-3.2.1.slim.min.js"></script>
+    <script src="./js/summernote-lite.js"></script>
     <script src='./js/polyfill.min.js'></script>
     <script src='./js/Chart.min.js'></script>
     <script src='./js/common.js'></script>
