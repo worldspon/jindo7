@@ -106,6 +106,27 @@ main {
     font-weight: 600;
 }
 
+.mod-btn, .del-btn {
+    float: right;
+    font-size: 1rem;
+    position: relative;
+    top: -3px;
+    left: -12px;
+    background: none;
+    outline: none;
+    border: 1px solid gray;
+    border-radius: 3px;
+    box-shadow: none;
+    cursor: pointer;
+}
+.del-btn {
+    margin-left: 5px;
+}
+
+.own-smart-name::after {
+    clear: both;
+}
+
 .reply-some-words {
     width: 100%;
     height: 100px;

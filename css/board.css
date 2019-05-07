@@ -71,6 +71,7 @@ main {
     }
 
     .board-content {
+        position: relative;
         display: -ms-grid;
         display: grid;
         -ms-grid-columns: 1fr 150px 150px 150px;
@@ -78,6 +79,15 @@ main {
         -ms-grid-rows : 1;
         grid-template-rows: 1;
         padding: 25px 45px;
+    }
+
+    .board-content > span {
+        font-size: 0.9rem;
+        position: absolute;
+        font-weight: 600;
+        color: #f15a08;
+        top:14px;
+        left:45px;
     }
 
     .board-content-hl {
@@ -275,6 +285,10 @@ main {
         grid-row-gap: 25px;
     }
 
+    .board-content > span {
+        left:20px;
+    }
+
     .pagination {
         -ms-grid-column: 1;
         grid-column: 1;
@@ -302,6 +316,10 @@ main {
         -ms-grid-columns: 1fr 60px 60px 80px;
         grid-template-columns: 1fr 60px 60px 80px;
         padding: 25px 10px;
+    }
+
+    .board-content > span {
+        left:10px;
     }
 
 }
