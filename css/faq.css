@@ -20,8 +20,6 @@ main {
     justify-content: space-between;
 }
 
-
-
 .faq-content-box {
     -ms-grid-column: 2;
     grid-column: 2;
@@ -54,7 +52,6 @@ main {
             margin-left: 5px;
         }
 
-
     .faq-content {
         padding: 30px 0px;
         padding-left:40px;
@@ -72,6 +69,14 @@ main {
         color: #555;
     }
 
+.faq-more-function {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 80px 1fr 80px;
+    grid-template-columns: 80px 1fr 80px;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+}
 
 .pagination {
     display: flex;
@@ -79,6 +84,10 @@ main {
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
+    -ms-grid-column: 2;
+    grid-column: 2;
+    -ms-grid-row: 1;
+    grid-row: 1;
 }
     .page-btn {
         width: 30px;
@@ -92,7 +101,6 @@ main {
         font-size: 1.3rem;
         margin: 0 5px;
     }
-
     
     .page-number {
         padding: 8px 10px;
@@ -101,9 +109,26 @@ main {
         cursor: pointer;
     }
 
-
     .page-number:not(:last-child) {
         margin-right: 5px;
+    }
+
+.add-faq-box {
+    margin: 20px 0;
+    text-align: right;
+    -ms-grid-column: 3;
+    grid-column: 3;
+    -ms-grid-row: 1;
+    grid-row: 1;
+}
+
+    .btn-add-faq {
+        padding: 5px 15px;
+        border:none;
+        border-radius: 3px;
+        color: white;
+        background: #a1a1a1;
+        cursor: pointer;
     }
 
 .jump-help {
@@ -128,9 +153,6 @@ main {
     border-radius: 3px;
 }
 
-
-
-
 @media screen and (max-width: 1440px) {
     main {
         -ms-grid-columns: 100%;
@@ -149,6 +171,30 @@ main {
         -ms-grid-column: 1;
         grid-column: 1;
         -ms-grid-row: 3;
+        grid-row: 2;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .faq-more-function {
+        -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+        -ms-grid-rows: (auto)[2];
+        grid-template-rows: repeat(2, auto);
+    }
+
+    .pagination {
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 1;
+        grid-row: 1;
+    }
+
+    .add-faq-box {
+        margin: 0 0 30px 0;
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 2;
         grid-row: 2;
     }
 }
