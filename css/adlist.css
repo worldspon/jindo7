@@ -187,6 +187,27 @@ main {
             color: #fff;
         }
 
+    .management-mode-check-box {
+        text-align: center;
+    }
+
+        .what-check {
+            display: block;
+            margin-bottom: 5px;
+            padding:3px 5px;
+        }
+
+        .check-confirm {
+            padding: 5px 15px;
+            border:none;
+            border-radius: 3px;
+            color: white;
+            background:#a1a1a1;
+            cursor: pointer;
+        }
+
+
+
 .adlist-ft-content-box {
     display: -ms-grid;
     display: grid;

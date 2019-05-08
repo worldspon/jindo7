@@ -160,19 +160,15 @@ main {
         text-align: right;
     }
 
-    .btn-myq-btn {
-        padding: 3px 10px;
-        border: 1px solid #999;
+    .btn-myq-confirm {
+        padding: 5px 10px;
+        border: none;
         border-radius: 3px;
         box-sizing: border-box;
-        color: #333;
+        color: white;
         line-height: 1.5em;
-        background: #eee;
+        background: #a1a1a1;
         cursor: pointer;
-    }
-
-    .btn-myq-confirm {
-        margin-right: 5px;
     }
 
 .list-btn {
