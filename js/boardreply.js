@@ -59,10 +59,10 @@ replyUpload.addEventListener('click', function(){
  * 
  */
 function replySize(obj, index) {
-
+    
     switch (obj.tagName) {
         case 'P':
-
+        obj.parentNode.nextSiblings.nextSiblings.children[7];
             if(obj.innerText.length<=500) {
                 replyInputSize[index].innerText = `( ${obj.innerText.length} / 500 )`;
             } else {
