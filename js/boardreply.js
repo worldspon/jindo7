@@ -103,6 +103,8 @@ replyModBtn.forEach((el)=>{
         // 수정버튼 클릭시
         if(el.innerText == '수정') {
 
+            commentContent.style.border = '1px solid black';
+
             // 이전 데이터 저장
             commentContent.dataset.dummy = commentContent.innerText;
             // size 표시 부분 계산 및 활성화
@@ -123,35 +125,42 @@ replyModBtn.forEach((el)=>{
         // 등록버튼 클릭시
         } else {
 
-            let commentObj = {
-                'commentId' : commentId,
-                'content' : commentContent.innerText.trim()
-            }
-        
-            commentObj = JSON.stringify(commentObj);
-            
-            let data = dataPost('POST', 'http://192.168.0.24:8080/board/comment/modify', commentObj);
-        
-            data.then((data)=>{
-                data = JSON.parse(data);
-                alert(data.msg);
-                if(data.errorCode == 0) {
-                    location.reload(true);
-                }
-            }, (err)=>{
-                alert(err);
-            });
+            if(commentContent.innerText.trim().length>0) {
+                commentContent.style.border = 'none';
 
-            // 이전 데이터 초기화
-            commentContent.dataset.dummy = '';
-            // size 표시 부분 비활성화
-            commentSize.style.display = 'none';
-            // 버튼 내부 내용변경
-            el.innerText = '수정';
-            // 댓글 수정 비활성화
-            commentContent.contentEditable = false;
-            // 취소버튼 비활성화
-            cancelBtn.style.display = 'none';
+                let commentObj = {
+                    'commentId' : commentId,
+                    'content' : commentContent.innerText.trim()
+                }
+            
+                commentObj = JSON.stringify(commentObj);
+                
+                let data = dataPost('POST', 'http://192.168.0.24:8080/board/comment/modify', commentObj);
+            
+                data.then((data)=>{
+                    data = JSON.parse(data);
+                    alert(data.msg);
+                    if(data.errorCode == 0) {
+                        location.reload(true);
+                    }
+                }, (err)=>{
+                    alert(err);
+                });
+
+                // 이전 데이터 초기화
+                commentContent.dataset.dummy = '';
+                // size 표시 부분 비활성화
+                commentSize.style.display = 'none';
+                // 버튼 내부 내용변경
+                el.innerText = '수정';
+                // 댓글 수정 비활성화
+                commentContent.contentEditable = false;
+                // 취소버튼 비활성화
+                cancelBtn.style.display = 'none';
+
+            } else {
+                alert('ㅗㅗ');
+            }
 
         }
     })
@@ -166,6 +175,7 @@ replyCancelBtn.forEach((el)=>{
         let modBtn = el.parentNode.children[3];
         let commentContent =el.parentNode.nextSibling.nextSibling.children[0];
 
+        commentContent.style.border = 'none';
         // size 표시 비활성화
         commentSize.style.display = 'none';
         // 수정버튼 표시
