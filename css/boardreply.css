@@ -107,7 +107,7 @@ main {
 }
 
 
-.mod-btn, .del-btn, .cancel-btn {
+.reply-mod, .reply-del, .reply-cancel {
     float: right;
     font-size: 1rem;
     position: relative;
@@ -120,11 +120,11 @@ main {
     box-shadow: none;
     cursor: pointer;
 }
-.mod-btn, .del-btn {
+.reply-mod, .reply-del {
     margin-left: 5px;
 }
 
-.cancel-btn {
+.reply-cancel {
     display: none;
 }
 

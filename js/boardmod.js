@@ -17,13 +17,14 @@ writingBtn.addEventListener('click', ()=>{
     }
 
     let postObj = {
+        'boardId' : document.querySelector('.board-writing-title-box').dataset.boardId,
         'title' : boardTitle.value.trim(),
         'content' : boardContent.value.trim()
     };
 
     postObj = JSON.stringify(postObj);
     
-    let data = regPost('POST', 'http://192.168.0.24:8080/board/write', postObj);
+    let data = regPost('POST', 'http://192.168.0.24:8080/board/modify', postObj);
 
     data.then((data)=>{
         data = JSON.parse(data);
@@ -40,6 +41,7 @@ writingBtn.addEventListener('click', ()=>{
 cancelBtn.addEventListener('click', ()=>{
     window.history.back();
 });
+
 
 
 /**
