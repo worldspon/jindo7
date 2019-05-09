@@ -24,31 +24,33 @@ listBtn.addEventListener('click', ()=>{
 });
 
 
-// 게시글 삭제 클릭이벤트
-delBtn.addEventListener('click', ()=>{
+if(delBtn) {
+    // 게시글 삭제 클릭이벤트
+    delBtn.addEventListener('click', ()=>{
 
-    if(confirm('삭제하시겠습니까?')) {
-        let postObj = {
-            'boardId' : document.querySelector('.individual-board-title').dataset.boardId
-        };
-    
-        postObj = JSON.stringify(postObj);
+        if(confirm('삭제하시겠습니까?')) {
+            let postObj = {
+                'boardId' : document.querySelector('.individual-board-title').dataset.boardId
+            };
         
-        let data = dataPost('POST', 'http://192.168.0.24:8080/board/delete', postObj);
-    
-        data.then((data)=>{
-            data = JSON.parse(data);
-            alert(data.msg);
-            if(data.errorCode == 0) {
-                window.location.href = './board.html';
-            }
-        }, (err)=>{
-            alert(err);
-        });
-    } else {
-        alert('히히');
-    }
-});
+            postObj = JSON.stringify(postObj);
+            
+            let data = dataPost('POST', 'http://192.168.0.24:8080/board/delete', postObj);
+        
+            data.then((data)=>{
+                data = JSON.parse(data);
+                alert(data.msg);
+                if(data.errorCode == 0) {
+                    window.location.href = './board.html';
+                }
+            }, (err)=>{
+                alert(err);
+            });
+        } else {
+            alert('히히');
+        }
+    });
+}
 
 
 
