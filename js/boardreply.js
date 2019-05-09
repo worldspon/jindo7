@@ -8,78 +8,243 @@ const delBtn = document.querySelector('.btn-del');
 const replyInputSize = document.querySelectorAll('.reply-input-size');
 // 댓글 내용
 const replyContent = document.querySelector('.reply-some-words');
-
 // 댓글 등록버튼
 const replyUpload = document.querySelector('.board-reply-upload');
-// 댓글 리스트 배열
-const replyList = document.querySelectorAll('.board-view-reply > p');
+
 // 댓글 수정버튼 배열
-const replyModBtn = document.querySelectorAll('.mod-btn');
+const replyModBtn = document.querySelectorAll('.reply-mod');
 // 댓글 삭제버튼 배열
-const replyDelBtn = document.querySelectorAll('.del-btn');
+const replyDelBtn = document.querySelectorAll('.reply-del');
 // 댓글 수정취소버튼 배열
-const replyCancelBtn = document.querySelectorAll('.cancel-btn');
+const replyCancelBtn = document.querySelectorAll('.reply-cancel');
+
 
 listBtn.addEventListener('click', ()=>{
     window.history.back();
 });
 
 
-// 삭제 클릭이벤트
+// 게시글 삭제 클릭이벤트
 delBtn.addEventListener('click', ()=>{
+
     if(confirm('삭제하시겠습니까?')) {
-        alert('삭제!!!!');
+        let postObj = {
+            'boardId' : document.querySelector('.individual-board-title').dataset.boardId
+        };
+    
+        postObj = JSON.stringify(postObj);
+        
+        let data = dataPost('POST', 'http://192.168.0.24:8080/board/delete', postObj);
+    
+        data.then((data)=>{
+            data = JSON.parse(data);
+            alert(data.msg);
+            if(data.errorCode == 0) {
+                window.location.href = './board.html';
+            }
+        }, (err)=>{
+            alert(err);
+        });
     } else {
-        alert('히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히히');
+        alert('히히');
     }
 });
 
+
+
+
 // size 검증 함수 등록
 replyContent.addEventListener('input', function() {
-    replySize(this, 0);
+    replySize(this, this.parentNode.children[0].children[1]);
 });
 
 // 등록 이벤트, 검증
 replyUpload.addEventListener('click', function(){
-    let dummy = replyContent.value.trim();
-    if(dummy.length <= 0) {
+
+    if(replyContent.value.trim().length <= 0) {
         alert('내용을 입력하세요.');
     }else {
-        alert('등록완료');
+
+        let replyObj = {
+            'board' : {
+                'boardId' : document.querySelector('.individual-board-title').dataset.boardId
+            },
+            'content' : replyContent.value.trim()
+        };
+    
+        replyObj = JSON.stringify(replyObj);
+        
+        let data = dataPost('POST', 'http://192.168.0.24:8080/board/comment/write', replyObj);
+    
+        data.then((data)=>{
+            data = JSON.parse(data);
+            alert(data.msg);
+            if(data.errorCode == 0) {
+                location.reload(true);
+            }
+        }, (err)=>{
+            alert(err);
+        });
     }
+
 });
+
+// 수정 버튼 이벤트 등록
+replyModBtn.forEach((el)=>{
+    el.addEventListener('click', function(){
+
+        let commentId = el.parentNode.dataset.commentId;
+        let commentContent =el.parentNode.nextSibling.nextSibling.children[0];
+        let commentSize = el.parentNode.children[1];
+        let cancelBtn = el.parentNode.children[4];
+
+        // 수정버튼 클릭시
+        if(el.innerText == '수정') {
+
+            // 이전 데이터 저장
+            commentContent.dataset.dummy = commentContent.innerText;
+            // size 표시 부분 계산 및 활성화
+            commentSize.style.display = 'inline-block';
+            commentSize.innerText = `( ${commentContent.innerText.trim().length} / 500 )`;
+            // 버튼 내부 내용변경
+            el.innerText = '등록';
+            // 댓글 수정 활성화
+            commentContent.contentEditable = true;
+            // input 이벤트 등록
+            commentContent.addEventListener('input', function() {
+                replySize(this, commentSize);
+            });
+            commentContent.focus();
+            // 취소버튼 활성화
+            cancelBtn.style.display = 'inline-block';
+
+        // 등록버튼 클릭시
+        } else {
+
+            let commentObj = {
+                'commentId' : commentId,
+                'content' : commentContent.innerText.trim()
+            }
+        
+            commentObj = JSON.stringify(commentObj);
+            
+            let data = dataPost('POST', 'http://192.168.0.24:8080/board/comment/modify', commentObj);
+        
+            data.then((data)=>{
+                data = JSON.parse(data);
+                alert(data.msg);
+                if(data.errorCode == 0) {
+                    location.reload(true);
+                }
+            }, (err)=>{
+                alert(err);
+            });
+
+            // 이전 데이터 초기화
+            commentContent.dataset.dummy = '';
+            // size 표시 부분 비활성화
+            commentSize.style.display = 'none';
+            // 버튼 내부 내용변경
+            el.innerText = '수정';
+            // 댓글 수정 비활성화
+            commentContent.contentEditable = false;
+            // 취소버튼 비활성화
+            cancelBtn.style.display = 'none';
+
+        }
+    })
+});
+
+
+// 취소버튼 click 이벤트 등록
+replyCancelBtn.forEach((el)=>{
+
+    el.addEventListener('click', function() {
+        let commentSize = el.parentNode.children[1];
+        let modBtn = el.parentNode.children[3];
+        let commentContent =el.parentNode.nextSibling.nextSibling.children[0];
+
+        // size 표시 비활성화
+        commentSize.style.display = 'none';
+        // 수정버튼 표시
+        modBtn.innerText = '수정';
+        // 취소버튼 비활성화
+        el.style.display = 'none';
+        // 이전 데이터로 되돌림
+        commentContent.innerText = commentContent.dataset.dummy;
+        // 데이터 초기화
+        commentContent.dataset.dummy = '';
+        // 댓글수정 비활성화
+        commentContent.contentEditable = false;
+    })
+});
+
+// 삭제버튼 click 이벤트 등록
+replyDelBtn.forEach((el)=>{
+
+    el.addEventListener('click', function() {
+
+        // 삭제 확인
+        let delBool = confirm('삭제?');
+
+        if(delBool) {
+
+            let commentId = el.parentNode.dataset.commentId;
+
+            let delObj = {
+                'commentId' : commentId,
+            }
+        
+            delObj = JSON.stringify(delObj);
+            
+            let data = dataPost('POST', 'http://192.168.0.24:8080/board/comment/delete', delObj);
+        
+            data.then((data)=>{
+                data = JSON.parse(data);
+                alert(data.msg);
+                if(data.errorCode == 0) {
+                    location.reload(true);
+                }
+            }, (err)=>{
+                alert(err);
+            });
+        }
+    })
+})
 
 
 /**
  * 
- * @brief 객체의 tagname을 판단하여 댓글 사이즈 검증 / 500자 제한
+ * @brief 댓글 사이즈 검증 / 500자 제한
  * @author JJH
  * @param obj 검증할 node 객체
- * @param index 이벤트가 발생한 객체의 index
+ * @param sizeObj 검증할 객체의 size 부분
  * 
  */
-function replySize(obj, index) {
-    
+function replySize(obj, sizeObj) {
+    let objLength;
     switch (obj.tagName) {
         case 'P':
-        obj.parentNode.nextSiblings.nextSiblings.children[7];
-            if(obj.innerText.length<=500) {
-                replyInputSize[index].innerText = `( ${obj.innerText.length} / 500 )`;
+            objLength = obj.innerText.trim().length;
+            if(objLength<=500) {
+                sizeObj.innerText = `( ${objLength} / 500 )`;
             } else {
-                obj.innerText = obj.innerText.slice(0,500);
-                replyInputSize[index].innerText = `( ${obj.innerText.length} / 500 )`;
+                obj.innerText = obj.innerText.slice(0,500).trim();
+                objLength = obj.innerText.length;
+                sizeObj.innerText = `( ${objLength} / 500 )`;
                 alert('댓글은 500자 이하까지 허용됩니다.');
             }
             
             break;
         
         case 'TEXTAREA':
-
-            if(obj.value.length<=500) {
-                replyInputSize[index].innerText = `( ${obj.value.length} / 500 )`;
+            objLength = obj.value.trim().length;
+            if(objLength<=500) {
+                sizeObj.innerText = `( ${objLength} / 500 )`;
             } else {
-                obj.value = obj.value.slice(0,500);
-                replyInputSize[index].innerText = `( ${obj.value.length} / 500 )`;
+                obj.value = obj.value.slice(0,500).trim();
+                objLength = obj.value.length;
+                sizeObj.innerText = `( ${objLength} / 500 )`;
                 alert('댓글은 500자 이하까지 허용됩니다.');
             }
 
@@ -93,64 +258,24 @@ function replySize(obj, index) {
 }
 
 
-// 수정 버튼 이벤트 등록
-replyModBtn.forEach((el, index)=>{
-    el.addEventListener('click', function(){
-
-        // 수정버튼 클릭시
-        if(el.innerText == '수정') {
-
-            // 이전 데이터 저장
-            replyList[index].dataset.dummy = replyList[index].innerText;
-            // size 표시 부분 계산 및 활성화
-            replyInputSize[index+1].style.display = 'inline-block';
-            replyInputSize[index+1].innerText = `( ${replyList[index].innerText.length} / 500 )`;
-            // 버튼 내부 내용변경
-            el.innerText = '등록';
-            // 댓글 수정 활성화
-            replyList[index].contentEditable = true;
-            // 클릭 이벤트 등록
-            replyList[index].addEventListener('input', function() {
-                replySize(this, index+1)
-            });
-            replyList[index].focus();
-            // 취소버튼 활성화
-            replyCancelBtn[index].style.display = 'inline-block';
-
-        // 등록버튼 클릭시
-        } else {
-
-            // 이전 데이터 초기화
-            replyList[index].dataset.dummy = '';
-            // size 표시 부분 비활성화
-            replyInputSize[index+1].style.display = 'none';
-            // 버튼 내부 내용변경
-            el.innerText = '수정';
-            // 댓글 수정 비활성화
-            replyList[index].contentEditable = false;
-            // 취소버튼 비활성화
-            replyCancelBtn[index].style.display = 'none';
-
-        }
-    })
-});
 
 
-// 취소버튼 click 이벤트 등록
-replyCancelBtn.forEach((el, index)=>{
-
-    el.addEventListener('click', function() {
-        // size 표시 비활성화
-        replyInputSize[index+1].style.display = 'none';
-        // 수정버튼 표시
-        replyModBtn[index].innerText = '수정';
-        // 취소버튼 비활성화
-        el.style.display = 'none';
-        // 이전 데이터로 되돌림
-        replyList[index].innerText = replyList[index].dataset.dummy;
-        // 데이터 초기화
-        replyList[index].dataset.dummy = '';
-        // 댓글수정 비활성화
-        replyList[index].contentEditable = false;
-    })
-})
+/**
+ * 
+ * @brief 비동기통신
+ * @author JJH
+ * @param type 통신 타입
+ * @param url 통신 url
+ * @param obj 통신으로 보낼 JSON 객체
+ * 
+ */
+function dataPost(type, url, obj) {
+    return new Promise((resolve, reject)=>{
+        const xhr = new XMLHttpRequest();
+        xhr.open(type, url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = () => resolve(xhr.responseText);
+        xhr.onerror = () => reject(xhr.statusText);
+        xhr.send(obj);
+    });
+};
