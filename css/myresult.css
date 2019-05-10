@@ -26,23 +26,23 @@ main {
 
 .mybet-content-box {
     display: flex;
+    justify-content: space-between;
     -ms-grid-column: 2;
     grid-column: 2;
     -ms-grid-row: 3;
     grid-row: 2;
-    justify-content: space-between;
 }
 
 .mybet-content-box button {
     width: 24%;
-    border:none;
     padding: 15px 0;
+    border:none;
     border-radius: 5px;
     color: #fff;
     font-size: 1.3rem;
     background: #666;
-    cursor: pointer;
     outline: none;
+    cursor: pointer;
 }
 
 .mybet-content-box button.on {
