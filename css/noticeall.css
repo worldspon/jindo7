@@ -252,14 +252,8 @@ main {
         text-align: right;
     }
 }
-@media screen and (max-width: 600px) {
-    .write-notice {
-        padding: 4px 8px;
-    }
-}
 
-@media screen and (max-width: 550px) {
-    
+@media screen and (max-width: 650px) {
     .notice-common-box {
         display: -ms-grid;
         display: grid;
@@ -284,8 +278,17 @@ main {
             grid-row: 2;
         }
         .notice-nav li:not(:first-child) {
-            margin-left: 20px;
+            margin-left: 25px;
         }
+}
+
+@media screen and (max-width: 600px) {
+    .write-notice {
+        padding: 4px 8px;
+    }
+}
+
+@media screen and (max-width: 550px) {
 
         .page-btn {
             width: 25px;

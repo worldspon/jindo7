@@ -190,7 +190,7 @@ main {
         .what-check {
             display: block;
             margin-bottom: 5px;
-            padding:3px;
+            padding:3px 5px;
         }
 
         .check-confirm {
