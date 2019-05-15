@@ -119,10 +119,6 @@ main {
             font-size: 1.3rem;
             width: 100%;
             color: #555;
-            /* overflow: hidden;
-            white-space: nowrap;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis; */
         }
 
     .ad-end-date-box {

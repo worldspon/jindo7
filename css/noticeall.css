@@ -47,10 +47,9 @@ main {
         grid-template-columns: 1fr 100px;
         -ms-grid-rows: 1;
         grid-template-rows: 1;
-        font-size: 1.3rem;
-        padding: 0px 20px;
-        padding-bottom: 20px;
+        padding:0px 20px 20px 20px;
         border-bottom: 1px solid #aaa;
+        font-size: 1.3rem;
     }
 
     .notice-title {
