@@ -20,13 +20,13 @@ main {
     justify-content: space-between;
 }
 
-    .notice-nav {
+    .fqa-nav {
         display: flex;
         font-size: 1.2rem;
         color: #757474;
     }
 
-    .notice-nav li:not(:first-child) {
+    .fqa-nav li:not(:first-child) {
         margin-left: 50px;
     }
 
@@ -227,14 +227,14 @@ main {
             grid-row: 1;
         }
     
-        .notice-nav {
+        .fqa-nav {
             -ms-grid-column: 1;
             grid-column: 1;
             -ms-grid-row: 3;
             grid-row: 2;
         }
-        .notice-nav li:not(:first-child) {
-            margin-left: 20px;
+        .fqa-nav li:not(:first-child) {
+            margin-left: 17px;
         }
 }
 
