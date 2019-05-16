@@ -78,10 +78,10 @@ tbody {
 }
 
 .one-line> th, .one-line> td{
-    padding: 20px 0;
+    padding: 30px 0;
     font-size: 1.2rem;
     vertical-align: middle;
-    line-height: 1.4em;
+    /*line-height: 1.4em; */
 }
 .one-line> th:not(:last-child), .one-line> td:not(:last-child) {
     border-right: 1px solid #d4d4d4;
@@ -116,6 +116,10 @@ tbody {
         -ms-grid-row: 5;
         grid-row: 3;
     }
+
+    .selected-num {
+        min-width: 160px;
+    }
 }
 
 @media screen and (max-width: 1300px){
@@ -124,39 +128,23 @@ tbody {
     }
 }
 
-@media screen and (max-width: 1100px){
-    .drop-times {
-        width: 80px;
-    }
-    .goal-times {
-        width: 80px;
-    }
-    .high-grade {
-        width:80px;
-    }
-}
 
 @media screen and (max-width: 1000px){
-    .drop-times {
-        width: 60px;
+
+
+    .selected-num {
+        width: 115px;
     }
-    .goal-times {
-        width: 60px;
-    }
-    .high-grade {
-        width:60px;
+        
+    .more-spare {
+        display: inline-block;
     }
 }
 
 @media screen and (max-width: 850px){
-    .drop-times {
-        width: 30px;
-    }
-    .goal-times {
-        width: 40px;
-    }
-    .high-grade {
-        width:60px;
+
+    .drop-date {
+        width: 90px;
     }
 }
 
@@ -189,10 +177,7 @@ tbody {
         padding: 15px 0;
         font-size: 1rem;
     }
-    
-    .more-spare {
-        display: block;
-    }
+
 
     .count-star {
         width: 50px;
@@ -202,73 +187,16 @@ tbody {
         width: 65px;
     }
 
-    
-    .drop-times {
-        width: 35px;
-    }
-    .goal-times {
-        width: 40px;
-    }
-    .goal-spons {
-        width: 60px;
-    }
-    .high-grade {
-        width: 35px;
-    }
-
-}
-@media screen and (max-width: 550px) {
     .drop-date {
-        width: 65px;
+        width: 70px;
     }
+
     .drop-times {
-        width: 25px;
-    }
-    .goal-money, .goal-rank {
-        width: 50px;
-    }
-    .goal-times {
-        width: 25px;
-    }
-    .goal-spons {
-        width: 25px;
-    }
-    .high-grade {
-        width: 30px;
-    }
-}
-
-@media screen and (max-width: 500px) {    
-    .count-star {
-        width: 30px;
-    }
-
-    .result-grade {
         width: 40px;
     }
 
-
-    .drop-date {
-        width: 60px;
-    }
-    .drop-times {
-        width: 20px;
-    }
-    
     .selected-num {
-        width:80px;
+        width: 90px;
     }
 
-    .goal-money, .goal-rank {
-        width: 40px;
-    }
-    .goal-times {
-        width: 20px;
-    }
-    .goal-spons {
-        width: 20px;
-    }
-    .high-grade {
-        width: 20px;
-    }
 }

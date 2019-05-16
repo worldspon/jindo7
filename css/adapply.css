@@ -94,12 +94,30 @@ main {
         align-items: center;
     }
 
+    .select-box-wrap {
+        display: flex;
+        align-items: center;
+    }
+
     .ad-how-long {
         font-size: 1.2rem;
         border: 1px solid #555;
-        padding: 6px 20px;
+        padding: 6px 9px;
         color: #333;
         outline: none;
+    }
+
+    .ad-color {
+        font-size: 1.2rem;
+        border: 1px solid #555;
+        padding: 6px 16px;
+        color: #333;
+        outline: none;
+        margin-left: 5px;
+    }
+
+    .ad-color option {
+        color: white;
     }
 
     .ad-price-box {
@@ -203,7 +221,7 @@ main {
         margin: 30px 0;
     }
 
-    .ad-how-long {
+    .ad-how-long, .ad-color {
         padding: 8px 25px;
     }
     
