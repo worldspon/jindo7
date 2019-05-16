@@ -37,7 +37,6 @@ adColorSelectBox.addEventListener('change', ()=>{
             adText.value = '';
             adText.style.color = el.style.backgroundColor;
             adText.value = dummyText;
-            console.log(adText.value.trim() == '');
 
         }
     })
