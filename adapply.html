@@ -52,16 +52,28 @@
                     </div>
                     <div class='ad-apply-statment-wrap'>
                         <div class='ad-payment-way-box'>
-                            <select class='ad-how-long'>
-                                <option value='1'>1일</option>
-                                <option value='3'>3일</option>
-                                <option value='5'>5일</option>
-                                <option value='7'>7일</option>
-                                <option value='15'>15일</option>
-                                <option value='30'>30일</option>
-                                <option value='90'>90일</option>
-                            </select>
-                            <div class='ad-price-box'>광고가격<span class='detail-price'>17</span>스폰</div>
+                            <div class="select-box-wrap">
+                                <select class='ad-how-long'>
+                                    <option value="" selected disabled style="display:none">기간선택</option>
+                                    <option value='1'>1일</option>
+                                    <option value='3'>3일</option>
+                                    <option value='5'>5일</option>
+                                    <option value='7'>7일</option>
+                                    <option value='15'>15일</option>
+                                    <option value='30'>30일</option>
+                                    <option value='90'>90일</option>
+                                </select>
+                                <select class='ad-color' style="background-color:white">
+                                    <option value="" selected disabled style="display:none">폰트색</option>
+                                    <option value='1' style="background-color:rgb(255, 62, 62);">빨간색</option>
+                                    <option value='2' style="background-color:rgb(255,142,0);">주황색</option>
+                                    <option value='4' style="background-color:rgb(0,230,16);">초록색</option>
+                                    <option value='5' style="background-color:rgb(54,205,255);">하늘색</option>
+                                    <option value='6' style="background-color:rgb(168,156,255);">남색</option>
+                                    <option value='7' style="background-color:rgb(205,108,255);">보라색</option>
+                                </select>
+                            </div>
+                            <div class='ad-price-box'>광고가격<span class='detail-price' data-basic-price="17">17</span>스폰</div>
                         </div>
                         <textarea class='ad-text-space' placeholder='광고내용은 80자까지' maxlength="80"></textarea>
                         <div class='btn-ad-apply-box'>
