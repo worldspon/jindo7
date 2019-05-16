@@ -278,7 +278,7 @@ main {
             grid-row: 2;
         }
         .notice-nav li:not(:first-child) {
-            margin-left: 15px;
+            margin-left: 12px;
         }
 }
 
