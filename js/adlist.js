@@ -14,6 +14,19 @@ if(document.querySelectorAll('.management-mode-check-box').length > 0) {
 }
 
 
+// 검색 이벤트
+searchBtn.addEventListener('click', function() {
+    let searchKeyword = encodeURIComponent(searchInput.value);
+});
+
+// 검색창 enter 입력시 검색 이벤트 방출
+searchInput.addEventListener('keyup', function(e) {
+    if(e.keyCode==13) {
+        let clickEventObject = new Event('click');
+        searchBtn.dispatchEvent(clickEventObject);
+    }
+});
+
 
 /**
  * 
@@ -53,19 +66,6 @@ function regAdminFnc() {
     })
 }
 
-// 검색 이벤트
-searchBtn.addEventListener('click', function() {
-    let searchKeyword = encodeURIComponent(searchInput.value);
-});
-
-// 검색창 enter 입력시 검색 이벤트 방출
-searchInput.addEventListener('keyup', function(e) {
-    if(e.keyCode==13) {
-        let clickEventObject = new Event('click');
-        searchBtn.dispatchEvent(clickEventObject);
-    }
-});
-
 // 광고 상태에 따른 함수 호출
 adjustCheck.forEach((el, index)=>{
     el.addEventListener('click', ()=>{
@@ -93,6 +93,8 @@ adjustCheck.forEach((el, index)=>{
  * 
  */
 function editAd(el, index) {
+    prevText = adContent[index].innerText;
+    console.log(prevText);
     el.classList.remove('ad-adjust-box');
     el.classList.add('ad-done-box');
     adContent[index].contentEditable = true;

@@ -28,7 +28,9 @@ adSelect.addEventListener('change', ()=>{
 adColorSelectBox.addEventListener('change', ()=>{
     adColorOpt.forEach((el)=>{
         if(el.selected == true) {
+
             colorFlag = true;
+            // select box에 선택된 옵션과 동일한 색상 부여
             adColorSelectBox.style.backgroundColor = el.style.backgroundColor;
             adColorSelectBox.style.color = 'white';
 
@@ -38,29 +40,77 @@ adColorSelectBox.addEventListener('change', ()=>{
             adText.style.color = el.style.backgroundColor;
             adText.value = dummyText;
 
+
         }
     })
 })
+
+
+// 등록버튼 클릭시 통신
+applyBtn.addEventListener('click', ()=>{
+    // 모든 내용이 입력 되었을시 실행
+    if(dateFlag && colorFlag && adText.value.trim() != '') {
+
+        let obj = createObj();
+        let data = adApplyPromise('POST', 'http://192.168.0.24:8080/promotion/request', obj);
+
+        data.then((data)=>{
+            data = JSON.parse(data);
+            alert(data.msg);
+            if(data.errorCode == 0) {
+                window.location.href = './adlist.html';
+            }
+        }, (err)=>{
+            alert('서버와 통신이 원활하지않습니다.');
+        });
+        
+    } else {
+        alert('내용을 전부 입력해주세요.')
+    }
+});
 
 cancelBtn.addEventListener('click', ()=>{
     window.history.back();
 });
 
-// 통신 - 수정 예정
-applyBtn.addEventListener('click', ()=>{
-    if(dateFlag && colorFlag && adText.value.trim() != '') {
-        let data = {'adContent':adText};
-        data = JSON.stringify(data);
-        const xhr = new XMLHttpRequest()
-        xhr.open('POST', 'http://192.168.0.24:8080/game', true);
-        xhr.send(data);
-        if(xhr.readyState === 4 && xhr.status === 200) {
-            alert('등록되었습니다.');
-            window.location.href= '././adlist.html';
-        } else {
-            alert('등록에 실패하였습니다.\n다시 시도해주세요.');
-        }
-    } else {
-        alert('전부입력!')
-    }
-});
+
+/**
+ * 
+ * @brief 비동기 통신 객체 생성
+ * @author JJH
+ * @param type 통신 타입
+ * @param url 통신 url
+ * @param obj 송신할 JSON 객체
+ * 
+ */
+function adApplyPromise(type, url, obj) {
+    return new Promise((resolve, reject)=>{
+        const xhr = new XMLHttpRequest();
+        xhr.open(type, url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = () => resolve(xhr.responseText);
+        xhr.onerror = () => reject(xhr.statusText);
+        xhr.send(obj);
+    })
+}
+
+
+/**
+ * 
+ * @brief 비동기 통신 객체 생성
+ * @author JJH
+ * @return 문자열 변환된 JSON 객체
+ * 
+ */
+function createObj() {
+    let obj =  {
+        // 광고내용 개행문자 제거
+        "chat" : adText.value.trim().replace(/\n/g, ''), 
+        "colorKey" : parseInt(adColorSelectBox.options[adColorSelectBox.options.selectedIndex].value), 
+        "state" : 0,
+        "useDate" : parseInt(adSelect.options[adSelect.options.selectedIndex].value)
+    };
+    obj = JSON.stringify(obj);
+
+    return obj;
+}
