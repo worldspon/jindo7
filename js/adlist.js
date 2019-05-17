@@ -45,7 +45,7 @@ function regAdminFnc() {
             if(selectCheck.options[selectCheck.selectedIndex].value) {
 
                 let obj = {
-                    "uniqueId" : el.parentNode.dataset.uniqueId, 
+                    "uniqueId" : el.parentNode.parentNode.dataset.uniqueId, 
                     "state" : parseInt(selectCheck.options[selectCheck.selectedIndex].value)
                 }
 
