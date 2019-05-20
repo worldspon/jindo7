@@ -54,7 +54,7 @@ main {
     grid-column: 2;
     -ms-grid-row: 5;
     grid-row: 3;
-    padding: 25px 30px;
+    padding: 25px 10px;
 }
 
 table {
@@ -85,6 +85,10 @@ tbody {
 }
 .one-line> th:not(:last-child), .one-line> td:not(:last-child) {
     border-right: 1px solid #d4d4d4;
+}
+
+.more-spare {
+    display: inline-block;
 }
 
 
@@ -122,81 +126,26 @@ tbody {
     }
 }
 
-@media screen and (max-width: 1300px){
-    .myresult-content-box {
-        padding: 25px 15px;
-    }
-}
-
-
-@media screen and (max-width: 1000px){
-
-
-    .selected-num {
-        width: 115px;
-    }
-        
-    .more-spare {
-        display: inline-block;
-    }
-}
-
-@media screen and (max-width: 850px){
-
-    .drop-date {
-        width: 90px;
+@media screen and (max-width: 860px) {
+    .choice-number {
+        width: 100px;
     }
 }
 
 @media screen and (max-width: 700px) {
-    main {
-        grid-row-gap: 15px;
+    .betting-zombie {
+        width: 75px;
     }
-
-    .myresult-common-box {
-        padding: 25px 0 25px 30px;
-    }
-
-    .bet-history {
-        margin-left: 10px;
-    }
-
-    .count-star {
-        width: 70px;
-    }
-
 }
 
-@media screen and (max-width: 650px) {
-    .myresult-content-box {
-        -ms-grid-rows: auto 15px auto 15px auto;
-        padding: 25px 10px;
-    }
-
-    .one-line> th, .one-line> td {
-        padding: 15px 0;
-        font-size: 1rem;
-    }
-
-
-    .count-star {
-        width: 50px;
-    }
-
-    .result-grade {
+@media screen and (max-width: 630px) {
+    .date-col {
         width: 65px;
     }
+}
 
-    .drop-date {
-        width: 70px;
+@media screen and (max-width: 580px) {
+    .game-money-col, .rank-col {
+        width: 60px;
     }
-
-    .drop-times {
-        width: 40px;
-    }
-
-    .selected-num {
-        width: 90px;
-    }
-
 }
