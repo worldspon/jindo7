@@ -189,7 +189,7 @@ function createTable(data, gameTitle) {
                 <th>베팅<span class="more-spare">쿠폰</span></th>
                 <th class="game-money-col">당첨 <span class="more-spare">게임머니</span></th>
                 <th class="rank-col">당첨 <span class="more-spare">랭킹점수</span></th>
-                <th class="result-grade">결과<span class="more-spare">(등수)</span></th>
+                <th class="result-grade">결과</th>
             </tr>
         </thead>
     <tbody>`;
@@ -234,7 +234,7 @@ function createFightTable(data) {
             <th>베팅<span class="more-spare">쿠폰</span></th>
             <th class="game-money-col">당첨 <span class="more-spare">게임머니</span></th>
             <th class="rank-col">당첨 <span class="more-spare">랭킹점수</span></th>
-            <th class="result-grade">결과<span class="more-spare">(등수)</span></th>
+            <th class="result-grade">결과</th>
         </tr>
     </thead>
     <tbody>`;
