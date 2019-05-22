@@ -31,7 +31,7 @@ let promiseResult = new Proxy(p, {
 profitFieldAsyncValidation('http://192.168.0.24:8080/main/adprofit');
 noticeFieldAsyncValidation('http://192.168.0.24:8080/main/notice');
 faqFieldAsyncValidation('http://192.168.0.24:8080/main/faq');
-gameFieldAsyncValidation('http://192.168.0.24:8080/main/gam');
+gameFieldAsyncValidation('http://192.168.0.24:8080/main/game');
 
 /**
  * 비동기 객체생성 함수
