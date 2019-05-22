@@ -1,26 +1,37 @@
 'use strict;'
 
+let promiseResult = new Proxy({resolveCount : 0, rejectCount : 0}, {
 
+    set(promiseProxy, result, count) {
 
-/*
-error처리 공통함수 제작
-게임결과 공통화 작업 (월, 일 추출 등)
+        promiseProxy[result] = count;
 
+        let promiseEndCount = 0;
 
+        // 현재까지 종료된 프로미스 합산
+        for(let resultCount in promiseProxy) {
+            promiseEndCount += promiseProxy[resultCount];
+        }
 
-*/
+        // 4개 통신이 모두 끝나고 reject가 하나라도 있을시
+        if(promiseEndCount >= 4 && promiseProxy.rejectCount >= 1) {
+            setTimeout(()=>{
+                alert('통신이 원활하지않습니다.');
+            },1000);
+        }
 
+    }
+});
 
 
 // 광고수익현황 + 광고수익금차트 비동기통신
 profitFieldAsyncValidation('http://192.168.0.24:8080/main/adprofit');
-// faq 비동기통신
-faqFieldAsyncValidation('http://192.168.0.24:8080/main/faq');
 noticeFieldAsyncValidation('http://192.168.0.24:8080/main/notice');
+faqFieldAsyncValidation('http://192.168.0.24:8080/main/faq');
 gameFieldAsyncValidation('http://192.168.0.24:8080/main/game');
 
 /**
- * 새롭게 제작한 비동기함수 / 공통사용
+ * 비동기 객체생성 함수
  */
 function AsyncFunction(url) {
     return new Promise((resolve, reject) => {
@@ -32,6 +43,218 @@ function AsyncFunction(url) {
     });
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function profitFieldAsyncValidation(url) {
+
+    let data = AsyncFunction(url);
+    data.then((data)=>{
+        renderProfitData(data);
+        renderProfitChart(data);
+        promiseResult.resolveCount++;
+    }, (err)=>{
+        promiseResult.rejectCount++;
+    })
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function renderProfitData(data){
+
+    const prevMonthTitle = document.querySelector('.prev-month > .profit-left');
+    const prevMonthValue = document.querySelector('.prev-month > .profit-right');
+    const currentMonthTitle = document.querySelector('.current-month > .profit-left');
+    const currentMonthValue = document.querySelector('.current-month > .profit-right');
+    const changePercentageValue = document.querySelector('.change-percentage > .profit-right');
+
+    let profitData = JSON.parse(data);
+    let currentMonth = new Date().getMonth()+1;
+    let prevMonth = (currentMonth == 1) ? 12 : currentMonth-1;
+
+    currentMonthTitle.innerText = `${currentMonth}월 총 광고수익금`;
+    currentMonthValue.innerText = changeCurrencyFormat(profitData.totalClosing);
+    prevMonthTitle.innerText = `${prevMonth}월 총 광고수익금`;
+    prevMonthValue.innerText = changeCurrencyFormat(profitData.totalForecast);
+
+    let monthComparePercentage = compareMonthProfitToPercentage(profitData.totalForecast, profitData.totalClosing);
+    changePercentageValue.innerText = Number.isInteger(monthComparePercentage) ? `${monthComparePercentage}%` : `${monthComparePercentage.toFixed(2)}%`;
+    changePercentageValue.style.color = monthComparePercentage >= 0 ? 'green' : 'red';
+
+}
+
+function changeCurrencyFormat(profit) {
+    return new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(parseFloat(profit));
+}
+
+function compareMonthProfitToPercentage(prevMonthProfit, currentMonthProfit) {
+    return ((parseFloat(currentMonthProfit) - parseFloat(prevMonthProfit)) / parseFloat(currentMonthProfit)) * 100;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function renderProfitChart(data){
+
+    let nearSevenDaysProfitData = JSON.parse(data).forecast;
+    let profitChartObject = createMainChart(...convertDataToArrayType(nearSevenDaysProfitData));
+
+    // 차트가 그려진 후의 canvas object에 이벤트 등록
+    let afterChartRenderObject = document.getElementById("index-profit-chart");
+    registerCanvasResizeEvent(profitChartObject, afterChartRenderObject);
+
+}
+
+function convertDataToArrayType(profitObject) {
+
+    let dateArray = [];
+    let valueArray = [];
+
+    dateArray.push('');
+    valueArray.push(null);
+
+    for(let profitElement in profitObject) {
+        dateArray.push(`${profitElement}일`);
+        valueArray.push(profitObject[profitElement]);
+    }
+
+    dateArray.push('');
+    valueArray.push(null);
+
+    return [dateArray, valueArray];
+
+}
+
+function createMainChart(dateArray, valueArray) {
+
+    let ctx = returnCanvasTagId();
+    return new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dateArray,
+            datasets: [{
+                label: false,
+                data: valueArray,
+                fill: false,
+                borderColor: '#6f569c',
+                borderWidth: 5,
+                pointBorderWidth: 2,
+                pointBackgroundColor: 'white',
+                pointRadius: 5,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    },
+                    offsetGridLines:false,
+                    ticks: {
+                    }
+                }]
+            }
+        }
+    });
+
+}
+
+function returnCanvasTagId() {
+
+    const profitChartBox = document.querySelector('.profit-chart-content');
+    let canvasHeight = setCanvasHeight();
+
+    // canvas tag 생성
+    profitChartBox.innerHTML = `<canvas id='index-profit-chart' style='height:${canvasHeight}px;'></canvas>`;
+    return document.getElementById("index-profit-chart").getContext("2d");
+
+}
+
+function setCanvasHeight() {
+
+    if(window.innerWidth <= 500 ){
+        return 200;
+    }else if(window.innerWidth <= 960 ){
+        return 300;
+    }else {
+        return 500;
+    }
+
+}
+
+function registerCanvasResizeEvent(profitChartObject, afterChartRenderObject) {
+
+    window.addEventListener('resize', () => {
+        let canvasHeight = '';
+        window.innerWidth > 960 ? canvasHeight = '500px' : window.innerWidth <= 500 ? canvasHeight = '200px' : canvasHeight = '300px';
+        afterChartRenderObject.style.height = canvasHeight;
+        profitChartObject.update();
+
+    });
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function noticeFieldAsyncValidation(url) {
+    let data = AsyncFunction(url);
+    data.then((data)=>{
+        renderNoticeTable(data);
+        promiseResult.resolveCount++;
+    }, (err)=>{
+        promiseResult.rejectCount++;
+    })
+}
+
+function renderNoticeTable(data) {
+    const noticeBoxContent = document.querySelector('.notice-box-content');
+    let noticeContentData = JSON.parse(data).noticeList;
+    noticeBoxContent.innerHTML='';
+    noticeContentData.forEach(noticeContentDataElement => {
+        noticeBoxContent.innerHTML+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${noticeContentDataElement.title}</span>
+            <span class='board-content-date'>${noticeContentDataElement.writeDate}</span>
+        </div>`;
+    });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function faqFieldAsyncValidation(url) {
+    let data = AsyncFunction(url);
+    data.then((data)=>{
+        renderFaqTable(data);
+        promiseResult.resolveCount++;
+    }, (err)=>{
+        promiseResult.rejectCount++;
+    })
+}
+
+function renderFaqTable(data) {
+    const faqBoxContent = document.querySelector('.faq-box-content');
+    let faqContentData = JSON.parse(data).faqList;
+    faqBoxContent.innerHTML='';
+    faqContentData.forEach(faqContentDataElement => {
+        faqBoxContent.innerHTML+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${faqContentDataElement.question}</span>
+        </div>`;
+    });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 function gameFieldAsyncValidation(url) {
     let data = AsyncFunction(url);
     data.then((data)=>{
@@ -39,13 +262,11 @@ function gameFieldAsyncValidation(url) {
         renderFightTable(data);
         renderBreakTable(data);
         renderDropTable(data);
+        promiseResult.resolveCount++;
     }, (err)=>{
-        // err처리 함수로 만들것.
-        alert(err);
+        promiseResult.rejectCount++;
     })
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////
 
 function renderRaceTable(data) {
 
@@ -86,8 +307,6 @@ function renderRaceTable(data) {
 
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
-
 function renderFightTable(data) {
     
     const fightTable = document.querySelector('.zombie-fight');
@@ -123,8 +342,6 @@ function renderFightTable(data) {
     dummyText += `</table>`;
     fightTable.innerHTML = dummyText;
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////
 
 function renderBreakTable(data) {
     
@@ -164,8 +381,6 @@ function renderBreakTable(data) {
     breakTable.innerHTML = dummyText;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
-
 function renderDropTable(data) {
     
     const dropTable = document.querySelector('.zombie-drop');
@@ -203,212 +418,3 @@ function renderDropTable(data) {
     dummyText += `</table>`;
     dropTable.innerHTML = dummyText;
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-function noticeFieldAsyncValidation(url) {
-    let data = AsyncFunction(url);
-    data.then((data)=>{
-        renderNoticeTable(data);
-    }, (err)=>{
-        // err처리 함수로 만들것.
-        alert(err);
-    })
-}
-
-function renderNoticeTable(data) {
-    const noticeBoxContent = document.querySelector('.notice-box-content');
-    let noticeContentData = JSON.parse(data).noticeList;
-    noticeBoxContent.innerHTML='';
-    noticeContentData.forEach(noticeContentDataElement => {
-        noticeBoxContent.innerHTML+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${noticeContentDataElement.title}</span>
-            <span class='board-content-date'>${noticeContentDataElement.writeDate}</span>
-        </div>`;
-    });
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-function faqFieldAsyncValidation(url) {
-    let data = AsyncFunction(url);
-    data.then((data)=>{
-        renderFaqTable(data);
-    }, (err)=>{
-        // err처리 함수로 만들것.
-        alert(err);
-    })
-}
-
-function renderFaqTable(data) {
-    const faqBoxContent = document.querySelector('.faq-box-content');
-    let faqContentData = JSON.parse(data).faqList;
-    faqBoxContent.innerHTML='';
-    faqContentData.forEach(faqContentDataElement => {
-        faqBoxContent.innerHTML+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${faqContentDataElement.question}</span>
-        </div>`;
-    });
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-function profitFieldAsyncValidation(url) {
-    let data = AsyncFunction(url);
-    data.then((data)=>{
-        renderProfitData(data);
-        renderProfitChart(data);
-    }, (err)=>{
-        // err처리 함수로 만들것.
-        alert(err);
-    })
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-function renderProfitData(data){
-    const prevMonthTitle = document.querySelector('.prev-month > .profit-left');
-    const prevMonthValue = document.querySelector('.prev-month > .profit-right');
-    const currentMonthTitle = document.querySelector('.current-month > .profit-left');
-    const currentMonthValue = document.querySelector('.current-month > .profit-right');
-    const changePercentageValue = document.querySelector('.change-percentage > .profit-right');
-    let profitData = JSON.parse(data);
-    let currentMonth = new Date().getMonth()+1;
-    let prevMonth = (currentMonth == 1) ? 12 : currentMonth-1;
-    currentMonthTitle.innerText = `${currentMonth}월 총 광고수익금`;
-    currentMonthValue.innerText = changeCurrencyFormat(profitData.totalClosing);
-    prevMonthTitle.innerText = `${prevMonth}월 총 광고수익금`;
-    prevMonthValue.innerText = changeCurrencyFormat(profitData.totalForecast);
-    monthComparePercentage = compareMonthProfitToPercentage(profitData.totalForecast, profitData.totalClosing);
-    changePercentageValue.innerText = Number.isInteger(monthComparePercentage) ? `${monthComparePercentage}%` : `${monthComparePercentage.toFixed(2)}%`;
-    changePercentageValue.style.color = monthComparePercentage >= 0 ? 'green' : 'red';
-}
-
-function changeCurrencyFormat(profit) {
-    let currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
-    return currencyFormat.format(parseFloat(profit));
-}
-
-function compareMonthProfitToPercentage(prevMonthProfit, currentMonthProfit) {
-    let prevProfit = parseFloat(prevMonthProfit);
-    let currentProfit = parseFloat(currentMonthProfit);
-    return ((currentProfit-prevProfit)/currentProfit)*100;
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-function renderProfitChart(data){
-
-    let nearSevenDaysProfitData = JSON.parse(data).forecast;
-    let profitChartObject = createMainChart(...convertDataToArrayType(nearSevenDaysProfitData));
-    let afterChartRenderObject = document.getElementById("index-profit-chart");
-    registerCanvasResizeEvent(profitChartObject, afterChartRenderObject);
-
-}
-
-
-function convertDataToArrayType(profitObject) {
-    let dateArray = [];
-    let valueArray = [];
-
-    dateArray.push('');
-    valueArray.push(null);
-
-    for(let profitElement in profitObject) {
-        dateArray.push(`${profitElement}일`);
-        valueArray.push(profitObject[profitElement]);
-    }
-
-    dateArray.push('');
-    valueArray.push(null);
-
-    return [dateArray, valueArray];
-
-}
-
-function registerCanvasResizeEvent(profitChartObject, afterChartRenderObject) {
-
-    window.addEventListener('resize', () => {
-        if(window.innerWidth <= 500 ){
-            afterChartRenderObject.style.height = '200px';
-            profitChartObject.update();
-        }else if(window.innerWidth <= 960 ){
-            afterChartRenderObject.style.height = '300px';
-            profitChartObject.update();
-        }else {
-            afterChartRenderObject.style.height = '500px';
-            profitChartObject.update();
-        }
-    });
-
-}
-
-
-function setCanvasHeight() {
-    if(window.innerWidth <= 500 ){
-        return 200;
-    }else if(window.innerWidth <= 960 ){
-        return 300;
-    }else {
-        return 500;
-    }
-}
-
-function returnCanvasTagId() {
-    const profitChartBox = document.querySelector('.profit-chart-content');
-    let canvasHeight = setCanvasHeight();
-    profitChartBox.innerHTML = `<canvas id='index-profit-chart' style='height:${canvasHeight}px;'></canvas>`;
-
-    return document.getElementById("index-profit-chart").getContext("2d");
-}
-
-function createMainChart(dateArray, valueArray) {
-
-    let ctx = returnCanvasTagId();
-
-    return new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: dateArray,
-            datasets: [{
-                label: false,
-                data: valueArray,
-                fill: false,
-                borderColor: '#6f569c',
-                borderWidth: 5,
-                pointBorderWidth: 2,
-                pointBackgroundColor: 'white',
-                pointRadius: 5,
-                tension: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: false,
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                    }
-                }],
-                xAxes: [{
-                    gridLines: {
-                        display: false
-                    },
-                    offsetGridLines:false,
-                    ticks: {
-                    }
-                }]
-            }
-        }
-    });
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
