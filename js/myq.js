@@ -1,4 +1,4 @@
-'use strict;'
+'use strict';
 
 const searchInput = document.querySelector('.search-input');
 const searchBtn = document.querySelector('.search-btn');

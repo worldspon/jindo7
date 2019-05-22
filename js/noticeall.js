@@ -1,4 +1,4 @@
-'use strict;'
+'use strict';
 
 const category = document.querySelectorAll('.notice-nav li a');
 const noticeContent = document.querySelector('.notice-content');

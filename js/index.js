@@ -1,6 +1,8 @@
-'use strict;'
+'use strict';
 
-let promiseResult = new Proxy({resolveCount : 0, rejectCount : 0}, {
+let p = {resolveCount : 0, rejectCount : 0};
+
+let promiseResult = new Proxy(p, {
 
     set(promiseProxy, result, count) {
 
@@ -20,6 +22,7 @@ let promiseResult = new Proxy({resolveCount : 0, rejectCount : 0}, {
             },1000);
         }
 
+        return true;
     }
 });
 
@@ -28,7 +31,7 @@ let promiseResult = new Proxy({resolveCount : 0, rejectCount : 0}, {
 profitFieldAsyncValidation('http://192.168.0.24:8080/main/adprofit');
 noticeFieldAsyncValidation('http://192.168.0.24:8080/main/notice');
 faqFieldAsyncValidation('http://192.168.0.24:8080/main/faq');
-gameFieldAsyncValidation('http://192.168.0.24:8080/main/game');
+gameFieldAsyncValidation('http://192.168.0.24:8080/main/gam');
 
 /**
  * 비동기 객체생성 함수

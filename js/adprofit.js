@@ -1,4 +1,4 @@
-'use strict;'
+'use strict';
 
 // 현재 날짜 데이터 저장
 let nowYear = new Date().getFullYear();
