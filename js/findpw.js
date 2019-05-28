@@ -44,12 +44,14 @@ class UI {
     }
 
     static disabledButton(button) {
+        button.disabled = true;
         button.classList.remove('send-email');
         button.classList.add('disabled-button');
         button.innerText = '통신중입니다.';
     }
 
     static ableButton(button) {
+        button.disabled = false;
         button.classList.remove('disabled-button');
         button.classList.add('send-email');
         button.innerText = '메일발송';

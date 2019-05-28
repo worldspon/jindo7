@@ -34,7 +34,13 @@ main {
     cursor: pointer;
 }
 
-.check-personal-pw, .recheck-personal-pw, .btn-change-pw {
+.disabled-button {
+    border: 1px solid gray;
+    color: #fff;
+    background: gray;
+}
+
+.check-personal-pw, .recheck-personal-pw, .btn-change-pw, .disabled-button {
     width: 100%;
     padding: 15px;
     box-sizing: border-box;
@@ -54,8 +60,13 @@ main {
     color: #999;
 }
 
-.btn-change-pw {
+.btn-change-pw, .disabled-button {
     font-size: 1.5rem;
+}
+
+.success-div {
+    font-size: 2.5rem;
+    color: #bbb;
 }
 
 @media screen and (max-width: 1440px) {
