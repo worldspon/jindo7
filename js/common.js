@@ -63,13 +63,10 @@ headerWrap.innerHTML = `<header>
             <a href='adlist.html' class='board-nav'>한줄광고신청</a>
         </li>
         <li>
-            <a href='adlist.html' class='board-nav'>관리자</a>
+            <a href='gamemoneyhistory.html' class='board-nav'>관리자</a>
             <ul class='notice-sub-menu sub-menu'>
                 <li>
-                    <a>게임머니</a>
-                </li>
-                <li>
-                    <a>거래기록</a>
+                    <a>기록조회</a>
                 </li>
                 <li>
                     <a>캐시비관리</a>
@@ -144,16 +141,13 @@ headerWrap.innerHTML = `<header>
             <a href='board.html' class='mobile-menu-main-list'>게시판</a>
         </li>
         <li>
-            <a href='adlist.html' class='board-nav'>한줄광고신청</a>
+            <a href='gamemoneyhistory.html' class='board-nav'>한줄광고신청</a>
         </li>
         <li>
             <a class='mobile-menu-main-list'>관리자</a>
             <ul class='mobile-menu-sub'>
                 <li>
-                    <a>게임머니</a>
-                </li>
-                <li>
-                    <a>거래기록</a>
+                    <a>기록조회</a>
                 </li>
                 <li>
                     <a>캐시비관리</a>

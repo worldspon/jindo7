@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/gamemoneyhistory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>WORLDSPON</title>
+    
+    <script>
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
+        <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
+        <div class='header-wrap'>
+
+        </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
+        <div class='main-wrap'>
+            <main>
+                <!-- gamemoneyhis common box start -->
+                <div class='gamemoneyhis-common-box content-box-layout'>
+                    <h3 class='content-hl'>기록조회</h3>
+                </div>
+                <!-- gamemoneyhis common box end -->
+
+                <!-- mybet content box start -->
+                <div class="mybet-content-box">
+                    <button class="">게임머니</button>
+                    <button class="">포인트</button>
+                    <button class="">코인</button>
+                    <button class="">락코인</button>
+                </div>
+                <!-- mybet content box end -->
+                
+                <!-- myresult content box start -->
+
+                <div class='myresult-content-box content-box-layout'>
+                    
+                    <!-- <table>
+                        <caption class="tb-main-title">좀비레이스 결과표 내용</caption>
+                        <thead>
+                            <tr class="myresult-small-title one-line">
+                               <th class="date-col">일시</th>
+                                <th class="count-star">회차</th> 
+                                <th class="betting-zombie">베팅한 <span class="more-spare">좀비</span></th>
+                                <th>베팅<span class="more-spare">쿠폰</span></th>
+                                <th class="game-money-col">당첨 <span class="more-spare">게임머니</span></th>
+                                <th class="rank-col">당첨 <span class="more-spare">랭킹점수</span></th>
+                                <th class="result-grade">결과<span class="more-spare">(등수)</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.02</td>
+                                <td>488</td>
+                                <td>코코엄마</td>
+                                <td>1</td>
+                                <td>38,000</td>
+                                <td>12,800</td>
+                                <td>1</td>
+                            </tr>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.02</td>
+                                <td>16</td>
+                                <td>군인</td>
+                                <td>2</td>
+                                <td>24,000</td>
+                                <td>5,000</td>
+                                <td>무승부</td>
+                            </tr>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.02</td>
+                                <td>16</td>
+                                <td>피아니스트</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>KO</td>
+                            </tr>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.02</td>
+                                <td>16</td>
+                                <td>교통경찰</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>판정승</td>
+                            </tr>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.02</td>
+                                <td>16</td>
+                                <td>간호사</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>5</td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                
+                    <!-- zombie drop content box start -->
+                    <!-- <table>
+                        <caption class="tb-main-title">좀비낙하 결과표 내용</caption>
+                        <thead>
+                            <tr class="myresult-small-title one-line">
+                                <th class="date-col">일시</th>
+                                <th class="count-star">회차</th> 
+                                <th class="choice-number">선택번호</th> 
+                                <th class="goal-times">당첨수</th>
+                                <th class="game-money-col">당첨 <span class="more-spare">게임머니</span></th>
+                                <th>당첨 <span class="more-spare">스폰</span></th>
+                                <th class="rank-col">당첨 <span class="more-spare">랭킹점수</span></th>
+                                <th class="result-grade">최고<span class="more-spare">등수</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.07</td>
+                                <td>288</td>
+                                <td>14/16/20/22/26</td>
+                                <td>5</td>
+                                <td>100,000</td>
+                                <td>100</td>
+                                <td>200,000</td>
+                                <td>5등</td>
+                            </tr>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.07</td>
+                                <td>288</td>
+                                <td>5/19/22/27/28</td>
+                                <td>4</td>
+                                <td>100,000</td>
+                                <td>100</td>
+                                <td>200,000</td>
+                                <td>5등</td>
+                            </tr>
+                            <tr class="one-line border-bottom">
+                                <td>19.05.07</td>
+                                <td>288</td>
+                                <td>14/16/20/22/26</td>
+                                <td>5</td>
+                                <td>100,000</td>
+                                <td>100</td>
+                                <td>200,000</td>
+                                <td>꽝</td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                    <!-- zombie drop content box end -->
+                </div>
+
+
+            </main>
+        </div>
+        <!-- main-wrap end -->
+    </div>
+
+
+    <script src='./js/polyfill.min.js'></script>
+    <script src='./js/common.js'></script>
+    <script src='./js/myresult.js'></script>
+</body>
+</html>
