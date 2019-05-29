@@ -22,9 +22,13 @@ class Handler {
     static checkPassword() {
         const passwordInput = document.querySelector('.check-personal-pw').value;
         const passwordConfirm = document.querySelector('.recheck-personal-pw').value;
+
+        if(passwordInput.search(/\s/g) >= 0) {
+            return '비밀번호에는 공백이 포함될 수 없습니다.';
+        }
         
         if((passwordInput.length < 4 || passwordConfirm.length < 4)) {
-            return '비밀번호에 4자리 이상 입력해주세요';
+            return '비밀번호를 4자리 이상 입력해주세요.';
         } else if(passwordInput !== passwordConfirm) {
             return '비밀번호가 다릅니다. 확인해주세요.';
         } else {
@@ -49,7 +53,7 @@ class Handler {
 
 
     static asyncValidation(asyncResult, button) {
-        asyncResult.then((result) => {
+        asyncResult.then(() => {
             UI.showSuccessDivision();
         }, () => {
             UI.ableButton(button);
