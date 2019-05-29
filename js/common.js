@@ -141,7 +141,7 @@ headerWrap.innerHTML = `<header>
             <a href='board.html' class='mobile-menu-main-list'>게시판</a>
         </li>
         <li>
-            <a href='gamemoneyhistory.html' class='board-nav'>한줄광고신청</a>
+            <a href='adlist.html' class='board-nav'>한줄광고신청</a>
         </li>
         <li>
             <a class='mobile-menu-main-list'>관리자</a>
