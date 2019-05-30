@@ -1,166 +1,167 @@
 'use strict';
 
-const body = document.body;
-const html = document.documentElement;
-const main = document.querySelector('main');
-const inputId = document.querySelector('.input-id');
-const inputPw = document.querySelector('.input-pw');
-const tooltipText = document.querySelector('.tooltiptext');
-const submitBtn = document.querySelector('.submit-btn');
-const pkValue = document.querySelector('.pk-value');
-const encryptId = document.querySelector('.encrypt-id');
-const encryptPw = document.querySelector('.encrypt-pw');
-
-let idFlag = false;
-let pwFlag = false;
-
-// 접속 시 창 크기와 main height를 비교하여 body, html height 값 변경
-if(window.innerHeight <= (main.offsetHeight+100)) {
-    body.style.height = 'auto';
-    html.style.height = 'auto';
-} else {
-    body.style.height = '100%';
-    html.style.height = '100%';
+// Model Class
+class User {
+    constructor(encryptId, encryptPw) {
+        return {
+            'username' : encryptId,
+            'userpw' : encryptPw
+        }
+    }
 }
 
-// resize시 창 크기와 main height를 비교하여 body, html height 값 변경
-window.addEventListener('resize', function() {
-    if(window.innerHeight <= (main.offsetHeight+100)) {
-        body.style.height = 'auto';
-        html.style.height = 'auto';
-    } else {
-        body.style.height = '100%';
-        html.style.height = '100%';
-    }
-});
+// Controller Class
+class Handler {
 
-// id 입력시 check img 표시
-inputId.addEventListener('keyup', function(){
-    if(inputId.value.length >= 2) {
-        inputId.style.backgroundImage = 'url("./images/login_check.png")';
-        idFlag = true;
-    } else {
-        inputId.style.backgroundImage = 'none';
-        idFlag = false;
-    }
-});
-
-// pw 입력시 check img 표시
-inputPw.addEventListener('keyup', function(){
-    if(inputPw.value.length >= 4) {
-        inputPw.style.backgroundImage = 'url("./images/login_check.png")';
-        pwFlag = true;
-    } else {
-        inputPw.style.backgroundImage = 'none';
-        pwFlag = false;
-    }
+    static setWindowHeight() {
+        const body = document.body;
+        const html = document.documentElement;
+        const main = document.querySelector('main');
     
-});
-
-// capslock 감지 및 enter 입력시 함수 호출
-inputPw.addEventListener('keydown', function(e){
-    if (e.getModifierState("CapsLock")) {
-        tooltipText.style.display = 'block';
-    } else {
-        tooltipText.style.display = 'none';
+        if(window.innerHeight <= (main.offsetHeight+100)) {
+            body.style.height = 'auto';
+            html.style.height = 'auto';
+        } else {
+            body.style.height = '100%';
+            html.style.height = '100%';
+        } 
+    
+        window.addEventListener('resize', function() {
+            if(window.innerHeight <= (main.offsetHeight+100)) {
+                body.style.height = 'auto';
+                html.style.height = 'auto';
+            } else {
+                body.style.height = '100%';
+                html.style.height = '100%';
+            }
+        });
     }
-    if (e.keyCode == 13) {
-        submitClick()
+
+    static checkIdLength() {
+        const idInputTag = document.querySelector('.input-id');
+        return idInputTag.value.length >= 2 ? true : false;
     }
-});
 
-
-// 로그인 버튼 클릭시 검증 및 검증 완료시 비동기통신
-submitBtn.addEventListener('click', submitClick);
-
-
-
-/**
- * @brief promise 객체 생성
- * @author JJH
- * @param type 통신 type
- * @param url 통신 할 url 주소
- * @param param 암호화된 값으로 이루어진 JSON 객체
- */
-function AsyncValidateFnc(type,url,param=false) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open(type, url);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.onload = () => resolve(xhr.responseText);
-      xhr.onerror = () => reject(xhr.statusText);
-      !param ? xhr.send() : xhr.send(param);
-    });
-};
-
-
-
-/**
- * @brief submit click event 발생 시 검증 및 통신 시작 함수
- * @author JJH
- */
-function submitClick() {
-    if(!idFlag) {
-        alert('아이디를 입력하세요');
-    } else if(!pwFlag) {
-        alert('비밀번호를 입력하세요');
-    } else {
-        loginAsync();
+    static checkPasswordLength() {
+        const pwInputTag = document.querySelector('.input-pw');
+        return pwInputTag.value.length >= 4 ? true : false;
     }
-};
 
+    static checkCapslock(keyEvent) {
+        return keyEvent.getModifierState("CapsLock");
+    }
 
-/**
- * @brief 받아온 public key로 암호화 및 JSON객체 반환
- * @author JJH
- * @param data public key
- */
-function encryptFnc(data) {
-
-    pkValue.value = '';
-    encryptId.value = '';
-    encryptPw.value = '';
-    let myData = JSON.parse(data);
-
-    let crypt = new JSEncrypt();
-    crypt.setPrivateKey(myData.publicKey);
-
-    let plainId = inputId.value;
-    let plainPw = inputPw.value;
-
-    let encryptedId = crypt.encrypt(plainId);
-    let encryptedPw = crypt.encrypt(plainPw);
-
-    encryptId.value = encryptedId;
-    encryptPw.value = encryptedPw;
-
-    return JSON.stringify({'username' : encryptId.value , 'userpw' : encryptPw.value });
-};
-
-
-/**
- * @brief login 비동기통신(공개키 요청, 암호화, 암호화 객체 전송, 결과 검증)
- * @author JJH
- */
-async function loginAsync() {
-    try {
-        let publicKey = await AsyncValidateFnc('GET','/login/getPublicKey');
-        let loginResult = await AsyncValidateFnc('POST','/login', encryptFnc(publicKey));
-        let data = JSON.parse(loginResult);
-
-        if(data.errorCode==0) {
-            window.location.href = data.location;
-        }else {
-            encryptId.value = '';
-            encryptPw.value = '';
-            alert(data.msg);
-            window.location.reload();
+    static checkInputBox() {
+        if(!this.checkIdLength()) {
+            return '아이디를 입력해주세요.';
+        } else if(!this.checkPasswordLength()) {
+            return '비밀번호를 입력해주세요.';
+        } else {
+            return true;
         }
-    } catch (error) {
-        pkValue.value = '';
-        encryptId.value = '';
-        encryptPw.value = '';
-        alert('통신이 원활하지 않습니다. 다시 시도해주세요.');
-        window.location.reload();
     }
-};
+
+    static encrypt(key) {
+        const plainId = document.querySelector('.input-id').value.trim();
+        const plainPw = document.querySelector('.input-pw').value.trim();
+
+        const rsaObject = new JSEncrypt();
+        rsaObject.setPrivateKey(key);
+
+        return [rsaObject.encrypt(plainId), rsaObject.encrypt(plainPw)];
+    }
+
+    static createUserObject(userEncryptData) {
+        return new User(...userEncryptData);
+    }
+}
+
+// Async Communication Class
+class Communication {
+
+    static getPublicKeyPromise(url) {
+        return new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', url);
+          xhr.onload = () => resolve(xhr.responseText);
+          xhr.onerror = () => reject(xhr.statusText);
+          xhr.send();
+        });
+    }
+
+    static postPromise(url,userData) {
+        return new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', url);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.onload = () => resolve(xhr.responseText);
+          xhr.onerror = () => reject(xhr.statusText);
+          xhr.send(userData);
+        });
+    }
+}
+
+// View Class
+class UI {
+
+    static showCheckImg(target, showBoolean) {
+        target.style.backgroundImage = showBoolean ? 'url("./images/login_check.png")' : 'none';
+    }
+
+    static showTooltipText(showBoolean) {
+        document.querySelector('.tooltiptext').style.display = showBoolean ? 'block' : 'none';
+    }
+
+    static showAlert(msg = '서버와 통신이 원활하지 않습니다.') {
+        alert(msg);
+    }
+}
+
+Handler.setWindowHeight();
+
+// ID INPUT EVENT -> CHECK LENGTH -> SHOW CHECK IMAGE
+document.querySelector('.input-id').addEventListener('input', function(e) {
+    UI.showCheckImg(this, Handler.checkIdLength());
+});
+
+// PASSWORD INPUT EVENT -> CHECK LENGTH -> SHOW CHECK IMAGE
+document.querySelector('.input-pw').addEventListener('input', function(){
+    UI.showCheckImg(this, Handler.checkPasswordLength());
+});
+
+// PASSWORD KEYDOWN EVENT -> CHECK CAPSLOCK -> SHOW TOOLTIP
+document.querySelector('.input-pw').addEventListener('keydown', (event) => {
+    UI.showTooltipText(Handler.checkCapslock(event));
+
+    if (event.keyCode == 13) {
+        document.querySelector('.submit-btn').dispatchEvent(new Event('click'));
+    }
+});
+
+// SUBMIT CLICK EVENT
+document.querySelector('.submit-btn').addEventListener('click', function(){
+    const msg = Handler.checkInputBox();
+    if(msg === true) {
+        Communication.getPublicKeyPromise('http://192.168.0.24:8080/login/getPublicKey')
+        .then( data => {
+            const publicKey = JSON.parse(data).publicKey;
+            const userObject = JSON.stringify(Handler.createUserObject(Handler.encrypt(publicKey)));
+            Communication.postPromise('http://192.168.0.24:8080/login', userObject)
+            .then( data => {
+                const communicationResult = JSON.parse(data);
+                if(communicationResult.errorCode === 0) {
+                    window.location.href = communicationResult.location;
+                } else {
+                    UI.showAlert(communicationResult.msg);
+                    document.querySelector('.input-pw').focus();
+                    document.querySelector('.input-pw').value = '';
+                    document.querySelector('.input-pw').dispatchEvent(new Event('input'));
+                }
+            })
+        }, () => {
+            UI.showAlert();
+        });
+    }else {
+        UI.showAlert(msg);
+    }
+});
