@@ -198,9 +198,8 @@ main {
     }
 
     .board-content-header {
-        width: 77%;
+        width: 72%;
     }
-
 
     /* common board content end */
 
@@ -427,5 +426,12 @@ main {
         -ms-grid-row: 7;
         grid-row: 4;
         padding: 0;
+    }
+}
+
+
+@media screen and (max-width: 330px) {
+    .board-content-header {
+        width: 65%;
     }
 }
