@@ -117,9 +117,23 @@ tbody {
     }
 }
 
+@media screen and (max-width: 1300px) {
+    .one-line> th, .one-line> td {
+        padding: 15px 0;
+    }
+}
+
 @media screen and (max-width: 650px) {
+    .myresult-common-box {
+        padding: 25px 30px;
+    }
+
     .myresult-content-box {
         padding: 25px 10px;
+    }
+    
+    .one-line> th, .one-line> td {
+        padding: 10px 0;
     }
 
     .betting-zombie {
@@ -145,5 +159,12 @@ tbody {
 @media screen and (max-width: 550px) {
     .goal-times {
         width: 13%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .bet-history {
+        display: block;
+        margin: 5px 0 0;
     }
 }
