@@ -183,12 +183,9 @@ function createTable(data, gameTitle) {
         <caption class="tb-main-title">${gameTitle} 베팅기록</caption>
         <thead>
             <tr class="myresult-small-title one-line">
-            <th class="date-col">일시</th>
-                <th class="count-star">회차</th> 
-                <th class="betting-zombie">베팅한 <span class="more-spare">좀비</span></th>
-                <th>베팅<span class="more-spare">쿠폰</span></th>
-                <th class="game-money-col">당첨 <span class="more-spare">게임머니</span></th>
-                <th class="rank-col">당첨 <span class="more-spare">랭킹점수</span></th>
+                <th class="date-col">일시</th>
+                <th class="betting-zombie">베팅결과</th>
+                <th class="game-money-col">당첨보상</th>
                 <th class="result-grade">결과</th>
             </tr>
         </thead>
@@ -197,12 +194,9 @@ function createTable(data, gameTitle) {
     for(let el of data) {
         dummyText +=
         `<tr class="one-line border-bottom">
-            <td>${el.dateTime}</td>
-            <td>${el.gameCount}</td>
-            <td>${el.zombieName}</td>
-            <td>${el.coupon}</td>
-            <td>${el.resultGameMoney}</td>
-            <td>${el.resultRank}</td>
+            <td>${el.gameCount}회차<br>${el.dateTime}</td>
+            <td>${el.zombieName}<br>배팅쿠폰 : ${el.coupon}개</td>
+            <td>게임머니 : ${el.resultGameMoney}G<br>랭킹점수 : ${el.resultRank}점</td>
             <td>${el.result}</td>
         </tr>`
     }
@@ -228,12 +222,8 @@ function createFightTable(data) {
     <thead>
         <tr class="myresult-small-title one-line">
             <th class="date-col">일시</th>
-            <th class="count-star">회차</th> 
-            <th class="betting-zombie">베팅한 <span class="more-spare">좀비</span></th>
-            <th>KO옵션</th>
-            <th>베팅<span class="more-spare">쿠폰</span></th>
-            <th class="game-money-col">당첨 <span class="more-spare">게임머니</span></th>
-            <th class="rank-col">당첨 <span class="more-spare">랭킹점수</span></th>
+            <th class="betting-zombie">베팅결과</th>
+            <th class="game-money-col">당첨보상</th>
             <th class="result-grade">결과</th>
         </tr>
     </thead>
@@ -242,13 +232,9 @@ function createFightTable(data) {
     for(let el of data) {
         dummyText += 
         `<tr class="one-line border-bottom">
-            <td>${el.dateTime}</td>
-            <td>${el.gameCount}</td>
-            <td>${el.zombieName}</td>
-            <td>${el.koChoice}</td>
-            <td>${el.coupon}</td>
-            <td>${el.resultGameMoney}</td>
-            <td>${el.resultRank}</td>
+            <td>${el.gameCount}회차<br>${el.dateTime}</td>
+            <td>${el.zombieName}<br>${el.koChoice}<br>배팅쿠폰 ${el.coupon}개</td>
+            <td>게임머니 : ${el.resultGameMoney}G<br>랭킹점수 : ${el.resultRank}점</td>
             <td>${el.gameResult}</td>
         </tr>`;
     }
@@ -277,13 +263,9 @@ function createDropTable(data) {
     <thead>
         <tr class="myresult-small-title one-line">
             <th class="date-col">일시</th>
-            <th class="count-star">회차</th> 
             <th class="choice-number">선택번호</th> 
             <th class="goal-times">당첨수</th>
-            <th class="game-money-col">당첨 <span class="more-spare">게임머니</span></th>
-            <th>당첨 <span class="more-spare">스폰</span></th>
-            <th class="rank-col">당첨 <span class="more-spare">랭킹점수</span></th>
-            <th class="result-grade">최고<span class="more-spare">등수</span></th>
+            <th class="game-reward">당첨보상</th>
         </tr>
     </thead>
     <tbody>`;
@@ -291,14 +273,10 @@ function createDropTable(data) {
     for(let el of data) {
         dummyText +=
         `<tr class="one-line border-bottom">
-            <td>${el.dateTime}</td>
-            <td>${el.gameCount}</td>
+            <td>${el.gameCount}회차<br>${el.dateTime}</td>
             <td>${el.result}</td>
             <td>${el.matchPoint}</td>
-            <td>${el.prizeGameMoney}</td>
-            <td>${el.prizeSpon}</td>
-            <td>${el.prizeRank}</td>
-            <td>${el.grade}</td>
+            <td>최고등수 : ${el.grade}<br>스폰 : ${el.prizeSpon}개<br>게임머니 : ${el.prizeGameMoney}G<br>랭킹점수 : ${el.prizeRank}점</td>
         </tr>`;
     }
 

@@ -54,7 +54,7 @@ main {
     grid-column: 2;
     -ms-grid-row: 5;
     grid-row: 3;
-    padding: 25px 10px;
+    padding: 25px 20px;
 }
 
 table {
@@ -81,16 +81,11 @@ tbody {
     padding: 30px 0;
     font-size: 1.2rem;
     vertical-align: middle;
-    /*line-height: 1.4em; */
+    line-height: 1.4em;
 }
 .one-line> th:not(:last-child), .one-line> td:not(:last-child) {
     border-right: 1px solid #d4d4d4;
 }
-
-.more-spare {
-    display: inline-block;
-}
-
 
 @media screen and (max-width: 1440px) {
     main {
@@ -120,32 +115,35 @@ tbody {
         -ms-grid-row: 5;
         grid-row: 3;
     }
-
-    .selected-num {
-        min-width: 160px;
-    }
 }
 
-@media screen and (max-width: 860px) {
-    .choice-number {
-        width: 100px;
+@media screen and (max-width: 650px) {
+    .myresult-content-box {
+        padding: 25px 10px;
     }
-}
 
-@media screen and (max-width: 700px) {
     .betting-zombie {
-        width: 75px;
+        width:30%;
+    }
+    .game-money-col {
+        width: 38%;
+    }
+
+    .result-grade {
+        width:13%;
+    }
+
+    .choice-number {
+        width: 36%;
+    }
+
+    .game-reward {
+        width: 33%;
     }
 }
 
-@media screen and (max-width: 630px) {
-    .date-col {
-        width: 65px;
-    }
-}
-
-@media screen and (max-width: 580px) {
-    .game-money-col, .rank-col {
-        width: 60px;
+@media screen and (max-width: 550px) {
+    .goal-times {
+        width: 13%;
     }
 }
