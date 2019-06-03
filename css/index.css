@@ -197,10 +197,6 @@ main {
         margin-bottom: 35px;
     }
 
-    .board-content-header {
-        width: 72%;
-    }
-
     /* common board content end */
 
 /* notice, faq box end */
@@ -429,6 +425,17 @@ main {
     }
 }
 
+@media screen and (max-width: 860px) {
+    .board-content-header {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .board-content-header {
+        width: 70%;
+    }
+}
 
 @media screen and (max-width: 330px) {
     .board-content-header {
