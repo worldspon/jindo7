@@ -188,14 +188,20 @@ main {
     .board-content {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         font-size: 1.2rem;
         color: #757474;
-
     }
 
     .board > .board-content:not(:last-child) {
         margin-bottom: 35px;
     }
+
+    .board-content-header {
+        width: 77%;
+    }
+
+
     /* common board content end */
 
 /* notice, faq box end */
