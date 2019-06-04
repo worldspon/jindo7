@@ -1,36 +1,42 @@
-'use strict;'
+'use strict';
 
-const prevMonthLeft = document.querySelector('.prev-month > .profit-left');
-const prevMonthRight = document.querySelector('.prev-month > .profit-right');
-const currentMonthLeft = document.querySelector('.current-month > .profit-left');
-const currentMonthRight = document.querySelector('.current-month > .profit-right');
-const changePercentageRight = document.querySelector('.change-percentage > .profit-right');
-const mainChartParent = document.querySelector('.profit-chart-content');
-const noticeBoxContent = document.querySelector('.notice-box-content');
-const faqBoxContent = document.querySelector('.faq-box-content');
-const gameTableContent = document.querySelectorAll('.game-table-content');
-let mainChart='';
+let p = {resolveCount : 0, rejectCount : 0};
+
+let promiseResult = new Proxy(p, {
+
+    set(promiseProxy, result, count) {
+
+        promiseProxy[result] = count;
+
+        let promiseEndCount = 0;
+
+        // 현재까지 종료된 프로미스 합산
+        for(let resultCount in promiseProxy) {
+            promiseEndCount += promiseProxy[resultCount];
+        }
+
+        // 4개 통신이 모두 끝나고 reject가 하나라도 있을시
+        if(promiseEndCount >= 4 && promiseProxy.rejectCount >= 1) {
+            setTimeout(()=>{
+                alert('통신이 원활하지않습니다.');
+            },1000);
+        }
+
+        return true;
+    }
+});
 
 
-//비동기통신
-profitAsync('js/index.json');
-chartAsync('js/index.json');
-noticeAsync('js/index.json');
-faqAsync('js/index.json');
-raceAsync('js/index.json');
-fightAsync('js/index.json');
-breakAsync('js/index.json');
-dropAsync('js/index.json');
-
-
-
+// 광고수익현황 + 광고수익금차트 비동기통신
+profitFieldAsyncValidation('http://192.168.0.24:8080/main/adprofit');
+noticeFieldAsyncValidation('http://192.168.0.24:8080/main/notice');
+faqFieldAsyncValidation('http://192.168.0.24:8080/main/faq');
+gameFieldAsyncValidation('http://192.168.0.24:8080/main/game');
 
 /**
- * @brief promise 객체 생성
- * @author JJH
- * @see url만 바꿔서 쓰면 된다.
+ * 비동기 객체생성 함수
  */
-function AsyncValidateFnc(url) {
+function AsyncFunction(url) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("GET", url);
@@ -40,452 +46,97 @@ function AsyncValidateFnc(url) {
     });
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////
 
+function profitFieldAsyncValidation(url) {
 
-/**
- * @brief 수익금 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function profitAsync(url) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        setProfitData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
+    let data = AsyncFunction(url);
+    data.then((data)=>{
+        renderProfitData(data);
+        renderProfitChart(data);
+        promiseResult.resolveCount++;
+    }, (err)=>{
+        promiseResult.rejectCount++;
+    })
 
+}
 
+/////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * @brief 차트 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function chartAsync(url) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        setChartData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
+function renderProfitData(data){
 
+    const prevMonthTitle = document.querySelector('.prev-month > .profit-left');
+    const prevMonthValue = document.querySelector('.prev-month > .profit-right');
+    const currentMonthTitle = document.querySelector('.current-month > .profit-left');
+    const currentMonthValue = document.querySelector('.current-month > .profit-right');
+    const changePercentageValue = document.querySelector('.change-percentage > .profit-right');
 
+    let profitData = JSON.parse(data);
+    let currentMonth = new Date().getMonth()+1;
+    let prevMonth = (currentMonth == 1) ? 12 : currentMonth-1;
 
-/**
- * @brief 공지사항 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function noticeAsync(url) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        setNoticeData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
+    currentMonthTitle.innerText = `${currentMonth}월 총 광고수익금`;
+    currentMonthValue.innerText = changeCurrencyFormat(profitData.totalClosing);
+    prevMonthTitle.innerText = `${prevMonth}월 총 광고수익금`;
+    prevMonthValue.innerText = changeCurrencyFormat(profitData.totalForecast);
 
+    let monthComparePercentage = compareMonthProfitToPercentage(profitData.totalForecast, profitData.totalClosing);
+    changePercentageValue.innerText = Number.isInteger(monthComparePercentage) ? `${monthComparePercentage}%` : `${monthComparePercentage.toFixed(2)}%`;
+    changePercentageValue.style.color = monthComparePercentage >= 0 ? 'green' : 'red';
 
+}
 
-/**
- * @brief FAQ 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function faqAsync(url) {
-    try {
-        let data = await AsyncValidateFnc(url);
-        setFaqData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
+function changeCurrencyFormat(profit) {
+    return new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(parseFloat(profit));
+}
 
+function compareMonthProfitToPercentage(prevMonthProfit, currentMonthProfit) {
+    return ((parseFloat(currentMonthProfit) - parseFloat(prevMonthProfit)) / parseFloat(currentMonthProfit)) * 100;
+}
 
+/////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * @brief 좀비레이스 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function raceAsync(url){
-    try {
-        let data = await AsyncValidateFnc(url);
-        setRaceData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
+function renderProfitChart(data){
 
+    let nearSevenDaysProfitData = JSON.parse(data).forecast;
+    let profitChartObject = createMainChart(...convertDataToArrayType(nearSevenDaysProfitData));
 
+    // 차트가 그려진 후의 canvas object에 이벤트 등록
+    let afterChartRenderObject = document.getElementById("index-profit-chart");
+    registerCanvasResizeEvent(profitChartObject, afterChartRenderObject);
 
-/**
- * @brief 좀비격투 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function fightAsync(url){
-    try {
-        let data = await AsyncValidateFnc(url);
-        setFightData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
+}
 
+function convertDataToArrayType(profitObject) {
 
+    let dateArray = [];
+    let valueArray = [];
 
-/**
- * @brief 좀비격파 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function breakAsync(url){
-    try {
-        let data = await AsyncValidateFnc(url);
-        setBreakData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
+    dateArray.push('');
+    valueArray.push(null);
 
-
-
-/**
- * @brief 좀비격파 비동기통신, promise 생성 후 검증
- * @author JJH
- * @param url 통신할 url
- */
-async function dropAsync(url){
-    try {
-        let data = await AsyncValidateFnc(url);
-        setDropData(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-
-
-/**
- * @brief 월별 수익금, 증감률 계산후 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setProfitData(data){
-    // 화폐 표기 format 저장
-    let currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
-    let myData = JSON.parse(data);
-    // 데이터 조회를 위해 월 데이터를 YYYYMM 형식으로 저장
-    let nowMonth = `${new Date().getFullYear()}0${new Date().getMonth()+1}`;
-    let prevMonth, nowMonthValue, prevMonthValue, chPercentage;
-
-
-    // 현재월이 1월인 경우 대응
-    if((new Date().getMonth())==0) {
-        prevMonth =`${new Date().getFullYear()}0${new Date().getMonth()+11}`;
-        currentMonthLeft.innerText = `${new Date().getMonth()+1}월 총 광고수익금`;
-        prevMonthLeft.innerText = `${new Date().getMonth()+11}월 총 광고수익금`;
-    } else {
-        prevMonth =`${new Date().getFullYear()}0${new Date().getMonth()}`;
-        currentMonthLeft.innerText = `${new Date().getMonth()+1}월 총 광고수익금`;
-        prevMonthLeft.innerText = `${new Date().getMonth()}월 총 광고수익금`;
+    for(let profitElement in profitObject) {
+        dateArray.push(`${profitElement}일`);
+        valueArray.push(profitObject[profitElement]);
     }
 
-    // 키, 값 조회 후 존재하면 입력 - 전월
-    Array.from(myData.totalProfit).forEach((el) => {
-        if(el[prevMonth]!=undefined) {
-            prevMonthValue = el[prevMonth];
-            prevMonthRight.innerText = `${currencyFormat.format(el[prevMonth])}`;
-        }
-    });
-    // 키, 값 조회 후 존재하면 입력 - 당월
-    Array.from(myData.totalProfit).forEach((el) => {
-        if(el[nowMonth]!=undefined) {
-            nowMonthValue = el[nowMonth];
-            currentMonthRight.innerText = `${currencyFormat.format(el[nowMonth])}`;
-        }
-    });
+    dateArray.push('');
+    valueArray.push(null);
 
-    
-    // 증감률 계산
-    chPercentage =((nowMonthValue-prevMonthValue)/nowMonthValue)*100;
+    return [dateArray, valueArray];
 
-    if(!(Number.isInteger(chPercentage))) {
-        changePercentageRight.innerText = `${chPercentage.toFixed(2)}%`;
-    } else {
-        changePercentageRight.innerText = `${chPercentage}%`;
-    }
-    if(chPercentage != 0) {
-        changePercentageRight.style.color = chPercentage > 0 ? 'green' : 'red';
-    }
-};
+}
 
+function createMainChart(dateArray, valueArray) {
 
-/**
- * @brief 차트 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setChartData(data){
-    let myData = JSON.parse(data);
-    let nowDate = new Date().getDate();
-    // 날짜 데이터 저장 배열
-    let dateAry =[];
-    // 값 데이터 저장 배열
-    let valueAry=[];
-
-    // 여백을 위한 공백 데이터 추가
-    dateAry.push('');
-    valueAry.push(null);
-    
-    // 최근 일주일 데이터 입력
-    for (var i = (nowDate-6); i <= nowDate; i++) {
-        dateAry.push(`${i}일`);
-        Array.from(myData.dailyProfit).forEach((el)=> {
-        if(el[i] != undefined){
-            valueAry.push(el[i]);
-        }
-        });
-    }
-
-    // 여백을 위한 공백 데이터 추가
-    dateAry.push('');
-    valueAry.push(null);
-
-    // 날짜, 값 데이터로 차트 생성
-    createMainChart(dateAry, valueAry);
-
-
-    // 생성 후 차트 객체
-    let chartAfterRender = document.getElementById("index-profit-chart");
-
-    // window resize시 canvas size 변경
-    window.addEventListener('resize', () => {
-        if(window.innerWidth <= 500 ){
-            chartAfterRender.style.height = '200px';
-            mainChart.update();
-        }else if(window.innerWidth <= 960 ){
-            chartAfterRender.style.height = '300px';
-            mainChart.update();
-        }else {
-            chartAfterRender.style.height = '500px';
-            mainChart.update();
-        }
-    });
-};
-
-
-
-/**
- * @brief 공지사항 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setNoticeData(data){
-    let myData = JSON.parse(data);
-    let tempHtml='';
-
-    myData.notice.forEach(el => {
-        tempHtml+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${el.title}</span>
-            <span class='board-content-date'>${el.date}</span>
-        </div>`;
-    });
-
-    noticeBoxContent.innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief FAQ 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setFaqData(data){
-    let myData = JSON.parse(data);
-    let tempHtml='';
-
-    myData.faq.forEach(el => {
-        tempHtml+=
-        `<div class='board-content'>
-            <span class='board-content-header'>${el.title}</span>
-            <span class='board-content-date'>${el.date}</span>
-        </div>`;
-    });
-
-    faqBoxContent.innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief 좀비레이스 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setRaceData(data) {
-    
-    let myData = JSON.parse(data);
-    let tempHtml=
-    `<tr class='game-table-row'>
-        <th class='col'>회차</th>
-        <th>1등</th>
-        <th>2등</th>
-        <th>3등</th>
-        <th>4등</th>
-        <th>5등</th>
-    </tr>`;
-
-    myData.zombierace.forEach((el)=> {
-        tempHtml +=
-        `<tr class='game-table-row'>
-            <th class='col'>${el.turn}</th>`
-        for(let i of el.result) {
-            tempHtml+= `<td>${i}</td>`;
-        };
-        tempHtml +=`</tr>`
-    });
-
-    gameTableContent[0].innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief 좀비격투 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setFightData(data) {
-    
-    let myData = JSON.parse(data);
-    let tempHtml=
-    `<tr class='game-table-row'>
-        <th class='col'>회차</th>
-        <th>좌측</th>
-        <th>우측</th>
-        <th>승자</th>
-        <th>KO여부</th>
-    </tr>`;
-
-    myData.zombiefight.forEach((el)=> {
-        tempHtml +=
-        `<tr class='game-table-row'>
-            <th class='col'>${el.turn}</th>`
-        for(let i of el.result) {
-            tempHtml+= `<td>${i}</td>`;
-        };
-        tempHtml +=`</tr>`
-    });
-
-    gameTableContent[1].innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief 좀비격파 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setBreakData(data) {
-    
-    let myData = JSON.parse(data);
-    let tempHtml=
-    `<tr class='game-table-row'>
-        <th class='col'>회차</th>
-        <th>좌측</th>
-        <th>격파수</th>
-        <th>우측</th>
-        <th>격파수</th>
-        <th>승자</th>
-    </tr>`;
-
-    myData.zombiebreak.forEach((el)=> {
-        tempHtml +=
-        `<tr class='game-table-row'>
-            <th class='col'>${el.turn}</th>`
-        for(let i of el.result) {
-            tempHtml+= `<td>${i}</td>`;
-        };
-        tempHtml +=`</tr>`
-    });
-
-    gameTableContent[2].innerHTML = tempHtml;
-};
-
-
-/**
- * @brief 좀비격파 그리는 함수
- * @author JJH
- * @param data 통신 완료시 받아온 data
- */
-function setDropData(data) {
-    
-    let myData = JSON.parse(data);
-    let tempHtml=
-    `<tr class='game-table-row'>
-        <th class='col'>회차</th>
-        <th>1번좀비</th>
-        <th>2번좀비</th>
-        <th>3번좀비</th>
-        <th>4번좀비</th>
-        <th>5번좀비</th>
-    </tr>`;
-
-    myData.zombiedrop.forEach((el)=> {
-        tempHtml +=
-        `<tr class='game-table-row'>
-            <th class='col'>${el.turn}</th>`
-        for(let i of el.result) {
-            tempHtml+= `<td>${i}</td>`;
-        };
-        tempHtml +=`</tr>`
-    });
-
-    gameTableContent[3].innerHTML = tempHtml;
-};
-
-
-
-/**
- * @brief 차트 생성
- * @author JJH
- * @param dataAry 차트에 표시할 날짜 데이터
- * @param valueAry 차트에 표시할 값 데이터
- */
-function createMainChart(dateAry, valueAry) {
-    let canvasHeight = 0;
-
-    //창크기에 따라 height 값 지정
-    if(window.innerWidth <= 500 ){
-        canvasHeight = 200
-    }else if(window.innerWidth <= 960 ){
-        canvasHeight = 300
-    }else {
-        canvasHeight = 500
-    }
-
-
-    mainChartParent.innerHTML = `<canvas id='index-profit-chart' style='height:${canvasHeight}px;'></canvas>`;
-
-    let ctx = document.getElementById("index-profit-chart");
-    ctx = document.getElementById("index-profit-chart").getContext("2d");
-    mainChart = new Chart(ctx, {
+    let ctx = returnCanvasTagId();
+    return new Chart(ctx, {
         type: 'line',
         data: {
-            // dateAry!!!
-            labels: dateAry,
+            labels: dateArray,
             datasets: [{
                 label: false,
-                // valueAry!!!
-                data: valueAry,
+                data: valueArray,
                 fill: false,
                 borderColor: '#6f569c',
                 borderWidth: 5,
@@ -518,4 +169,255 @@ function createMainChart(dateAry, valueAry) {
             }
         }
     });
-};
+
+}
+
+function returnCanvasTagId() {
+
+    const profitChartBox = document.querySelector('.profit-chart-content');
+    let canvasHeight = setCanvasHeight();
+
+    // canvas tag 생성
+    profitChartBox.innerHTML = `<canvas id='index-profit-chart' style='height:${canvasHeight}px;'></canvas>`;
+    return document.getElementById("index-profit-chart").getContext("2d");
+
+}
+
+function setCanvasHeight() {
+
+    if(window.innerWidth <= 500 ){
+        return 200;
+    }else if(window.innerWidth <= 960 ){
+        return 300;
+    }else {
+        return 500;
+    }
+
+}
+
+function registerCanvasResizeEvent(profitChartObject, afterChartRenderObject) {
+
+    window.addEventListener('resize', () => {
+        let canvasHeight = '';
+        window.innerWidth > 960 ? canvasHeight = '500px' : window.innerWidth <= 500 ? canvasHeight = '200px' : canvasHeight = '300px';
+        afterChartRenderObject.style.height = canvasHeight;
+        profitChartObject.update();
+
+    });
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function noticeFieldAsyncValidation(url) {
+    let data = AsyncFunction(url);
+    data.then((data)=>{
+        renderNoticeTable(data);
+        promiseResult.resolveCount++;
+    }, (err)=>{
+        promiseResult.rejectCount++;
+    })
+}
+
+function renderNoticeTable(data) {
+    const noticeBoxContent = document.querySelector('.notice-box-content');
+    let noticeContentData = JSON.parse(data).noticeList;
+    noticeBoxContent.innerHTML='';
+    noticeContentData.forEach(noticeContentDataElement => {
+        noticeBoxContent.innerHTML+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${noticeContentDataElement.title}</span>
+            <span class='board-content-date'>${noticeContentDataElement.writeDate}</span>
+        </div>`;
+    });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function faqFieldAsyncValidation(url) {
+    let data = AsyncFunction(url);
+    data.then((data)=>{
+        renderFaqTable(data);
+        promiseResult.resolveCount++;
+    }, (err)=>{
+        promiseResult.rejectCount++;
+    })
+}
+
+function renderFaqTable(data) {
+    const faqBoxContent = document.querySelector('.faq-box-content');
+    let faqContentData = JSON.parse(data).faqList;
+    faqBoxContent.innerHTML='';
+    faqContentData.forEach(faqContentDataElement => {
+        faqBoxContent.innerHTML+=
+        `<div class='board-content'>
+            <span class='board-content-header'>${faqContentDataElement.question}</span>
+        </div>`;
+    });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+function gameFieldAsyncValidation(url) {
+    let data = AsyncFunction(url);
+    data.then((data)=>{
+        renderRaceTable(data);
+        renderFightTable(data);
+        renderBreakTable(data);
+        renderDropTable(data);
+        promiseResult.resolveCount++;
+    }, (err)=>{
+        promiseResult.rejectCount++;
+    })
+}
+
+function renderRaceTable(data) {
+
+    const raceTable = document.querySelector('.zombie-race');
+    let raceData = JSON.parse(data).race;
+    let nowMonth = new Date().getMonth()+1 > 9 ? new Date().getMonth()+1 : '0'+(new Date().getMonth()+1);
+    let nowDay = new Date().getDate() > 9 ? new Date().getDate() : '0'+new Date().getDate();
+    let dummyText = ''
+    raceTable.innerHTML = '';
+    dummyText += 
+    `<div class='game-table-header'>
+        <h3>${nowMonth}.${nowDay} 좀비레이스 결과</h3>
+    </div>
+    <table class='game-table-content'>
+    <tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>1등</th>
+        <th>2등</th>
+        <th>3등</th>
+        <th>4등</th>
+        <th>5등</th>
+    </tr>`;
+
+    raceData.forEach((raceDataElement)=> {
+        dummyText +=
+        `<tr class='game-table-row'>
+            <th class='col'>${raceDataElement.count}</th>\
+            <td>${raceDataElement.win1}</td>
+            <td>${raceDataElement.win2}</td>
+            <td>${raceDataElement.win3}</td>
+            <td>${raceDataElement.win4}</td>
+            <td>${raceDataElement.win5}</td>
+        </tr>`;
+    });
+
+    dummyText += `</table>`;
+    raceTable.innerHTML = dummyText;
+
+}
+
+function renderFightTable(data) {
+    
+    const fightTable = document.querySelector('.zombie-fight');
+    let fightData = JSON.parse(data).fight;
+    let nowMonth = new Date().getMonth()+1 > 9 ? new Date().getMonth()+1 : '0'+(new Date().getMonth()+1);
+    let nowDay = new Date().getDate() > 9 ? new Date().getDate() : '0'+new Date().getDate();
+    let dummyText = ''
+    fightTable.innerHTML = '';
+    dummyText += 
+    `<div class='game-table-header'>
+        <h3>${nowMonth}.${nowDay} 좀비격투 결과</h3>
+    </div>
+    <table class='game-table-content'>
+    <tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>좌측</th>
+        <th>우측</th>
+        <th>승자</th>
+        <th>KO여부</th>
+    </tr>`;
+
+    fightData.forEach((fightDataElement)=> {
+        dummyText +=
+        `<tr class='game-table-row'>
+            <th class='col'>${fightDataElement.count}</th>
+            <td>${fightDataElement.leftPlayer}</td>
+            <td>${fightDataElement.rightPlayer}</td>
+            <td>${fightDataElement.winner}</td>
+            <td>${fightDataElement.winner == '준비중' ? '준비중' : fightDataElement.KO ? 'KO' : '판정승'}</td>
+        </tr>`;
+    });
+
+    dummyText += `</table>`;
+    fightTable.innerHTML = dummyText;
+}
+
+function renderBreakTable(data) {
+    
+    const breakTable = document.querySelector('.zombie-break');
+    let breakData = JSON.parse(data).break;
+    let nowMonth = new Date().getMonth()+1 > 9 ? new Date().getMonth()+1 : '0'+(new Date().getMonth()+1);
+    let nowDay = new Date().getDate() > 9 ? new Date().getDate() : '0'+new Date().getDate();
+    let dummyText = ''
+    breakTable.innerHTML = '';
+    dummyText += 
+    `<div class='game-table-header'>
+        <h3>${nowMonth}.${nowDay} 좀비격파 결과</h3>
+    </div>
+    <table class='game-table-content'>
+    <tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>좌측</th>
+        <th>격파수</th>
+        <th>우측</th>
+        <th>격파수</th>
+        <th>승자</th>
+    </tr>`;
+
+    breakData.forEach((breakDataElement)=> {
+        dummyText +=
+        `<tr class='game-table-row'>
+            <th class='col'>${breakDataElement.count}</th>
+            <td>${breakDataElement.leftPlayer}</td>
+            <td>${breakDataElement.leftBroken}</td>
+            <td>${breakDataElement.rightPlayer}</td>
+            <td>${breakDataElement.rightBroken}</td>
+            <td>${breakDataElement.winner}</td>
+        </tr>`;
+    });
+
+    dummyText += `</table>`;
+    breakTable.innerHTML = dummyText;
+}
+
+function renderDropTable(data) {
+    
+    const dropTable = document.querySelector('.zombie-drop');
+    let dropData = JSON.parse(data).drop;
+    let nowMonth = new Date().getMonth()+1 > 9 ? new Date().getMonth()+1 : '0'+(new Date().getMonth()+1);
+    let nowDay = new Date().getDate() > 9 ? new Date().getDate() : '0'+new Date().getDate();
+    let dummyText = ''
+    dropTable.innerHTML = '';
+    dummyText += 
+    `<div class='game-table-header'>
+        <h3>${nowMonth}.${nowDay} 좀비낙하 결과</h3>
+    </div>
+    <table class='game-table-content'>
+    <tr class='game-table-row'>
+        <th class='col'>회차</th>
+        <th>1번좀비</th>
+        <th>2번좀비</th>
+        <th>3번좀비</th>
+        <th>4번좀비</th>
+        <th>5번좀비</th>
+    </tr>`;
+
+    dropData.forEach((dropDataElement)=> {
+        dummyText +=
+        `<tr class='game-table-row'>
+            <th class='col'>${dropDataElement.count}</th>
+            <td>${dropDataElement.result[0]}</td>
+            <td>${dropDataElement.result[1]}</td>
+            <td>${dropDataElement.result[2]}</td>
+            <td>${dropDataElement.result[3]}</td>
+            <td>${dropDataElement.result[4]}</td>
+        </tr>`;
+    });
+
+    dummyText += `</table>`;
+    dropTable.innerHTML = dummyText;
+}

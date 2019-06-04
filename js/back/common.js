@@ -18,16 +18,16 @@ headerWrap.innerHTML = `<header>
             <a href='./adprofit.html' class='ad-profit-nav'>광고수익</a>
         </li>
         <li class='pc-notice-menu'>
-            <a href='noticeall.html'>공지사항</a>
+            <a href='noticeall.html' data-notice="ALL">공지사항</a>
             <ul class='notice-sub-menu sub-menu'>
                 <li>
-                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
+                    <a href='noticeall.html' data-notice="NOTICE">공지사항</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
+                    <a href='noticeall.html' data-notice="UPDATE">업데이트</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
+                    <a href='noticeall.html' data-notice="EVENT">이벤트</a>
                 </li>
             </ul>
         </li>
@@ -47,6 +47,34 @@ headerWrap.innerHTML = `<header>
         </li>
         <li>
             <a href='result.html' class='game-result-nav'>게임결과</a>
+            <ul class='notice-sub-menu sub-menu'>
+                <li>
+                    <a href='result.html'>게임기록</a>
+                </li>
+                <li>
+                    <a href='myresult.html'>베팅기록</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href='board.html' class='board-nav'>게시판</a>
+        </li>
+        <li>
+            <a href='adlist.html' class='board-nav'>한줄광고신청</a>
+        </li>
+        <li>
+            <a href='gamemoneyhistory.html' class='board-nav'>관리자</a>
+            <ul class='notice-sub-menu sub-menu'>
+                <li>
+                    <a>기록조회</a>
+                </li>
+                <li>
+                    <a>캐시비관리</a>
+                </li>
+                <li>
+                    <a>서비스관리</a>
+                </li>
+            </ul>
         </li>
     </ul>
     <!-- nav main menu list end -->
@@ -56,7 +84,7 @@ headerWrap.innerHTML = `<header>
 
 <div class='user-info'>
     <span class='user-name'>WS1234님</span>
-    <button class='login-info'>로그아웃</button>
+    <button class='logout'>로그아웃</button>
 </div>
 
 
@@ -71,16 +99,16 @@ headerWrap.innerHTML = `<header>
             <a class='mobile-menu-main-list'>공지사항</a>
             <ul class='mobile-menu-sub'>
                 <li>
-                    <a href='noticeall.html'>전체</a>
+                    <a href='noticeall.html' data-notice="ALL">전체</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="notice">공지사항</a>
+                    <a href='noticeall.html' data-notice="NOTICE">공지사항</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="update">업데이트</a>
+                    <a href='noticeall.html' data-notice="UPDATE">업데이트</a>
                 </li>
                 <li>
-                    <a href='javscript:void(0);' data-notice="event">이벤트</a>
+                    <a href='noticeall.html' data-notice="EVENT">이벤트</a>
                 </li>
             </ul>
         </li>
@@ -99,7 +127,35 @@ headerWrap.innerHTML = `<header>
             </ul>
         </li>
         <li>
-            <a href='result.html' class='mobile-menu-main-list'>게임결과</a>
+            <a class='mobile-menu-main-list'>게임결과</a>
+            <ul class='mobile-menu-sub'>
+                <li>
+                    <a href="result.html">게임기록</a>
+                </li>
+                <li>
+                    <a href="myresult.html">베팅결과</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href='board.html' class='mobile-menu-main-list'>게시판</a>
+        </li>
+        <li>
+            <a href='adlist.html' class='board-nav'>한줄광고신청</a>
+        </li>
+        <li>
+            <a class='mobile-menu-main-list'>관리자</a>
+            <ul class='mobile-menu-sub'>
+                <li>
+                    <a>기록조회</a>
+                </li>
+                <li>
+                    <a>캐시비관리</a>
+                </li>
+                <li>
+                    <a>서비스관리</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
@@ -108,7 +164,7 @@ headerWrap.innerHTML = `<header>
 </header>`;
 
 
-
+const logOut = document.querySelector('.logout');
 const btnTop = document.querySelector('.btn-top');
 const mainWrap = document.querySelector('.main-wrap');
 const nav = document.querySelector('nav');
@@ -143,7 +199,13 @@ window.addEventListener('scroll', ()=>{
     if(window.scrollY < 200) {
         btnTop.style.display = 'none';
     }
-})
+});
+
+
+// 로그아웃 이벤트 등록
+logOut.addEventListener('click', function() {
+    logoutAsync('/logout');
+});
 
 
 
@@ -171,7 +233,7 @@ function resizeFnc() {
  * @author JJH
  */
 function commonEventReg() {
-    if(window.innerWidth <= 960) {
+    if(window.innerWidth <= 1040) {
         nav.removeEventListener('mouseover',showSubMenu);
         navBg.removeEventListener('mouseout', hideSubMenu);
         mobileMenuImg.addEventListener('click', showMobileMenu);
@@ -187,10 +249,10 @@ function commonEventReg() {
  * @author JJH
  */
 function showSubMenu() {
-    if(window.innerWidth > 1300) {
-        navBg.style.height = '140px';
+    if(window.innerWidth > 1450) {
+        navBg.style.height = '150px';
     } else {
-        navBg.style.height = '180px';
+        navBg.style.height = '190px';
     }
 
     headerWrap.style.boxShadow = 'none';
@@ -269,17 +331,57 @@ const mobileNoticeMenu = document.querySelectorAll('.mobile-menu-sub > li > a');
 
 Array.from(noticeMenu).forEach((el)=>{
     el.addEventListener('click', function() {
-        console.log(el.dataset.notice);
-        window.location = `noticeall?noticeType/${el.innerText}`;
+        noticeType = el.dataset.notice;
+        console.log(noticeType);
     });
 });
 
 Array.from(mobileNoticeMenu).forEach((el)=>{
     el.addEventListener('click', function() {
-        console.log(el.dataset.notice);
-        window.location = `noticeall?noticeType/${el.innerText}`;
+        noticeType = el.dataset.notice;
     });
 });
 /*
 공지사항 메뉴 클릭 시 서버에 공지사항 type을 보내줌
 */
+
+
+
+/**
+ * @brief promise 객체 생성
+ * @author JJH
+ * @see url만 바꿔서 쓰면 된다.
+ */
+function commonAsyncValidateFnc(url) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(xhr.responseText);
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.send();
+    });
+};
+
+
+
+/**
+ * @brief logout 시도
+ * @author JJH
+ * @param url 통신할 url
+ */
+async function logoutAsync(url) {
+    try {
+        let data = await commonAsyncValidateFnc(url);
+        data = JSON.parse(data);
+        if(data.errorCode != 0) {
+            alert(data.msg);
+            window.location.href = data.location;
+        } else {
+            alert(data.msg);
+            window.location.href = data.location;
+        }
+    } catch (error) {
+        alert('통신이 원활하지 않습니다. 다시 시도해주세요.');
+        window.location.reload();
+    }
+};

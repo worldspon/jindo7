@@ -1,5 +1,7 @@
-'use strict;'
+'use strict';
 
+const searchInput = document.querySelector('.search-input');
+const searchBtn = document.querySelector('.search-btn');
 const myqContent = document.querySelector('.myq-content');
 const myqContentWrap = document.querySelector('.myq-content-wrap');
 const pagenationInner = document.querySelector('.pagination-inner');
@@ -8,6 +10,24 @@ const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
 const lastBtn = document.querySelector('.last-btn');
 const myqUrl = 'js/myq.json';
+
+
+
+// 검색 기능
+/////////////////////////////////////////////////////////////////////
+searchBtn.addEventListener('click', function() {
+    searchKeyword = encodeURIComponent(searchInput.value);
+    console.log(searchKeyword);
+});
+
+searchInput.addEventListener('keyup', function(e) {
+    if(e.keyCode==13) {
+        let clickEventObject = new Event('click');
+        searchBtn.dispatchEvent(clickEventObject);
+    }
+});
+/////////////////////////////////////////////////////////////////////
+
 
 
 let pageNum, lastPage, startPage, endPage, contentLength;
