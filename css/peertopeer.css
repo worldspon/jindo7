@@ -42,7 +42,7 @@ main {
     background: #48228d;
 }
 
-.serviceadmin-content-box {
+.adminpeer-content-box {
     -ms-grid-column: 2;
     grid-column: 2;
     -ms-grid-row: 5;
@@ -50,14 +50,6 @@ main {
     padding: 25px 10px;
 }
 
-
-table {
-    table-layout: fixed;
-    width: 100%;
-}
-
-
-/* 
 .state-btn-box{
     margin-bottom: 25px;
 }
@@ -105,6 +97,10 @@ table {
     background: #c82333;
 }
 
+table {
+    table-layout: fixed;
+    width: 100%;
+}
 
 .peer-subject-box {
     border-top: 1px solid #000;
@@ -163,39 +159,39 @@ table {
     cursor: pointer;
 }
 
-.p-bind {
-    margin-right: 5px;
-}
+    .p-bind {
+        margin-right: 5px;
+    }
 
-.p-spon {
-    color: #fff;
-    border-color: #6c757d;
-    background: #6c757d;
-}
+    .p-spon {
+        color: #fff;
+        border-color: #6c757d;
+        background: #6c757d;
+    }
 
-.p-spon:hover {
-    border-color: #545b62;
-    background: #5a6268;
-}
+    .p-spon:hover {
+        border-color: #545b62;
+        background: #5a6268;
+    }
 
-.p-point {
-    border-color: #ecba41;
-    background: #ecba41;
-}
+    .p-point {
+        border-color: #ecba41;
+        background: #ecba41;
+    }
 
-.p-point:hover {
-    border-color: #e2ad2b;
-    background: #e2ad2b;
-}
+    .p-point:hover {
+        border-color: #e2ad2b;
+        background: #e2ad2b;
+    }
 
-.p-danger {
-    border-color: #dc3545;
-    background: #dc3545;
-}
-.p-danger:hover {    
-    border-color: #bd2130;
-    background: #bd2130;
-} */
+    .p-danger {
+        border-color: #dc3545;
+        background: #dc3545;
+    }
+    .p-danger:hover {    
+        border-color: #bd2130;
+        background: #bd2130;
+    }
 
 @media screen and (max-width: 1440px){
     main {
