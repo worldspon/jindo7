@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/serviceadmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>WORLDSPON</title>
+    
+    <script>
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
+        <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
+        <div class='header-wrap'>
+
+        </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
+        <div class='main-wrap'>
+            <main>
+                <!-- serviceadmin common box start -->
+                <div class='serviceadmin-common-box content-box-layout'>
+                    <h3 class='content-hl'>서비스관리</h3>
+                </div>
+                <!-- serviceadmin common box end -->
+
+                <!-- sorted content box start -->
+                <div class="sorted-content-box">
+                    <button class="s-peer on">P2P</button>
+                    <button class="s-refund">포인트환급</button>
+                    <button class="s-admin-pw">관리자용비밀번호</button>
+                    <button class="s-supplier">광고공급자관리</button>
+                    <button class="s-server-care">서버관리</button>
+                </div>
+                <!-- sorted content box end -->
+                
+                <!-- serviceadmin content box start -->
+                <div class='serviceadmin-content-box content-box-layout'>
+                    <div class="state-btn-box">
+                        <button class="btn-primary alive">전체보기</button>
+                        <button class="btn-dispute">분쟁상태</button>
+                    </div>
+                    <table class="peer-box">
+                        <thead class="peer-subject-box">
+                            <tr>
+                                <th>순서</th>
+                                <th>거래고유번호</th>
+                                <th>신청일시</th>
+                                <th>보내는 사람</th>
+                                <th>보내는 품목 / 수량</th>
+                                <th>받는 사람</th>
+                                <th>받는 품목 / 수량</th>
+                                <th>단계</th>
+                                <th>승인한 사람</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody class="peer-list-box">
+                            <tr>
+                                <td>1</td>
+                                <td>#8888</td>
+                                <td>2019-05-05 16:24:25</td>
+                                <td>나야나</td>
+                                <td><button class="p-spon p-bind">락스폰</button> / 0개</td>
+                                <td>사람이야</td>
+                                <td><button class="p-point  p-bind">포인트</button> / 270원</td>
+                                <td>2</td>
+                                <td>사람이야</td>
+                                <td><button class="p-danger">분쟁</button></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>#8888</td>
+                                <td>2019-05-05 16:24:25</td>
+                                <td>나야나</td>
+                                <td><button class="p-spon p-bind">락스폰</button> / 0개</td>
+                                <td>사람이야</td>
+                                <td><button class="p-point p-bind">포인트</button> / 270원</td>
+                                <td>2</td>
+                                <td>사람이야</td>
+                                <td><button class="p-danger">분쟁</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- serviceadmin content box end -->
+
+            </main>
+        </div>
+        <!-- main-wrap end -->
+    </div>
+
+
+    <script src='./js/polyfill.min.js'></script>
+    <script src='./js/common.js'></script>
+</body>
+</html>

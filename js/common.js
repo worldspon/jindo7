@@ -66,13 +66,13 @@ headerWrap.innerHTML = `<header>
             <a href='gamemoneyhistory.html' class='board-nav'>관리자</a>
             <ul class='notice-sub-menu sub-menu'>
                 <li>
-                    <a>기록조회</a>
+                    <a href='gamemoneyhistory.html'>기록조회</a>
                 </li>
                 <li>
                     <a>캐시비관리</a>
                 </li>
                 <li>
-                    <a>서비스관리</a>
+                    <a href='serviceadmin.html'>서비스관리</a>
                 </li>
             </ul>
         </li>
@@ -147,13 +147,13 @@ headerWrap.innerHTML = `<header>
             <a class='mobile-menu-main-list'>관리자</a>
             <ul class='mobile-menu-sub'>
                 <li>
-                    <a>기록조회</a>
+                    <a href='gamemoneyhistory.html'>기록조회</a>
                 </li>
                 <li>
                     <a>캐시비관리</a>
                 </li>
                 <li>
-                    <a>서비스관리</a>
+                    <a href='serviceadmin.html'>서비스관리</a>
                 </li>
             </ul>
         </li>
