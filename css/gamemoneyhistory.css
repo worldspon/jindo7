@@ -94,20 +94,20 @@ table {
     padding: 20px 0;
 }
 
-.gm-no {
-    width:60px;
-}
+    .gm-no {
+        width:60px;
+    }
 
-.gm-date {
-    width: 220px;
-}
+    .gm-date {
+        width: 220px;
+    }
 
-.gm-name {
-     width: 180px;
-}
+    .gm-name {
+        width: 180px;
+    }
 
-.gm-memo {
-    width: 390px;
+    .gm-memo {
+        width: 390px;
 }
 
 .history-tb {

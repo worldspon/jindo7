@@ -50,14 +50,41 @@ main {
     padding: 25px 10px;
 }
 
-
 table {
     table-layout: fixed;
     width: 100%;
 }
 
+.common-subject-box {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #b2b2b2;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: #f7f7f7;
+}
 
-/* 
+.common-subject-box th {
+    padding: 20px 0;
+}
+
+
+/******************** point refund page start *********************/
+
+
+.point-list-box {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+
+
+/******************** point refund page end *********************/
+
+
+/******************** P2P page start *********************/
+
 .state-btn-box{
     margin-bottom: 25px;
 }
@@ -105,19 +132,7 @@ table {
     background: #c82333;
 }
 
-
-.peer-subject-box {
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #b2b2b2;
-    color: #333;
-    font-size: 1.2rem;
-    font-weight: 600;
-    background: #f7f7f7;
-}
-
-.peer-subject-box th {
-    padding: 20px 0;
-}
+/* common-subject-box th fixed width start */
 
     .s-num {
         width: 100px;
@@ -135,10 +150,12 @@ table {
         width: 50px;
     }
 
+/* common-subject-box th fixed width end */
+
 .peer-list-box {
     text-align: center;
     font-size: 1.1rem;
-    color: #777;
+    color: #666;
 }
 
 .peer-list-box tr:not(:last-child) {
@@ -195,7 +212,10 @@ table {
 .p-danger:hover {    
     border-color: #bd2130;
     background: #bd2130;
-} */
+} 
+
+/******************** P2P page end *********************/
+
 
 @media screen and (max-width: 1440px){
     main {
