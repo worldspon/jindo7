@@ -141,6 +141,26 @@ main {
         margin-top: -8px;
     }
 
+    .btn-myq-mod, .btn-myq-del {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 3px;
+        box-sizing: border-box;
+        color: white;
+        line-height: 1.5em;
+        background: #a1a1a1;
+        cursor: pointer;
+        float:right;
+    }
+
+    .btn-myq-mod {
+        margin-right: 10px;
+    }
+
+    .myq-content-r::after {
+        clear: both;
+    }
+
     .myq-answer-box .note-editor.note-frame .note-editing-area .note-editable {
         height: 500px;
     }
@@ -239,7 +259,7 @@ main {
         -ms-grid-rows: auto 20px auto;
         grid-template-rows: repeat(2, auto);    
         grid-row-gap: 20px;
-        padding: 35px 0;
+        padding: 35px 20px;
     }
 
     .myq-content-l {

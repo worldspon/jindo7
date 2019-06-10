@@ -11,6 +11,16 @@ document.querySelector('.btn-del').addEventListener('click', () => {
     delcontent();
 });
 
+function asyncCommunication(url, sendObject) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = () => resolve(xhr.responseText);
+        xhr.onerror = () => reject(xhr.statusText);
+        xhr.send(JSON.stringify(sendObject));
+    });
+}
 
 function delcontent() {
     const sendObject = {
