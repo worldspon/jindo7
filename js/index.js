@@ -1,5 +1,6 @@
 'use strict';
 
+
 let p = {resolveCount : 0, rejectCount : 0};
 
 let promiseResult = new Proxy(p, {
@@ -28,10 +29,10 @@ let promiseResult = new Proxy(p, {
 
 
 // 광고수익현황 + 광고수익금차트 비동기통신
-profitFieldAsyncValidation('http://192.168.0.24:8080/main/adprofit');
-noticeFieldAsyncValidation('http://192.168.0.24:8080/main/notice');
-faqFieldAsyncValidation('http://192.168.0.24:8080/main/faq');
-gameFieldAsyncValidation('http://192.168.0.24:8080/main/game');
+profitFieldAsyncValidation('http://192.168.0.24:8081/main/adprofit');
+noticeFieldAsyncValidation('http://192.168.0.24:8081/main/notice');
+faqFieldAsyncValidation('http://192.168.0.24:8081/main/faq');
+gameFieldAsyncValidation('http://192.168.0.24:8081/main/game');
 
 /**
  * 비동기 객체생성 함수
@@ -76,9 +77,9 @@ function renderProfitData(data){
     let prevMonth = (currentMonth == 1) ? 12 : currentMonth-1;
 
     currentMonthTitle.innerText = `${currentMonth}월 총 광고수익금`;
-    currentMonthValue.innerText = changeCurrencyFormat(profitData.totalClosing);
+    currentMonthValue.innerText = changeCurrencyFormat(profitData.totalForecast);
     prevMonthTitle.innerText = `${prevMonth}월 총 광고수익금`;
-    prevMonthValue.innerText = changeCurrencyFormat(profitData.totalForecast);
+    prevMonthValue.innerText = changeCurrencyFormat(profitData.totalClosing);
 
     let monthComparePercentage = compareMonthProfitToPercentage(profitData.totalForecast, profitData.totalClosing);
     changePercentageValue.innerText = Number.isInteger(monthComparePercentage) ? `${monthComparePercentage}%` : `${monthComparePercentage.toFixed(2)}%`;
@@ -98,7 +99,18 @@ function compareMonthProfitToPercentage(prevMonthProfit, currentMonthProfit) {
 
 function renderProfitChart(data){
 
-    let nearSevenDaysProfitData = JSON.parse(data).forecast;
+    let nearSevenDaysClosing = JSON.parse(data).closing;
+    let nearSevenDaysForecast = JSON.parse(data).forecast;
+    let nearSevenDaysProfitData = new Map();
+
+    for(let el in nearSevenDaysClosing) {
+        nearSevenDaysProfitData.set(el, nearSevenDaysClosing[el]);
+    }
+
+    for(let el in nearSevenDaysForecast) {
+        nearSevenDaysProfitData.set(el, nearSevenDaysForecast[el]);
+    }
+
     let profitChartObject = createMainChart(...convertDataToArrayType(nearSevenDaysProfitData));
 
     // 차트가 그려진 후의 canvas object에 이벤트 등록
@@ -115,9 +127,9 @@ function convertDataToArrayType(profitObject) {
     dateArray.push('');
     valueArray.push(null);
 
-    for(let profitElement in profitObject) {
-        dateArray.push(`${profitElement}일`);
-        valueArray.push(profitObject[profitElement]);
+    for(let profitElement of profitObject) {
+        dateArray.push(`${profitElement[0]}일`);
+        valueArray.push(profitElement[1]);
     }
 
     dateArray.push('');
@@ -406,8 +418,21 @@ function renderDropTable(data) {
         <th>5번좀비</th>
     </tr>`;
 
-    dropData.forEach((dropDataElement)=> {
+    if(dropData[0].count !== 288) {
         dummyText +=
+        `<tr class='game-table-row'>
+            <th class='col'>${dropData[0].count+1}</th>
+            <td>준비중</td>
+            <td>준비중</td>
+            <td>준비중</td>
+            <td>준비중</td>
+            <td>준비중</td>
+        </tr>`;
+    }
+
+    dropData.forEach((dropDataElement, index)=> {
+        if(index < 4) {
+            dummyText +=
         `<tr class='game-table-row'>
             <th class='col'>${dropDataElement.count}</th>
             <td>${dropDataElement.result[0]}</td>
@@ -416,6 +441,7 @@ function renderDropTable(data) {
             <td>${dropDataElement.result[3]}</td>
             <td>${dropDataElement.result[4]}</td>
         </tr>`;
+        }
     });
 
     dummyText += `</table>`;
