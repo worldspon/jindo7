@@ -7,7 +7,7 @@ $('#summernote').summernote({
 });
 
 document.querySelector('.btn-gogo').addEventListener('click', () => {
-    createcontent();
+    modcontent();
     
 });
 
@@ -26,19 +26,20 @@ function asyncCommunication(url, sendObject) {
     });
 }
 
-function createcontent() {
+function modcontent() {
     const sendObject = {
+        id : document.querySelector('.notice-editor-title').dataset.id,
         type : document.querySelector('.notice-editor-tab').selectedOptions[0].value,
         title : document.querySelector('.edit-title').value,
         content : document.querySelector('#summernote').value
     }
 
-    const sendResult = asyncCommunication('http://192.168.0.24:8080/notice/write', sendObject);
+    const sendResult = asyncCommunication('http://192.168.0.24:8080/notice/modify', sendObject);
     sendResult.then((result) => {
         const resultData = JSON.parse(result);
         if(resultData.errorCode === 0) {
             alert(resultData.msg);
-            // window.location.href = 'http://worldspon.net/notice/0/ALL/';
+            window.location.href = 'http://worldspon.net/notice/0/ALL/';
         } else {
             alert(resultData.msg);
         }
