@@ -20,13 +20,13 @@ main {
     justify-content: space-between;
 }
 
-    .board-nav {
+    .classification {
         display: flex;
         font-size: 1.2rem;
         color: #757474;
     }
 
-    .board-nav li:not(:first-child) {
+    .classification li:not(:first-child) {
         margin-left: 50px;
     }
 
@@ -355,13 +355,13 @@ main {
             grid-row: 1;
         }
     
-        .board-nav {
+        .classification {
             -ms-grid-column: 1;
             grid-column: 1;
             -ms-grid-row: 3;
             grid-row: 2;
         }
-        .board-nav li:not(:first-child) {
+        .classification li:not(:first-child) {
             margin-left: 17px;
         }
 }
