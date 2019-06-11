@@ -1,5 +1,34 @@
 'use strict';
 
+import {Communication, Handler} from './controller.js';
+import View from './view.js';
+
+Handler.createFirstTable();
+
+
+// class Communication {
+//     static asyncPostPromise(url) {
+//         return new Promise((resolve, reject)=>{
+//             const xhr = new XMLHttpRequest();
+//             xhr.setRequestHeader('Content-type', 'application/json');
+//             xhr.open('POST', url);
+//             xhr.onload = () => resolve(xhr.responseText);
+//             xhr.onerror = () => reject(xhr.statusText);
+//             const connectURL = 'http://www.worldspon.net/game/myBet/1670';
+//             const userUID = connectURL.slice(connectURL.lastIndexOf('/')+1);
+//             const sendObject = {
+//                 appid : userUID
+//             }
+//             xhr.send(JSON.stringify(sendObject));
+//         })
+//     }
+// }
+
+// class Handler {
+
+// }
+
+
 const myResultContentBox = document.querySelector('.myresult-content-box');
 const gameCategoryButton = document.querySelectorAll('.mybet-content-box > button');
 let _fnc;
@@ -24,7 +53,7 @@ function bindClickEventFunction() {
         setColorClass(e.target);
     
         if(e.target.innerText == '좀비낙하') {
-            let data = gameResultPromise('GET', 'http://192.168.0.24:8080/game/myBet/zombieDrop');
+            let data = gameResultPromise('POST', 'http://192.168.0.24:8080/game/myBet/zombieDrop');
             data.then((data)=>{
                 gameCategoryButton.forEach((gameButton)=>{
                     gameButton.removeEventListener('click', _fnc)
@@ -43,7 +72,7 @@ function bindClickEventFunction() {
             });
     
         }else if(e.target.innerText == '좀비격투') {
-            let data = gameResultPromise('GET', 'http://192.168.0.24:8080/game/myBet/zombieFight');
+            let data = gameResultPromise('POST', 'http://192.168.0.24:8080/game/myBet/zombieFight');
             data.then((data)=>{
                 gameCategoryButton.forEach((gameButton)=>{
                     gameButton.removeEventListener('click', _fnc)
@@ -62,7 +91,7 @@ function bindClickEventFunction() {
             });
         } else if(e.target.innerText == '좀비격파') {
     
-            let data = gameResultPromise('GET', 'http://192.168.0.24:8080/game/myBet/zombieBreak');
+            let data = gameResultPromise('POST', 'http://192.168.0.24:8080/game/myBet/zombieBreak');
             data.then((data)=>{
                 gameCategoryButton.forEach((gameButton)=>{
                     gameButton.removeEventListener('click', _fnc)
@@ -82,7 +111,7 @@ function bindClickEventFunction() {
     
         } else {
             
-            let data = gameResultPromise('GET', 'http://192.168.0.24:8080/game/myBet/zombieRace');
+            let data = gameResultPromise('POST', 'http://192.168.0.24:8080/game/myBet/zombieRace');
             data.then((data)=>{
                 gameCategoryButton.forEach((gameButton)=>{
                     gameButton.removeEventListener('click', _fnc)
@@ -112,7 +141,7 @@ function bindClickEventFunction() {
  * 
  */
 function createFirstTable() {
-    let data = gameResultPromise('GET', 'http://192.168.0.24:8080/game/myBet/zombieRace');
+    let data = gameResultPromise('POST', 'http://192.168.0.24:8080/game/myBet/zombieRace');
     data.then((data)=>{
         gameCategoryButton.forEach((gameButton)=>{
             gameButton.removeEventListener('click', _fnc)
@@ -144,9 +173,14 @@ function gameResultPromise(type, url) {
     return new Promise((resolve, reject)=>{
         const xhr = new XMLHttpRequest();
         xhr.open(type, url);
+        xhr.setRequestHeader('Content-type', 'application/json');
         xhr.onload = () => resolve(xhr.responseText);
         xhr.onerror = () => reject(xhr.statusText);
-        xhr.send();
+        // let id = 'http://192/game/myBet/1670';
+        const obj = {
+            appid : '1670'
+        }
+        xhr.send(JSON.stringify(obj));
     })
 }
 

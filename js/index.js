@@ -1,6 +1,5 @@
 'use strict';
 
-
 let p = {resolveCount : 0, rejectCount : 0};
 
 let promiseResult = new Proxy(p, {

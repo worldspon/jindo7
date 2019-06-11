@@ -8,7 +8,9 @@ listBtn.addEventListener('click', function() {
 });
 
 document.querySelector('.btn-del').addEventListener('click', () => {
-    delcontent();
+    if(confirm('정말 삭제하시겠습니까?')) {
+        delcontent();
+    }
 });
 
 function asyncCommunication(url, sendObject) {
