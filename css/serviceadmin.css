@@ -77,7 +77,7 @@ table {
 
 .apply-btn-box button {
     padding: 10px 25px;
-    border:1px solid #4a9291;
+    border:1px solid #17a2b8;
     border-radius: 3px;
     font-size: 1.2rem;
     color: #888;
@@ -92,12 +92,12 @@ table {
 
 .apply-btn-box button.active {
     color : white;
-    background: #469695;
+    background: #17a2b8;
 }
 
 .apply-btn-box button:hover {
     color : white;
-    background: #307c7b;
+    background: #0091b3;
 }
 
 /* common-subject-box th fixed width start */
@@ -176,7 +176,21 @@ table {
     .btn-reject:hover {    
         border-color: #bd2130;
         background: #bd2130;
-    } 
+    }
+
+    .finished-refund-point {
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .canceled-refund-point {
+        color: #dc3545;    
+        font-weight: 600;    
+    }
+
+    .point-list-box tr:hover .finished-refund-point, .point-list-box tr:hover .canceled-refund-point {
+        color: #fff;
+    }
 
 
 /******************** point refund page end *********************/
