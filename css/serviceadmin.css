@@ -61,7 +61,7 @@ table {
     color: #333;
     font-size: 1.2rem;
     font-weight: 600;
-    background: #f7f7f7;
+    background: #efefef;
 }
 
 .common-subject-box th {
@@ -71,16 +71,116 @@ table {
 
 /******************** point refund page start *********************/
 
+.apply-btn-box {
+    margin-bottom: 25px;
+}
+
+.apply-btn-box button {
+    padding: 10px 25px;
+    border:1px solid #4a9291;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    color: #888;
+    background: white;
+    outline: none;
+    cursor: pointer;
+}
+
+.apply-btn-box button:not(:last-child){
+    margin-right: 10px;
+}
+
+.apply-btn-box button.active {
+    color : white;
+    background: #469695;
+}
+
+.apply-btn-box button:hover {
+    color : white;
+    background: #307c7b;
+}
+
+/* common-subject-box th fixed width start */
+
+    .p-check {
+        width: 50px;
+    }
+
+    .p-num {
+        width: 55px;
+    }
+
+    .p-date {
+        width: 240px;
+    }
+
+    .p-bank {
+        width: 210px;
+    }
+
+    .p-prudence {
+        width: 280px;
+    }
+
+/* common-subject-box th fixed width end */
 
 .point-list-box {
     text-align: center;
     font-size: 1.1rem;
-    color: #666;
+    color: #444;
 }
 
+.point-list-box tr:nth-child(even){
+    background: #f2f2f2;
+}
+
+.point-list-box tr:not(:last-child) {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.point-list-box tr:hover {
+    color: #fff;
+    background: #4d0ca5;
+}
+
+.point-list-box td {
+    padding: 15px 0;
+}
+
+.point-list-box button {
+    padding: 8px 28px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+    .btn-confirm {
+        margin-right: 30px;
+        border-color: #007bff;
+        background: #007bff;
+    }
+
+    .btn-confirm:hover {
+        border-color: #0062cc;
+        background: #0069d9;        
+    }
+
+    .btn-reject {
+        border-color: #dc3545;
+        background: #dc3545;
+    }
+
+    .btn-reject:hover {    
+        border-color: #bd2130;
+        background: #bd2130;
+    } 
 
 
 /******************** point refund page end *********************/
+
 
 
 /******************** P2P page start *********************/
@@ -155,7 +255,7 @@ table {
 .peer-list-box {
     text-align: center;
     font-size: 1.1rem;
-    color: #666;
+    color: #444;
 }
 
 .peer-list-box tr:not(:last-child) {
@@ -163,7 +263,7 @@ table {
 }
 
 .peer-list-box tr:hover {
-    background: #f9f9f9;
+    background: #f7f7f7;
 }
 
 .peer-list-box td {
@@ -180,39 +280,39 @@ table {
     cursor: pointer;
 }
 
-.p-bind {
-    margin-right: 5px;
-}
+    .p-bind {
+        margin-right: 5px;
+    }
 
-.p-spon {
-    color: #fff;
-    border-color: #6c757d;
-    background: #6c757d;
-}
+    .p-spon {
+        color: #fff;
+        border-color: #6c757d;
+        background: #6c757d;
+    }
 
-.p-spon:hover {
-    border-color: #545b62;
-    background: #5a6268;
-}
+    .p-spon:hover {
+        border-color: #545b62;
+        background: #5a6268;
+    }
 
-.p-point {
-    border-color: #ecba41;
-    background: #ecba41;
-}
+    .p-point {
+        border-color: #ecba41;
+        background: #ecba41;
+    }
 
-.p-point:hover {
-    border-color: #e2ad2b;
-    background: #e2ad2b;
-}
+    .p-point:hover {
+        border-color: #e2ad2b;
+        background: #e2ad2b;
+    }
 
-.p-danger {
-    border-color: #dc3545;
-    background: #dc3545;
-}
-.p-danger:hover {    
-    border-color: #bd2130;
-    background: #bd2130;
-} 
+    .p-danger {
+        border-color: #dc3545;
+        background: #dc3545;
+    }
+    .p-danger:hover {    
+        border-color: #bd2130;
+        background: #bd2130;
+    } 
 
 /******************** P2P page end *********************/
 

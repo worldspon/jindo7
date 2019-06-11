@@ -56,28 +56,46 @@
                 
 
                 <!-- point refund page start -->
-                    <div>
-                        <button>신청 내역</button>
+                    <div class="apply-btn-box">
+                        <button class="active">신청 내역</button>
                         <button>승인 내역</button>
                         <button>취소 내역</button>
                     </div>
-
-                    <!-- point refund apply list start -->
                     <table>
                         <thead class="common-subject-box">
                             <tr>
-                                <th>No</th>
-                                <th>일시</th>
+                                <th class="p-check"></th>
+                                <th class="p-num">No</th>
+                                <th class="p-date">일시</th>
                                 <th>아이디</th>
                                 <th>전화번호</th>
                                 <th>포인트</th>
-                                <th>은행</th>
+                                <th class="p-bank">은행</th>
                                 <th>예금주</th>
-                                <th>상태</th>
+                                <th class="p-prudence">상태</th>
                             </tr>
                         </thead>
                         <tbody class="point-list-box">
                             <tr>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td>105595</td>
+                                <td>2019년 06월 07일 금 오후 02:48:30</td>
+                                <td>worldspon1</td>
+                                <td>01012345678</td>
+                                <td>200,000</td>
+                                <td>카카오뱅크 1104451234567</td>
+                                <td>한사람</td>
+                                <td>
+                                    <button class="btn-confirm">승인</button>
+                                    <button class="btn-reject">거절</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
                                 <td>555</td>
                                 <td>2019년 06월 07일 금 오후 02:48:30</td>
                                 <td>worldspon1</td>
@@ -86,30 +104,14 @@
                                 <td>월드은행 1104451234567</td>
                                 <td>한사람</td>
                                 <td>
-                                    <button>승인</button>
-                                    <button>거절</button>
+                                    <button class="btn-confirm">승인</button>
+                                    <button class="btn-reject">거절</button>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <!-- point refund apply list end -->
-                    
-                    <!-- point refund confirm list start -->
-                    <table>
-                        <thead class="common-subject-box">
                             <tr>
-                                <th>No</th>
-                                <th>일시</th>
-                                <th>아이디</th>
-                                <th>전화번호</th>
-                                <th>포인트</th>
-                                <th>은행</th>
-                                <th>예금주</th>
-                                <th>상태</th>
-                            </tr>
-                        </thead>
-                        <tbody class="point-list-box">
-                            <tr>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
                                 <td>555</td>
                                 <td>2019년 06월 07일 금 오후 02:48:30</td>
                                 <td>worldspon1</td>
@@ -117,41 +119,29 @@
                                 <td>200,000</td>
                                 <td>월드은행 1104451234567</td>
                                 <td>한사람</td>
-                                <td>환급완료</td>
+                                <td>
+                                    <button class="btn-confirm">승인</button>
+                                    <button class="btn-reject">거절</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td>555</td>
+                                <td>2019년 06월 07일 금 오후 02:48:30</td>
+                                <td>worldspon1</td>
+                                <td>01012345678</td>
+                                <td>200,000</td>
+                                <td>월드은행 1104451234567</td>
+                                <td>한사람</td>
+                                <td>
+                                    <button class="btn-confirm">승인</button>
+                                    <button class="btn-reject">거절</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- point refund confirm list end -->
-
-                    <!-- point refund reject list start -->
-                    <table>
-                            <thead class="common-subject-box">
-                                <tr>
-                                    <th>No</th>
-                                    <th>일시</th>
-                                    <th>아이디</th>
-                                    <th>전화번호</th>
-                                    <th>포인트</th>
-                                    <th>은행</th>
-                                    <th>예금주</th>
-                                    <th>상태</th>
-                                </tr>
-                            </thead>
-                            <tbody class="point-list-box">
-                                <tr>
-                                    <td>555</td>
-                                    <td>2019년 06월 07일 금 오후 02:48:30</td>
-                                    <td>worldspon1</td>
-                                    <td>01012345678</td>
-                                    <td>200,000</td>
-                                    <td>월드은행 1104451234567</td>
-                                    <td>한사람</td>
-                                    <td>취소완료</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- point refund reject list end -->
-
                 <!-- point refund page end -->
 
                     
@@ -177,6 +167,18 @@
                             </tr>
                         </thead>
                         <tbody class="peer-list-box">
+                            <tr>
+                                <td>1</td>
+                                <td>#8888</td>
+                                <td>2019-05-05 16:24:25</td>
+                                <td>나야나</td>
+                                <td><button class="p-spon p-bind">락스폰</button> / 0개</td>
+                                <td>사람이야</td>
+                                <td><button class="p-point p-bind">포인트</button> / 270원</td>
+                                <td>2</td>
+                                <td>사람이야</td>
+                                <td><button class="p-danger">분쟁</button></td>
+                            </tr>
                             <tr>
                                 <td>1</td>
                                 <td>#8888</td>
