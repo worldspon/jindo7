@@ -162,7 +162,7 @@ main {
     }
     
     .btn-dp-none {
-        /* display:none; */
+        display:none;
     }
 
 .pagination {
