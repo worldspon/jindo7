@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/login.css">
 </head>
-<body>
+<body data-message="123">
+    <script>
+        if(document.querySelector('body').dataset.message !== '') {
+            alert(`긴급공지\n${document.querySelector('body').dataset.message}`);
+        }
+    </script>
     <div id="wrapper">
         <img class="bodybg1 bg" src="./images/bodybg1.png" alt="">
         <img class="bodybg2 bg" src="./images/bodybg2.png" alt="">

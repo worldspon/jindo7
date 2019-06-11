@@ -1,7 +1,6 @@
 'use strict';
 
 let prevAnswer = '';
-console.log(typeof document.querySelector('.myq-content-title').dataset.isAnswer);
 if(document.querySelector('.myq-content-title').dataset.isAnswer === 'true') {
     setModFunc();
     setDelFunc();
@@ -15,7 +14,7 @@ function setDelFunc() {
             const sendObject = {
                 questionId : document.querySelector('.myq-content-title').dataset.id, 
             };
-            const sendResult = asyncCommunication('http://192.168.0.24:8080/myQ/answers/create', sendObject);
+            const sendResult = asyncCommunication('http://192.168.0.24:8080/myQ/answers/delete', sendObject);
             sendResult.then((result)=>{
                 const resultData = JSON.parse(result);
                 if(resultData.errorCode === 0) {
@@ -91,7 +90,6 @@ function setEditable(button) {
     button.innerText = '등록';
     prevAnswer = document.querySelector('.myq-content-r > span').innerText;
     document.querySelector('.myq-content-r > span').contentEditable = true;
-    document.querySelector('.myq-content-r > span').style.outline = 'none';
     document.querySelector('.myq-content-r > span').focus();
 }
 
