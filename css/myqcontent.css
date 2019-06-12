@@ -183,7 +183,7 @@ main {
         margin-right: 10px;
     }
 
-    .myq-content-r::after {
+    .btn-mode-box {
         clear: both;
     }
 
@@ -228,9 +228,6 @@ main {
     background-color: #a1a1a1;
     cursor: pointer;
 }
-
-
-
 
 @media screen and (max-width: 1440px) {
     main {
@@ -277,6 +274,10 @@ main {
         grid-column: 1;
         -ms-grid-row: 3;
         grid-row: 2;
+    }
+
+    .myq-additional-info {
+        text-align: left;
     }
 
     .myq-content {
