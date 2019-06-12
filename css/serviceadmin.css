@@ -331,6 +331,56 @@ table {
 /******************** P2P page end *********************/
 
 
+
+/******************** admin find pw page start *********************/
+
+.find-admin-pw {
+    margin: 50px 0;
+    text-align: center;
+}
+
+#busy-hands {
+    width: 500px;
+    height: 50px;
+    margin-right: 5px;
+    padding: 10px 15px;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+    outline: none;
+}
+
+.btn-phone-num, .btn-signify-name {
+    height: 50px;
+    padding: 10px 15px;
+    border: 1px solid #4d06a7;
+    border-radius: 3px;
+    color: #4d06a7;
+    font-size: 1.3rem;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-phone-num:hover, .btn-signify-name:hover {
+    color: #fff;
+    background: #4d06a7;
+} 
+
+.ur-pw-result {
+    margin-top: 60px;
+    font-size: 1.6rem;
+}
+
+.beebun {
+    color: #007bff;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+/******************** admin find pw page end *********************/
+
+
 @media screen and (max-width: 1440px){
     main {
         overflow-x: scroll;
