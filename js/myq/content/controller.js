@@ -92,7 +92,6 @@ class Handler {
         if(e.target.innerText === '수정') {
             e.target.innerText = '취소';
             View.createAnswerEditor(answerText);
-            Handler.bindModifyClickEvent();
             Handler.bindModifyAnswerRegClickEvent();
         } else {
             e.target.innerText = '수정';
@@ -114,7 +113,7 @@ class Handler {
 
     // 답변삭제 서버 송신
     static deleteAnswerSend() {
-        const aid = document.querySelector('.myq-content-r').dataset.id;
+        const aid = document.querySelector('.myq-content-title').dataset.id;
         const sendObject = new deleteAnswerObject(aid);
         const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/delete', sendObject);
         promiseResult.then((result)=>{
