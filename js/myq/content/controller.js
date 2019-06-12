@@ -16,7 +16,7 @@ class Communication {
 
 class Handler {
 
-    // 목록 클릭시 뒤로각 이벤트 등록
+    // 목록 클릭시 뒤로가기 이벤트 등록
     static historyBack() {
         document.querySelector('.list-btn').addEventListener('click', ()=>{
             window.history.back();
@@ -25,34 +25,44 @@ class Handler {
 
     // 신규 등록 클릭이벤트 등록
     static bindRegisterClickEvent() {
-        document.querySelector('.btn-myq-confirm').addEventListener('click', this.confirmRegister);
-    }
-
-    // 신규등록 확인
-    static confirmRegister() {
-        if(confirm('이 답변을 등록하시겠습니까?')) {
-            Handler.registerAnswerSend();
-        }
+        document.querySelector('.btn-myq-confirm').addEventListener('click', this.registerAnswerSend);
     }
 
     // 신규등록 서버 송신
     static registerAnswerSend() {
-        const qid = document.querySelector('.myq-content-title').dataset.id;
-        const answerContent = document.querySelector('.note-editable').innerHTML;
 
-        const sendObject = new newAnswerObject(qid, answerContent);
-        const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/create', sendObject);
-        promiseResult.then((result)=>{
-            const resultData = JSON.parse(result);
-            if(resultData.errorCode === 0) {
-                View.viewAlert(resultData.msg);
-                window.location.reload();
-            } else {
-                View.viewAlert(resultData.msg);
-            }
-        },()=>{
-            View.viewAlert('서버와 통신이 원활하지않습니다.');
-        });
+        if(Handler.confirmRegister()) {
+            const qid = document.querySelector('.myq-content-title').dataset.id;
+            const answerContent = document.querySelector('.note-editable').innerHTML;
+    
+            const sendObject = new newAnswerObject(qid, answerContent);
+            const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/create', sendObject);
+            promiseResult.then((result)=>{
+                const resultData = JSON.parse(result);
+                if(resultData.errorCode === 0) {
+                    View.viewAlert(resultData.msg);
+                    window.location.reload();
+                } else {
+                    View.viewAlert(resultData.msg);
+                }
+            },()=>{
+                View.viewAlert('서버와 통신이 원활하지않습니다.');
+            });
+        }
+    }
+
+    // 등록 길이체크 및 사용자확인
+    static confirmRegister() {
+        const answerLength = document.querySelector('.note-editable').textContent.trim().length;
+        if(answerLength <= 0) {
+            View.viewAlert('내용을 입력해주세요.');
+            return false;
+        }
+        if(confirm('이 답변을 등록하시겠습니까?')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // 수정 버튼 클릭이벤트 등록
@@ -67,23 +77,26 @@ class Handler {
 
     // 수정 답변 서버 송신
     static modifyAnswerSend() {
-        const qid = document.querySelector('.myq-content-title').dataset.id;
-        const aid = document.querySelector('.myq-content-r').dataset.id;
-        const answerContent = document.querySelector('.note-editable').innerHTML;
+        if(Handler.confirmRegister()){
+            const qid = document.querySelector('.myq-content-title').dataset.id;
+            const aid = document.querySelector('.myq-content-r').dataset.id;
+            const answerContent = document.querySelector('.note-editable').innerHTML;
+    
+            const sendObject = new modifyAnswerObject(qid, aid, answerContent);
+            const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/modify', sendObject);
+            promiseResult.then((result)=>{
+                const resultData = JSON.parse(result);
+                if(resultData.errorCode === 0) {
+                    View.viewAlert(resultData.msg);
+                    window.location.reload();
+                } else {
+                    View.viewAlert(resultData.msg);
+                }
+            },()=>{
+                View.viewAlert('서버와 통신이 원활하지않습니다.');
+            });
+        }
 
-        const sendObject = new modifyAnswerObject(qid, aid, answerContent);
-        const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/modify', sendObject);
-        promiseResult.then((result)=>{
-            const resultData = JSON.parse(result);
-            if(resultData.errorCode === 0) {
-                View.viewAlert(resultData.msg);
-                window.location.reload();
-            } else {
-                View.viewAlert(resultData.msg);
-            }
-        },()=>{
-            View.viewAlert('서버와 통신이 원활하지않습니다.');
-        });
     }
 
     // 수정버튼 클릭시 summernote toggle
