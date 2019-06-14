@@ -1,7 +1,3 @@
-'use strict';
+import Handler from './controller.js';
 
-const listBtn = document.querySelector('.list-btn');
-
-listBtn.addEventListener('click', function() {
-    window.history.back();
-});
+Handler.bindHistoryBackClickEvent();
