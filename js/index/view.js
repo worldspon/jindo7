@@ -70,13 +70,16 @@ class NoticeView {
 
     // 공지사항 데이터 표현
     static renderNotice(data) {
+        console.log(data);
         const noticeBoxContent = document.querySelector('.notice-box-content');
         noticeBoxContent.innerHTML = '';
 
         for(const el of data) {
             noticeBoxContent.innerHTML += 
             `<div class='board-content'>
-                <span class='board-content-header'>${el.title}</span>
+                <a href="/notice/content/${el.id}">
+                    <span class='board-content-header'>${el.title}</span>
+                </a>
                 <span class='board-content-date'>${el.writeDate}</span>
             </div>`;
         }
@@ -93,7 +96,9 @@ class FaqView {
         for(const el of data) {
             faqBoxContent.innerHTML += 
             `<div class='board-content'>
-                <span class='board-content-header'>${el.question}</span>
+                <a href="/faq/content/${el.id}">
+                    <span class='board-content-header'>${el.question}</span>
+                </a>
             </div>`;
         }
     }
