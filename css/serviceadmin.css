@@ -144,7 +144,7 @@ table {
 }
 
 .point-list-box td {
-    padding: 15px 0;
+    padding: 20px 0;
 }
 
 .point-list-box button {
@@ -281,7 +281,7 @@ table {
 }
 
 .peer-list-box td {
-    padding: 15px 0;
+    padding: 20px 0;
 }
 
 .peer-list-box button {
@@ -379,6 +379,213 @@ table {
 }
 
 /******************** admin find pw page end *********************/
+
+
+
+
+
+/******************** admin advertisement supplier page start *********************/
+
+.plus-more-supplier {
+    margin: 0 15px 10px 0;
+    text-align: right;
+}
+
+.btn-add-supplier {
+    padding: 7px 20px;
+    border: 1px solid #4d06a7;
+    border-radius: 3px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: #4d06a7;
+    cursor: pointer;
+    outline: none;
+}
+
+    .btn-add-supplier:hover {
+        background: #410099;
+    }
+
+.supplier-big-bg {
+    position: fixed;
+    top: 84px;
+    left: 0;
+    width: 100%;
+    /* height: 100%; */
+    /* background: url(../images/bg_supplier.png); */
+}
+
+.write-supplier-info {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 600px;
+    padding: 30px 20px;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background: white;
+}
+
+.add-new-supplier {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+.sorted-supplier-list div {
+    font-size: 1.3rem;
+    width: 100%;
+}
+
+.sorted-supplier-list div:not(:last-child){
+    margin-bottom: 5px;
+}
+
+.sorted-supplier-list label {
+    display: inline-block;
+    /* width: 10%; */
+}
+
+.sorted-supplier-list input[type=text]{
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+.btn-supplier-box {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-supplier-box button {
+    padding: 7px 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-supplier-box button:not(:last-child) {
+    margin-right: 5px;
+}
+
+.registration-supplier {
+    border-color: #007bff;
+    color: white;
+    background: #007bff;
+}
+
+    .registration-supplier:hover {    
+        background: #0069d9;
+    }
+
+.reset-supplier {
+    background: #eee;
+}
+
+    .reset-supplier:hover {
+        color: white;
+        background: #bbb;
+    }
+
+.close-supplier {
+    border-color: #dc3545;
+    color: white;
+    background: #dc3545;
+}
+
+    .close-supplier:hover {    
+        background: #bd2130;
+    }
+
+/* common-subject-box th fixed width start */
+
+    .identify-num {
+        width: 100px;
+    }
+
+    .location-advertisement {
+        width: 200px;
+    }
+
+    .more-writing {
+        width: 250px;
+    }
+
+/* common-subject-box th fixed width end */
+
+.supplier-list-box {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.supplier-list-box tr:nth-child(even){
+    background: #f2f2f2;
+}
+
+.supplier-list-box tr:not(:last-child) {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.supplier-list-box td {
+    padding: 20px 0;
+    vertical-align: middle;
+}
+
+.move-to-supplier {
+    padding: 10px 15px;
+    border-radius: 3px;
+    color: #fff;
+    background: #007bff;
+}
+
+    .move-to-supplier:hover {
+        background: #0069d9;
+    }
+
+.supplier-list-box button {
+    padding: 7px 15px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.check-supplier-pw {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+    .check-supplier-pw:hover {
+        color: white;
+        background: #007bff;
+    }
+
+.adjust-supplier {
+    border-color: #2faf4e;
+    color: #2faf4e;
+    margin-right: 10px;
+}
+
+    .adjust-supplier:hover {
+        color: white;
+        background: #2faf4e;
+    }
+
+.del-supplier {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+    .del-supplier:hover {
+        color: white;
+        background: #dc3545;
+    }
+
+/******************** admin advertisement supplier page end *********************/
 
 
 @media screen and (max-width: 1440px){
