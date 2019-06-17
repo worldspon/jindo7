@@ -60,10 +60,6 @@ main {
     display:none;
 }
 
-.count-wrap {
-    text-align: center;
-}
-
 .btn-today,
 .btn-prev {
     box-sizing: border-box;
