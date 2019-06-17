@@ -11,8 +11,8 @@ class View {
         clickedButton.classList.add('on');
     }
 
-    static createRaceTable(resultData) {
-        const raceData = resultData.race;
+    static renderRaceTable(resultData) {
+        const raceData = resultData;
 
         let tableTagString = 
         `<table>
@@ -42,8 +42,8 @@ class View {
         document.querySelector('.myresult-content-box').innerHTML = tableTagString;
     }
 
-    static createFightTable(resultData) {
-        const fightData = resultData.fight;
+    static renderFightTable(resultData) {
+        const fightData = resultData;
 
         let tableTagString = 
         `<table>
@@ -73,8 +73,8 @@ class View {
         document.querySelector('.myresult-content-box').innerHTML = tableTagString;
     }
 
-    static createBreakTable(resultData) {
-        const breakData = resultData.break;
+    static renderBreakTable(resultData) {
+        const breakData = resultData;
 
         let tableTagString = 
         `<table>
@@ -104,8 +104,8 @@ class View {
         document.querySelector('.myresult-content-box').innerHTML = tableTagString;
     }
 
-    static createDropTable(resultData) {
-        const dropData = resultData.drop;
+    static renderDropTable(resultData) {
+        const dropData = resultData;
 
         let tableTagString = 
         `<table>
@@ -140,4 +140,4 @@ class View {
     }
 }
 
-export default View
+export {View}
