@@ -19,7 +19,7 @@ class Communication {
             const connectURL = window.location.href;
             const userUID = connectURL.slice(connectURL.lastIndexOf('/')+1);
             const sendObject = {
-                appid : 2648
+                appid : userUID
             }
             xhr.send(JSON.stringify(sendObject));
         })
