@@ -1,7 +1,6 @@
-'use strict';
+import {Init} from './controller.js';
 
-import Connect from './model.js';
-import Handler from './controller.js';
-
-Handler.createTable(Connect.gameType, Connect.url);
-Handler.bindClickEvent();
+// 첫 접속시 통신
+Init.communicationTableData();
+// click event 등록
+Init.regClickEvent();
