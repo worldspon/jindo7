@@ -126,7 +126,7 @@ class View {
                 <td>${el.gameCount}회차<br>${el.dateTime}</td>
                 <td>${el.result}</td>
                 <td>${el.matchPoint}</td>
-                <td>최고등수 : ${el.grade}<br>스폰 : ${el.prizeSpon}개<br>게임머니 : ${el.prizeGameMoney}G<br>랭킹점수 : ${el.prizeRank}점</td>
+                <td>등수 : ${el.grade}<br>스폰 : ${el.prizeSpon}개<br>게임머니 : ${el.prizeGameMoney}G<br>랭킹점수 : ${el.prizeRank}점</td>
             </tr>`;
         }
 

@@ -81,6 +81,7 @@ class View {
     // 오늘 게임 데이터 테이블 표현
     static renderRaceToday(data) {
         const raceData = data;
+        const modalWrap = document.querySelector('.md-wrap');
         const fiveGameTurn = Init.calcFiveGameTurn();
         const headLine = document.querySelector('.zombie-race .content-hl');
         const todayTableNode = document.querySelector('.zombie-race > table > tbody');
@@ -121,12 +122,16 @@ class View {
 
         headLine.innerText = `${nowDate.month}.${nowDate.day} 좀비레이스`;
         todayTableNode.innerHTML = raceTableMarkupText;
+
+        if(modalWrap.dataset.type === 'zombieRace') {
+            this.renderRaceModal(data);
+        }
     }
 
     static renderFightToday(data) {
         const fightData = data;
         const fiveGameTurn = Init.calcFiveGameTurn();
-        // const modalWrap = document.querySelector('.md-wrap');
+        const modalWrap = document.querySelector('.md-wrap');
         const headLine = document.querySelector('.zombie-fight .content-hl');
         const todayTableNode = document.querySelector('.zombie-fight > table > tbody');
         let fightTableMarkupText = ``;
@@ -165,10 +170,15 @@ class View {
 
         headLine.innerText = `${nowDate.month}.${nowDate.day} 좀비격투`;
         todayTableNode.innerHTML = fightTableMarkupText;
+
+        if(modalWrap.dataset.type === 'zombieFight') {
+            this.renderFightModal(data);
+        }
     }
 
     static renderBreakToday(data) {
         const breakData = data;
+        const modalWrap = document.querySelector('.md-wrap');
         const threeGameTurn = Init.calcThreeGameTurn();
         const headLine = document.querySelector('.zombie-break .content-hl');
         const todayTableNode = document.querySelector('.zombie-break > table > tbody');
@@ -211,10 +221,15 @@ class View {
 
         headLine.innerText = `${nowDate.month}.${nowDate.day} 좀비격파`;
         todayTableNode.innerHTML = breakTableMarkupText;
+
+        if(modalWrap.dataset.type === 'zombieBreak') {
+            this.renderBreakModal(data);
+        }
     }
 
     static renderDropToday(data) {
         const dropData = data;
+        const modalWrap = document.querySelector('.md-wrap');
         const fiveGameTurn = Init.calcFiveGameTurn();
         const headLine = document.querySelector('.zombie-drop .content-hl');
         const todayTableNode = document.querySelector('.zombie-drop > table > tbody');
@@ -257,6 +272,10 @@ class View {
 
         headLine.innerText = `${nowDate.month}.${nowDate.day} 좀비낙하`;
         todayTableNode.innerHTML = dropTableMarkupText;
+
+        if(modalWrap.dataset.type === 'zombieDrop') {
+            this.renderDropModal(data);
+        }
     }
 
     // 오늘 게임 데이터 모달 테이블 표현

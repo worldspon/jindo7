@@ -1,5 +1,5 @@
-import {View} from './view.js';
-import {gameURL, Handler} from './model.js';
+import {View} from './view.js.js';
+import {gameURL, Handler} from './model.js.js';
 
 
 class Init {
