@@ -409,11 +409,11 @@ table {
 
 .supplier-big-bg {
     position: fixed;
-    top: 84px;
+    top: 85px;
     left: 0;
     width: 100%;
-    /* height: 100%; */
-    /* background: url(../images/bg_supplier.png); */
+    height: 100%;
+    background: url(../images/bg_supplier.png);
 }
 
 .write-supplier-info {
@@ -422,7 +422,7 @@ table {
     left: 50%;
     width: 600px;
     padding: 30px 20px;
-    transform: translateX(-50%);
+    margin-left: -320px;
     border-radius: 5px;
     background: white;
 }
@@ -432,29 +432,67 @@ table {
     font-size: 1.6rem;
 }
 
-.sorted-supplier-list div {
-    font-size: 1.3rem;
-    width: 100%;
+.sorted-supplier-list div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
 }
 
-.sorted-supplier-list div:not(:last-child){
-    margin-bottom: 5px;
-}
+    .sorted-supplier-list>div:not(.company-identification) {
+        border: 1px solid #d4d9df;
+        border-radius: 3px;
+        background: #e9ecef;
+    }
+
+    .sorted-supplier-list>div:not(:last-child){
+        margin-bottom: 5px;
+    }
 
 .sorted-supplier-list label {
     display: inline-block;
-    /* width: 10%; */
+    text-align: center;
+    width: 15%;
 }
-
-.sorted-supplier-list input[type=text]{
+.sorted-supplier-list input{
+    width: 85%;
+    height: 40px;
+    padding: 5px;
     box-sizing: border-box;
     border: 1px solid #ccc;
-    display: inline-block;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    font-size: 1.2rem;
+}
+
+.company-identification div{
+    float: left;
+    width: 49.5%;
+    box-sizing: border-box;
+    border: 1px solid #d4d9df;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    background: #e9ecef;
+}
+
+    .company-identification div:first-child {
+        margin-right: 1%;
+    }
+
+    .company-identification:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+.company-identification div label {
+    width: 38%;
 }
 
 .btn-supplier-box {
     display: flex;
     justify-content: flex-end;
+    margin-top: 20px;
 }
 
 .btn-supplier-box button {
@@ -481,6 +519,8 @@ table {
     }
 
 .reset-supplier {
+    border-color: #aaa;
+    color: #444;
     background: #eee;
 }
 
@@ -587,9 +627,79 @@ table {
 
 /******************** admin advertisement supplier page end *********************/
 
+@media screen and (max-width: 1450px){
+
+    .supplier-big-bg {
+        top: 128px;
+    }
+
+}
 
 @media screen and (max-width: 1440px){
+
     main {
         overflow-x: scroll;
     }
+
+}
+
+@media screen and (max-width: 745px){
+
+    .write-supplier-info {
+        width:500px;
+        margin-left: -270px;
+    }
+
+}
+
+@media screen and (max-width: 600px){
+
+    .write-supplier-info {
+        top: 20%;
+        width:350px;
+        margin-left: -195px;
+        padding: 20px 10px;
+    }
+
+    .add-new-supplier {
+        text-align: center;
+    }
+
+    .sorted-supplier-list div {
+        display: block;
+    }
+
+    .sorted-supplier-list>div:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .sorted-supplier-list label {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        box-sizing: border-box;
+    }
+    
+    .sorted-supplier-list input{
+        width: 100%;
+    }
+
+    .company-identification div {
+        float: none;
+        width: 100%;
+    }
+
+    .company-identification div label {
+        width: 100%;
+    }
+
+    .company-identification div:first-child {
+        margin-right: none;
+        margin-bottom: 10px;
+    }
+
+    .btn-supplier-box button:not(:last-child) {
+        margin-right: 10px;
+    }
+
 }
