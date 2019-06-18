@@ -14,17 +14,19 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/login.css">
 </head>
-<body data-message="123">
+<body>
+    <input type="hidden" th:value="${urgentNotice}">
     <script>
-        if(document.querySelector('body').dataset.message !== '') {
-            alert(`긴급공지\n${document.querySelector('body').dataset.message}`);
+        // alert 글자 수는 최소 480자 정도만 표현된다 (크롬 브라우저 기준)
+        if(document.querySelector('input[type=hidden]').value !== undefined && document.querySelector('input[type=hidden]').value !== '') {
+            alert(document.querySelector('input[type=hidden]').value);
         }
     </script>
     <div id="wrapper">
-        <img class="bodybg1 bg" src="./images/bodybg1.png" alt="">
-        <img class="bodybg2 bg" src="./images/bodybg2.png" alt="">
+        <img class="bodybg1 bg" src="/images/bodybg1.png" alt="">
+        <img class="bodybg2 bg" src="/images/bodybg2.png" alt="">
         <main>
-            <img class="login-logo" src="./images/login_logo.png" alt="">
+            <img class="login-logo" src="/images/login_logo.png" alt="">
             <input class="input-id" type="text" placeholder="아이디" maxlength="12">
             <input class="input-pw" type="password" placeholder="비밀번호" maxlength="20">
             <div class="tooltiptext">CapsLock이 켜져있습니다.</div>
@@ -33,7 +35,7 @@
         </main>
     </div>
 
-    <script src="./js/jsencrypt.min.js"></script>
-    <script src="./js/login.js"></script>
+    <script src="/js/common/jsencrypt.min.js"></script>
+    <script src="/js/login/login.js"></script>
 </body>
 </html>

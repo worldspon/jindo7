@@ -1,4 +1,4 @@
-import {Init} from './controller.js.js'
+import {Init} from './controller.js'
 
 // 통신 URL 객체
 const gameURL = {

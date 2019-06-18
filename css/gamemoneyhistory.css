@@ -55,7 +55,7 @@ main {
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    margin: 0 0 25px;
+    /* margin: 0 0 25px; */
 }
 
 .game-search input{
@@ -66,7 +66,7 @@ main {
     border: 1px solid #777;
 }
 
-.btn-start-search {
+.search-btn {
     box-sizing: border-box;
     padding: 10px 20px;
     border:none;
@@ -79,6 +79,7 @@ main {
 table {
     table-layout: fixed;
     width: 100%;
+    margin-top: 25px;
 }
 
 .main-tb-subject {
@@ -116,11 +117,13 @@ table {
     color: #777;
 }
 
+
 .history-tb tr:not(:last-child) {
     border-bottom: 1px solid #e2e2e2;
 }
 
 .history-tb td {
+    vertical-align: middle;
     padding: 15px 0;
 }
 

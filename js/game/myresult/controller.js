@@ -1,4 +1,4 @@
-import {View} from './view.js.js';
+import {View} from './view.js';
 import {gameURL, Handler} from './model.js.js';
 
 
