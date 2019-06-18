@@ -16,6 +16,7 @@ class Init {
 }
 
 class EventList {
+    // 버튼 클릭시 테이블 삭제, 버튼 색 변경, input focus
     static clickButtonEvent() {
         const allButton = document.querySelectorAll('.category-btn');
         for(const button of allButton) {
@@ -38,6 +39,7 @@ class EventList {
             EvnetLogic.searchStart();
         })
     }
+    // input에서 enter 입력시 searchEvent 발생
     static searchKeyEvent() {
         const searchInput = document.getElementById('search-box');
         searchInput.addEventListener('keyup', (e) => {

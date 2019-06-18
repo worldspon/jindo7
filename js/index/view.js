@@ -70,7 +70,6 @@ class NoticeView {
 
     // 공지사항 데이터 표현
     static renderNotice(data) {
-        console.log(data);
         const noticeBoxContent = document.querySelector('.notice-box-content');
         noticeBoxContent.innerHTML = '';
 
@@ -333,4 +332,4 @@ class ErrorView {
     }
 }
 
-export {ErrorView, AdProfitView, NoticeView, FaqView, GameView};
+export { ErrorView, AdProfitView, NoticeView, FaqView, GameView };

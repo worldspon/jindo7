@@ -7,7 +7,6 @@ class Init {
     static adProfitSection() {
         Communication.setPromiseResult('adprofit', communicationURL.adprofit);
         AdProfitView.renderMonth(currentDate);
-
     }
 
     // 비동기 완료시 상단 광고수익 데이터 표시
@@ -56,12 +55,11 @@ class Init {
     }
 }
 
-class Handler {
-
+class EventList {
     // error catch -> alret view 호출
     static catchError(msg) {
         ErrorView.alertView(msg);
     }
 }
 
-export {Init,Handler};
+export { Init,EventList };

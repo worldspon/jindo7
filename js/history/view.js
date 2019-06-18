@@ -1,4 +1,5 @@
 class View {
+    // 게임머니 기록 테이블
     static renderGameMoneyTable(data) {
         View.removeTable();
         const tableParent = document.querySelector('.moneyhistory-content-box');
@@ -45,6 +46,7 @@ class View {
 
     }
 
+    // 포인트, 코인, 락코인 테이블
     static renderEtcTable(data, type) {
         View.removeTable();
         const tableParent = document.querySelector('.moneyhistory-content-box');

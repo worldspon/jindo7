@@ -1,10 +1,10 @@
-import { Init,Handler } from './controller.js';
+import { Init,EventList } from './controller.js';
 
 const communicationURL = {
-    adprofit : 'http://192.168.0.24:8081/main/adprofit',
-    notice : 'http://192.168.0.24:8081/main/notice',
-    faq : 'http://192.168.0.24:8081/main/faq',
-    game : 'http://192.168.0.24:8081/main/game'
+    adprofit : 'http://192.168.0.24:8080/main/adprofit',
+    notice : 'http://192.168.0.24:8080/main/notice',
+    faq : 'http://192.168.0.24:8080/main/faq',
+    game : 'http://192.168.0.24:8080/main/game'
 }
 
 const currentDate = {
@@ -40,7 +40,7 @@ const promiseProxy = new Proxy(promiseResultValue, {
 
         if(endPromise >= 4 && el.rejectCount >= 1) {
             setTimeout(()=>{
-                Handler.catchError('서버와 통신이 원활하지않습니다.');
+                EventList.catchError('서버와 통신이 원활하지않습니다.');
             },1000);
         }
 

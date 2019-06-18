@@ -1,5 +1,6 @@
 import { Init, EventList } from './controller.js';
 
+// search url model
 const searchURL = {
     url : 'money'
 }
@@ -20,7 +21,7 @@ class Communication {
         const sendObject = {
             trademark : uerId
         };
-
+        // 통신 url 정의
         const communicationURL = `http://192.168.0.24:8080//history/${searchURL.url}`;
 
         const promiseObject = this.asyncPostPromise(communicationURL, JSON.stringify(sendObject));
@@ -45,19 +46,23 @@ class Communication {
 }
 
 class EvnetLogic {
+    // 색상 컬러 클래스 추가
     static addButtonColor(clickedButton) {
         clickedButton.classList.add('on');
     }
+    // 색상 컬러 클래스 삭제
     static removeButtonColor() {
         const allButton = document.querySelectorAll('.category-btn');
         for(const button of allButton) {
             button.classList.remove('on');
         }
     }
+    // 버튼 변경시 url model 변경
     static changeSearchURL(type) {
         searchURL.url = type;
     }
 
+    // 검색어를 이용한 통신 시작
     static searchStart() {
         const searchInput = document.getElementById('search-box');
         const userId = searchInput.value.trim();
