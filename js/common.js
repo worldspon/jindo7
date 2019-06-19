@@ -69,7 +69,7 @@ headerWrap.innerHTML = `<header>
                     <a href='gamemoneyhistory.html'>기록조회</a>
                 </li>
                 <li>
-                    <a>캐시비관리</a>
+                    <a href='cashbeeadmin.html'>캐시비관리</a>
                 </li>
                 <li>
                     <a href='serviceadmin.html'>서비스관리</a>
@@ -150,7 +150,7 @@ headerWrap.innerHTML = `<header>
                     <a href='gamemoneyhistory.html'>기록조회</a>
                 </li>
                 <li>
-                    <a>캐시비관리</a>
+                    <a href='cashbeeadmin.html'>캐시비관리</a>
                 </li>
                 <li>
                     <a href='serviceadmin.html'>서비스관리</a>
