@@ -1,3 +1,3 @@
-import Handler from './controller.js';
+import { Init } from './controller.js';
 
-Handler.bindHistoryBackClickEvent();
+Init.bindEvent();

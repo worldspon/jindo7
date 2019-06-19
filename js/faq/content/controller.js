@@ -1,11 +1,16 @@
-class Handler {
-    static bindHistoryBackClickEvent() {
-        const listBtn = document.querySelector('.list-btn');
-
-        listBtn.addEventListener('click', ()=>{
-            window.history.back();
-        })
+class Init {
+    static bindEvent() {
+        EventList.bindHistoryBackEvent();
     }
 }
 
-export default Handler;
+class EventList {
+    static bindHistoryBackEvent() {
+        const listBtn = document.querySelector('.list-btn');
+        listBtn.addEventListener('click', ()=>{
+            window.history.back();
+        });
+    }
+}
+
+export { Init };

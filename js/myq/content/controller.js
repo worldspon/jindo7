@@ -1,146 +1,60 @@
-import View from './view.js';
-import { newAnswerObject, modifyAnswerObject, deleteAnswerObject } from './model.js';
+import{ View } from './view.js';
+import { EventLogic } from './model.js';
 
-class Communication {
-    static asyncPromise(url, sendObject) {
-        return new Promise((resolve, reject)=>{
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', url);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.onload = () => resolve(xhr.responseText);
-            xhr.onerror = () => reject(xhr.statusText);
-            xhr.send(JSON.stringify(sendObject));
-        })
+class Init {
+    static bindEventAnswerExist() {
+        EventList.historyBack();
+        EventList.bindModifyClickEvent();
+        EventList.bindDeleteClickEvent();
+    }
+
+    static bindEventAnswerNoExist() {
+        EventList.historyBack();
+        $('#summernote').summernote({
+            placeholder: '답변을 작성하세요.'
+        });
+        EventList.bindRegisterClickEvent();
     }
 }
 
-class Handler {
+class Dynamic {
+    static showAnswerEditor(answerText) {
+        View.createAnswerEditor(answerText);
+    }
+    static hideAnswerEditor() {
+        View.destroyAnswerEditor();
+    }
+    static catchError(msg) {
+        View.viewAlert(msg);
+    }
+}
 
+class EventList {
     // 목록 클릭시 뒤로가기 이벤트 등록
     static historyBack() {
         document.querySelector('.list-btn').addEventListener('click', ()=>{
             window.history.back();
-        })
-    }
-
-    // 신규 등록 클릭이벤트 등록
-    static bindRegisterClickEvent() {
-        document.querySelector('.btn-myq-confirm').addEventListener('click', this.registerAnswerSend);
-    }
-
-    // 신규등록 서버 송신
-    static registerAnswerSend() {
-
-        if(Handler.confirmRegister()) {
-            const qid = document.querySelector('.myq-content-title').dataset.id;
-            const answerContent = document.querySelector('.note-editable').innerHTML;
-    
-            const sendObject = new newAnswerObject(qid, answerContent);
-            const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/create', sendObject);
-            promiseResult.then((result)=>{
-                const resultData = JSON.parse(result);
-                if(resultData.errorCode === 0) {
-                    View.viewAlert(resultData.msg);
-                    window.location.reload();
-                } else {
-                    View.viewAlert(resultData.msg);
-                }
-            },()=>{
-                View.viewAlert('서버와 통신이 원활하지않습니다.');
-            });
-        }
-    }
-
-    // 등록 길이체크 및 사용자확인
-    static confirmRegister() {
-        const answerLength = document.querySelector('.note-editable').textContent.trim().length;
-        if(answerLength <= 0) {
-            View.viewAlert('내용을 입력해주세요.');
-            return false;
-        }
-        if(confirm('이 답변을 등록하시겠습니까?')) {
-            return true;
-        } else {
-            return false;
-        }
+        });
     }
 
     // 수정 버튼 클릭이벤트 등록
     static bindModifyClickEvent() {
-        document.querySelector('.btn-myq-mod').addEventListener('click', this.toggleAnswerEditor);
+        document.querySelector('.btn-myq-mod').addEventListener('click', EventLogic.toggleAnswerEditor);
     }
-
     // 수정한 답변 등록버튼 클릭이벤트 등록
     static bindModifyAnswerRegClickEvent() {
-        document.querySelector('.btn-myq-confirm').addEventListener('click', this.modifyAnswerSend);
+        document.querySelector('.btn-myq-confirm').addEventListener('click', EventLogic.modifyAnswerSend);
     }
-
-    // 수정 답변 서버 송신
-    static modifyAnswerSend() {
-        if(Handler.confirmRegister()){
-            const qid = document.querySelector('.myq-content-title').dataset.id;
-            const aid = document.querySelector('.myq-content-r').dataset.id;
-            const answerContent = document.querySelector('.note-editable').innerHTML;
-    
-            const sendObject = new modifyAnswerObject(qid, aid, answerContent);
-            const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/modify', sendObject);
-            promiseResult.then((result)=>{
-                const resultData = JSON.parse(result);
-                if(resultData.errorCode === 0) {
-                    View.viewAlert(resultData.msg);
-                    window.location.reload();
-                } else {
-                    View.viewAlert(resultData.msg);
-                }
-            },()=>{
-                View.viewAlert('서버와 통신이 원활하지않습니다.');
-            });
-        }
-
-    }
-
-    // 수정버튼 클릭시 summernote toggle
-    static toggleAnswerEditor(e) {
-        const answerText = e.target.parentNode.previousSibling.previousSibling.innerHTML;
-        if(e.target.innerText === '수정') {
-            e.target.innerText = '취소';
-            View.createAnswerEditor(answerText);
-            Handler.bindModifyAnswerRegClickEvent();
-        } else {
-            e.target.innerText = '수정';
-            View.destroyAnswerEditor();
-        }
-    }
-
     //삭제 버튼 클릭이벤트 등록
     static bindDeleteClickEvent() {
-        document.querySelector('.btn-myq-del').addEventListener('click', this.confirmDelete);
+        document.querySelector('.btn-myq-del').addEventListener('click', EventLogic.confirmDelete);
     }
 
-    // 삭제 확인
-    static confirmDelete() {
-        if(confirm('정말로 삭제하시겠습니까?')) {
-            Handler.deleteAnswerSend();
-        }
-    }
-
-    // 답변삭제 서버 송신
-    static deleteAnswerSend() {
-        const aid = document.querySelector('.myq-content-title').dataset.id;
-        const sendObject = new deleteAnswerObject(aid);
-        const promiseResult = Communication.asyncPromise('http://192.168.0.24:8080/myQ/answers/delete', sendObject);
-        promiseResult.then((result)=>{
-            const resultData = JSON.parse(result);
-            if(resultData.errorCode === 0) {
-                View.viewAlert(resultData.msg);
-                window.location.reload();
-            } else {
-                View.viewAlert(resultData.msg);
-            }
-        },()=>{
-            View.viewAlert('서버와 통신이 원활하지않습니다.');
-        });
+    // 신규 등록 클릭이벤트 등록
+    static bindRegisterClickEvent() {
+        document.querySelector('.btn-myq-confirm').addEventListener('click', EventLogic.registerAnswerSend);
     }
 }
 
-export default Handler;
+
+export { Init, Dynamic, EventList };

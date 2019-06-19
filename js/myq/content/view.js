@@ -56,4 +56,4 @@ class View {
     }
 }
 
-export default View;
+export { View };

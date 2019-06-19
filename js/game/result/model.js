@@ -233,26 +233,23 @@ class Handler {
 
 class EventLogic {
     static resizeEvent() {
-        // resize시 현재 기기 정보와 이전과 다르다면 layout 변경
-        window.addEventListener('resize', ()=>{
-            if(window.innerWidth <= 1860) {
-                if(viewDevice.value === 'pc') {
-                    viewDevice.value = 'mobile';
-                    Dynamic.createRaceTable(todayResult.zombieRace, 'today');
-                    Dynamic.createFightTable(todayResult.zombieFight, 'today');
-                    Dynamic.createBreakTable(todayResult.zombieBreak, 'today');
-                    Dynamic.createDropTable(todayResult.zombieDrop, 'today');
-                }
-            } else {
-                if(viewDevice.value === 'mobile') {
-                    viewDevice.value = 'pc';
-                    Dynamic.createRaceTable(todayResult.zombieRace, 'today');
-                    Dynamic.createFightTable(todayResult.zombieFight, 'today');
-                    Dynamic.createBreakTable(todayResult.zombieBreak, 'today');
-                    Dynamic.createDropTable(todayResult.zombieDrop, 'today');
-                }
+        if(window.innerWidth <= 1860) {
+            if(viewDevice.value === 'pc') {
+                viewDevice.value = 'mobile';
+                Dynamic.createRaceTable(todayResult.zombieRace, 'today');
+                Dynamic.createFightTable(todayResult.zombieFight, 'today');
+                Dynamic.createBreakTable(todayResult.zombieBreak, 'today');
+                Dynamic.createDropTable(todayResult.zombieDrop, 'today');
             }
-        });
+        } else {
+            if(viewDevice.value === 'mobile') {
+                viewDevice.value = 'pc';
+                Dynamic.createRaceTable(todayResult.zombieRace, 'today');
+                Dynamic.createFightTable(todayResult.zombieFight, 'today');
+                Dynamic.createBreakTable(todayResult.zombieBreak, 'today');
+                Dynamic.createDropTable(todayResult.zombieDrop, 'today');
+            }
+        }
     }
 
     static showMoreEvent(e) {

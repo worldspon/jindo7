@@ -1,4 +1,3 @@
-import Handler from './controller.js';
+import { Init } from './controller.js';
 
-Handler.bindClickEvent();
-Handler.bindEnterEvent();
+Init.bindEvent();
