@@ -1,4 +1,4 @@
-import { Timer, Handler } from './model.js';
+import { Timer, Handler, EventLogic } from './model.js';
 import { CountdownView, View } from './view.js';
 
 class Init {
@@ -8,25 +8,60 @@ class Init {
     }
 
     // 5분 타이머 계산 함수 호출
-    static setFiveMinuteTimer() {
+    static setFiveCountDown() {
         const {minute, second, millisecond} = Timer.calcRemainNextFiveCount();
 
         // 5분 타이머 시작
-        CountdownView.setFiveCountdownSpan(minute, second);
+        CountdownView.setFiveCountDownSpan(minute, second);
         setTimeout(()=>{
-            CountdownView.setFiveCountdown(minute, second);
+            Timer.cycleFiveCountdown(minute, second);
         }, millisecond+1000);
     }
 
     // 3분 타이머 계산 함수 호출
-    static setThreeMinuteTimer() {
+    static setThreeCountDown() {
         const {minute, second, millisecond} = Timer.calcRemainNextThreeCount();
 
         // 3분 타이머 시작
-        CountdownView.setThreeCountdownSpan(minute, second);
+        CountdownView.setThreeCountDownSpan(minute, second);
         setTimeout(()=>{
-            CountdownView.setThreeCountdown(minute, second);
+            Timer.cycleThreeCountdown(minute, second);
         }, millisecond+1000);
+    }
+
+    // 첫 접속시 데이터 통신
+    static firstCommunication() {
+        Handler.getData('zombieRace', 'today');
+        Handler.getData('zombieFight', 'today');
+        Handler.getData('zombieBreak', 'today');
+        Handler.getData('zombieDrop', 'today');
+    }
+
+    // 이벤트 리스트 바인딩
+    static bindEvent() {
+        EventList.bindResizeEvent();
+        EventList.bindShowMoreClickEvent();
+        EventList.bindShowPrevClickEvent();
+        EventList.bindCloseClickEvent();
+        EventList.bindEscKeyEvent();
+    }
+
+    // 어제 데이터 통신
+    static getYesterdayData() {
+        Handler.getData('zombieRace', 'yesterday');
+        Handler.getData('zombieFight', 'yesterday');
+        Handler.getData('zombieBreak', 'yesterday');
+        Handler.getData('zombieDrop', 'yesterday');
+    }
+}
+
+class Dynamic {
+    static changeFiveCountDown(minute, second) {
+        CountdownView.setFiveCountDownSpan(minute, second);
+    }
+
+    static changeThreeCountDown(minute, second) {
+        CountdownView.setThreeCountDownSpan(minute, second);
     }
 
     // 현재 5분 게임 턴수 계산 함수 호출
@@ -37,31 +72,6 @@ class Init {
     // 현재 3분 게임 턴수 계산 함수 호출
     static calcThreeGameTurn() {
         return Timer.getThreeGameTurn();
-    }
-
-    // 오늘 데이터 통신
-    static getRaceData() {
-        Handler.getData('zombieRace', 'today');
-    }
-
-    static getFightData() {
-        Handler.getData('zombieFight', 'today');
-    }
-
-    static getBreakData() {
-        Handler.getData('zombieBreak', 'today');
-    }
-
-    static getDropData() {
-        Handler.getData('zombieDrop', 'today');
-    }
-
-    // 어제 데이터 통신
-    static getYesterdayData() {
-        Handler.getData('zombieRace', 'yesterday');
-        Handler.getData('zombieFight', 'yesterday');
-        Handler.getData('zombieBreak', 'yesterday');
-        Handler.getData('zombieDrop', 'yesterday');
     }
 
     // 테이블 생성
@@ -114,18 +124,35 @@ class Init {
         View.renderDropModal(data);
     }
 
-    // event binding
-    static bindEvent() {
-        Handler.bindResizeEvent();
-        Handler.showMoreEvent();
-        Handler.showPrevEvent();
-        Handler.closeEvent();
-        Handler.escEvent();
-    }
-
     static catchError(msg) {
         View.viewAlert(msg);
     }
 }
 
-export { Init };
+class EventList {
+    static bindResizeEvent() {
+        window.addEventListener('resize', EventLogic.resizeEvent);
+    }
+
+    static bindShowMoreClickEvent() {
+        for(const moreButton of document.getElementsByClassName('btn-today')) {
+            moreButton.addEventListener('click', EventLogic.showMoreEvent)
+        }
+    }
+
+    static bindShowPrevClickEvent() {
+        for(const yesterdayResultButton of document.getElementsByClassName('btn-prev')) {
+            yesterdayResultButton.addEventListener('click', EventLogic.showPrevEvent);
+        }  
+    }
+
+    static bindCloseClickEvent() {
+        document.querySelector('.md-close-btn').addEventListener('click', EventLogic.closeEvent)
+    }
+
+    static bindEscKeyEvent() {
+        window.addEventListener('keydown', EventLogic.escEvent)
+    }
+}
+
+export { Init, Dynamic };

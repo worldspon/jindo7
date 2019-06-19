@@ -1,4 +1,4 @@
-import {Init} from './controller.js';
+import { Dynamic } from './controller.js';
 
 // 오늘 날짜 객체
 const nowDate = {
@@ -15,63 +15,18 @@ const prevDate = {
 class CountdownView {
 
     // 5분 타이머 표시
-    static setFiveCountdownSpan(remainMinute, remainSeconds) {
+    static setFiveCountDownSpan(remainMinute, remainSeconds) {
         const fiveCountdownSpan = document.querySelectorAll('.five-countdown');
         for(const el of fiveCountdownSpan) {
             el.innerText = `잔여시간 : 0${remainMinute}:${remainSeconds > 9 ? remainSeconds : `0${remainSeconds}`}`;
         }
     }
 
-    // 5분 타이머 갱신 함수
-    static setFiveCountdown(remainMinute, remainSeconds) {
-        if(remainMinute >= 0 && remainSeconds > 0) {
-            this.setFiveCountdownSpan(remainMinute, remainSeconds-1);
-            setTimeout(()=>{
-                this.setFiveCountdown(remainMinute, remainSeconds-1);
-            }, 1000);
-        } else if(remainMinute > 0 && remainSeconds <= 0) {
-            this.setFiveCountdownSpan(remainMinute-1, 59);
-            setTimeout(()=>{
-                this.setFiveCountdown(remainMinute-1, 59);
-            }, 1000);
-        } else {
-            this.setFiveCountdownSpan(4, 59);
-            Init.getRaceData();
-            Init.getFightData();
-            Init.getDropData();
-
-            setTimeout(()=>{
-                this.setFiveCountdown(4, 59);
-            }, 1000);
-        }
-    }
-
     // 3분 타이머 표시
-    static setThreeCountdownSpan(remainMinute, remainSeconds) {
+    static setThreeCountDownSpan(remainMinute, remainSeconds) {
         const threeCountdownSpan = document.querySelectorAll('.three-countdown');
         for(const el of threeCountdownSpan) {
             el.innerText = `잔여시간 : 0${remainMinute}:${remainSeconds > 9 ? remainSeconds : `0${remainSeconds}`}`;
-        }
-    }
-
-    // 3분 타이머 갱신 함수
-    static setThreeCountdown(remainMinute, remainSeconds) {
-        if(remainMinute >= 0 && remainSeconds > 0) {
-            this.setThreeCountdownSpan(remainMinute, remainSeconds-1);
-            setTimeout(()=>{
-                this.setThreeCountdown(remainMinute, remainSeconds-1);
-            }, 1000);
-        } else if(remainMinute > 0 && remainSeconds <= 0) {
-            this.setThreeCountdownSpan(remainMinute-1, 59);
-            setTimeout(()=>{
-                this.setThreeCountdown(remainMinute-1, 59);
-            }, 1000);
-        } else {
-            this.setThreeCountdownSpan(2, 59);
-            Init.getBreakData();
-            setTimeout(()=>{
-                this.setThreeCountdown(2, 59);
-            }, 1000);
         }
     }
 }
@@ -82,7 +37,7 @@ class View {
     static renderRaceToday(data) {
         const raceData = data;
         const modalWrap = document.querySelector('.md-wrap');
-        const fiveGameTurn = Init.calcFiveGameTurn();
+        const fiveGameTurn = Dynamic.calcFiveGameTurn();
         const headLine = document.querySelector('.zombie-race .content-hl');
         const todayTableNode = document.querySelector('.zombie-race > table > tbody');
         let raceTableMarkupText = ``;
@@ -130,7 +85,7 @@ class View {
 
     static renderFightToday(data) {
         const fightData = data;
-        const fiveGameTurn = Init.calcFiveGameTurn();
+        const fiveGameTurn = Dynamic.calcFiveGameTurn();
         const modalWrap = document.querySelector('.md-wrap');
         const headLine = document.querySelector('.zombie-fight .content-hl');
         const todayTableNode = document.querySelector('.zombie-fight > table > tbody');
@@ -179,7 +134,7 @@ class View {
     static renderBreakToday(data) {
         const breakData = data;
         const modalWrap = document.querySelector('.md-wrap');
-        const threeGameTurn = Init.calcThreeGameTurn();
+        const threeGameTurn = Dynamic.calcThreeGameTurn();
         const headLine = document.querySelector('.zombie-break .content-hl');
         const todayTableNode = document.querySelector('.zombie-break > table > tbody');
         let breakTableMarkupText = ``;
@@ -230,7 +185,7 @@ class View {
     static renderDropToday(data) {
         const dropData = data;
         const modalWrap = document.querySelector('.md-wrap');
-        const fiveGameTurn = Init.calcFiveGameTurn();
+        const fiveGameTurn = Dynamic.calcFiveGameTurn();
         const headLine = document.querySelector('.zombie-drop .content-hl');
         const todayTableNode = document.querySelector('.zombie-drop > table > tbody');
         let dropTableMarkupText = ``;
@@ -281,7 +236,7 @@ class View {
     // 오늘 게임 데이터 모달 테이블 표현
     static renderRaceModal(data) {
         const raceData = data;
-        const fiveGameTurn = Init.calcFiveGameTurn();
+        const fiveGameTurn = Dynamic.calcFiveGameTurn();
         let raceTableMarkupText = 
         `<thead>
             <tr class="th-row row">
@@ -331,7 +286,7 @@ class View {
 
     static renderFightModal(data) {
         const fightData = data;
-        const fiveGameTurn = Init.calcFiveGameTurn();
+        const fiveGameTurn = Dynamic.calcFiveGameTurn();
         let fightTableMarkupText = 
         `<thead>
             <tr class="th-row row">
@@ -377,7 +332,7 @@ class View {
 
     static renderBreakModal(data) {
         const breakData = data;
-        const threeGameTurn = Init.setThreeMinuteTimer();
+        const threeGameTurn = Dynamic.calcThreeGameTurn();
         let breakTableMarkupText = 
         `<thead>
             <tr class="th-row row">
@@ -425,7 +380,7 @@ class View {
 
     static renderDropModal(data) {
         const dropData = data;
-        const fiveGameTurn = Init.calcFiveGameTurn();
+        const fiveGameTurn = Dynamic.calcFiveGameTurn();
         let dropTableMarkupText = 
         `<thead>
             <tr class="th-row row">

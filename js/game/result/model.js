@@ -1,4 +1,4 @@
-import { Init } from "./controller.js";
+import { Dynamic } from "./controller.js";
 
 const promiseResultValue = {resolveCount : 0, rejectCount : 0};
 
@@ -17,7 +17,7 @@ const promiseProxy = new Proxy(promiseResultValue, {
 
         if(endPromise >= 8 && el.rejectCount >= 1) {
             setTimeout(()=>{
-                Init.catchError('서버와 통신이 원활하지않습니다.');
+                Dynamic.catchError('서버와 통신이 원활하지않습니다.');
             },1000);
         }
 
@@ -91,13 +91,11 @@ class Timer {
     // 5분 타이머 계산 / 다음 게임까지 남은 분,초,밀리초 리턴
     static calcRemainNextFiveCount() {
         const passTimeByMidnight = this.passTimeByMidnight();
-
         const remainTimeNextFiveCount = timeModel.fiveMinuteMilliSeconds - (passTimeByMidnight % timeModel.fiveMinuteMilliSeconds);
         const remainMinuteNextFiveCount = Math.floor(remainTimeNextFiveCount / timeModel.oneMinuteMilliSeconds);
         const remainSecondsNextFiveCount = Math.floor((remainTimeNextFiveCount % timeModel.oneMinuteMilliSeconds) / timeModel.oneSecondsMilleSeconds);
         const remainMilliSecondsNextFiveCount = (remainTimeNextFiveCount % timeModel.oneMinuteMilliSeconds) % timeModel.oneSecondsMilleSeconds;
 
-        
         return {
             minute : remainMinuteNextFiveCount,
             second : remainSecondsNextFiveCount,
@@ -105,10 +103,32 @@ class Timer {
         };
     }
 
+    static cycleFiveCountdown(remainMinute, remainSeconds) {
+        if(remainMinute >= 0 && remainSeconds > 0) {
+            Dynamic.changeFiveCountDown(remainMinute, remainSeconds-1);
+            setTimeout(()=>{
+                this.cycleFiveCountdown(remainMinute, remainSeconds-1);
+            }, 1000);
+        } else if(remainMinute > 0 && remainSeconds <= 0) {
+            Dynamic.changeFiveCountDown(remainMinute-1, 59);
+            setTimeout(()=>{
+                this.cycleFiveCountdown(remainMinute-1, 59);
+            }, 1000);
+        } else {
+            Dynamic.changeFiveCountDown(4, 59);
+            Handler.getData('zombieRace', 'today');
+            Handler.getData('zombieFight', 'today');
+            Handler.getData('zombieDrop', 'today');
+
+            setTimeout(()=>{
+                this.cycleFiveCountdown(4, 59);
+            }, 1000);
+        }
+    }
+
     // 3분 타이머 계산 / 다음 게임까지 남은 분,초,밀리초 리턴
     static calcRemainNextThreeCount() {
         const passTimeByMidnight = this.passTimeByMidnight();
-
         const remainTimeNextThreeCount = timeModel.threeMinuteMilliSeconds - (passTimeByMidnight % timeModel.threeMinuteMilliSeconds);
         const remainMinuteNextThreeCount = Math.floor(remainTimeNextThreeCount / timeModel.oneMinuteMilliSeconds);
         const remainSecondsNextThreeCount = Math.floor((remainTimeNextThreeCount % timeModel.oneMinuteMilliSeconds) / timeModel.oneSecondsMilleSeconds);
@@ -119,6 +139,27 @@ class Timer {
             second : remainSecondsNextThreeCount,
             millisecond : remainMilliSecondsNextThreeCount
         };
+    }
+    
+    // 3분 타이머 갱신 함수
+    static cycleThreeCountdown(remainMinute, remainSeconds) {
+        if(remainMinute >= 0 && remainSeconds > 0) {
+            Dynamic.changeThreeCountDown(remainMinute, remainSeconds-1);
+            setTimeout(()=>{
+                this.cycleThreeCountdown(remainMinute, remainSeconds-1);
+            }, 1000);
+        } else if(remainMinute > 0 && remainSeconds <= 0) {
+            Dynamic.changeThreeCountDown(remainMinute-1, 59);
+            setTimeout(()=>{
+                this.cycleThreeCountdown(remainMinute-1, 59);
+            }, 1000);
+        } else {
+            Dynamic.changeThreeCountDown(2, 59);
+            Handler.getData('zombieBreak', 'today');
+            setTimeout(()=>{
+                this.cycleThreeCountdown(2, 59);
+            }, 1000);
+        }
     }
 
     // 현재 5분 게임 턴수 계산
@@ -137,7 +178,6 @@ class Timer {
 }
 
 class Handler {
-
     // window width에 따른 기기 판별
     static setViewDevice() {
         window.innerWidth <= 1860 ? viewDevice.value = 'mobile' : viewDevice.value = 'pc';
@@ -152,7 +192,7 @@ class Handler {
                 if(date === 'today') {
                     const resultData = JSON.parse(result).zombieRace;
                     todayResult.zombieRace = resultData;
-                    Init.createRaceTable(resultData, 'today');
+                    Dynamic.createRaceTable(resultData, 'today');
                 } else {
                     const resultData = JSON.parse(result).zombieRace;
                     yesterdayResult.zombieRace = resultData;
@@ -161,7 +201,7 @@ class Handler {
                 if(date === 'today') {
                     const resultData = JSON.parse(result).zombieFight;
                     todayResult.zombieFight = resultData;
-                    Init.createFightTable(resultData, 'today');
+                    Dynamic.createFightTable(resultData, 'today');
                 } else {
                     const resultData = JSON.parse(result).zombieFight;
                     yesterdayResult.zombieFight = resultData;
@@ -170,7 +210,7 @@ class Handler {
                 if(date === 'today') {
                     const resultData = JSON.parse(result).zombieBreak;
                     todayResult.zombieBreak = resultData;
-                    Init.createBreakTable(resultData, 'today');
+                    Dynamic.createBreakTable(resultData, 'today');
                 } else {
                     const resultData = JSON.parse(result).zombieBreak
                     yesterdayResult.zombieBreak = resultData;
@@ -179,7 +219,7 @@ class Handler {
                 if(date === 'today') {
                     const resultData = JSON.parse(result).zombieDrop;
                     todayResult.zombieDrop = resultData;
-                    Init.createDropTable(resultData, 'today');
+                    Dynamic.createDropTable(resultData, 'today');
                 } else {
                     const resultData = JSON.parse(result).zombieDrop
                     yesterdayResult.zombieDrop = resultData;
@@ -189,94 +229,80 @@ class Handler {
             promiseProxy.rejectCount++;
         })
     }
+}
 
-    static bindResizeEvent() {
-
+class EventLogic {
+    static resizeEvent() {
         // resize시 현재 기기 정보와 이전과 다르다면 layout 변경
         window.addEventListener('resize', ()=>{
             if(window.innerWidth <= 1860) {
                 if(viewDevice.value === 'pc') {
                     viewDevice.value = 'mobile';
-                    Init.createRaceTable(todayResult.zombieRace, 'today');
-                    Init.createFightTable(todayResult.zombieFight, 'today');
-                    Init.createBreakTable(todayResult.zombieBreak, 'today');
-                    Init.createDropTable(todayResult.zombieDrop, 'today');
+                    Dynamic.createRaceTable(todayResult.zombieRace, 'today');
+                    Dynamic.createFightTable(todayResult.zombieFight, 'today');
+                    Dynamic.createBreakTable(todayResult.zombieBreak, 'today');
+                    Dynamic.createDropTable(todayResult.zombieDrop, 'today');
                 }
             } else {
                 if(viewDevice.value === 'mobile') {
                     viewDevice.value = 'pc';
-                    Init.createRaceTable(todayResult.zombieRace, 'today');
-                    Init.createFightTable(todayResult.zombieFight, 'today');
-                    Init.createBreakTable(todayResult.zombieBreak, 'today');
-                    Init.createDropTable(todayResult.zombieDrop, 'today');
+                    Dynamic.createRaceTable(todayResult.zombieRace, 'today');
+                    Dynamic.createFightTable(todayResult.zombieFight, 'today');
+                    Dynamic.createBreakTable(todayResult.zombieBreak, 'today');
+                    Dynamic.createDropTable(todayResult.zombieDrop, 'today');
                 }
             }
         });
     }
 
-    static showMoreEvent() {
+    static showMoreEvent(e) {
         // 더보기 버튼
-        for(const moreButton of document.getElementsByClassName('btn-today')) {
-            moreButton.addEventListener('click', (el) => {
-                const modalWrap = document.querySelector('.md-wrap');
-                const gameType = el.target.dataset.type;
-                document.querySelector('.md-wrap').style.display = 'block';
-                modalWrap.dataset.type = gameType;
+        const modalWrap = document.querySelector('.md-wrap');
+        const gameType = e.target.dataset.type;
+        document.querySelector('.md-wrap').style.display = 'block';
+        modalWrap.dataset.type = gameType;
 
-                if(gameType === 'zombieRace') {
-                    Init.createRaceModal(todayResult.zombieRace);
-                } else if(gameType === 'zombieFight') {
-                    Init.createFightModal(todayResult.zombieFight);
-                } else if(gameType === 'zombieBreak') {
-                    Init.createBreakModal(todayResult.zombieBreak);
-                } else {
-                    Init.createDropModal(todayResult.zombieDrop);
-                }
-            })
+        if(gameType === 'zombieRace') {
+            Dynamic.createRaceModal(todayResult.zombieRace);
+        } else if(gameType === 'zombieFight') {
+            Dynamic.createFightModal(todayResult.zombieFight);
+        } else if(gameType === 'zombieBreak') {
+            Dynamic.createBreakModal(todayResult.zombieBreak);
+        } else {
+            Dynamic.createDropModal(todayResult.zombieDrop);
         }
     }
 
-    static showPrevEvent() {
-        // 어제결과 모달 생성 버튼
-        for(const yesterdayResultButton of document.getElementsByClassName('btn-prev')) {
+    static showPrevEvent(e) {
+        const gameType = e.target.dataset.type;
+        document.querySelector('.md-wrap').style.display = 'block';
 
-            yesterdayResultButton.addEventListener('click', () => {
-                const gameType = yesterdayResultButton.dataset.type;
-                document.querySelector('.md-wrap').style.display = 'block';
-
-                if(gameType === 'zombieRace') {
-                    Init.createRaceTable(yesterdayResult.zombieRace, 'yesterday');
-                } else if(gameType === 'zombieBreak') {
-                    Init.createBreakTable(yesterdayResult.zombieBreak, 'yesterday');
-                } else if(gameType === 'zombieFight') {
-                    Init.createFightTable(yesterdayResult.zombieFight, 'yesterday');
-                } else {
-                    Init.createDropTable(yesterdayResult.zombieDrop, 'yesterday');
-                }
-            })
-
-        }  
+        if(gameType === 'zombieRace') {
+            Dynamic.createRaceTable(yesterdayResult.zombieRace, 'yesterday');
+        } else if(gameType === 'zombieBreak') {
+            Dynamic.createBreakTable(yesterdayResult.zombieBreak, 'yesterday');
+        } else if(gameType === 'zombieFight') {
+            Dynamic.createFightTable(yesterdayResult.zombieFight, 'yesterday');
+        } else {
+            Dynamic.createDropTable(yesterdayResult.zombieDrop, 'yesterday');
+        }
     }
 
-    static closeEvent() {
+    static closeEvent(e) {
         // x버튼 클릭시 modal 초기화 후 꺼짐
-        document.querySelector('.md-close-btn').addEventListener('click', (el)=>{
-            document.querySelector('.md-wrap table').innerHTML = '';
-            document.querySelector('.md-wrap').style.display = 'none';
-            document.querySelector('.md-wrap .five-countdown').style.display = 'none';
-            document.querySelector('.md-wrap .three-countdown').style.display = 'none';
-            el.target.parentNode.parentNode.parentNode.dataset.type = '';
-        });
+        document.querySelector('.md-wrap table').innerHTML = '';
+        document.querySelector('.md-wrap').style.display = 'none';
+        document.querySelector('.md-wrap .five-countdown').style.display = 'none';
+        document.querySelector('.md-wrap .three-countdown').style.display = 'none';
+        e.target.parentNode.parentNode.parentNode.dataset.type = '';
     }
 
-    static escEvent() {
+    static escEvent(e) {
         // ESC 버튼 클릭시 모달 닫음
-        window.addEventListener('keydown', (el) => {
-            if(el.keyCode === 27) {
-                document.querySelector('.md-close-btn').dispatchEvent(new Event('click'));
-            }
-        })
+        if(e.keyCode === 27) {
+            document.querySelector('.md-close-btn').dispatchEvent(new Event('click'));
+        }
     }
 }
 
-export { Timer, Handler };
+export { Timer, Handler, EventLogic };
