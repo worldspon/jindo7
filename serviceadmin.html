@@ -34,6 +34,7 @@
         <!-- main-wrap start -->
         <div class='main-wrap'>
             <main>
+                
                 <!-- serviceadmin common box start -->
                 <div class='serviceadmin-common-box content-box-layout'>
                     <h3 class='content-hl'>서비스관리</h3>
@@ -55,8 +56,8 @@
 
                 
 
-                <!-- point refund page start -->
-                    <!-- <div class="apply-btn-box">
+                    <!-- point refund page start -->
+                    <div class="apply-btn-box">
                         <button class="active">신청 내역</button>
                         <button>승인 내역</button>
                         <button>취소 내역</button>
@@ -139,13 +140,13 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>  -->
-                <!-- point refund page end -->
+                    </table> 
+                    <!-- point refund page end -->
 
                     
 
-                <!-- P2P page start -->
-                   <!-- <div class="state-btn-box">
+                    <!-- P2P page start -->
+                   <div class="state-btn-box">
                         <button class="btn-primary alive">전체보기</button>
                         <button class="btn-dispute">분쟁상태</button>
                     </div>
@@ -202,31 +203,32 @@
                                 <td><button class="p-danger">분쟁</button></td>
                             </tr>
                         </tbody>
-                    </table>  -->
-                <!-- P2P page end -->
+                    </table> 
+                    <!-- P2P page end -->
 
 
 
-                <!-- admin find pw page start -->
-                    <!-- <div class="find-admin-pw">
+                    <!-- admin find pw page start -->
+                    <div class="find-admin-pw">
                         <input type="text" id="busy-hands" placeholder="폰번호 또는 아이디를 입력하세요." maxlength="15">
                         <button class="btn-phone-num">폰번호로 찾기</button>
                         <button class="btn-signify-name">아이디로 찾기</button>
                         <p class="ur-pw-result">땡땡땡님의 비밀번호는 <span class="beebun">123456789</span> 입니다.</p>
-                    </div> -->
-                <!-- admin find pw page end -->
+                    </div>
+                    <!-- admin find pw page end -->
                 
 
                 
-                <!-- admin advertisement supplier page start -->
+                    <!-- admin advertisement supplier page start -->
                     
                 
                     <div>
                         <div class="plus-more-supplier">
                             <button class="btn-add-supplier">추가</button>
                         </div>
+
                         <!-- modal start -->
-                        <div class="supplier-big-bg">
+                        <!-- <div class="supplier-big-bg">
                             <div class="write-supplier-info">
                                 <p class="add-new-supplier">광고 공급자 추가</p>
                                 <div class="sorted-supplier-list">
@@ -263,8 +265,9 @@
                                     <button class="close-supplier">취소</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- modal end -->
+
                         <table class="admin-advertisement-supplier">
                             <thead class="common-subject-box">
                                 <tr>
@@ -273,7 +276,7 @@
                                     <th>URL</th>
                                     <th>아이디</th>
                                     <th>비밀번호</th>
-                                    <th class="location-advertisement">삽입 위치</th>
+                                    <th class="place-advertisement">삽입 위치</th>
                                     <th class="more-writing">비고</th>
                                     <th></th>
                                 </tr>
@@ -351,12 +354,172 @@
                         </table>
                     </div>
                 
-                <!-- admin advertisement supplier page end -->
+                    <!-- admin advertisement supplier page end -->
+
+
+
+                    <!-- super admin srvr page start -->
+                    <div>
+                        <div class="plus-more-srvr">
+                            <button class="btn-add-srvr">추가</button>
+                        </div>
+
+                        <!-- modal start -->
+                        <!-- <div class="srvr-big-bg">
+                            <div class="write-srvr-info">
+                                <p class="add-new-srvr">서버 추가</p>
+                                <div class="sorted-srvr-list">
+                                    <div>
+                                        <label for="srvr-place">아이피</label>
+                                        <input type="text" id="srvr-place">
+                                    </div>
+                                    <div class="bind-srvr-a">
+                                        <div>
+                                            <label for="srvr-port">포트</label>
+                                            <input type="text" id="srvr-port">
+                                        </div>
+                                        <div>
+                                            <label for="srvr-come-from">위치</label>
+                                            <input type="text" id="srvr-come-from">
+                                        </div>
+                                    </div>
+                                    <div class="bind-srvr-a">
+                                        <div>
+                                            <label for="srvr-nickname">아이디</label>
+                                            <input type="text" id="srvr-nickname">
+                                        </div>
+                                        <div>
+                                            <label for="srvr-payment-day">결제일</label>
+                                            <input type="text" id="srvr-payment-day">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="srvr-more-things">비고</label>
+                                        <input type="text" id="srvr-more-things">
+                                    </div>
+                                </div>
+                                <div class="btn-srvr-box">
+                                    <button class="registration-srvr">등록</button>
+                                    <button class="reset-srvr">리셋</button>
+                                    <button class="close-srvr">취소</button>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- modal end -->
+
+                        <table>
+                            <thead class="common-subject-box">
+                                <tr>
+                                    <th class="num-count">No</th>
+                                    <th class="place-computer">아이피</th>
+                                    <th>포트</th>
+                                    <th>위치</th>
+                                    <th>아이디</th>
+                                    <th class="more-words-needed">비고</th>
+                                    <th>결제일</th>
+                                    <th class="choose-what-want"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="srvr-list-box">
+                                <tr>
+                                    <td>1</td>
+                                    <td>123.456.789.1011</td>
+                                    <td>65485</td>
+                                    <td>Korea</td>
+                                    <td>admingogo</td>
+                                    <td>월드스폰 데이타 베이스</td>
+                                    <td>30일</td>
+                                    <td>
+                                        <button class="adjust-srvr">수정</button>
+                                        <button class="del-srvr">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>987.654.3557.21</td>
+                                    <td>111111</td>
+                                    <td>Japan</td>
+                                    <td>mango</td>
+                                    <td>월드-CA어플서버</td>
+                                    <td>5일</td>
+                                    <td>
+                                        <button class="adjust-srvr">수정</button>
+                                        <button class="del-srvr">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>987.654.3557.21</td>
+                                    <td>111111</td>
+                                    <td>Japan</td>
+                                    <td>mango</td>
+                                    <td>월드-CA어플서버</td>
+                                    <td>5일</td>
+                                    <td>
+                                        <button class="adjust-srvr">수정</button>
+                                        <button class="del-srvr">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>987.654.3557.21</td>
+                                    <td>111111</td>
+                                    <td>Japan</td>
+                                    <td>mango</td>
+                                    <td>월드-CA어플서버</td>
+                                    <td>5일</td>
+                                    <td>
+                                        <button class="adjust-srvr">수정</button>
+                                        <button class="del-srvr">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>987.654.3557.21</td>
+                                    <td>111111</td>
+                                    <td>Japan</td>
+                                    <td>mango</td>
+                                    <td>월드-CA어플서버</td>
+                                    <td>5일</td>
+                                    <td>
+                                        <button class="adjust-srvr">수정</button>
+                                        <button class="del-srvr">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>987.654.3557.21</td>
+                                    <td>111111</td>
+                                    <td>Japan</td>
+                                    <td>mango</td>
+                                    <td>월드-CA어플서버</td>
+                                    <td>5일</td>
+                                    <td>
+                                        <button class="adjust-srvr">수정</button>
+                                        <button class="del-srvr">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>987.654.3557.21</td>
+                                    <td>111111</td>
+                                    <td>Japan</td>
+                                    <td>mango</td>
+                                    <td>월드-CA어플서버</td>
+                                    <td>5일</td>
+                                    <td>
+                                        <button class="adjust-srvr">수정</button>
+                                        <button class="del-srvr">삭제</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- super admin srvr page end -->
 
 
                 </div>
                 <!-- serviceadmin content box end -->
-
 
             </main>
         </div>

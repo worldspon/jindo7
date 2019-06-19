@@ -128,6 +128,7 @@ table {
     text-align: center;
     font-size: 1.1rem;
     color: #444;
+    vertical-align: middle;
 }
 
 .point-list-box tr:nth-child(even){
@@ -145,6 +146,7 @@ table {
 
 .point-list-box td {
     padding: 20px 0;
+    vertical-align: middle;
 }
 
 .point-list-box button {
@@ -282,6 +284,7 @@ table {
 
 .peer-list-box td {
     padding: 20px 0;
+    vertical-align: middle;
 }
 
 .peer-list-box button {
@@ -404,7 +407,7 @@ table {
 }
 
     .btn-add-supplier:hover {
-        background: #410099;
+        background: #370080;
     }
 
 .supplier-big-bg {
@@ -439,13 +442,13 @@ table {
     font-size: 1.2rem;
 }
 
-    .sorted-supplier-list>div:not(.company-identification) {
+    .sorted-supplier-list > div:not(.company-identification) {
         border: 1px solid #d4d9df;
         border-radius: 3px;
         background: #e9ecef;
     }
 
-    .sorted-supplier-list>div:not(:last-child){
+    .sorted-supplier-list > div:not(:last-child){
         margin-bottom: 5px;
     }
 
@@ -454,6 +457,7 @@ table {
     text-align: center;
     width: 15%;
 }
+
 .sorted-supplier-list input{
     width: 85%;
     height: 40px;
@@ -545,7 +549,7 @@ table {
         width: 100px;
     }
 
-    .location-advertisement {
+    .place-advertisement {
         width: 200px;
     }
 
@@ -627,9 +631,245 @@ table {
 
 /******************** admin advertisement supplier page end *********************/
 
+
+
+
+
+/******************** super admin srvr page start *********************/
+
+.plus-more-srvr {
+    margin: 0 15px 10px 0;
+    text-align: right;
+}
+
+.btn-add-srvr {
+    padding: 7px 20px;
+    border: 1px solid #4d06a7;
+    border-radius: 3px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: #4d06a7;
+    cursor: pointer;
+    outline: none;
+}
+
+    .btn-add-srvr:hover {
+        background: #370080;
+    }
+
+.srvr-big-bg {
+    position: fixed;
+    top: 85px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../images/bg_supplier.png);
+}
+
+.write-srvr-info {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 600px;
+    padding: 30px 20px;
+    margin-left: -320px;
+    border-radius: 5px;
+    background: white;
+}
+
+.add-new-srvr {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+.sorted-srvr-list div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+    .sorted-srvr-list > div:not(.bind-srvr-a) {
+        border: 1px solid #d4d9df;
+        border-radius: 3px;
+        background: #e9ecef;
+    }
+
+    .sorted-srvr-list > div:not(:last-child){
+        margin-bottom: 5px;
+    }
+
+.sorted-srvr-list label {
+    display: inline-block;
+    text-align: center;
+    width: 15%;
+}
+
+.sorted-srvr-list input{
+    width: 85%;
+    height: 40px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    font-size: 1.2rem;
+}
+
+.bind-srvr-a div{
+    float: left;
+    width: 49.5%;
+    box-sizing: border-box;
+    border: 1px solid #d4d9df;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    background: #e9ecef;
+}
+
+    .bind-srvr-a div:first-child {
+        margin-right: 1%;
+    }
+
+    .bind-srvr-a:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+.bind-srvr-a div label {
+    width: 38%;
+}
+
+.btn-srvr-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.btn-srvr-box button {
+    padding: 7px 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-srvr-box button:not(:last-child) {
+    margin-right: 5px;
+}
+
+.registration-srvr {
+    border-color: #007bff;
+    color: white;
+    background: #007bff;
+}
+
+    .registration-srvr:hover {    
+        background: #0069d9;
+    }
+
+.reset-srvr {
+    border-color: #aaa;
+    color: #444;
+    background: #eee;
+}
+
+    .reset-srvr:hover {
+        color: white;
+        background: #bbb;
+    }
+
+.close-srvr {
+    border-color: #dc3545;
+    color: white;
+    background: #dc3545;
+}
+
+    .close-srvr:hover {    
+        background: #bd2130;
+    }
+
+/* common-subject-box th fixed width start */
+
+    .num-count {
+        width: 100px;
+    }
+
+    .place-computer {
+        width: 200px;
+    }
+
+    .more-words-needed {
+        width: 250px;
+    }
+
+    .choose-what-want {
+        width: 300px;
+    }
+
+
+/* common-subject-box th fixed width end */
+
+.srvr-list-box {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.srvr-list-box tr:nth-child(even){
+    background: #f2f2f2;
+}
+
+.srvr-list-box tr:not(:last-child) {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.srvr-list-box td {
+    padding: 20px 0;
+    vertical-align: middle;
+}
+
+.srvr-list-box button {
+    padding: 7px 15px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.adjust-srvr {
+    border-color: #2faf4e;
+    color: #2faf4e;
+    margin-right: 20px;
+}
+
+    .adjust-srvr:hover {
+        color: white;
+        background: #2faf4e;
+    }
+
+.del-srvr {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+    .del-srvr:hover {
+        color: white;
+        background: #dc3545;
+    }
+
+
+
+/******************** super admin srvr page end *********************/
+
+
+
 @media screen and (max-width: 1450px){
 
-    .supplier-big-bg {
+    .supplier-big-bg, .srvr-big-bg {
         top: 128px;
     }
 
@@ -645,7 +885,7 @@ table {
 
 @media screen and (max-width: 745px){
 
-    .write-supplier-info {
+    .write-supplier-info, .write-srvr-info {
         width:500px;
         margin-left: -270px;
     }
@@ -654,51 +894,52 @@ table {
 
 @media screen and (max-width: 600px){
 
-    .write-supplier-info {
+    .write-supplier-info, .write-srvr-info {
         top: 20%;
         width:350px;
         margin-left: -195px;
         padding: 20px 10px;
     }
 
-    .add-new-supplier {
+    .add-new-supplier, .add-new-srvr {
         text-align: center;
     }
 
-    .sorted-supplier-list div {
+    .sorted-supplier-list div, .sorted-srvr-list div {
         display: block;
     }
 
-    .sorted-supplier-list>div:not(:last-child) {
-        margin-bottom: 10px;
-    }
+        .sorted-supplier-list > div:not(:last-child), .sorted-srvr-list > div:not(:last-child) {
+            margin-bottom: 10px;
+        }
 
-    .sorted-supplier-list label {
+    .sorted-supplier-list label, .sorted-srvr-list label {
         display: block;
         width: 100%;
         padding: 10px 0;
         box-sizing: border-box;
     }
     
-    .sorted-supplier-list input{
+    .sorted-supplier-list input, .sorted-srvr-list input{
         width: 100%;
+        padding: 5px 10px;
     }
 
-    .company-identification div {
+    .company-identification div, .bind-srvr-a div {
         float: none;
         width: 100%;
     }
 
-    .company-identification div label {
+    .company-identification div label, .bind-srvr-a div label {
         width: 100%;
     }
 
-    .company-identification div:first-child {
+    .company-identification div:first-child, .bind-srvr-a div:first-child {
         margin-right: none;
         margin-bottom: 10px;
     }
 
-    .btn-supplier-box button:not(:last-child) {
+    .btn-supplier-box button:not(:last-child), .btn-srvr-box button:not(:last-child) {
         margin-right: 10px;
     }
 
