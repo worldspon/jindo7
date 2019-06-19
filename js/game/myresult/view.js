@@ -140,4 +140,4 @@ class View {
     }
 }
 
-export {View}
+export { View }

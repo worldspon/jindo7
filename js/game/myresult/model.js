@@ -1,4 +1,4 @@
-import {Init} from './controller.js'
+import { Dynamic, EventList } from './controller.js'
 
 // 통신 URL 객체
 const gameURL = {
@@ -34,40 +34,32 @@ class Handler {
             const resultData = JSON.parse(result);
             if(resultData.errorCode === 0) {
                 if(gameType === '좀비레이스') {
-                    Init.createRaceTable(resultData.race);
+                    Dynamic.createRaceTable(resultData.race);
                 } else if(gameType === '좀비격투') {
-                    Init.createFightTable(resultData.fight);
+                    Dynamic.createFightTable(resultData.fight);
                 } else if(gameType === '좀비격파') {
-                    Init.createBreakTable(resultData.break);
+                    Dynamic.createBreakTable(resultData.break);
                 } else {
-                    Init.createDropTable(resultData.drop);
+                    Dynamic.createDropTable(resultData.drop);
                 }
             } else {
-                Init.catchError(resultData.msg);
+                Dynamic.catchError(resultData.msg);
             }
         }, ()=>{
-            Init.catchError('서버와 통신이 원활하지않습니다.');
+            Dynamic.catchError('서버와 통신이 원활하지않습니다.');
         });
     }
+}
 
-    // click evnet bind
-    static bindClickEvent() {
-        const buttonList = document.querySelectorAll('.mybet-content-box > button');
-
-        for(const button of buttonList) {
-            if(!button.classList.contains('on')) {
-                button.addEventListener('click', this.changeTable);
-            }
-        }
-    }
+class EventLogic{
 
     // click시 table 변환
     static changeTable(e) {
         const gameType = e.target.innerText;
         const communicationURL = gameURL[gameType];
 
-        Handler.unbindClickEvent();
-        Init.changeButtonColor(e.target);
+        EventList.unbindClickEvent();
+        Dynamic.changeButtonColor(e.target);
         if(gameType === '좀비레이스') {
             Handler.getTableData(gameType, communicationURL);
         } else if(gameType === '좀비격투') {
@@ -77,17 +69,8 @@ class Handler {
         } else {
             Handler.getTableData(gameType, communicationURL);
         }
-        Handler.bindClickEvent();
-    }
-
-    // 악의적 통신 요청을 막기위한 click event unbind
-    static unbindClickEvent() {
-        const buttonList = document.querySelectorAll('.mybet-content-box > button');
-
-        for(const button of buttonList) {
-            button.removeEventListener('click', this.changeTable);
-        }
+        EventList.bindClickEvent();
     }
 }
 
-export { gameURL, Handler };
+export { gameURL, Handler, EventLogic };
