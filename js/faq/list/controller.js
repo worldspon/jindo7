@@ -26,6 +26,12 @@ class EventList {
         const searchInput = document.querySelector('.faq-search-input');
         searchInput.addEventListener('keyup', EventLogic.searchEnterEvent);
     }
+
+    // 등록 이벤트
+    static bindRegisterEvent() {
+        const regButton = document.querySelector('.btn-add-faq');
+        regButton.addEventListener('click', EventLogic.registerEvent);
+    }
 }
 
 export { Init, Dynamic, EventList };

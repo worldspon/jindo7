@@ -1,23 +1,38 @@
 import { Dynamic } from './controller.js';
 
 const sendObject = {
-    id : null
-}
+    question : null,
+	answer : null
+};
 
 class Communication {
     static asyncPostPromise(data) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://192.168.0.24:8080/faq/delete');
+            xhr.open('POST', 'http://192.168.0.24:8080/faq/write');
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.onload = () => resolve(xhr.responseText);
             xhr.onerror = () => reject(xhr.statusText);
             xhr.send(JSON.stringify(data));
-        })
+        });
     }
 }
 
 class Handler {
+
+    // 내용 null check
+    static checkNull() {
+        const title = document.querySelector('.faq-writing-title').value.trim();
+        const content = document.querySelector('.faq-writing-content').value.trim();
+
+        if(title !== '' && content !== '') {
+            Handler.createSendObject(title, content);
+            return true;
+        } else {
+            Dynamic.catchError('내용을 전부 입력해주세요.');
+            return false;
+        }
+    }
 
     static getPromiseResult() {
         const promiseResult = Communication.asyncPostPromise(sendObject);
@@ -31,17 +46,21 @@ class Handler {
             }
         })
     }
+
+    // send object 변경
+    static createSendObject(title, content) {
+        sendObject.question = title;
+        sendObject.answer = content;
+    }
     
-    static confirmDelete() {
-        return confirm('정말로 삭제하시겠습니까?') ? true : false;
+    static confirmRegister() {
+        return confirm('정말로 등록하시겠습니까?') ? true : false;
     }
 }
 
 class EventLogic {
-    static deleteEvent() {
-        if(Handler.confirmDelete()) {
-            const contentId = document.querySelector('.faq-content-title').dataset.id;
-            sendObject.id = contentId;
+    static registerEvent() {
+        if(Handler.checkNull() && Handler.confirmRegister()) {
             Handler.getPromiseResult();
         }
     }

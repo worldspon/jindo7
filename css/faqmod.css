@@ -1,0 +1,126 @@
+main {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1400px 1fr;
+    grid-template-columns: 1fr 1400px 1fr;
+    -ms-grid-rows: auto 20px auto;
+    grid-template-rows: repeat(2, auto);
+    grid-row-gap: 20px;
+    padding: 20px 0px;
+}
+
+.faq-mod-common-box {
+    -ms-grid-column: 2;
+    grid-column: 2;
+    -ms-grid-row: 1;
+    grid-row: 1;
+    padding: 25px 55px;
+}
+
+.faq-mod-content-box {
+    -ms-grid-column: 2;
+    grid-column: 2;
+    -ms-grid-row: 3;
+    grid-row: 2;
+    padding: 45px 50px;
+}
+
+    .faq-mod-writing-title, .faq-mod-writing-content {
+        width: 100%;        
+        padding: 20px 25px;
+        font-size: 1.4rem;
+        box-sizing: border-box;
+        color: #555;
+        border:1px solid #939393;
+        outline: none;
+    }
+
+    .faq-mod-writing-title:focus, .faq-mod-writing-content:focus {
+        border: 1px solid #4d06a7;
+    }
+
+    .faq-mod-writing-title::placeholder{
+        color: #999;
+    }
+
+    .faq-mod-writing-content {
+        resize: none;
+        height: 800px;
+        margin: 20px 0 15px;
+    }
+
+    .faq-mod-writing-btn-box {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;        
+        border-top: 1px solid #e2e2e2;
+        padding-top: 15px;
+    }
+    
+    .btn-writing, .btn-cancel {
+        border: 1px solid #666;
+        border-radius: 3px;
+        padding: 7px 20px;
+        color: #fff;
+        font-size: 1.4rem;
+        background: #a1a1a1;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+     
+    
+
+@media screen and (max-width: 1440px) {
+    main {
+        -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+        padding : 20px;
+    }
+
+    .faq-mod-common-box {
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 1;
+        grid-row: 1;
+    }
+
+    .faq-mod-content-box {
+        -ms-grid-column: 1;
+        grid-column: 1;
+        -ms-grid-row: 3;
+        grid-row: 2;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .faq-mod-common-box {
+        padding: 25px 35px;
+    }
+    
+    .faq-mod-content-box {
+        padding: 25px 30px;
+    }
+
+    .faq-mod-writing-title, .faq-mod-writing-content {
+        padding: 10px 15px;
+    }
+
+    .faq-mod-writing-content {
+        height:550px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .faq-mod-common-box {
+        padding: 25px 30px;
+    }
+    
+    .faq-mod-content-box {
+        padding: 25px 15px;
+    }
+
+    .faq-mod-writing-content {
+        height: 400px;
+        margin: 10px 0;
+    }
+}

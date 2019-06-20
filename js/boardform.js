@@ -20,6 +20,7 @@ writingBtn.addEventListener('click', ()=>{
         'title' : boardTitle.value.trim(),
         'content' : boardContent.value.trim()
     };
+    console.log(postObj);
 
     postObj = JSON.stringify(postObj);
     

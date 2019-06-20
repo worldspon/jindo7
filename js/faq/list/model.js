@@ -33,6 +33,11 @@ class EventLogic {
             EventLogic.searchClickEvent();
         }
     }
+
+    // faq 등록 이벤트
+    static registerEvent() {
+        
+    }
 }
 
 export { EventLogic };

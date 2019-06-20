@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/boardform.css">
+    <link rel="stylesheet" href="./css/faqform.css">
 
     <title>WORLDSPON</title>
     
@@ -33,26 +33,26 @@
         <!-- main-wrap start -->
         <div class='main-wrap'>
             <main>
-                <!-- board common box start -->
-                <div class='board-common-box content-box-layout'>
-                    <h3 class='content-hl'>게시판</h3>
+                <!-- faq common box start -->
+                <div class='faq-common-box content-box-layout'>
+                    <h3 class='content-hl'>FAQ</h3>
                 </div>
-                <!-- board common box end -->
+                <!-- faq common box end -->
 
-                <!-- boardform content box start -->
-                <div class='board-content-box content-box-layout'>
-                    <div class='board-writing-title-box'>
-                        <input class='board-writing-title' type='text' placeholder='제목을 입력해주세요.' maxlength="20">
+                <!-- faqform content box start -->
+                <div class='faq-content-box content-box-layout'>
+                    <div class='faq-writing-title-box'>
+                        <input class='faq-writing-title' type='text' placeholder='제목을 입력해주세요.' maxlength="50">
                     </div>
-                    <div class='board-writing-content-box'>
-                        <textarea class='board-writing-content' placeholder='안녕하세요. 월드스폰입니다. 스폰은 spon입니다. 스폰은 귀중한 여러분의 자산입니다.'></textarea>
+                    <div class='faq-writing-content-box'>
+                        <textarea class='faq-writing-content' placeholder='내용을 입력해주세요.'></textarea>
                     </div>
-                    <div class='board-writing-btn-box'>
+                    <div class='faq-writing-btn-box'>
                         <button class='btn-cancel'>취소</button>
                         <button class='btn-writing'>작성</button>
                     </div>
                 </div>
-                <!-- boardform content box end -->
+                <!-- faqform content box end -->
             </main>
         </div>
         <!-- main-wrap end -->
@@ -60,8 +60,7 @@
 
 
     <script src='./js/polyfill.min.js'></script>
-    <script src='./js/Chart.min.js'></script>
     <script src='./js/common.js'></script>
-    <script src='./js/boardform.js'></script>
+    <script type="module" src='./js/faq/form/faqform.js'></script>
 </body>
 </html>
