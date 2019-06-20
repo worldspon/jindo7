@@ -453,7 +453,6 @@ table {
     }
 
 .sorted-supplier-list label {
-    display: inline-block;
     text-align: center;
     width: 15%;
 }
@@ -470,7 +469,6 @@ table {
 }
 
 .company-identification div{
-    float: left;
     width: 49.5%;
     box-sizing: border-box;
     border: 1px solid #d4d9df;
@@ -483,14 +481,12 @@ table {
         margin-right: 1%;
     }
 
-    .company-identification:after {
-        content: '';
-        display: block;
-        clear: both;
-    }
-
 .company-identification div label {
-    width: 38%;
+    width: 30%;
+}
+
+.company-identification div input {
+    width: 70%;
 }
 
 .btn-supplier-box {
@@ -701,7 +697,6 @@ table {
     }
 
 .sorted-srvr-list label {
-    display: inline-block;
     text-align: center;
     width: 15%;
 }
@@ -718,7 +713,6 @@ table {
 }
 
 .bind-srvr-a div{
-    float: left;
     width: 49.5%;
     box-sizing: border-box;
     border: 1px solid #d4d9df;
@@ -731,14 +725,12 @@ table {
         margin-right: 1%;
     }
 
-    .bind-srvr-a:after {
-        content: '';
-        display: block;
-        clear: both;
-    }
-
 .bind-srvr-a div label {
-    width: 38%;
+    width: 30%;
+}
+
+.bind-srvr-a div input {
+    width: 70%;
 }
 
 .btn-srvr-box {
@@ -926,11 +918,14 @@ table {
     }
 
     .company-identification div, .bind-srvr-a div {
-        float: none;
         width: 100%;
     }
 
     .company-identification div label, .bind-srvr-a div label {
+        width: 100%;
+    }
+
+    .company-identification div input, .bind-srvr-a div input {
         width: 100%;
     }
 
