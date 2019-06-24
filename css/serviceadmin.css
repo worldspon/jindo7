@@ -144,6 +144,11 @@ table {
     background: #4d0ca5;
 }
 
+.point-list-on-hover  {
+    color: #fff !important;
+    background: #4d0ca5 !important;
+}
+
 .point-list-box td {
     padding: 20px 0;
     vertical-align: middle;
@@ -190,7 +195,7 @@ table {
         font-weight: 600;    
     }
 
-    .point-list-box tr:hover .finished-refund-point, .point-list-box tr:hover .canceled-refund-point {
+    .point-list-box tr:hover .finished-refund-point, .point-list-box tr:hover .canceled-refund-point, .point-list-box tr:hover .confirm-date {
         color: #fff;
     }
 
