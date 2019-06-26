@@ -566,12 +566,16 @@ table {
         width: 100px;
     }
 
-    .place-advertisement {
-        width: 200px;
+    .co-name {
+        width: 170px
     }
 
-    .more-writing {
-        width: 250px;
+    .follow-site, .account-info {
+        width: 120px;
+    }
+
+    .btn-adjust-box {
+        width: 200px;
     }
 
 /* common-subject-box th fixed width end */
@@ -591,7 +595,7 @@ table {
 }
 
 .supplier-list-box td {
-    padding: 20px 0;
+    padding: 20px 10px;
     vertical-align: middle;
 }
 
@@ -616,12 +620,12 @@ table {
     cursor: pointer;
 }
 
-.check-supplier-pw {
+.check-supplier-account {
     border-color: #007bff;
     color: #007bff;
 }
 
-    .check-supplier-pw:hover {
+    .check-supplier-account:hover {
         color: white;
         background: #007bff;
     }
