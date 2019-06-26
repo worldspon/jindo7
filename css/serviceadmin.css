@@ -370,6 +370,9 @@ table {
     font-size: 1.5rem;
     outline: none;
 }
+.btn-phone-num {
+    margin-right: 5px;
+}
 
 .btn-phone-num, .btn-signify-name {
     height: 50px;
@@ -393,7 +396,7 @@ table {
     font-size: 1.6rem;
 }
 
-.beebun {
+.user-password {
     color: #007bff;
     font-weight: 600;
     font-size: 1.8rem;

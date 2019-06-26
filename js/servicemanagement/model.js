@@ -13,7 +13,9 @@ const communicationURL = {
     point : 'http://192.168.0.24:8080/management/point',
     pointChange : 'http://192.168.0.24:8080/management/point/change',
     p2p : 'http://192.168.0.24:8080/management/p2p',
-    p2pconflict : 'http://192.168.0.24:8080/management/p2p/conflict'
+    p2pConflict : 'http://192.168.0.24:8080/management/p2p/conflict',
+    p2pResolution : 'http://192.168.0.24:8080/management/p2p/conflict/resolution',
+    findPw : 'http://192.168.0.24:8080/management/find/password'
 }
 
 class Communication {
@@ -46,6 +48,28 @@ class Communication {
             xhr.onload = () => resolve(xhr.responseText);
             xhr.onerror = () => reject(xhr.statusText);
             xhr.send();
+        });
+    }
+
+    static p2pResolvePostPromise(sendObject, url) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.onload = () => resolve(xhr.responseText);
+            xhr.onerror = () => reject(xhr.statusText);
+            xhr.send(JSON.stringify(sendObject));
+        });
+    }
+
+    static findPwPostPromise(sendObject, url) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.onload = () => resolve(xhr.responseText);
+            xhr.onerror = () => reject(xhr.statusText);
+            xhr.send(JSON.stringify(sendObject));
         });
     }
 }
@@ -176,17 +200,119 @@ class EventLogic {
     }
     // POINT EVENT LOGIC
 
+    // P2P EVENT LOGIC
     static p2pButtonClickEvent() {
         const promiseResult = Communication.p2pGetPromise(communicationURL.p2p);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.p2pBox(resultData.p2pList);
-            // EventList.bindPointListCheckBoxClickEvent();
-            // EventList.bindPointListButtonClickEvent();
-            // EventList.bindPointStateChangeEvent()
+            EventList.bindP2PAllButtonClickEvent();
+            EventList.bindP2PDisputeClickEvent();
         }, () => {
             Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
         });
+    }
+
+    static p2pButtonColorChange(buttonList, target) {
+        for(const button of buttonList) {
+            button.classList.remove('alive');
+        }
+        target.classList.add('alive');
+    }
+
+    static p2pAllListButtonClickEvent(e) {
+        EventLogic.p2pButtonColorChange(e.target.parentNode.children, e.target);
+        const promiseResult = Communication.p2pGetPromise(communicationURL.p2p);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.p2pTable(resultData.p2pList);
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static p2pDisputeClickEvent(e) {
+        EventLogic.p2pButtonColorChange(e.target.parentNode.children, e.target);
+        const promiseResult = Communication.p2pGetPromise(communicationURL.p2pConflict);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.p2pTable(resultData.p2pConflictList);
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static p2pDisputeResolveClickEvent(e) {
+        if(confirm('정말로 분쟁을 처리하시겠습니까?')) {
+            const uid = e.target.dataset.uid;
+            const sendObject = {
+                uniqueId : uid
+            };
+    
+            const promiseResult = Communication.p2pResolvePostPromise(sendObject, communicationURL.p2pResolution);
+            promiseResult.then((result) => {
+    
+                const resultData = JSON.parse(result);
+                Dynamic.catchError(resultData.msg);
+    
+                const buttonList = document.querySelector('.state-btn-box').children;
+                for(const button of buttonList) {
+                    if(button.classList.contains('alive')) {
+                        button.dispatchEvent(new Event('click'));
+                    }
+                }
+            }, () => {
+                Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+            });
+        }
+    }
+
+    static adminFindPwButtonClickEvent() {
+        Dynamic.adminFindPwBox();
+        EventList.bindFindPwCategoryClickEvent();
+    }
+
+    static findPwByInput(e) {
+        const inputBox = document.getElementById('busy-hands');
+        const inputValue = inputBox.value.trim();
+        const sendObject = {};
+
+        if( inputValue === '' ) {
+            Dynamic.catchError('아이디 혹은 전화번호를 입력해주세요.');
+        } else if( e.target.dataset.type === 'id' ) {
+            sendObject.id = inputValue;
+            
+            const promiseResult = Communication.findPwPostPromise(sendObject, communicationURL.findPw);
+            promiseResult.then((result) => {
+                const resultData = JSON.parse(result);
+                if( resultData.errorCode === 0 ) {
+                    Dynamic.adminFindPwParagraph(inputValue, resultData.msg);
+                    inputBox.value = '';
+                } else {
+                    Dynamic.catchError(resultData.msg);
+                }
+            }, () => {
+                Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+            });
+        } else if( e.target.dataset.type === 'phone' ) {
+            sendObject.phone = inputValue;
+            
+            const promiseResult = Communication.findPwPostPromise(sendObject, communicationURL.findPw);
+            promiseResult.then((result) => {
+                const resultData = JSON.parse(result);
+                if( resultData.errorCode === 0 ) {
+                    Dynamic.adminFindPwParagraph(inputValue, resultData.msg);
+                    inputBox.value = '';
+                } else {
+                    Dynamic.clearParagraph();
+                    Dynamic.catchError(resultData.msg);
+                }
+            }, () => {
+                Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+            });
+        } else {
+            Dynamic.catchError('알수없는 오류');
+        }
     }
 }
 

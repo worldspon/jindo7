@@ -1,3 +1,5 @@
+import { EventList } from './controller.js';
+
 class View {
     static setPointBox(data, state) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
@@ -208,7 +210,7 @@ class View {
                 `<td>취소중</td>`;
             } else if( el.state !== 0 && el.state !== 1 ) {
                 tableInnerHTML += 
-                `<td><button class="p-danger">분쟁</button></td>`;
+                `<td><button class="p-danger" data-uid="${el.uniqueId}">분쟁</button></td>`;
             }
         }
 
@@ -216,7 +218,53 @@ class View {
         table.innerHTML = tableInnerHTML;
 
         parentDiv.appendChild(table);
+        EventList.bindP2PDisputeResolveClickEvent();
         window.dispatchEvent(new Event('resize'));
+    }
+
+    static setFindPasswordBox() {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+        parentDiv.innerHTML = '';
+
+        const contentBox = document.createElement('div');
+        contentBox.classList.add('find-admin-pw');
+
+        const adminInput = document.createElement('input');
+        adminInput.id = 'busy-hands';
+        adminInput.placeholder = '전화번호 또는 아이디를 입력하세요.';
+        adminInput.maxLength = '15';
+
+        const phButton = document.createElement('button');
+        phButton.classList.add('btn-phone-num');
+        phButton.dataset.type = 'phone';
+        phButton.innerText = '전화번호로 찾기';
+
+        const idButton = document.createElement('button');
+        idButton.classList.add('btn-signify-name');
+        idButton.dataset.type = 'id';
+        idButton.innerText = '아이디로 찾기';
+
+        const paragraph = document.createElement('p');
+        paragraph.classList.add('ur-pw-result');
+
+        contentBox.appendChild(adminInput);
+        contentBox.appendChild(phButton);
+        contentBox.appendChild(idButton);
+        contentBox.appendChild(paragraph);
+
+        parentDiv.appendChild(contentBox);
+    }
+
+    static createFindPwParagraph(keyword, data) {
+        const paragraph = document.querySelector('.ur-pw-result');
+
+        paragraph.innerHTML =
+        `${keyword}님의 비밀번호는 <span class="user-password">${data}</span>입니다.`
+    }
+
+    static clearParagraph() {
+        const paragraph = document.querySelector('.ur-pw-result');
+        paragraph.innerHTML = '';
     }
 
     static viewAlert(msg) {

@@ -6,7 +6,7 @@ class Init {
         EventList.bindCategoryButtonColorEvent();
         EventList.bindPointButtonClickEvent();
         EventList.bindP2PButtonClickEvent();
-        EventList.bindAdminPwButtonClickEvent();
+        EventList.bindAdminFindPwButtonClickEvent();
         EventList.bindAdSupplierButtonClickEvent();
         EventList.bindServerManageButtonClickEvent();
         EventList.bindWindowResizeEvent();
@@ -30,6 +30,22 @@ class Dynamic {
     static p2pBox(data) {
         View.setP2PBox(data);
     }
+
+    static p2pTable(data) {
+        View.createP2PTable(data);
+    }
+
+    static adminFindPwBox() {
+        View.setFindPasswordBox();
+    }
+
+    static adminFindPwParagraph(keyword, data) {
+        View.createFindPwParagraph(keyword, data);
+    }
+
+    static clearParagraph() {
+        View.clearParagraph();
+    }
     
     static catchError(msg) {
         View.viewAlert(msg);
@@ -37,17 +53,18 @@ class Dynamic {
 }
 
 class EventList {
+    // COMMON EVENT
     static bindCategoryButtonColorEvent() {
         const categoryButton = document.querySelectorAll('.sorted-content-box > button');
 
         for(const button of categoryButton) {
             button.addEventListener('click', EventLogic.categoryButtonColorEvent);
         }
-
     }
     static bindWindowResizeEvent() {
         window.addEventListener('resize', EventLogic.windowResizeEvent);
     }
+    // COMMON EVENT
 
     // POINT EVENT
     static bindPointButtonClickEvent() {
@@ -89,14 +106,39 @@ class EventList {
         const p2pButton = document.querySelector('.s-refund');
         p2pButton.addEventListener('click', EventLogic.p2pButtonClickEvent);
     }
-
-    static bindAdminPwButtonClickEvent() {
-        const adminPwButton = document.querySelector('.s-admin-pw');
-        adminPwButton.addEventListener('click', () => {
-            console.log('c');
-        })
+    static bindP2PAllButtonClickEvent() {
+        const allListButton = document.querySelector('.btn-primary');
+        allListButton.addEventListener('click', EventLogic.p2pAllListButtonClickEvent);
+    }
+    static bindP2PDisputeClickEvent() {
+        const disputeButton = document.querySelector('.btn-dispute');
+        disputeButton.addEventListener('click', EventLogic.p2pDisputeClickEvent);
     }
 
+    static bindP2PDisputeResolveClickEvent() {
+        const resolveButton = document.querySelectorAll('.p-danger');
+
+        for(const button of resolveButton) {
+            button.addEventListener('click', EventLogic.p2pDisputeResolveClickEvent)
+        }
+    }
+
+    // ADMIN PASSWORD EVENT
+    static bindAdminFindPwButtonClickEvent() {
+        const adminPwButton = document.querySelector('.s-admin-pw');
+        adminPwButton.addEventListener('click', EventLogic.adminFindPwButtonClickEvent);
+    }
+
+    static bindFindPwCategoryClickEvent() {
+        const phButton = document.querySelector('.btn-phone-num');
+        phButton.addEventListener('click', EventLogic.findPwByInput);
+
+        const idButton = document.querySelector('.btn-signify-name');
+        idButton.addEventListener('click', EventLogic.findPwByInput);
+    }
+    // ADMIN PASSWORD EVENT
+
+    // AD SUPPLIER EVENT
     static bindAdSupplierButtonClickEvent() {
         const adSupplierButton = document.querySelector('.s-supplier');
         adSupplierButton.addEventListener('click', () => {
@@ -104,6 +146,7 @@ class EventList {
         })
     }
 
+    // SERVER MANAGEMENT EVENT
     static bindServerManageButtonClickEvent() {
         const serverManageButton = document.querySelector('.s-server-care');
         serverManageButton.addEventListener('click', () => {
