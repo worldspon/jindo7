@@ -11,7 +11,9 @@ const pointChangeState = {
 
 const communicationURL = {
     point : 'http://192.168.0.24:8080/management/point',
-    pointChange : 'http://192.168.0.24:8080/management/point/change'
+    pointChange : 'http://192.168.0.24:8080/management/point/change',
+    p2p : 'http://192.168.0.24:8080/management/p2p',
+    p2pconflict : 'http://192.168.0.24:8080/management/p2p/conflict'
 }
 
 class Communication {
@@ -36,12 +38,51 @@ class Communication {
             xhr.send(JSON.stringify(sendObject));
         });
     }
+
+    static p2pGetPromise(url) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.onload = () => resolve(xhr.responseText);
+            xhr.onerror = () => reject(xhr.statusText);
+            xhr.send();
+        });
+    }
 }
 
 class Handler {
 }
 
 class EventLogic {
+
+    static categoryButtonColorEvent(e) {
+        const categoryButton = document.querySelectorAll('.sorted-content-box > button');
+        for(const button of categoryButton) {
+            button.classList.remove('on');
+        }
+        e.target.classList.add('on');
+    }
+
+    static windowResizeEvent(e) {
+        const contentBox = document.querySelector('.serviceadmin-content-box');
+        contentBox.style.height = 'auto';
+
+        const headerHeight = document.querySelector('.header-wrap').offsetHeight;
+        const subHeaderHeight = document.querySelector('.serviceadmin-common-box').offsetHeight;
+        const categoryButtonBoxHeight = document.querySelector('.sorted-content-box').offsetHeight;
+        const contentBoxHeight = document.querySelector('.serviceadmin-content-box').offsetHeight;
+        const allContentHeight = headerHeight + subHeaderHeight + categoryButtonBoxHeight + contentBoxHeight + 120;
+        const windowHeight = e.target.innerHeight;
+        const maximumTableHeight = windowHeight - (headerHeight + subHeaderHeight + categoryButtonBoxHeight + 150);
+
+        if( windowHeight < allContentHeight ) {
+            contentBox.style.height = maximumTableHeight+'px';
+        } else {
+            contentBox.style.height = 'auto';
+        }
+    }
+
+    // POINT EVENT LOGIC
     static pointButtonClickEvent(e) {
         pointListState.state = parseInt(e.target.dataset.state);
         const promiseResult = Communication.pointPostPromise(pointListState, communicationURL.point);
@@ -50,7 +91,7 @@ class EventLogic {
             Dynamic.pointBox(resultData.pointList, pointListState.state);
             EventList.bindPointListCheckBoxClickEvent();
             EventList.bindPointListButtonClickEvent();
-            EventList.bindPointStateChangeEvent()
+            EventList.bindPointStateChangeEvent();
         }, () => {
             Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
         });
@@ -132,7 +173,20 @@ class EventLogic {
                 Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
             });
         }
+    }
+    // POINT EVENT LOGIC
 
+    static p2pButtonClickEvent() {
+        const promiseResult = Communication.p2pGetPromise(communicationURL.p2p);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.p2pBox(resultData.p2pList);
+            // EventList.bindPointListCheckBoxClickEvent();
+            // EventList.bindPointListButtonClickEvent();
+            // EventList.bindPointStateChangeEvent()
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
     }
 }
 

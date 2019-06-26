@@ -95,6 +95,128 @@ class View {
         table.innerHTML = tableInnerHTML;
 
         parentDiv.appendChild(table);
+        window.dispatchEvent(new Event('resize'));
+    }
+
+    static setP2PBox(data) {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+        parentDiv.innerHTML = '';
+        const div = document.createElement('div');
+        div.classList.add('state-btn-box');
+        const primaryButton = document.createElement('button');
+        const disputeButton = document.createElement('button');
+
+        primaryButton.classList.add('btn-primary', 'alive');
+        primaryButton.innerText = '전체보기';
+
+        disputeButton.classList.add('btn-dispute');
+        disputeButton.innerText = '분쟁상태';
+
+        div.appendChild(primaryButton);
+        div.appendChild(disputeButton);
+
+        parentDiv.appendChild(div);
+
+        View.createP2PTable(data);
+    }
+
+    static createP2PTable(data) {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+        const previousTable = document.querySelector('.serviceadmin-content-box > table');
+
+        if( previousTable !== null ) {
+            parentDiv.removeChild(previousTable);
+        }
+
+        const table = document.createElement('table');
+        let tableInnerHTML = '';
+        tableInnerHTML = 
+        `<thead class="common-subject-box">
+            <tr>
+                <th class="s-num">순서</th>
+                <th>거래고유번호</th>
+                <th class="s-apply">신청일시</th>
+                <th>보내는 사람</th>
+                <th class="s-deal">보내는 품목 / 수량</th>
+                <th>받는 사람</th>
+                <th class="s-deal">받는 품목 / 수량</th>
+                <th class="s-step">단계</th>
+                <th>승인한 사람</th>
+                <th>상태</th>
+            </tr>
+        </thead>
+        <tbody class="peer-list-box">`;
+
+        for(const el of data) {
+            tableInnerHTML +=
+            `<tr>
+                <td>${el.no}</td>
+                <td>#${el.uniqueId}</td>
+                <td>${el.viewDateTime}</td>
+                <td>${el.toTrademark}</td>`;
+            if( el.type === 0 ) {
+                tableInnerHTML +=
+                `<td><button class="p-point p-bind">포인트</button> / ${el.point}원</td>
+                <td>${el.fromTrademark}</td>`;
+
+                if( el.coin > 0 ) {
+                    tableInnerHTML +=
+                    `<td><button class="p-spon p-bind">스폰</button> / ${el.coin}개</td>`;
+                } else if ( el.lockCoin > 0 ) {
+                    tableInnerHTML +=
+                    `<td><button class="p-lock-spon p-bind">락스폰</button> / ${el.lockCoin}개</td>`;
+                } else {
+                    tableInnerHTML +=
+                    `<td>-</td>`;
+                }
+            } else {
+                if( el.coin > 0 ) {
+                    tableInnerHTML +=
+                    `<td><button class="p-spon p-bind">스폰</button> / ${el.coin}개</td>`;
+                } else if ( el.lockCoin > 0 ) {
+                    tableInnerHTML +=
+                    `<td><button class="p-lock-spon p-bind">락스폰</button> / ${el.lockCoin}개</td>`;
+                } else {
+                    tableInnerHTML +=
+                    `<td>-</td>`;
+                }
+
+                tableInnerHTML += 
+                `<td>${el.fromTrademark}</td>
+                <td><button class="p-point p-bind">포인트</button> / ${el.point}원</td>`;
+            }
+
+            tableInnerHTML += 
+            `<td>${el.state === 0 ? el.state + 1 : 2}</td>`;
+
+            if( el.toYesNo === 1 ) {
+                tableInnerHTML += 
+                `<td>${el.toTrademark}</td>`;
+            } else if( el.fromYesNo === 1 ) {
+                tableInnerHTML += 
+                `<td>${el.fromTrademark}</td>`;
+            } else {
+                tableInnerHTML += 
+                `<td>-</td>`;
+            }
+
+            if( (el.state === 0 || el.state === 1) && el.toYesNo !== 2 && el.fromYesNo !== 2 ){
+                tableInnerHTML += 
+                `<td>진행중</td>`;
+            } else if( el.state === 0 && (el.toYesNo === 2 || el.fromYesNo === 2) ) {
+                tableInnerHTML += 
+                `<td>취소중</td>`;
+            } else if( el.state !== 0 && el.state !== 1 ) {
+                tableInnerHTML += 
+                `<td><button class="p-danger">분쟁</button></td>`;
+            }
+        }
+
+        tableInnerHTML += `</tbody></table>`;
+        table.innerHTML = tableInnerHTML;
+
+        parentDiv.appendChild(table);
+        window.dispatchEvent(new Event('resize'));
     }
 
     static viewAlert(msg) {

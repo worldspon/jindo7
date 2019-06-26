@@ -3,11 +3,13 @@ import { View } from './view.js';
 
 class Init {
     static bindEvent() {
+        EventList.bindCategoryButtonColorEvent();
         EventList.bindPointButtonClickEvent();
         EventList.bindP2PButtonClickEvent();
         EventList.bindAdminPwButtonClickEvent();
         EventList.bindAdSupplierButtonClickEvent();
         EventList.bindServerManageButtonClickEvent();
+        EventList.bindWindowResizeEvent();
     }
 
     static firstCommunication() {
@@ -24,6 +26,10 @@ class Dynamic {
     static pointTable(data, state) {
         View.createPointTable(data, state);
     }
+
+    static p2pBox(data) {
+        View.setP2PBox(data);
+    }
     
     static catchError(msg) {
         View.viewAlert(msg);
@@ -31,6 +37,19 @@ class Dynamic {
 }
 
 class EventList {
+    static bindCategoryButtonColorEvent() {
+        const categoryButton = document.querySelectorAll('.sorted-content-box > button');
+
+        for(const button of categoryButton) {
+            button.addEventListener('click', EventLogic.categoryButtonColorEvent);
+        }
+
+    }
+    static bindWindowResizeEvent() {
+        window.addEventListener('resize', EventLogic.windowResizeEvent);
+    }
+
+    // POINT EVENT
     static bindPointButtonClickEvent() {
         const pointButton = document.querySelector('.s-peer');
         pointButton.addEventListener('click', EventLogic.pointButtonClickEvent);
@@ -63,12 +82,12 @@ class EventList {
             button.addEventListener('click', EventLogic.pointRejectClickEvent);
         }
     }
+    // POINT EVENT
 
+    // P2P EVENT
     static bindP2PButtonClickEvent() {
         const p2pButton = document.querySelector('.s-refund');
-        p2pButton.addEventListener('click', (e) => {
-            console.log(e.target);
-        })
+        p2pButton.addEventListener('click', EventLogic.p2pButtonClickEvent);
     }
 
     static bindAdminPwButtonClickEvent() {

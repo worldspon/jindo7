@@ -48,6 +48,7 @@ main {
     -ms-grid-row: 5;
     grid-row: 3;
     padding: 25px 10px;
+    overflow-y: scroll;
 }
 
 table {
@@ -224,6 +225,7 @@ table {
 .btn-primary {
     color: #007bff;
     border-color: #007bff;
+    margin-right: 5px;
 }
 .state-btn-box button:nth-child(1).alive {
     color: #fff;
@@ -306,15 +308,26 @@ table {
         margin-right: 5px;
     }
 
-    .p-spon {
+    .p-lock-spon {
         color: #fff;
         border-color: #6c757d;
         background: #6c757d;
     }
 
-    .p-spon:hover {
-        border-color: #545b62;
+    .p-lock-spon:hover {
+        border-color: #5a6268;
         background: #5a6268;
+    }
+
+    .p-spon {
+        color: #fff;
+        border-color: #5c3a93;
+        background: #5c3a93;
+    }
+
+    .p-spon:hover {
+        border-color: #4d06a7;
+        background: #4d06a7;
     }
 
     .p-point {
@@ -876,7 +889,11 @@ table {
 
     main {
         overflow-x: scroll;
-    }
+    } 
+
+    /* .serviceadmin-content-box {
+        overflow-y: auto;
+    } */
 
 }
 
