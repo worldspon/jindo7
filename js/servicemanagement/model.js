@@ -15,11 +15,17 @@ const communicationURL = {
     p2p : 'http://192.168.0.24:8080/management/p2p',
     p2pConflict : 'http://192.168.0.24:8080/management/p2p/conflict',
     p2pResolution : 'http://192.168.0.24:8080/management/p2p/conflict/resolution',
-    findPw : 'http://192.168.0.24:8080/management/find/password'
+    findPw : 'http://192.168.0.24:8080/management/find/password',
+    adList : 'http://192.168.0.24:8080/management/ad',
+    adFindAccount : 'http://192.168.0.24:8080/management/ad/find/account',
+    adListAdd : 'http://192.168.0.24:8080/management/ad/add',
+    adListDelete : 'http://192.168.0.24:8080/management/ad/delete',
+    adModifyRead : 'http://192.168.0.24:8080/management/ad/read',
+    adModify : 'http://192.168.0.24:8080/management/ad/modify'
 }
 
 class Communication {
-    static pointPostPromise(sendObject, url) {
+    static postPromise(sendObject, url) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open('POST', url);
@@ -30,46 +36,13 @@ class Communication {
         });
     }
 
-    static pointChangePostPromise(sendObject, url) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', url);
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.onload = () => resolve(xhr.responseText);
-            xhr.onerror = () => reject(xhr.statusText);
-            xhr.send(JSON.stringify(sendObject));
-        });
-    }
-
-    static p2pGetPromise(url) {
+    static getPromise(url) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', url);
             xhr.onload = () => resolve(xhr.responseText);
             xhr.onerror = () => reject(xhr.statusText);
             xhr.send();
-        });
-    }
-
-    static p2pResolvePostPromise(sendObject, url) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', url);
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.onload = () => resolve(xhr.responseText);
-            xhr.onerror = () => reject(xhr.statusText);
-            xhr.send(JSON.stringify(sendObject));
-        });
-    }
-
-    static findPwPostPromise(sendObject, url) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', url);
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.onload = () => resolve(xhr.responseText);
-            xhr.onerror = () => reject(xhr.statusText);
-            xhr.send(JSON.stringify(sendObject));
         });
     }
 }
@@ -109,7 +82,7 @@ class EventLogic {
     // POINT EVENT LOGIC
     static pointButtonClickEvent(e) {
         pointListState.state = parseInt(e.target.dataset.state);
-        const promiseResult = Communication.pointPostPromise(pointListState, communicationURL.point);
+        const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.pointBox(resultData.pointList, pointListState.state);
@@ -129,7 +102,7 @@ class EventLogic {
         e.target.classList.add('active');
 
         pointListState.state = parseInt(e.target.dataset.state);
-        const promiseResult = Communication.pointPostPromise(pointListState, communicationURL.point);
+        const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.pointTable(resultData.pointList, pointListState.state);
@@ -157,7 +130,7 @@ class EventLogic {
             pointChangeState.uniqueId = uniqueId;
             pointChangeState.state = 1;
 
-            const promiseResult = Communication.pointChangePostPromise(pointChangeState, communicationURL.pointChange);
+            const promiseResult = Communication.postPromise(pointChangeState, communicationURL.pointChange);
             promiseResult.then((result) => {
                 const resultData = JSON.parse(result);
                 if( resultData.errorCode === 4 ) {
@@ -184,7 +157,7 @@ class EventLogic {
             pointChangeState.uniqueId = uniqueId;
             pointChangeState.state = 2;
 
-            const promiseResult = Communication.pointChangePostPromise(pointChangeState, communicationURL.pointChange);
+            const promiseResult = Communication.postPromise(pointChangeState, communicationURL.pointChange);
             promiseResult.then((result) => {
                 const resultData = JSON.parse(result);
                 if( resultData.errorCode === 5 ) {
@@ -202,7 +175,7 @@ class EventLogic {
 
     // P2P EVENT LOGIC
     static p2pButtonClickEvent() {
-        const promiseResult = Communication.p2pGetPromise(communicationURL.p2p);
+        const promiseResult = Communication.getPromise(communicationURL.p2p);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.p2pBox(resultData.p2pList);
@@ -222,7 +195,7 @@ class EventLogic {
 
     static p2pAllListButtonClickEvent(e) {
         EventLogic.p2pButtonColorChange(e.target.parentNode.children, e.target);
-        const promiseResult = Communication.p2pGetPromise(communicationURL.p2p);
+        const promiseResult = Communication.getPromise(communicationURL.p2p);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.p2pTable(resultData.p2pList);
@@ -233,7 +206,7 @@ class EventLogic {
 
     static p2pDisputeClickEvent(e) {
         EventLogic.p2pButtonColorChange(e.target.parentNode.children, e.target);
-        const promiseResult = Communication.p2pGetPromise(communicationURL.p2pConflict);
+        const promiseResult = Communication.getPromise(communicationURL.p2pConflict);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.p2pTable(resultData.p2pConflictList);
@@ -249,7 +222,7 @@ class EventLogic {
                 uniqueId : uid
             };
     
-            const promiseResult = Communication.p2pResolvePostPromise(sendObject, communicationURL.p2pResolution);
+            const promiseResult = Communication.postPromise(sendObject, communicationURL.p2pResolution);
             promiseResult.then((result) => {
     
                 const resultData = JSON.parse(result);
@@ -273,17 +246,20 @@ class EventLogic {
     }
 
     static findPwByInput(e) {
+        Dynamic.showLoadingIcon();
         const inputBox = document.getElementById('busy-hands');
         const inputValue = inputBox.value.trim();
         const sendObject = {};
 
         if( inputValue === '' ) {
+            Dynamic.hideLoadingIcon();
             Dynamic.catchError('아이디 혹은 전화번호를 입력해주세요.');
         } else if( e.target.dataset.type === 'id' ) {
             sendObject.id = inputValue;
             
-            const promiseResult = Communication.findPwPostPromise(sendObject, communicationURL.findPw);
+            const promiseResult = Communication.postPromise(sendObject, communicationURL.findPw);
             promiseResult.then((result) => {
+                Dynamic.hideLoadingIcon();
                 const resultData = JSON.parse(result);
                 if( resultData.errorCode === 0 ) {
                     Dynamic.adminFindPwParagraph(inputValue, resultData.msg);
@@ -292,28 +268,159 @@ class EventLogic {
                     Dynamic.catchError(resultData.msg);
                 }
             }, () => {
+                Dynamic.hideLoadingIcon();
                 Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
             });
         } else if( e.target.dataset.type === 'phone' ) {
             sendObject.phone = inputValue;
             
-            const promiseResult = Communication.findPwPostPromise(sendObject, communicationURL.findPw);
+            const promiseResult = Communication.postPromise(sendObject, communicationURL.findPw);
             promiseResult.then((result) => {
+                Dynamic.hideLoadingIcon();
                 const resultData = JSON.parse(result);
                 if( resultData.errorCode === 0 ) {
                     Dynamic.adminFindPwParagraph(inputValue, resultData.msg);
                     inputBox.value = '';
                 } else {
-                    Dynamic.clearParagraph();
                     Dynamic.catchError(resultData.msg);
                 }
             }, () => {
+                Dynamic.hideLoadingIcon();
                 Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
             });
         } else {
+            Dynamic.hideLoadingIcon();
             Dynamic.catchError('알수없는 오류');
         }
     }
+    // P2P EVENT LOGIC
+
+    // AD SUPPLIER EVENT
+    static adSupplierButtonClickEvent() {
+        const promiseResult = Communication.getPromise(communicationURL.adList);
+
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.adListBox(resultData.adList);
+            EventList.bindAdSupplierAddClickEvent();
+            EventList.bindAdAccountFind();
+            EventList.bindAdListModify();
+            EventList.bindAdListDelete();
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static adSupplierAddClickEvent() {
+        Dynamic.adAddModal();
+        // MODAL REGISTER EVENT
+        EventList.bindAdListAdd();
+        // MODAL DESTROY EVENT
+        EventList.bindDestroyModal();
+        // MODAL RESET EVENT
+        EventList.bindResetModal();
+    }
+
+    static adAccountFind(e) {
+        e.target.innerText = '전송중';
+        const contentId = e.target.dataset.id;
+        const sendObject = {
+            no : contentId
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.adFindAccount);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                e.target.innerText = '계정확인';
+                Dynamic.catchError(resultData.msg);
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static adListModify(e) {
+        const sendObject = {
+            no : e.target.dataset.id
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.adModifyRead);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            console.log(resultData.ad);
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static adListDelete(e) {
+        if(!confirm('정말로 삭제하시겠습니까?')) {
+            return false;
+        }
+
+        const sendObject = {
+            no : e.target.dataset.id
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.adListDelete);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.adSupplierButtonClickEvent();
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    // MODAL에서 등록버튼 클릭시 이벤트
+    static adListAdd() {
+        const name = document.getElementById('company-name');
+        const url = document.getElementById('company-site-info');
+        const id = document.getElementById('one-identification');
+        const pw = document.getElementById('one-pass');
+        const location = document.getElementById('company-location');
+        const companyNote = document.getElementById('some-more-blahblah');
+
+        if( name.value === '' || url.value === '' || id.value === '' || pw.value === ''  || location.value === '')
+        {
+            Dynamic.catchError('필수 정보가 누락되었습니다.');
+            return false;
+        }
+
+        const sendObject = {
+            companyName : name.value,
+            siteAddress : url.value,
+            loginId : id.value,
+            loginPw : pw.value,
+            partName : location.value,
+            note : companyNote.value
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.adListAdd);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.adSupplierButtonClickEvent();
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+
+    }
+    // AD SUPPLIER EVENT
+
+    // SERVER MANAGEMENT EVENT
+    // SERVER MANAGEMENT EVENT
 }
 
 export { EventLogic };

@@ -13,7 +13,10 @@ class Init {
     }
 
     static firstCommunication() {
-        const pointButton = document.querySelector('.s-peer');
+        // const pointButton = document.querySelector('.s-peer');
+        // pointButton.dispatchEvent(new Event('click'));
+
+        const pointButton = document.querySelector('.s-supplier');
         pointButton.dispatchEvent(new Event('click'));
     }
 }
@@ -45,6 +48,38 @@ class Dynamic {
 
     static clearParagraph() {
         View.clearParagraph();
+    }
+
+    static showLoadingIcon() {
+        View.showLoadingIcon();
+    }
+
+    static hideLoadingIcon() {
+        View.hideLoadingIcon();
+    }
+
+    static adListBox(data) {
+        View.setAdSupplierBox(data);
+    }
+
+    static adListTable(data) {
+        View.createAdSupplierTable(data);
+    }
+
+    static adAddModal() {
+        View.createAdAddModal();
+    }
+
+    static adModifyModal(data) {
+        View.createAdModifyModal(data);
+    }
+
+    static resetModal() {
+        View.resetModal();
+    }
+
+    static destroyModal() {
+        View.destroyModal()
     }
     
     static catchError(msg) {
@@ -141,10 +176,58 @@ class EventList {
     // AD SUPPLIER EVENT
     static bindAdSupplierButtonClickEvent() {
         const adSupplierButton = document.querySelector('.s-supplier');
-        adSupplierButton.addEventListener('click', () => {
-            console.log('d');
-        })
+        adSupplierButton.addEventListener('click', EventLogic.adSupplierButtonClickEvent);
     }
+
+    static bindAdSupplierAddClickEvent() {
+        const adAddbutton = document.querySelector('.btn-add-supplier');
+        adAddbutton.addEventListener('click', EventLogic.adSupplierAddClickEvent);
+    }
+
+    static bindAdAccountFind() {
+        const findButton = document.querySelectorAll('.check-supplier-account');
+
+        for(const button of findButton) {
+            button.addEventListener('click', EventLogic.adAccountFind);
+        }
+    }
+
+    static bindAdListModify() {
+        const adModifyButton = document.querySelectorAll('.adjust-supplier');
+
+        for(const button of adModifyButton) {
+            button.addEventListener('click', EventLogic.adListModify);
+        }
+    }
+
+    // 삭제 이벤트
+    static bindAdListDelete() {
+        const adDeleteButton = document.querySelectorAll('.del-supplier');
+
+        for(const button of adDeleteButton) {
+            button.addEventListener('click', EventLogic.adListDelete);
+        }
+    }
+
+    // MODAL 등록 이벤트
+    static bindAdListAdd() {
+        const adRegButton = document.querySelector('.registration-supplier');
+        adRegButton.addEventListener('click', EventLogic.adListAdd);
+    }
+
+    static bindResetModal() {
+        const modalResetButton = document.querySelector('.reset-supplier');
+
+        modalResetButton.addEventListener('click', Dynamic.resetModal);
+    }
+
+    static bindDestroyModal() {
+        const modalCancel = document.querySelector('.close-supplier');
+
+        modalCancel.addEventListener('click', Dynamic.destroyModal);
+    }
+
+    // AD SUPPLIER EVENT
 
     // SERVER MANAGEMENT EVENT
     static bindServerManageButtonClickEvent() {
