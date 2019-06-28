@@ -16,12 +16,14 @@ class Init {
         // const pointButton = document.querySelector('.s-peer');
         // pointButton.dispatchEvent(new Event('click'));
 
-        const pointButton = document.querySelector('.s-supplier');
-        pointButton.dispatchEvent(new Event('click'));
+        const serverManageButton = document.querySelector('.s-server-care');
+        serverManageButton.dispatchEvent(new Event('click'));
+
     }
 }
 
 class Dynamic {
+    // POINT
     static pointBox(data, state) {
         View.setPointBox(data, state);
     }
@@ -29,7 +31,9 @@ class Dynamic {
     static pointTable(data, state) {
         View.createPointTable(data, state);
     }
+    // POINT
 
+    // P2P
     static p2pBox(data) {
         View.setP2PBox(data);
     }
@@ -37,7 +41,9 @@ class Dynamic {
     static p2pTable(data) {
         View.createP2PTable(data);
     }
+    // P2P
 
+    // PASSWORD FIND
     static adminFindPwBox() {
         View.setFindPasswordBox();
     }
@@ -57,7 +63,9 @@ class Dynamic {
     static hideLoadingIcon() {
         View.hideLoadingIcon();
     }
+    // PASSWORD FIND
 
+    // AD LIST
     static adListBox(data) {
         View.setAdSupplierBox(data);
     }
@@ -81,7 +89,18 @@ class Dynamic {
     static destroyModal() {
         View.destroyModal()
     }
-    
+    // AD LIST
+
+    // SERVER
+    static serverListBox(data) {
+        View.setServerListBox(data);
+    }
+
+    static serverListTable(data) {
+        View.createServerListTable(data);
+    }
+    // SERVER
+
     static catchError(msg) {
         View.viewAlert(msg);
     }
@@ -215,6 +234,12 @@ class EventList {
         adRegButton.addEventListener('click', EventLogic.adListAdd);
     }
 
+    // MODAL 수정 등록 이벤트
+    static bindAdModifyReg() {
+        const adRegButton = document.querySelector('.registration-supplier');
+        adRegButton.addEventListener('click', EventLogic.adModifyReg);
+    }
+
     static bindResetModal() {
         const modalResetButton = document.querySelector('.reset-supplier');
 
@@ -226,15 +251,12 @@ class EventList {
 
         modalCancel.addEventListener('click', Dynamic.destroyModal);
     }
-
     // AD SUPPLIER EVENT
 
     // SERVER MANAGEMENT EVENT
     static bindServerManageButtonClickEvent() {
         const serverManageButton = document.querySelector('.s-server-care');
-        serverManageButton.addEventListener('click', () => {
-            console.log('e');
-        })
+        serverManageButton.addEventListener('click', EventLogic.serverManageButtonClickEvent);
     }
 }
 

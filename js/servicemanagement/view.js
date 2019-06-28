@@ -408,6 +408,221 @@ class View {
 
     }
 
+    static createAdModifyModal(data) {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+
+        const modal = document.createElement('div');
+        modal.classList.add('supplier-big-bg');
+        modal.innerHTML = 
+        `<div class="write-supplier-info">
+            <p class="add-new-supplier">광고 공급자 수정</p>
+            <div class="sorted-supplier-list">
+                <div>
+                    <label for="company-name">회사명</label>
+                    <input type="text" id="company-name" value="${data.companyName}">
+                </div>
+                <div>
+                    <label for="company-site-info">URL</label>
+                    <input type="text" id="company-site-info" value="${data.siteAddress}">
+                </div>
+                <div class="company-identification">
+                    <div>
+                        <label for="one-identification">아이디</label>
+                        <input type="text" id="one-identification" value="${data.loginId}">
+                    </div>
+                    <div>
+                        <label for="one-pass">비밀번호</label>
+                        <input type="password" id="one-pass">
+                    </div>
+                </div>
+                <div>
+                    <label for="company-location">위치</label>
+                    <input type="text" id="company-location" value="${data.partName}">
+                </div>
+                <div>
+                    <label for="some-more-blahblah">비고</label>
+                    <input type="text" id="some-more-blahblah" value="${data.note}">
+                </div>
+            </div>
+            <div class="btn-supplier-box">
+                <button class="registration-supplier" data-no="${data.no}">등록</button>
+                <button class="reset-supplier">리셋</button>
+                <button class="close-supplier">취소</button>
+            </div>
+        </div>`;
+
+        parentDiv.appendChild(modal);
+
+        document.getElementById('company-name').focus();
+
+    }
+    // AD SUPPLIER EVENT
+
+    // SERVER EVENT
+    static setServerListBox(data) {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+        parentDiv.innerHTML = '';
+
+        const div = document.createElement('div');
+        div.classList.add('plus-more-srvr');
+        const button = document.createElement('button');
+        button.classList.add('btn-add-srvr');
+        button.innerText = '추가';
+
+        div.appendChild(button);
+
+        parentDiv.appendChild(div);
+
+        View.createServerListTable(data);
+    }
+
+    static createServerListTable(data) {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+
+        const previousTable = document.querySelector('.serviceadmin-content-box > table');
+
+        if( previousTable !== null ) {
+            parentDiv.removeChild(previousTable);
+        }
+
+        const table = document.createElement('table');
+        table.classList.add('admin-advertisement-supplier');
+        let tableInnerHTML =
+        `<thead class="common-subject-box">
+            <tr>
+                <th class="num-count">No</th>
+                <th class="place-computer">아이피</th>
+                <th>포트</th>
+                <th>위치</th>
+                <th>아이디</th>
+                <th class="more-words-needed">설명</th>
+                <th>결제일</th>
+                <th class="choose-what-want"></th>
+            </tr>
+        </thead>
+        <tbody class="srvr-list-box">`;
+
+        for(const el of data) {
+            tableInnerHTML +=
+            `<tr>
+                <td>${el.no}</td>
+                <td>${el.ip}</td>
+                <td>${el.port}</td>
+                <td>${el.location}</td>
+                <td>${el.loginId}</td>
+                <td>${el.note}</td>
+                <td>${el.payment}</td>
+                <td>
+                    <button class="adjust-srvr">수정</button>
+                    <button class="del-srvr">삭제</button>
+                </td>
+            </tr>`;
+        }
+
+        tableInnerHTML += `</tbody></table>`;
+        table.innerHTML = tableInnerHTML;
+
+        parentDiv.appendChild(table);
+    }
+
+    static createAdAddModal() {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+
+        const modal = document.createElement('div');
+        modal.classList.add('supplier-big-bg');
+        modal.innerHTML = 
+        `<div class="write-supplier-info">
+            <p class="add-new-supplier">광고 공급자 추가</p>
+            <div class="sorted-supplier-list">
+                <div>
+                    <label for="company-name">회사명</label>
+                    <input type="text" id="company-name">
+                </div>
+                <div>
+                    <label for="company-site-info">URL</label>
+                    <input type="text" id="company-site-info">
+                </div>
+                <div class="company-identification">
+                    <div>
+                        <label for="one-identification">아이디</label>
+                        <input type="text" id="one-identification">
+                    </div>
+                    <div>
+                        <label for="one-pass">비밀번호</label>
+                        <input type="password" id="one-pass">
+                    </div>
+                </div>
+                <div>
+                    <label for="company-location">위치</label>
+                    <input type="text" id="company-location">
+                </div>
+                <div>
+                    <label for="some-more-blahblah">비고</label>
+                    <input type="text" id="some-more-blahblah">
+                </div>
+            </div>
+            <div class="btn-supplier-box">
+                <button class="registration-supplier">등록</button>
+                <button class="reset-supplier">리셋</button>
+                <button class="close-supplier">취소</button>
+            </div>
+        </div>`;
+
+        parentDiv.appendChild(modal);
+
+        document.getElementById('company-name').focus();
+
+    }
+
+    static createAdModifyModal(data) {
+        const parentDiv = document.querySelector('.serviceadmin-content-box');
+
+        const modal = document.createElement('div');
+        modal.classList.add('supplier-big-bg');
+        modal.innerHTML = 
+        `<div class="write-supplier-info">
+            <p class="add-new-supplier">광고 공급자 수정</p>
+            <div class="sorted-supplier-list">
+                <div>
+                    <label for="company-name">회사명</label>
+                    <input type="text" id="company-name" value="${data.companyName}">
+                </div>
+                <div>
+                    <label for="company-site-info">URL</label>
+                    <input type="text" id="company-site-info" value="${data.siteAddress}">
+                </div>
+                <div class="company-identification">
+                    <div>
+                        <label for="one-identification">아이디</label>
+                        <input type="text" id="one-identification" value="${data.loginId}">
+                    </div>
+                    <div>
+                        <label for="one-pass">비밀번호</label>
+                        <input type="password" id="one-pass">
+                    </div>
+                </div>
+                <div>
+                    <label for="company-location">위치</label>
+                    <input type="text" id="company-location" value="${data.partName}">
+                </div>
+                <div>
+                    <label for="some-more-blahblah">비고</label>
+                    <input type="text" id="some-more-blahblah" value="${data.note}">
+                </div>
+            </div>
+            <div class="btn-supplier-box">
+                <button class="registration-supplier" data-no="${data.no}">등록</button>
+                <button class="reset-supplier">리셋</button>
+                <button class="close-supplier">취소</button>
+            </div>
+        </div>`;
+
+        parentDiv.appendChild(modal);
+
+        document.getElementById('company-name').focus();
+
+    }
+
     static resetModal() {
         const companyName = document.getElementById('company-name');
         const companyUrl = document.getElementById('company-site-info');

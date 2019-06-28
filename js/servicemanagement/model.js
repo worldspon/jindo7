@@ -21,7 +21,8 @@ const communicationURL = {
     adListAdd : 'http://192.168.0.24:8080/management/ad/add',
     adListDelete : 'http://192.168.0.24:8080/management/ad/delete',
     adModifyRead : 'http://192.168.0.24:8080/management/ad/read',
-    adModify : 'http://192.168.0.24:8080/management/ad/modify'
+    adModify : 'http://192.168.0.24:8080/management/ad/modify',
+    server : 'http://192.168.0.24:8080/management/server'
 }
 
 class Communication {
@@ -350,7 +351,13 @@ class EventLogic {
         const promiseResult = Communication.postPromise(sendObject, communicationURL.adModifyRead);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
-            console.log(resultData.ad);
+            Dynamic.adModifyModal(resultData.ad);
+            // MODAL REGISTER EVENT
+            EventList.bindAdModifyReg();
+            // MODAL DESTROY EVENT
+            EventList.bindDestroyModal();
+            // MODAL RESET EVENT
+            EventList.bindResetModal();
         }, () => {
             Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
         });
@@ -417,9 +424,62 @@ class EventLogic {
         });
 
     }
+
+    static adModifyReg(e) {
+        const contentId = e.target.dataset.no;
+        const name = document.getElementById('company-name');
+        const url = document.getElementById('company-site-info');
+        const id = document.getElementById('one-identification');
+        const pw = document.getElementById('one-pass');
+        const location = document.getElementById('company-location');
+        const companyNote = document.getElementById('some-more-blahblah');
+
+        if( name.value === '' || url.value === '' || id.value === '' || pw.value === ''  || location.value === '')
+        {
+            Dynamic.catchError('필수 정보가 누락되었습니다.');
+            return false;
+        }
+
+        const sendObject = {
+            no : contentId,
+            companyName : name.value,
+            siteAddress : url.value,
+            loginId : id.value,
+            loginPw : pw.value,
+            partName : location.value,
+            note : companyNote.value
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.adModify);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.adSupplierButtonClickEvent();
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        }); 
+    }
     // AD SUPPLIER EVENT
 
     // SERVER MANAGEMENT EVENT
+    static serverManageButtonClickEvent() {
+        const promiseResult = Communication.getPromise(communicationURL.server);
+
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.serverListBox(resultData.serverList);
+            // EventList.bindAdSupplierAddClickEvent();
+            // EventList.bindAdAccountFind();
+            // EventList.bindAdListModify();
+            // EventList.bindAdListDelete();
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
     // SERVER MANAGEMENT EVENT
 }
 
