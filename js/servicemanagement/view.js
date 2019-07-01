@@ -2,6 +2,7 @@ import { EventList } from './controller.js';
 
 class View {
     // POINT EVENT
+    // POINT BOX CREATE
     static setPointBox(data, state) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         parentDiv.innerHTML = '';
@@ -32,6 +33,7 @@ class View {
         View.createPointTable(data, state);
     }
 
+    // POINT TABLE AND CONTENT CREATE
     static createPointTable(data, state) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         const previousTable = document.querySelector('.serviceadmin-content-box > table');
@@ -100,8 +102,10 @@ class View {
         parentDiv.appendChild(table);
         window.dispatchEvent(new Event('resize'));
     }
+    // POINT EVENT
 
     // P2P EVENT
+    // P2P BOX CREATE
     static setP2PBox(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         parentDiv.innerHTML = '';
@@ -124,6 +128,7 @@ class View {
         View.createP2PTable(data);
     }
 
+    // P2P TABLE AND CONTENT CREATE
     static createP2PTable(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         const previousTable = document.querySelector('.serviceadmin-content-box > table');
@@ -223,8 +228,10 @@ class View {
         EventList.bindP2PDisputeResolveClickEvent();
         window.dispatchEvent(new Event('resize'));
     }
+    // P2P EVENT
 
     // FIND PASSWORD EVENT
+    // FIND PASSWORD BOX CREATE
     static setFindPasswordBox() {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         parentDiv.innerHTML = '';
@@ -260,6 +267,7 @@ class View {
         window.dispatchEvent(new Event('resize'));
     }
 
+    // FIND PASSWORD CONTENT CREATE
     static createFindPwParagraph(keyword, data) {
         const paragraph = document.querySelector('.ur-pw-result');
 
@@ -287,12 +295,15 @@ class View {
         }
     }
 
+    // CLEAR CONTENT
     static clearParagraph() {
         const paragraph = document.querySelector('.ur-pw-result');
         paragraph.innerHTML = '';
     }
+    // FIND PASSWORD EVENT
 
     // AD SUPPLIER EVENT
+    // ADD SUPPLIER BOX CREATE
     static setAdSupplierBox(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         parentDiv.innerHTML = '';
@@ -310,6 +321,7 @@ class View {
         View.createAdSupplierTable(data);
     }
 
+    // AD SUPPLIER TABLE AND CONTENT CREATE
     static createAdSupplierTable(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
@@ -363,6 +375,7 @@ class View {
         window.dispatchEvent(new Event('resize'));
     }
 
+    // AD ADD MODAL SHOW
     static createAdAddModal() {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
@@ -412,6 +425,7 @@ class View {
 
     }
 
+    // AD MODIFY MODAL SHOW
     static createAdModifyModal(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
@@ -458,11 +472,11 @@ class View {
         parentDiv.appendChild(modal);
 
         document.getElementById('company-name').focus();
-
     }
     // AD SUPPLIER EVENT
 
     // SERVER EVENT
+    // SERVER LIST BOX CREATE
     static setServerListBox(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         parentDiv.innerHTML = '';
@@ -480,6 +494,7 @@ class View {
         View.createServerListTable(data);
     }
 
+    // SERVER LIST TABLE AND CONTENT CREATE
     static createServerListTable(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
@@ -531,6 +546,7 @@ class View {
         window.dispatchEvent(new Event('resize'));
     }
 
+    // SERVER LIST ADD MODAL SHOW
     static createServerAddModal() {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
@@ -582,6 +598,7 @@ class View {
 
     }
 
+    // SERVER LIST MODIFY MODAL SHOW
     static createServerModifyModal(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
@@ -589,7 +606,7 @@ class View {
         modal.classList.add('supplier-big-bg', 'modal');
         modal.innerHTML = 
         `<div class="write-srvr-info">
-            <p class="add-new-srvr">서버 추가</p>
+            <p class="add-new-srvr">서버 수정</p>
             <div class="sorted-srvr-list">
                 <div>
                     <label for="srvr-place">아이피</label>
@@ -632,11 +649,10 @@ class View {
         document.getElementById('srvr-place').focus();
 
     }
-
     // SERVER EVENT
 
-
-
+    // COMMON MODAL EVENT
+    // RESET MODAL CONTENT
     static resetModal() {
         const modalInput = document.querySelectorAll('.modal-input');
         for(const el of modalInput) {
@@ -644,11 +660,13 @@ class View {
         }
     }
 
+    // DESTROY MODAL BOX
     static destroyModal() {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         const modal = document.querySelector('.modal');
         parentDiv.removeChild(modal);
     }
+    // COMMON MODAL EVENT
 
     static viewAlert(msg) {
         alert(msg);

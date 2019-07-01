@@ -52,11 +52,8 @@ class Communication {
     }
 }
 
-class Handler {
-}
-
 class EventLogic {
-
+    // 카테고리 버튼 클릭시 색상변경
     static categoryButtonColorEvent(e) {
         const categoryButton = document.querySelectorAll('.sorted-content-box > button');
         for(const button of categoryButton) {
@@ -65,6 +62,7 @@ class EventLogic {
         e.target.classList.add('on');
     }
 
+    // 창 크기에 맞게 TABLE 크게 조정
     static windowResizeEvent(e) {
         const contentBox = document.querySelector('.serviceadmin-content-box');
         contentBox.style.height = 'auto';
@@ -85,6 +83,7 @@ class EventLogic {
     }
 
     // POINT EVENT LOGIC
+    // 포인트 테이블 데이터 통신
     static pointButtonClickEvent(e) {
         pointListState.state = parseInt(e.target.dataset.state);
         const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
@@ -99,6 +98,7 @@ class EventLogic {
         });
     }
 
+    // 포인트 상세내역 버튼 클릭시 통신
     static pointListButtonClickEvent(e) {
 
         for(const allButton of e.target.parentNode.children) {
@@ -118,11 +118,13 @@ class EventLogic {
         })
     }
 
+    // CHECKBOX 선택시 색상 변경
     static pointListCheckBoxClickEvent(e) {
         const tableTR = e.target.parentNode.parentNode;
         e.target.checked ? tableTR.classList.add('point-list-on-hover') : tableTR.classList.remove('point-list-on-hover');
     }
 
+    // 승인 버튼 클릭시 통신
     static pointConfirmClickEvent(e) {
         const targetTR = e.target.parentNode.parentNode;
         const uniqueId = targetTR.children[1].innerText;
@@ -150,6 +152,7 @@ class EventLogic {
         }
     }
 
+    // 거절 버튼 클릭시 통신
     static pointRejectClickEvent(e) {
         const targetTR = e.target.parentNode.parentNode;
         const uniqueId = targetTR.children[1].innerText;
@@ -179,6 +182,7 @@ class EventLogic {
     // POINT EVENT LOGIC
 
     // P2P EVENT LOGIC
+    // P2P 테이블 데이터 통신
     static p2pButtonClickEvent() {
         const promiseResult = Communication.getPromise(communicationURL.p2p);
         promiseResult.then((result) => {
@@ -191,6 +195,7 @@ class EventLogic {
         });
     }
 
+    // P2P list 버튼 색상 변경
     static p2pButtonColorChange(buttonList, target) {
         for(const button of buttonList) {
             button.classList.remove('alive');
@@ -198,6 +203,7 @@ class EventLogic {
         target.classList.add('alive');
     }
 
+    // P2P 모든 거래내역 데이터 통신
     static p2pAllListButtonClickEvent(e) {
         EventLogic.p2pButtonColorChange(e.target.parentNode.children, e.target);
         const promiseResult = Communication.getPromise(communicationURL.p2p);
@@ -209,6 +215,7 @@ class EventLogic {
         });
     }
 
+    // P2P 분쟁상태 내역 데이터 통신
     static p2pDisputeClickEvent(e) {
         EventLogic.p2pButtonColorChange(e.target.parentNode.children, e.target);
         const promiseResult = Communication.getPromise(communicationURL.p2pConflict);
@@ -220,6 +227,7 @@ class EventLogic {
         });
     }
 
+    // P2P 분쟁 처리 데이터 통신
     static p2pDisputeResolveClickEvent(e) {
         if(confirm('정말로 분쟁을 처리하시겠습니까?')) {
             const uid = e.target.dataset.uid;
@@ -244,12 +252,16 @@ class EventLogic {
             });
         }
     }
+    // P2P EVENT LOGIC
 
+    // ADMIN FIND PASSWORD EVENT LOGIC
+    // 관리자용비밀번호 버튼 클릭시 HTML 표현
     static adminFindPwButtonClickEvent() {
         Dynamic.adminFindPwBox();
         EventList.bindFindPwCategoryClickEvent();
     }
 
+    // 검색 버튼 클릭시 해당 데이터에 맞는 통신 호출
     static findPwByInput(e) {
         Dynamic.showLoadingIcon();
         const inputBox = document.getElementById('busy-hands');
@@ -298,9 +310,10 @@ class EventLogic {
             Dynamic.catchError('알수없는 오류');
         }
     }
-    // P2P EVENT LOGIC
+    // ADMIN FIND PASSWORD EVENT LOGIC
 
     // AD SUPPLIER EVENT
+    // 광고공급자관리 버튼 클릭시 데이터 통신
     static adSupplierButtonClickEvent() {
         const promiseResult = Communication.getPromise(communicationURL.adList);
 
@@ -316,16 +329,7 @@ class EventLogic {
         });
     }
 
-    static adSupplierAddClickEvent() {
-        Dynamic.adAddModal();
-        // MODAL REGISTER EVENT
-        EventList.bindAdListAdd();
-        // MODAL DESTROY EVENT
-        EventList.bindDestroyModal();
-        // MODAL RESET EVENT
-        EventList.bindResetModal();
-    }
-
+    // 계정확인 버튼 클릭시 데이터 통신
     static adAccountFind(e) {
         e.target.innerText = '전송중';
         const contentId = e.target.dataset.id;
@@ -347,50 +351,18 @@ class EventLogic {
         });
     }
 
-    static adListModify(e) {
-        const sendObject = {
-            no : e.target.dataset.id
-        }
-
-        const promiseResult = Communication.postPromise(sendObject, communicationURL.adModifyRead);
-        promiseResult.then((result) => {
-            const resultData = JSON.parse(result);
-            Dynamic.adModifyModal(resultData.ad);
-            // MODAL REGISTER EVENT
-            EventList.bindAdModifyReg();
-            // MODAL DESTROY EVENT
-            EventList.bindDestroyModal();
-            // MODAL RESET EVENT
-            EventList.bindResetModal();
-        }, () => {
-            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
-        });
+    // 광고공급자 추가버튼 클릭시 모달 활성화 및 이벤트 등록
+    static adSupplierAddClickEvent() {
+        Dynamic.adAddModal();
+        // MODAL REGISTER EVENT
+        EventList.bindAdListAdd();
+        // MODAL DESTROY EVENT
+        EventList.bindDestroyModal();
+        // MODAL RESET EVENT
+        EventList.bindResetModal();
     }
 
-    static adListDelete(e) {
-        if(!confirm('정말로 삭제하시겠습니까?')) {
-            return false;
-        }
-
-        const sendObject = {
-            no : e.target.dataset.id
-        }
-
-        const promiseResult = Communication.postPromise(sendObject, communicationURL.adListDelete);
-        promiseResult.then((result) => {
-            const resultData = JSON.parse(result);
-            if( resultData.errorCode === 0 ) {
-                Dynamic.catchError(resultData.msg);
-                EventLogic.adSupplierButtonClickEvent();
-            } else {
-                Dynamic.catchError(resultData.msg);
-            }
-        }, () => {
-            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
-        });
-    }
-
-    // AD MODAL에서 등록버튼 클릭시 이벤트
+    // MODAL 추가 등록버튼 클릭시 데이터 통신
     static adListAdd() {
         const name = document.getElementById('company-name');
         const url = document.getElementById('company-site-info');
@@ -428,6 +400,28 @@ class EventLogic {
         });
     }
 
+    // 수정버튼 클릭시 모달 활성화 및 이벤트 등록
+    static adListModify(e) {
+        const sendObject = {
+            no : e.target.dataset.id
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.adModifyRead);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.adModifyModal(resultData.ad);
+            // MODAL REGISTER EVENT
+            EventList.bindAdModifyReg();
+            // MODAL DESTROY EVENT
+            EventList.bindDestroyModal();
+            // MODAL RESET EVENT
+            EventList.bindResetModal();
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    // MODAL 수정 데이터 등록버튼 클릭시 데이터 통신
     static adModifyReg(e) {
         const contentId = e.target.dataset.no;
         const name = document.getElementById('company-name');
@@ -466,9 +460,34 @@ class EventLogic {
             Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
         }); 
     }
+
+    // 삭제 버튼 클릭시 데이터 통신
+    static adListDelete(e) {
+        if(!confirm('정말로 삭제하시겠습니까?')) {
+            return false;
+        }
+
+        const sendObject = {
+            no : e.target.dataset.id
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.adListDelete);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.adSupplierButtonClickEvent();
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
     // AD SUPPLIER EVENT
 
     // SERVER MANAGEMENT EVENT
+    // 서버관리 버튼 클릭시 데이터 통신
     static serverManageButtonClickEvent() {
         const promiseResult = Communication.getPromise(communicationURL.server);
 
@@ -483,6 +502,7 @@ class EventLogic {
         });
     }
 
+    // 서버관리 추가 버튼 클릭시 MODAL 활성화 및 이벤트 등록
     static serverAddClickEvent() {
         Dynamic.serverAddModal();
         // MODAL REGISTER EVENT
@@ -493,6 +513,7 @@ class EventLogic {
         EventList.bindResetModal();
     }
 
+    // MODAL 서버 추가 등록버튼 클릭시 데이터 통신
     static serverListAdd() {
         const inputIp = document.getElementById('srvr-place');
         const inputPort = document.getElementById('srvr-port');
@@ -530,6 +551,7 @@ class EventLogic {
         });
     }
 
+    // 서버 리스트 수정 버튼 클릭시 MODAL 활성화 및 이벤트 등록
     static serverListModify(e) {
         const sendObject = {
             no : e.target.dataset.id
@@ -550,6 +572,7 @@ class EventLogic {
         });
     }
 
+    // 서버 리스트 수정데이터 등록 버튼 클릭시 데이터 통신
     static serverModifyReg(e) {
         const inputIp = document.getElementById('srvr-place');
         const inputPort = document.getElementById('srvr-port');
@@ -588,6 +611,7 @@ class EventLogic {
         }); 
     }
 
+    // 서버 리스트 삭제 버튼 클릭시 데이터 통신
     static serverListDelete(e) {
         if(!confirm('정말로 삭제하시겠습니까?')) {
             return false;

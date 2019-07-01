@@ -52,10 +52,12 @@ class Dynamic {
         View.clearParagraph();
     }
 
+    // 로딩 아이콘 활성화
     static showLoadingIcon() {
         View.showLoadingIcon();
     }
 
+    // 로딩 아이콘 비활성화
     static hideLoadingIcon() {
         View.hideLoadingIcon();
     }
@@ -70,20 +72,14 @@ class Dynamic {
         View.createAdSupplierTable(data);
     }
 
+    // 광고공급자 추가 모달 활성화
     static adAddModal() {
         View.createAdAddModal();
     }
 
+    // 광고공급자 수정 모달 활성화
     static adModifyModal(data) {
         View.createAdModifyModal(data);
-    }
-
-    static resetModal() {
-        View.resetModal();
-    }
-
-    static destroyModal() {
-        View.destroyModal()
     }
     // AD LIST
 
@@ -96,14 +92,28 @@ class Dynamic {
         View.createServerListTable(data);
     }
 
+    // 서버관리 추가 모달 활성화
     static serverAddModal() {
         View.createServerAddModal();
     }
 
+    // 서버관리 수정 모달 활성화
     static serverModifyModal(data) {
         View.createServerModifyModal(data);
     }
     // SERVER
+
+    // COMMON MODAL EVENT
+    // 모달 초기화
+    static resetModal() {
+        View.resetModal();
+    }
+
+    // 모달 비활성화
+    static destroyModal() {
+        View.destroyModal()
+    }
+    // COMMON MODAL EVENT
 
     static catchError(msg) {
         View.viewAlert(msg);
@@ -112,6 +122,7 @@ class Dynamic {
 
 class EventList {
     // COMMON EVENT
+    // 카테고리 버튼 클릭시 색 변경
     static bindCategoryButtonColorEvent() {
         const categoryButton = document.querySelectorAll('.sorted-content-box > button');
 
@@ -119,17 +130,21 @@ class EventList {
             button.addEventListener('click', EventLogic.categoryButtonColorEvent);
         }
     }
+
+    // RESIZE 이벤트 발생시 화면 맞춤
     static bindWindowResizeEvent() {
         window.addEventListener('resize', EventLogic.windowResizeEvent);
     }
     // COMMON EVENT
 
     // POINT EVENT
+    // 포인트환급 클릭시 데이터 통신
     static bindPointButtonClickEvent() {
         const pointButton = document.querySelector('.s-peer');
         pointButton.addEventListener('click', EventLogic.pointButtonClickEvent);
     }
 
+    // 상세내역 버튼(신청, 승인, 거절) 클릭시 데이터 통신
     static bindPointListButtonClickEvent() {
         const pointListButton = document.querySelectorAll('.apply-btn-box > button');
 
@@ -138,6 +153,7 @@ class EventList {
         }
     }
 
+    // 체크박스 체크 시 색상 변경
     static bindPointListCheckBoxClickEvent() {
         const pointCheckBox = document.querySelectorAll('.point-check-box');
         for(const button of pointCheckBox) {
@@ -145,14 +161,17 @@ class EventList {
         }
     }
 
+    // 포인트환급 신청내역 승인/거절 이벤트
     static bindPointStateChangeEvent() {
         const confirmButton = document.querySelectorAll('.btn-confirm');
         const rejectButton = document.querySelectorAll('.btn-reject');
 
+        // 승인 이벤트
         for(const button of confirmButton) {
             button.addEventListener('click', EventLogic.pointConfirmClickEvent);
         }
 
+        // 거절 이벤트
         for(const button of rejectButton) {
             button.addEventListener('click', EventLogic.pointRejectClickEvent);
         }
@@ -160,19 +179,25 @@ class EventList {
     // POINT EVENT
 
     // P2P EVENT
+    // P2P 버튼 클릭시 데이터 통신
     static bindP2PButtonClickEvent() {
         const p2pButton = document.querySelector('.s-refund');
         p2pButton.addEventListener('click', EventLogic.p2pButtonClickEvent);
     }
+
+    // P2P 데이터 전체보기 버튼 클릭시 데이터 동신
     static bindP2PAllButtonClickEvent() {
         const allListButton = document.querySelector('.btn-primary');
         allListButton.addEventListener('click', EventLogic.p2pAllListButtonClickEvent);
     }
+
+    // P2P 데이터 분쟁상태 버튼 클릭시 데이터 동신
     static bindP2PDisputeClickEvent() {
         const disputeButton = document.querySelector('.btn-dispute');
         disputeButton.addEventListener('click', EventLogic.p2pDisputeClickEvent);
     }
 
+    // 분쟁 해결 이벤트
     static bindP2PDisputeResolveClickEvent() {
         const resolveButton = document.querySelectorAll('.p-danger');
 
@@ -180,13 +205,16 @@ class EventList {
             button.addEventListener('click', EventLogic.p2pDisputeResolveClickEvent)
         }
     }
+    // P2P EVENT
 
     // ADMIN PASSWORD EVENT
+    // 관리자용비밀번호 버튼 클릭시 화면 출력
     static bindAdminFindPwButtonClickEvent() {
         const adminPwButton = document.querySelector('.s-admin-pw');
         adminPwButton.addEventListener('click', EventLogic.adminFindPwButtonClickEvent);
     }
 
+    // 찾기버튼 클릭시 각 데이터에 맞는 데이터 통신
     static bindFindPwCategoryClickEvent() {
         const phButton = document.querySelector('.btn-phone-num');
         phButton.addEventListener('click', EventLogic.findPwByInput);
@@ -197,7 +225,7 @@ class EventList {
     // ADMIN PASSWORD EVENT
 
     // AD SUPPLIER EVENT
-    // 카테고리 버튼 클릭 이벤트
+    // 광고공급자관리 버튼 클릭 이벤트
     static bindAdSupplierButtonClickEvent() {
         const adSupplierButton = document.querySelector('.s-supplier');
         adSupplierButton.addEventListener('click', EventLogic.adSupplierButtonClickEvent);
@@ -209,6 +237,7 @@ class EventList {
         adAddbutton.addEventListener('click', EventLogic.adSupplierAddClickEvent);
     }
 
+    // 계정확인 클릭 이벤트
     static bindAdAccountFind() {
         const findButton = document.querySelectorAll('.check-supplier-account');
 
@@ -217,6 +246,7 @@ class EventList {
         }
     }
 
+    // 광고공급자 수정 이벤트
     static bindAdListModify() {
         const adModifyButton = document.querySelectorAll('.adjust-supplier');
 
@@ -225,7 +255,7 @@ class EventList {
         }
     }
 
-    // 삭제 이벤트
+    // 광고공급자 삭제 이벤트
     static bindAdListDelete() {
         const adDeleteButton = document.querySelectorAll('.del-supplier');
 
@@ -234,47 +264,39 @@ class EventList {
         }
     }
 
-    // MODAL 등록 이벤트
+    // MODAL 광고 데이터 등록 이벤트
     static bindAdListAdd() {
         const adRegButton = document.querySelector('.registration-supplier');
         adRegButton.addEventListener('click', EventLogic.adListAdd);
     }
 
-    // MODAL 수정 등록 이벤트
+    // MODAL 광고 데이터 수정사항 등록 이벤트
     static bindAdModifyReg() {
         const adRegButton = document.querySelector('.registration-supplier');
         adRegButton.addEventListener('click', EventLogic.adModifyReg);
     }
-
-    static bindResetModal() {
-        const modalResetButton = document.querySelector('.reset-modal');
-
-        modalResetButton.addEventListener('click', Dynamic.resetModal);
-    }
-
-    static bindDestroyModal() {
-        const modalCancel = document.querySelector('.close-modal');
-
-        modalCancel.addEventListener('click', Dynamic.destroyModal);
-    }
     // AD SUPPLIER EVENT
 
     // SERVER MANAGEMENT EVENT
+    // 서버관리 버튼 클릭 이벤트
     static bindServerManageButtonClickEvent() {
         const serverManageButton = document.querySelector('.s-server-care');
         serverManageButton.addEventListener('click', EventLogic.serverManageButtonClickEvent);
     }
 
+    // 서버 추가 이벤트
     static bindServerAddClickEvent() {
         const serverAddButton = document.querySelector('.btn-add-srvr');
         serverAddButton.addEventListener('click', EventLogic.serverAddClickEvent);
     }
 
+    // 서버 추가 데이터 등록 이벤트
     static bindServerListAdd() {
         const serverRegButton = document.querySelector('.registration-srvr');
         serverRegButton.addEventListener('click', EventLogic.serverListAdd);
     }
 
+    //서버 수정버튼 클릭 이벤트
     static bindServerListModify() {
         const serverModifyButton = document.querySelectorAll('.adjust-srvr');
 
@@ -283,11 +305,13 @@ class EventList {
         }
     }
 
+    // 서버 수정 데이터 등록 이벤트
     static bindServerModifyReg() {
         const adRegButton = document.querySelector('.registration-srvr');
         adRegButton.addEventListener('click', EventLogic.serverModifyReg);
     }
 
+    // 서버 삭제 이벤트
     static bindServerListDelete() {
         const serverDeleteButton = document.querySelectorAll('.del-srvr');
 
@@ -295,6 +319,22 @@ class EventList {
             button.addEventListener('click', EventLogic.serverListDelete);
         }
     }
+
+    // COMMON MODAL EVENT
+    // MODAL RESET EVENT
+    static bindResetModal() {
+        const modalResetButton = document.querySelector('.reset-modal');
+
+        modalResetButton.addEventListener('click', Dynamic.resetModal);
+    }
+
+    // MODAL DESTROY EVENT
+    static bindDestroyModal() {
+        const modalCancel = document.querySelector('.close-modal');
+
+        modalCancel.addEventListener('click', Dynamic.destroyModal);
+    }
+    // COMMON MODAL EVENT
 }
 
 export { Init, Dynamic, EventList };
