@@ -539,13 +539,13 @@ table {
         background: #0069d9;
     }
 
-.reset-supplier {
+.reset-modal {
     border-color: #aaa;
     color: #444;
     background: #eee;
 }
 
-    .reset-supplier:hover {
+    .reset-modal:hover {
         color: white;
         background: #bbb;
     }
@@ -787,24 +787,13 @@ table {
         background: #0069d9;
     }
 
-.reset-srvr {
-    border-color: #aaa;
-    color: #444;
-    background: #eee;
-}
-
-    .reset-srvr:hover {
-        color: white;
-        background: #bbb;
-    }
-
-.close-srvr {
+.close-modal {
     border-color: #dc3545;
     color: white;
     background: #dc3545;
 }
 
-    .close-srvr:hover {    
+    .close-modal:hover {    
         background: #bd2130;
     }
 

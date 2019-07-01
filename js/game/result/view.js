@@ -8,8 +8,8 @@ const nowDate = {
 
 // 어제 날짜 객체
 const prevDate = {
-    month : nowDate.day-1 === 0 ? new Date().setDate(0).getMonth()+1 : nowDate.month,
-    day : nowDate.day-1 === 0 ? new Date().setDate(0).getDate() : nowDate.day-1
+    month : nowDate.day-1 === 0 ? new Date(new Date().setDate(0)).getMonth()+1 : nowDate.month,
+    day : nowDate.day-1 === 0 ? new Date(new Date().setDate(0)).getDate() : nowDate.day-1
 }
 
 class CountdownView {

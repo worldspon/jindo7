@@ -256,13 +256,15 @@ class View {
         contentBox.appendChild(paragraph);
 
         parentDiv.appendChild(contentBox);
+
+        window.dispatchEvent(new Event('resize'));
     }
 
     static createFindPwParagraph(keyword, data) {
         const paragraph = document.querySelector('.ur-pw-result');
 
         paragraph.innerHTML =
-        `${keyword}님의 비밀번호를 ${data}`
+        `${keyword}님의 비밀번호를 ${data}`;
     }
 
     static showLoadingIcon() {
@@ -357,48 +359,50 @@ class View {
         table.innerHTML = tableInnerHTML;
 
         parentDiv.appendChild(table);
+
+        window.dispatchEvent(new Event('resize'));
     }
 
     static createAdAddModal() {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
         const modal = document.createElement('div');
-        modal.classList.add('supplier-big-bg');
+        modal.classList.add('supplier-big-bg', 'modal');
         modal.innerHTML = 
         `<div class="write-supplier-info">
             <p class="add-new-supplier">광고 공급자 추가</p>
             <div class="sorted-supplier-list">
                 <div>
                     <label for="company-name">회사명</label>
-                    <input type="text" id="company-name">
+                    <input type="text" class="modal-input" id="company-name" placeholder="Google">
                 </div>
                 <div>
                     <label for="company-site-info">URL</label>
-                    <input type="text" id="company-site-info">
+                    <input type="text" class="modal-input" id="company-site-info" placeholder="https://www.worldspon.net">
                 </div>
                 <div class="company-identification">
                     <div>
                         <label for="one-identification">아이디</label>
-                        <input type="text" id="one-identification">
+                        <input type="text" class="modal-input" id="one-identification" placeholder="worldspon">
                     </div>
                     <div>
                         <label for="one-pass">비밀번호</label>
-                        <input type="password" id="one-pass">
+                        <input type="password" class="modal-input" id="one-pass">
                     </div>
                 </div>
                 <div>
                     <label for="company-location">위치</label>
-                    <input type="text" id="company-location">
+                    <input type="text" class="modal-input" id="company-location" placeholder="월드스폰 앱 상단">
                 </div>
                 <div>
                     <label for="some-more-blahblah">비고</label>
-                    <input type="text" id="some-more-blahblah">
+                    <input type="text" class="modal-input" id="some-more-blahblah" placeholder="비고사항">
                 </div>
             </div>
             <div class="btn-supplier-box">
                 <button class="registration-supplier">등록</button>
-                <button class="reset-supplier">리셋</button>
-                <button class="close-supplier">취소</button>
+                <button class="reset-modal">리셋</button>
+                <button class="close-modal">취소</button>
             </div>
         </div>`;
 
@@ -412,42 +416,42 @@ class View {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
         const modal = document.createElement('div');
-        modal.classList.add('supplier-big-bg');
+        modal.classList.add('supplier-big-bg', 'modal');
         modal.innerHTML = 
         `<div class="write-supplier-info">
             <p class="add-new-supplier">광고 공급자 수정</p>
             <div class="sorted-supplier-list">
                 <div>
                     <label for="company-name">회사명</label>
-                    <input type="text" id="company-name" value="${data.companyName}">
+                    <input type="text" class="modal-input" id="company-name" value="${data.companyName}">
                 </div>
                 <div>
                     <label for="company-site-info">URL</label>
-                    <input type="text" id="company-site-info" value="${data.siteAddress}">
+                    <input type="text" class="modal-input" id="company-site-info" value="${data.siteAddress}">
                 </div>
                 <div class="company-identification">
                     <div>
                         <label for="one-identification">아이디</label>
-                        <input type="text" id="one-identification" value="${data.loginId}">
+                        <input type="text" class="modal-input" id="one-identification" value="${data.loginId}">
                     </div>
                     <div>
                         <label for="one-pass">비밀번호</label>
-                        <input type="password" id="one-pass">
+                        <input type="password" class="modal-input" id="one-pass">
                     </div>
                 </div>
                 <div>
                     <label for="company-location">위치</label>
-                    <input type="text" id="company-location" value="${data.partName}">
+                    <input type="text" class="modal-input" id="company-location" value="${data.partName}">
                 </div>
                 <div>
                     <label for="some-more-blahblah">비고</label>
-                    <input type="text" id="some-more-blahblah" value="${data.note}">
+                    <input type="text" class="modal-input" id="some-more-blahblah" value="${data.note}">
                 </div>
             </div>
             <div class="btn-supplier-box">
                 <button class="registration-supplier" data-no="${data.no}">등록</button>
-                <button class="reset-supplier">리셋</button>
-                <button class="close-supplier">취소</button>
+                <button class="reset-modal">리셋</button>
+                <button class="close-modal">취소</button>
             </div>
         </div>`;
 
@@ -495,7 +499,7 @@ class View {
                 <th>포트</th>
                 <th>위치</th>
                 <th>아이디</th>
-                <th class="more-words-needed">설명</th>
+                <th class="more-words-needed">서버정보</th>
                 <th>결제일</th>
                 <th class="choose-what-want"></th>
             </tr>
@@ -513,8 +517,8 @@ class View {
                 <td>${el.note}</td>
                 <td>${el.payment}</td>
                 <td>
-                    <button class="adjust-srvr">수정</button>
-                    <button class="del-srvr">삭제</button>
+                    <button class="adjust-srvr" data-id="${el.no}">수정</button>
+                    <button class="del-srvr" data-id="${el.no}">삭제</button>
                 </td>
             </tr>`;
         }
@@ -523,125 +527,126 @@ class View {
         table.innerHTML = tableInnerHTML;
 
         parentDiv.appendChild(table);
+
+        window.dispatchEvent(new Event('resize'));
     }
 
-    static createAdAddModal() {
+    static createServerAddModal() {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
         const modal = document.createElement('div');
-        modal.classList.add('supplier-big-bg');
+        modal.classList.add('supplier-big-bg', 'modal');
         modal.innerHTML = 
-        `<div class="write-supplier-info">
-            <p class="add-new-supplier">광고 공급자 추가</p>
-            <div class="sorted-supplier-list">
+        `<div class="write-srvr-info">
+            <p class="add-new-srvr">서버 추가</p>
+            <div class="sorted-srvr-list">
                 <div>
-                    <label for="company-name">회사명</label>
-                    <input type="text" id="company-name">
+                    <label for="srvr-place">아이피</label>
+                    <input type="text" class="modal-input" id="srvr-place" placeholder="000.000.000.000">
                 </div>
-                <div>
-                    <label for="company-site-info">URL</label>
-                    <input type="text" id="company-site-info">
-                </div>
-                <div class="company-identification">
+                <div class="bind-srvr-a">
                     <div>
-                        <label for="one-identification">아이디</label>
-                        <input type="text" id="one-identification">
+                        <label for="srvr-port">포트</label>
+                        <input type="text" class="modal-input" id="srvr-port" placeholder="0000">
                     </div>
                     <div>
-                        <label for="one-pass">비밀번호</label>
-                        <input type="password" id="one-pass">
+                        <label for="srvr-come-from">위치</label>
+                        <input type="text" class="modal-input" id="srvr-come-from" placeholder="Korea">
+                    </div>
+                </div>
+                <div class="bind-srvr-a">
+                    <div>
+                        <label for="srvr-nickname">아이디</label>
+                        <input type="text" class="modal-input" id="srvr-nickname" placeholder="administor">
+                    </div>
+                    <div>
+                        <label for="srvr-payment-day">결제일</label>
+                        <input type="text" class="modal-input" id="srvr-payment-day" placeholder="15일">
                     </div>
                 </div>
                 <div>
-                    <label for="company-location">위치</label>
-                    <input type="text" id="company-location">
-                </div>
-                <div>
-                    <label for="some-more-blahblah">비고</label>
-                    <input type="text" id="some-more-blahblah">
+                    <label for="srvr-more-things">서버정보</label>
+                    <input type="text" class="modal-input" id="srvr-more-things" placeholder="월드스폰-회원정보">
                 </div>
             </div>
-            <div class="btn-supplier-box">
-                <button class="registration-supplier">등록</button>
-                <button class="reset-supplier">리셋</button>
-                <button class="close-supplier">취소</button>
+            <div class="btn-srvr-box">
+                <button class="registration-srvr">등록</button>
+                <button class="reset-modal">리셋</button>
+                <button class="close-modal">취소</button>
             </div>
         </div>`;
 
         parentDiv.appendChild(modal);
 
-        document.getElementById('company-name').focus();
+        document.getElementById('srvr-place').focus();
 
     }
 
-    static createAdModifyModal(data) {
+    static createServerModifyModal(data) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
 
         const modal = document.createElement('div');
-        modal.classList.add('supplier-big-bg');
+        modal.classList.add('supplier-big-bg', 'modal');
         modal.innerHTML = 
-        `<div class="write-supplier-info">
-            <p class="add-new-supplier">광고 공급자 수정</p>
-            <div class="sorted-supplier-list">
+        `<div class="write-srvr-info">
+            <p class="add-new-srvr">서버 추가</p>
+            <div class="sorted-srvr-list">
                 <div>
-                    <label for="company-name">회사명</label>
-                    <input type="text" id="company-name" value="${data.companyName}">
+                    <label for="srvr-place">아이피</label>
+                    <input type="text" class="modal-input" id="srvr-place" value="${data.ip}">
                 </div>
-                <div>
-                    <label for="company-site-info">URL</label>
-                    <input type="text" id="company-site-info" value="${data.siteAddress}">
-                </div>
-                <div class="company-identification">
+                <div class="bind-srvr-a">
                     <div>
-                        <label for="one-identification">아이디</label>
-                        <input type="text" id="one-identification" value="${data.loginId}">
+                        <label for="srvr-port">포트</label>
+                        <input type="text" class="modal-input" id="srvr-port" value="${data.port}">
                     </div>
                     <div>
-                        <label for="one-pass">비밀번호</label>
-                        <input type="password" id="one-pass">
+                        <label for="srvr-come-from">위치</label>
+                        <input type="text" class="modal-input" id="srvr-come-from" value="${data.location}">
+                    </div>
+                </div>
+                <div class="bind-srvr-a">
+                    <div>
+                        <label for="srvr-nickname">아이디</label>
+                        <input type="text" class="modal-input" id="srvr-nickname" value="${data.loginId}">
+                    </div>
+                    <div>
+                        <label for="srvr-payment-day">결제일</label>
+                        <input type="text" class="modal-input" id="srvr-payment-day" value="${data.payment}">
                     </div>
                 </div>
                 <div>
-                    <label for="company-location">위치</label>
-                    <input type="text" id="company-location" value="${data.partName}">
-                </div>
-                <div>
-                    <label for="some-more-blahblah">비고</label>
-                    <input type="text" id="some-more-blahblah" value="${data.note}">
+                    <label for="srvr-more-things">서버정보</label>
+                    <input type="text" class="modal-input" id="srvr-more-things" value="${data.note}">
                 </div>
             </div>
-            <div class="btn-supplier-box">
-                <button class="registration-supplier" data-no="${data.no}">등록</button>
-                <button class="reset-supplier">리셋</button>
-                <button class="close-supplier">취소</button>
+            <div class="btn-srvr-box">
+                <button class="registration-srvr" data-no="${data.no}">등록</button>
+                <button class="reset-modal">리셋</button>
+                <button class="close-modal">취소</button>
             </div>
         </div>`;
 
         parentDiv.appendChild(modal);
 
-        document.getElementById('company-name').focus();
+        document.getElementById('srvr-place').focus();
 
     }
+
+    // SERVER EVENT
+
+
 
     static resetModal() {
-        const companyName = document.getElementById('company-name');
-        const companyUrl = document.getElementById('company-site-info');
-        const companyId = document.getElementById('one-identification');
-        const companyPw = document.getElementById('one-pass');
-        const companyLocation = document.getElementById('company-location');
-        const companyNote = document.getElementById('some-more-blahblah');
-
-        companyName.value = '';
-        companyUrl.value = '';
-        companyId.value = '';
-        companyPw.value = '';
-        companyLocation.value = '';
-        companyNote.value = '';
+        const modalInput = document.querySelectorAll('.modal-input');
+        for(const el of modalInput) {
+            el.value = '';
+        }
     }
 
     static destroyModal() {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
-        const modal = document.querySelector('.supplier-big-bg');
+        const modal = document.querySelector('.modal');
         parentDiv.removeChild(modal);
     }
 

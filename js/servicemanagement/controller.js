@@ -13,12 +13,8 @@ class Init {
     }
 
     static firstCommunication() {
-        // const pointButton = document.querySelector('.s-peer');
-        // pointButton.dispatchEvent(new Event('click'));
-
-        const serverManageButton = document.querySelector('.s-server-care');
-        serverManageButton.dispatchEvent(new Event('click'));
-
+        const pointButton = document.querySelector('.s-peer');
+        pointButton.dispatchEvent(new Event('click'));
     }
 }
 
@@ -98,6 +94,14 @@ class Dynamic {
 
     static serverListTable(data) {
         View.createServerListTable(data);
+    }
+
+    static serverAddModal() {
+        View.createServerAddModal();
+    }
+
+    static serverModifyModal(data) {
+        View.createServerModifyModal(data);
     }
     // SERVER
 
@@ -193,11 +197,13 @@ class EventList {
     // ADMIN PASSWORD EVENT
 
     // AD SUPPLIER EVENT
+    // 카테고리 버튼 클릭 이벤트
     static bindAdSupplierButtonClickEvent() {
         const adSupplierButton = document.querySelector('.s-supplier');
         adSupplierButton.addEventListener('click', EventLogic.adSupplierButtonClickEvent);
     }
 
+    // 추가 버튼 클릭 이벤트
     static bindAdSupplierAddClickEvent() {
         const adAddbutton = document.querySelector('.btn-add-supplier');
         adAddbutton.addEventListener('click', EventLogic.adSupplierAddClickEvent);
@@ -241,13 +247,13 @@ class EventList {
     }
 
     static bindResetModal() {
-        const modalResetButton = document.querySelector('.reset-supplier');
+        const modalResetButton = document.querySelector('.reset-modal');
 
         modalResetButton.addEventListener('click', Dynamic.resetModal);
     }
 
     static bindDestroyModal() {
-        const modalCancel = document.querySelector('.close-supplier');
+        const modalCancel = document.querySelector('.close-modal');
 
         modalCancel.addEventListener('click', Dynamic.destroyModal);
     }
@@ -257,6 +263,37 @@ class EventList {
     static bindServerManageButtonClickEvent() {
         const serverManageButton = document.querySelector('.s-server-care');
         serverManageButton.addEventListener('click', EventLogic.serverManageButtonClickEvent);
+    }
+
+    static bindServerAddClickEvent() {
+        const serverAddButton = document.querySelector('.btn-add-srvr');
+        serverAddButton.addEventListener('click', EventLogic.serverAddClickEvent);
+    }
+
+    static bindServerListAdd() {
+        const serverRegButton = document.querySelector('.registration-srvr');
+        serverRegButton.addEventListener('click', EventLogic.serverListAdd);
+    }
+
+    static bindServerListModify() {
+        const serverModifyButton = document.querySelectorAll('.adjust-srvr');
+
+        for(const button of serverModifyButton) {
+            button.addEventListener('click', EventLogic.serverListModify);
+        }
+    }
+
+    static bindServerModifyReg() {
+        const adRegButton = document.querySelector('.registration-srvr');
+        adRegButton.addEventListener('click', EventLogic.serverModifyReg);
+    }
+
+    static bindServerListDelete() {
+        const serverDeleteButton = document.querySelectorAll('.del-srvr');
+
+        for(const button of serverDeleteButton) {
+            button.addEventListener('click', EventLogic.serverListDelete);
+        }
     }
 }
 

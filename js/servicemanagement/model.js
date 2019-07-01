@@ -10,19 +10,23 @@ const pointChangeState = {
 }
 
 const communicationURL = {
-    point : 'http://192.168.0.24:8080/management/point',
-    pointChange : 'http://192.168.0.24:8080/management/point/change',
-    p2p : 'http://192.168.0.24:8080/management/p2p',
-    p2pConflict : 'http://192.168.0.24:8080/management/p2p/conflict',
-    p2pResolution : 'http://192.168.0.24:8080/management/p2p/conflict/resolution',
-    findPw : 'http://192.168.0.24:8080/management/find/password',
-    adList : 'http://192.168.0.24:8080/management/ad',
-    adFindAccount : 'http://192.168.0.24:8080/management/ad/find/account',
-    adListAdd : 'http://192.168.0.24:8080/management/ad/add',
-    adListDelete : 'http://192.168.0.24:8080/management/ad/delete',
-    adModifyRead : 'http://192.168.0.24:8080/management/ad/read',
-    adModify : 'http://192.168.0.24:8080/management/ad/modify',
-    server : 'http://192.168.0.24:8080/management/server'
+    point : 'http://192.168.0.24:8081/management/point',
+    pointChange : 'http://192.168.0.24:8081/management/point/change',
+    p2p : 'http://192.168.0.24:8081/management/p2p',
+    p2pConflict : 'http://192.168.0.24:8081/management/p2p/conflict',
+    p2pResolution : 'http://192.168.0.24:8081/management/p2p/conflict/resolution',
+    findPw : 'http://192.168.0.24:8081/management/find/password',
+    adList : 'http://192.168.0.24:8081/management/ad',
+    adFindAccount : 'http://192.168.0.24:8081/management/ad/find/account',
+    adListAdd : 'http://192.168.0.24:8081/management/ad/add',
+    adListDelete : 'http://192.168.0.24:8081/management/ad/delete',
+    adModifyRead : 'http://192.168.0.24:8081/management/ad/read',
+    adModify : 'http://192.168.0.24:8081/management/ad/modify',
+    server : 'http://192.168.0.24:8081/management/server',
+    serverAdd : 'http://192.168.0.24:8081/management/server/add',
+    serverModifyRead : 'http://192.168.0.24:8081/management/server/read',
+    serverModify : 'http://192.168.0.24:8081/management/server/modify',
+    serverListDelete : 'http://192.168.0.24:8081/management/server/delete'
 }
 
 class Communication {
@@ -386,7 +390,7 @@ class EventLogic {
         });
     }
 
-    // MODAL에서 등록버튼 클릭시 이벤트
+    // AD MODAL에서 등록버튼 클릭시 이벤트
     static adListAdd() {
         const name = document.getElementById('company-name');
         const url = document.getElementById('company-site-info');
@@ -422,7 +426,6 @@ class EventLogic {
         }, () => {
             Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
         });
-
     }
 
     static adModifyReg(e) {
@@ -472,10 +475,137 @@ class EventLogic {
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.serverListBox(resultData.serverList);
-            // EventList.bindAdSupplierAddClickEvent();
-            // EventList.bindAdAccountFind();
-            // EventList.bindAdListModify();
-            // EventList.bindAdListDelete();
+            EventList.bindServerAddClickEvent();
+            EventList.bindServerListModify();
+            EventList.bindServerListDelete();
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static serverAddClickEvent() {
+        Dynamic.serverAddModal();
+        // MODAL REGISTER EVENT
+        EventList.bindServerListAdd();
+        // MODAL DESTROY EVENT
+        EventList.bindDestroyModal();
+        // MODAL RESET EVENT
+        EventList.bindResetModal();
+    }
+
+    static serverListAdd() {
+        const inputIp = document.getElementById('srvr-place');
+        const inputPort = document.getElementById('srvr-port');
+        const inputLocation = document.getElementById('srvr-come-from');
+        const inputId = document.getElementById('srvr-nickname');
+        const inputPayment = document.getElementById('srvr-payment-day');
+        const inputNote = document.getElementById('srvr-more-things');
+
+        if( inputIp.value === '' || inputPort.value === '' || inputLocation.value === '' || inputId.value === ''  || inputPayment.value === '' || inputNote.value === '')
+        {
+            Dynamic.catchError('필수 정보가 누락되었습니다.');
+            return false;
+        }
+
+        const sendObject = {
+            ip : inputIp.value,
+            port : inputPort.value,
+            location : inputLocation.value,
+            loginId : inputId.value,
+            note : inputNote.value,
+            payment : inputPayment.value
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.serverAdd);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.serverManageButtonClickEvent();
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static serverListModify(e) {
+        const sendObject = {
+            no : e.target.dataset.id
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.serverModifyRead);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.serverModifyModal(resultData.server);
+            // MODAL REGISTER EVENT
+            EventList.bindServerModifyReg();
+            // MODAL DESTROY EVENT
+            EventList.bindDestroyModal();
+            // MODAL RESET EVENT
+            EventList.bindResetModal();
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static serverModifyReg(e) {
+        const inputIp = document.getElementById('srvr-place');
+        const inputPort = document.getElementById('srvr-port');
+        const inputLocation = document.getElementById('srvr-come-from');
+        const inputId = document.getElementById('srvr-nickname');
+        const inputPayment = document.getElementById('srvr-payment-day');
+        const inputNote = document.getElementById('srvr-more-things');
+
+        if( inputIp.value === '' || inputPort.value === '' || inputLocation.value === '' || inputId.value === ''  || inputPayment.value === '' || inputNote.value === '')
+        {
+            Dynamic.catchError('필수 정보가 누락되었습니다.');
+            return false;
+        }
+
+        const sendObject = {
+            no : e.target.dataset.no,
+            ip : inputIp.value,
+            port : inputPort.value,
+            location : inputLocation.value,
+            loginId : inputId.value,
+            note : inputNote.value,
+            payment : inputPayment.value
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.serverModify);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.serverManageButtonClickEvent();
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        }); 
+    }
+
+    static serverListDelete(e) {
+        if(!confirm('정말로 삭제하시겠습니까?')) {
+            return false;
+        }
+
+        const sendObject = {
+            no : e.target.dataset.id
+        }
+
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.serverListDelete);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.serverManageButtonClickEvent();
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
         }, () => {
             Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
         });
