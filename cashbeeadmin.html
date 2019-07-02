@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/serviceadmin.css">
+    <link rel="stylesheet" href="./css/cashbeeadmin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>WORLDSPON</title>
@@ -35,27 +35,64 @@
         <div class='main-wrap'>
             <main>
                 
-                <!-- serviceadmin common box start -->
-                <div class='serviceadmin-common-box content-box-layout'>
-                    <h3 class='content-hl'>서비스관리</h3>
+                <!-- cashbeeadmin common box start -->
+                <div class='cashbeeadmin-common-box content-box-layout'>
+                    <h3 class='content-hl'>캐시비관리</h3>
+                    <a href="https://partner.coin-box.kr/login/" class="c-admin-cashbee" target="_blank">캐시비관리페이지 바로가기</a>
                 </div>
-                <!-- serviceadmin common box end -->
+                <!-- cashbeeadmin common box end -->
 
-                <!-- sorted content box start -->
-                <div class="sorted-content-box">
-                    <button class="s-refund on">락포인트</button>
-                    <button class="s-peer">충전기록</button>
-                    <button class="s-admin-pw">
-                        <a href="https://partner.coin-box.kr/login/" target="_blank">캐시비관리자</a>
-                    </button>
+                <!-- distribute content box start -->
+                <div class="distribute-content-box">
+                    <button class="c-lockpoint on">락포인트</button>
+                    <button class="c-recharge">충전기록</button>
                 </div>
-                <!-- sorted content box end -->
+                <!-- distribute content box end -->
                 
-                <!-- serviceadmin content box start -->
-                <div class='serviceadmin-content-box content-box-layout'>
-
+                <!-- cashbeeadmin content box start -->
+                <div class='cashbeeadmin-content-box content-box-layout'>
+                    <div class="search-id-box">
+                        <input type="search" id="personal-id">
+                        <button class="btn-search-id">검색</button>
+                    </div>
+                    <table class="tb-cashbee-box">
+                        <thead class="common-cashbee-box">
+                            <tr>
+                                <th class="cg-num">NO</th>
+                                <th class="cg-date">일시</th>
+                                <th class="cg-user">유저번호</th>
+                                <th>닉네임</th>
+                                <th class="cg-card">카드 No.</th>
+                                <th class="cg-tid">TID</th>
+                                <th>포인트</th>
+                                <th class="cg-now">상태</th>
+                            </tr>
+                        </thead>
+                        <tbody class="cashbee-history-box">
+                            <tr>
+                                <td>1</td>
+                                <td>2019년 7월 01일 월 오후 07:00:00</td>
+                                <td>7</td>
+                                <td>test09</td>
+                                <td>10408053063073545</td>
+                                <td>adlkfjslj;fadofljsdg;lsjgiajg</td>
+                                <td>1,000</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>2019년 7월 01일 월 오후 07:00:00</td>
+                                <td>7</td>
+                                <td>하이아히아허이나고고</td>
+                                <td>10408053063073545</td>
+                                <td>adlkfjslj;fadofljsdg;lsjgiajg</td>
+                                <td>1,000</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- serviceadmin content box end -->
+                <!-- cashbeeadmin content box end -->
 
             </main>
         </div>
