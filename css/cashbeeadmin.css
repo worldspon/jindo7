@@ -148,9 +148,12 @@ main {
     font-size: 1.1rem;
     color: #444;
 }
-
 .cashbee-history-box > tr:nth-child(even) {
     background: #f2f2f2;
+}
+
+.tb-cashbee-box > .cashbee-history-box tr:hover {
+    background: #eaedf8;
 }
 
 .cashbee-history-box td {
