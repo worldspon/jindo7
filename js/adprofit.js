@@ -53,7 +53,7 @@ let monAvgHigh = document.querySelector('.month-avg-high');
 let monAvgLow = document.querySelector('.month-avg-low');
 let monTotalAvg = document.querySelector('.month-total-avg');
 
-const asyncURL =`./js/adprofit.json`;
+const asyncURL ='http://192.168.0.24:8081/adprofit/fetch';
 
 
 mainAsync(asyncURL);

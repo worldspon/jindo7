@@ -153,6 +153,11 @@ class EventList {
         }
     }
 
+    static bindChangeDateButtonClickEvent() {
+        const changeDateButton = document.querySelector('.date-change-button');
+        changeDateButton.addEventListener('click', EventLogic.changeDateClickEvent);
+    }
+
     static bindSearchButtonClickEvent() {
         const pointSearchButton = document.querySelector('.search-button');
 

@@ -107,6 +107,10 @@ table {
     align-items: center;
     margin-left: auto;
 }
+.date-select {
+    margin-right: 3px;
+    padding: 4px 4px 5px 4px;
+}
 .date-input {
     padding: 2px;
 }

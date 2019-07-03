@@ -91,6 +91,7 @@ class EventLogic {
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.pointBox(resultData.pointList, pointListState.state);
+            EventList.bindChangeDateButtonClickEvent();
             EventList.bindSearchButtonClickEvent();
             EventList.bindSearchButtonEnterKeyEvent();
             EventList.bindPointListCheckBoxClickEvent();
@@ -133,12 +134,76 @@ class EventLogic {
         })
     }
 
+    static changeDateClickEvent() {
+        const dateCategory = document.querySelector('.date-select');
+        const selectOption = document.querySelectorAll('.date-select > option');
+        const selectedOption = selectOption[dateCategory.selectedIndex].value;
+        const dateInput = document.querySelector('.date-input');
+        const dateInputValue = dateInput.value;
+
+        const active = document.querySelector('.active');
+        pointListState.state = parseInt(active.dataset.state);
+
+        if( dateInputValue === '' ) {
+            active.dispatchEvent(new Event('click'));
+        } else if( selectedOption === 'request' ) {
+            const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
+            promiseResult.then((result) => {
+                const resultData = JSON.parse(result).pointList;
+                let dateFilter;
+
+                dateFilter = resultData.filter(resultData => resultData.dateTime.slice(0,10) === dateInputValue);
+                Dynamic.pointTable(dateFilter, pointListState.state);
+                EventList.bindPointListCheckBoxClickEvent();
+                EventList.bindMemoSectionClickEvent();
+
+                if( pointListState.state === 0 ) {
+                    EventList.bindPointStateChangeEvent();
+                } else {
+                    EventList.bindPointRestoreClickEvent();
+                }
+            
+            }, () => {
+                Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+            })
+        } else if( selectedOption === 'action' ) {
+            if( pointListState.state === 0 ) {
+                Dynamic.catchError('실행일 검색은 승인/거절내역에서 가능합니다.');
+            } else {
+                const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
+                promiseResult.then((result) => {
+                    const resultData = JSON.parse(result).pointList;
+                    const year = dateInputValue.slice(0, dateInputValue.indexOf('-'));
+                    const month = dateInputValue.slice(dateInputValue.indexOf('-')+1, dateInputValue.lastIndexOf('-'));
+                    const day = dateInputValue.slice(dateInputValue.lastIndexOf('-')+1);
+                    const selectedDate = `${year}년 ${month}월 ${day}일`;
+
+                    let dateFilter;
+    
+                    dateFilter = resultData.filter(resultData => resultData.resultTime.slice(0,13) === selectedDate);
+                    Dynamic.pointTable(dateFilter, pointListState.state);
+                    EventList.bindPointListCheckBoxClickEvent();
+                    EventList.bindMemoSectionClickEvent();
+    
+                    if( pointListState.state === 0 ) {
+                        EventList.bindPointStateChangeEvent();
+                    } else {
+                        EventList.bindPointRestoreClickEvent();
+                    }
+                
+                }, () => {
+                    Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+                })
+            }
+        }
+    }
+
     static searchButtonClickEvent() {
         const searchCategory = document.querySelector('.search-select');
         const selectOption = document.querySelectorAll('.search-select > option');
         const selectedOption = selectOption[searchCategory.selectedIndex].value;
         const searchInput = document.querySelector('.search-input');
-        const searchInputValue = document.querySelector('.search-input').value;
+        const searchInputValue = searchInput.value;
         const active = document.querySelector('.active');
         pointListState.state = parseInt(active.dataset.state);
 
@@ -151,7 +216,7 @@ class EventLogic {
                 let searchFilter;
 
                 if(selectedOption === 'id') {
-                    searchFilter = resultData.filter(resultData => resultData.trademark === searchInputValue);
+                    searchFilter = resultData.filter(resultData => resultData.trademark === searchInputValue.toUpperCase());
                 } else if(selectedOption === 'phone') {
                     searchFilter = resultData.filter(resultData => resultData.phone === searchInputValue);
                 } else if(selectedOption === 'accountHolder') {

@@ -4,6 +4,7 @@ class View {
     // POINT EVENT
     // POINT BOX CREATE
     static setPointBox(data, state) {
+        const nowYear = new Date().getFullYear();
         const parentDiv = document.querySelector('.serviceadmin-content-box');
         parentDiv.innerHTML = 
         `<div class="apply-btn-box">
@@ -11,6 +12,12 @@ class View {
             <button class="confirm-list" data-state="1">승인 내역</button>
             <button class="cancel-list" data-state="2">거절 내역</button>
             <div class="search-div">
+                <select class="date-select">
+                    <option value="request">신청일</option>
+                    <option value="action">실행일</option>
+                </select>
+                <input type="date" class="date-input" min="2018-01-01" max="${nowYear+1}-12-31">
+                <button class="date-change-button">변경</button>
                 <select class="search-select">
                     <option value="id">아이디</option>
                     <option value="phone">전화번호</option>
