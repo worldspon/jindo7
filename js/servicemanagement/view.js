@@ -5,30 +5,21 @@ class View {
     // POINT BOX CREATE
     static setPointBox(data, state) {
         const parentDiv = document.querySelector('.serviceadmin-content-box');
-        parentDiv.innerHTML = '';
-        const div = document.createElement('div');
-        div.classList.add('apply-btn-box');
-        const applyListButton = document.createElement('button');
-        const confirmListButton = document.createElement('button');
-        const cancelListButton = document.createElement('button');
-
-        applyListButton.classList.add('apply-list', 'active');
-        applyListButton.dataset.state = '0';
-        applyListButton.innerText = '신청 내역';
-
-        confirmListButton.classList.add('confirm-list');
-        confirmListButton.dataset.state = '1';
-        confirmListButton.innerText = '승인 내역';
-
-        cancelListButton.classList.add('cancel-list');
-        cancelListButton.dataset.state = '2';
-        cancelListButton.innerText = '거절 내역';
-
-        div.appendChild(applyListButton);
-        div.appendChild(confirmListButton);
-        div.appendChild(cancelListButton);
-
-        parentDiv.appendChild(div);
+        parentDiv.innerHTML = 
+        `<div class="apply-btn-box">
+            <button class="apply-list active" data-state="0">신청 내역</button>
+            <button class="confirm-list" data-state="1">승인 내역</button>
+            <button class="cancel-list" data-state="2">거절 내역</button>
+            <div class="search-div">
+                <select class="search-select">
+                    <option value="id">아이디</option>
+                    <option value="phone">전화번호</option>
+                    <option value="accountHolder">예금주</option>
+                </select>
+                <input type="search" class="search-input">
+                <button class="search-button"><i class="fas fa-search fa-lg"></i></button>
+            </div>
+        </div>`;
 
         View.createPointTable(data, state);
     }
@@ -72,7 +63,7 @@ class View {
                 <td>${el.phone}</td>
                 <td>${el.viewPoint}</td>
                 <td>${el.bankNumber}</td>
-                <td>${el.bankUser}</td>`;
+                <td class="memo-section" data-memo="${el.memo === null ? '' : el.memo}">${el.bankUser}${el.memo !== null && el.memo !== '' ? `<div class="memo-symbol"></div>` : ''}</td>`;
             
             if(state === 0) {
                 tableInnerHTML +=
@@ -85,12 +76,14 @@ class View {
                 tableInnerHTML +=
                 `<td>
                     <span style="line-height: 1.5;" class="finished-refund-point">환급완료<br>${el.resultTime}</span>
+                    <button class="restore-button" data-state="1">되돌리기</button>
                 </td>
                 </tr>`;
             } else if (state === 2) {
                 tableInnerHTML +=
                 `<td>
                     <span style="line-height: 1.5;" class="canceled-refund-point">취소완료<br>${el.resultTime}</span>
+                    <button class="restore-button" data-state="2">되돌리기</button>
                 </td>
                 </tr>`;
             }

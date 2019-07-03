@@ -153,6 +153,40 @@ class EventList {
         }
     }
 
+    static bindSearchButtonClickEvent() {
+        const pointSearchButton = document.querySelector('.search-button');
+
+        pointSearchButton.addEventListener('click', EventLogic.searchButtonClickEvent);
+    }
+
+    static bindSearchButtonEnterKeyEvent() {
+        const pointSearchInput = document.querySelector('.search-input');
+
+        pointSearchInput.addEventListener('keydown', function(e) {
+            if( e.keyCode === 13 ) {
+                EventLogic.searchButtonClickEvent();
+            }
+        });
+    }
+
+    static bindMemoSectionClickEvent() {
+        const memoSection = document.querySelectorAll('.memo-section');
+
+        for(const memo of memoSection) {
+            memo.addEventListener('click', EventLogic.memoSectionClickEvent);
+        }
+    }
+
+    static bindMemoRegister() {
+        const memoRegisterButton = document.querySelector('.memo-register');
+        memoRegisterButton.addEventListener('click', EventLogic.memoRegister);
+    }
+
+    static bindMemoBoxDestroy() {
+        const memoDestroyButton = document.querySelector('.memo-destroy');
+        memoDestroyButton.addEventListener('click', EventLogic.memoBoxDestroy);
+    }
+
     // 체크박스 체크 시 색상 변경
     static bindPointListCheckBoxClickEvent() {
         const pointCheckBox = document.querySelectorAll('.point-check-box');
@@ -174,6 +208,15 @@ class EventList {
         // 거절 이벤트
         for(const button of rejectButton) {
             button.addEventListener('click', EventLogic.pointRejectClickEvent);
+        }
+    }
+
+    // 포인트환급 내역 되돌리기 이벤트
+    static bindPointRestoreClickEvent() {
+        const restoreButton = document.querySelectorAll('.restore-button');
+
+        for(const button of restoreButton) {
+            button.addEventListener('click', EventLogic.pointRestoreClickEvent);
         }
     }
     // POINT EVENT

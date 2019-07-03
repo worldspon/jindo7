@@ -12,6 +12,7 @@ const pointChangeState = {
 const communicationURL = {
     point : 'http://192.168.0.24:8081/management/point',
     pointChange : 'http://192.168.0.24:8081/management/point/change',
+    memo : 'http://192.168.0.24:8081/management/point/memo',
     p2p : 'http://192.168.0.24:8081/management/p2p',
     p2pConflict : 'http://192.168.0.24:8081/management/p2p/conflict',
     p2pResolution : 'http://192.168.0.24:8081/management/p2p/conflict/resolution',
@@ -90,7 +91,10 @@ class EventLogic {
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             Dynamic.pointBox(resultData.pointList, pointListState.state);
+            EventList.bindSearchButtonClickEvent();
+            EventList.bindSearchButtonEnterKeyEvent();
             EventList.bindPointListCheckBoxClickEvent();
+            EventList.bindMemoSectionClickEvent();
             EventList.bindPointListButtonClickEvent();
             EventList.bindPointStateChangeEvent();
         }, () => {
@@ -106,16 +110,67 @@ class EventLogic {
         }
         e.target.classList.add('active');
 
+        const parentNode = document.querySelector('.serviceadmin-content-box');
+        const memoBox = document.querySelector('.memo-box');
+
+        if( memoBox !== null ) {
+            parentNode.removeChild(memoBox);
+        }
+
         pointListState.state = parseInt(e.target.dataset.state);
         const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
         promiseResult.then((result) => {
-            const resultData = JSON.parse(result);
-            Dynamic.pointTable(resultData.pointList, pointListState.state);
+            const resultData = JSON.parse(result).pointList;
+            Dynamic.pointTable(resultData, pointListState.state);
             EventList.bindPointListCheckBoxClickEvent();
+            EventList.bindMemoSectionClickEvent();
             if( pointListState.state === 0 ) EventList.bindPointStateChangeEvent();
+            else {
+                EventList.bindPointRestoreClickEvent();
+            }
         }, () => {
             Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
         })
+    }
+
+    static searchButtonClickEvent() {
+        const searchCategory = document.querySelector('.search-select');
+        const selectOption = document.querySelectorAll('.search-select > option');
+        const selectedOption = selectOption[searchCategory.selectedIndex].value;
+        const searchInput = document.querySelector('.search-input');
+        const searchInputValue = document.querySelector('.search-input').value;
+        const active = document.querySelector('.active');
+        pointListState.state = parseInt(active.dataset.state);
+
+        if( searchInputValue === '' ) {
+            Dynamic.catchError('검색어를 입력해주세요.');
+        } else {
+            const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
+            promiseResult.then((result) => {
+                const resultData = JSON.parse(result).pointList;
+                let searchFilter;
+
+                if(selectedOption === 'id') {
+                    searchFilter = resultData.filter(resultData => resultData.trademark === searchInputValue);
+                } else if(selectedOption === 'phone') {
+                    searchFilter = resultData.filter(resultData => resultData.phone === searchInputValue);
+                } else if(selectedOption === 'accountHolder') {
+                    searchFilter = resultData.filter(resultData => resultData.bankUser === searchInputValue);
+                }
+                searchInput.value = '';
+                Dynamic.pointTable(searchFilter, pointListState.state);
+                EventList.bindPointListCheckBoxClickEvent();
+                EventList.bindMemoSectionClickEvent();
+                if( pointListState.state === 0 ) {
+                    EventList.bindPointStateChangeEvent();
+                } else {
+                    EventList.bindPointRestoreClickEvent();
+                }
+            }, () => {
+                Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+            })
+
+        }
     }
 
     // CHECKBOX 선택시 색상 변경
@@ -124,16 +179,73 @@ class EventLogic {
         e.target.checked ? tableTR.classList.add('point-list-on-hover') : tableTR.classList.remove('point-list-on-hover');
     }
 
+    // 메모박스 추가
+    static memoSectionClickEvent(e) {
+        const targetNo = e.target.parentNode.children[1].innerText;
+        const parentNode = document.querySelector('.serviceadmin-content-box');
+        const prevMemoBox = document.querySelector('.memo-box');
+        if( prevMemoBox === null ) {
+            const memoText = e.target.dataset.memo;
+            const memoBox = document.createElement('div');
+            memoBox.classList.add('memo-box');
+            memoBox.style.top = e.clientY+'px';
+            memoBox.style.left = e.clientX + 'px';
+            memoBox.innerHTML = 
+            `<textarea class="memo-textarea">${memoText}</textarea>
+            <button class="memo-button memo-register" data-no="${targetNo}">등록</button>
+            <button class="memo-button memo-destroy">취소</button>
+            <span style="float:right; color: black; font-size: 1.2rem; font-weight: bold;">No.${targetNo} MEMO</span>`;
+            parentNode.appendChild(memoBox);
+            EventList.bindMemoRegister();
+            EventList.bindMemoBoxDestroy();
+        }
+    }
+
+    static memoRegister(e) {
+        const active = document.querySelector('.active');
+        pointListState.state = parseInt(active.dataset.state);
+
+        const sendObject = {
+            uniqueId : e.target.dataset.no,
+            memo : e.target.previousSibling.previousSibling.value
+        }
+        const promiseResult = Communication.postPromise(sendObject, communicationURL.memo);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( resultData.errorCode === 0 ) {
+                Dynamic.catchError(resultData.msg);
+                EventLogic.memoBoxDestroy(e);
+                if( pointListState.state === 0 ) {
+                    document.querySelector('.apply-list').dispatchEvent(new Event('click'));
+                } else if( pointListState.state === 1 ) {
+                    document.querySelector('.confirm-list').dispatchEvent(new Event('click'));
+                } else if( pointListState.state === 2 ) {
+                    document.querySelector('.cancel-list').dispatchEvent(new Event('click'));
+                }
+            } else {
+                Dynamic.catchError(resultData.msg);
+            }
+        }, () => {
+            Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+        });
+    }
+
+    static memoBoxDestroy(e) {
+        const parentNode = e.target.parentNode.parentNode;
+        parentNode.removeChild(e.target.parentNode);
+    }
+
     // 승인 버튼 클릭시 통신
     static pointConfirmClickEvent(e) {
         const targetTR = e.target.parentNode.parentNode;
         const uniqueId = targetTR.children[1].innerText;
+        const requestDate = targetTR.children[2].innerText;
         const id = targetTR.children[3].innerText;
         const point = targetTR.children[5].innerText;
         const bank = targetTR.children[6].innerText;
         const bankuser = targetTR.children[7].innerText;
 
-        if(confirm(`정말로 승인하시겠습니까?\n${id} ${point}\n${bank} ${bankuser}`)) {
+        if(confirm(`정말로 승인하시겠습니까?\n${uniqueId}번 ${requestDate}\n${id} ${point}\n${bankuser} ${bank}`)) {
             pointChangeState.uniqueId = uniqueId;
             pointChangeState.state = 1;
 
@@ -156,12 +268,13 @@ class EventLogic {
     static pointRejectClickEvent(e) {
         const targetTR = e.target.parentNode.parentNode;
         const uniqueId = targetTR.children[1].innerText;
+        const requestDate = targetTR.children[2].innerText;
         const id = targetTR.children[3].innerText;
         const point = targetTR.children[5].innerText;
         const bank = targetTR.children[6].innerText;
         const bankuser = targetTR.children[7].innerText;
 
-        if(confirm(`정말로 거절하시겠습니까?\n${id} ${point}\n${bank} ${bankuser}`)) {
+        if(confirm(`정말로 거절하시겠습니까?\n${uniqueId}번 ${requestDate}\n${id} ${point}\n${bankuser} ${bank}`)) {
             pointChangeState.uniqueId = uniqueId;
             pointChangeState.state = 2;
 
@@ -171,6 +284,38 @@ class EventLogic {
                 if( resultData.errorCode === 5 ) {
                     Dynamic.catchError(resultData.msg);
                     window.location.reload();
+                } else {
+                    Dynamic.catchError(resultData.msg);
+                }
+            }, () => {
+                Dynamic.catchError('서버와 통신이 원활하지 않습니다.');
+            });
+        }
+    }
+
+    // 되돌리기 버튼 클릭시 통신
+    static pointRestoreClickEvent(e) {
+        const targetTR = e.target.parentNode.parentNode;
+        const uniqueId = targetTR.children[1].innerText;
+        const id = targetTR.children[3].innerText;
+        const point = targetTR.children[5].innerText;
+        const bank = targetTR.children[6].innerText;
+        const bankuser = targetTR.children[7].innerText;
+
+        if(confirm(`정말로 되돌리시겠습니까?\n${id} ${point}\n${bank} ${bankuser}`)) {
+            pointChangeState.uniqueId = uniqueId;
+            pointChangeState.state = 0;
+
+            const promiseResult = Communication.postPromise(pointChangeState, communicationURL.pointChange);
+            promiseResult.then((result) => {
+                const resultData = JSON.parse(result);
+                if( resultData.errorCode === 6 ) {
+                    Dynamic.catchError(resultData.msg);
+                    if( e.target.dataset.state === '1' ) {
+                        document.querySelector('.confirm-list').dispatchEvent(new Event('click'));
+                    } else if ( e.target.dataset.state === '2' ) {
+                        document.querySelector('.cancel-list').dispatchEvent(new Event('click'));
+                    }
                 } else {
                     Dynamic.catchError(resultData.msg);
                 }

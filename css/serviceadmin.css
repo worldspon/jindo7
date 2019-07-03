@@ -73,10 +73,11 @@ table {
 /******************** point refund page start *********************/
 
 .apply-btn-box {
+    display: flex;
     margin-bottom: 25px;
 }
 
-.apply-btn-box button {
+.apply-btn-box > button {
     padding: 10px 25px;
     border:1px solid #17a2b8;
     border-radius: 3px;
@@ -87,18 +88,54 @@ table {
     cursor: pointer;
 }
 
-.apply-btn-box button:not(:last-child){
+.apply-btn-box > button:not(:last-child){
     margin-right: 10px;
 }
 
-.apply-btn-box button.active {
+.apply-btn-box > button.active {
     color : white;
     background: #17a2b8;
 }
 
-.apply-btn-box button:hover {
+.apply-btn-box > button:hover {
     color : white;
     background: #0091b3;
+}
+
+.search-div {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+.date-input {
+    padding: 2px;
+}
+.date-change-button {
+    margin-right: 5px;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 1px solid gray;
+    border-left: none;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.search-select {
+    padding: 5px;
+}
+
+.search-input {
+    margin-left: 3px;
+    padding: 5px;
+}
+
+.search-button {
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 6px;
+    background: none;
+    border: 1px solid gray;
+    border-left: none;
 }
 
 /* common-subject-box th fixed width start */
@@ -155,7 +192,7 @@ table {
     vertical-align: middle;
 }
 
-.point-list-box button {
+.point-list-box  button {
     padding: 8px 28px;
     border-radius: 3px;
     border-width: 1px;
@@ -164,7 +201,6 @@ table {
     outline: none;
     cursor: pointer;
 }
-
     .btn-confirm {
         margin-right: 30px;
         border-color: #007bff;
@@ -177,13 +213,13 @@ table {
     }
 
     .btn-reject {
-        border-color: #dc3545;
-        background: #dc3545;
+        border-color: red;
+        background: red;
     }
 
     .btn-reject:hover {    
-        border-color: #bd2130;
-        background: #bd2130;
+        border-color: #dc3545;
+        background: #dc3545;
     }
 
     .finished-refund-point {
@@ -192,15 +228,59 @@ table {
     }
 
     .canceled-refund-point {
-        color: #dc3545;    
+        color: red;    
         font-weight: 600;    
+    }
+
+    .restore-button {
+        display:block;
+        margin: 0 auto;
+        background: red;
+        border: 1px solid red;
     }
 
     .point-list-box tr:hover .finished-refund-point, .point-list-box tr:hover .canceled-refund-point, .point-list-box tr:hover .confirm-date {
         color: #fff;
     }
 
+    .memo-section {
+        cursor: pointer;
+        position: relative;
+    }
 
+    .memo-box {
+        position: absolute;
+        padding: 5px 10px;
+        width: 300px;
+        background-color: #f3f3f3;
+        border: 1px solid #f6f6f6;
+        text-align: left;
+    }
+    
+    .memo-textarea {
+        width: 100%;
+        margin-bottom: 5px;
+        border-color: #ccc;
+        box-sizing: border-box;
+        height: 120px;
+        resize: none;
+    }
+    
+    .memo-button {
+        background-color: white;
+        color: black !important;
+    }
+
+    .memo-symbol {
+        position: absolute;
+        top:20px;
+        right: 30px;
+        width: 0px;
+        height: 0px;
+        border-top: 10px solid gold;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid transparent;
+    }
 /******************** point refund page end *********************/
 
 
