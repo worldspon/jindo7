@@ -74,6 +74,9 @@ headerWrap.innerHTML = `<header>
                 <li>
                     <a href='serviceadmin.html'>서비스관리</a>
                 </li>
+                <li>
+                    <a href='suspenduser.html'>정지회원관리</a>
+                </li>
             </ul>
         </li>
     </ul>
@@ -154,6 +157,9 @@ headerWrap.innerHTML = `<header>
                 </li>
                 <li>
                     <a href='serviceadmin.html'>서비스관리</a>
+                </li>
+                <li>
+                    <a href='suspenduser.html'>정지회원관리</a>
                 </li>
             </ul>
         </li>

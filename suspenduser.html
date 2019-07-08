@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/suspenduser.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>WORLDSPON</title>
+    
+    <script>
+        'use strict;'
+        const agent = navigator.userAgent.toLowerCase();
+        if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("이 페이지는 Chrome에 최적화되어 있습니다.\nIE로 접속 시 주요 기능이 동작하지 않을 수 있습니다.");
+        }
+    </script>
+</head>
+<body>
+    <div id='wrap'>
+        <!-- sub nav mouseover시 background -->
+        <div class='sub-nav-bg'></div>
+
+        <!-- header-wrap start -->
+        <div class='header-wrap'>
+
+        </div>
+        <!-- header-wrap end -->
+
+        <!-- main-wrap start -->
+        <div class='main-wrap'>
+            <main>
+                
+                <!-- suspenduser common box start -->
+                <div class='suspenduser-common-box content-box-layout'>
+                    <h3 class='content-hl'>정지회원관리</h3>
+                </div>
+                <!-- suspenduser common box end -->
+                
+                <!-- suspenduser content box start -->
+                <div class='suspenduser-content-box content-box-layout'>
+                    <div class="suspend-id-box">
+                        <input type="search" id="suspend-user-id" placeholder="스마트아이디 입력">
+                        <button class="btn-suspend-id">검색</button>
+                    </div>
+                    <table class="tb-suspend-box">
+                        <thead class="common-suspend-box">
+                            <tr>
+                                <th>유니크 ID</th>
+                                <th>스마트아이디</th>
+                                <th>사유</th>
+                                <th>정지횟수</th>
+                                <th>정지일자</th>
+                                <th>종료일자</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody class="suspend-history-box">
+                            <tr>
+                                <td>15131</td>
+                                <td>shhe1304</td>
+                                <td>너무 잘생김</td>
+                                <td>0회</td>
+                                <td>19.07.10</td>
+                                <td>19.07.18</td>
+                                <td>
+                                    <span>8일</span>
+                                    <button>해제</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- suspenduser content box end -->
+
+            </main>
+        </div>
+        <!-- main-wrap end -->
+    </div>
+
+
+    <script src='./js/polyfill.min.js'></script>
+    <script src='./js/common.js'></script>
+</body>
+</html>
