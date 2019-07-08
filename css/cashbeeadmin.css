@@ -128,19 +128,19 @@ main {
     }
     
     .cg-date {
-        width: 250px;
+        width: 280px;
     }
 
     .cg-user {
-        width: 110px;
+        width: 150px;
+    }
+    
+    .cg-nickname {
+        width: 190px;
     }
 
     .cg-card, .cg-tid {
-        width:230px;
-    }
-
-    .cg-now {
-        width: 100px;
+        width:250px;
     }
 
 .cashbee-history-box {
