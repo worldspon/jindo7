@@ -305,7 +305,7 @@ class EventLogic {
             }
         } else if(nowMonth === 1) {
             for(const [index, value] of parseJSONData.ad[nowYear-1][12].dailyprofit.entries()) {
-                barChartObject.lastMonth += value-parseJSONData.ad[nowYear][12].deduction[index];
+                barChartObject.lastMonth += value-parseJSONData.ad[nowYear-1][12].deduction[index];
             }
 
             for(const [index, value] of parseJSONData.ad[nowYear-1][11].dailyprofit.entries()) {
