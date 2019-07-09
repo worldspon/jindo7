@@ -1,4 +1,6 @@
-'use strict';
+import { Init } from './controller.js';
+
+Init.initCommunication();
 
 // 현재 날짜 데이터 저장
 let nowYear = new Date().getFullYear();
@@ -144,7 +146,7 @@ function AsyncValidateFnc(url) {
  */
 function setComparisonData(data) {
     let myData = Object.assign({},data);
-    let curHigh = curLow = curAvg = monMaxAvg = monMinAvg = monAvg = avgCount = 0;
+    let curHigh, curLow, curAvg, monMaxAvg, monMinAvg, monAvg, avgCount = 0;
     let curValAry = [];
     let currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0});
 
@@ -161,7 +163,7 @@ function setComparisonData(data) {
         dataMonth[el].forEach((eel)=>{
             let dummyAry = [];
             let dummyObj = myData[el][eel];
-            for(index in dummyObj.dailyprofit) {
+            for(const index in dummyObj.dailyprofit) {
                 dummyAry.push(dummyObj.dailyprofit[index]-dummyObj.deduction[index]);
             }
             if(el==nowYear && eel==nowMonth) {
@@ -640,6 +642,9 @@ function createLineChart(data, data1=`${nowYear}${nowMonth}`, data2=``) {
             }
         }
     });
+
+    console.log(myLineChart);
+    console.log(ctx);
 
     // 차트 생성 후 canvas id
     let lineChartAfter = document.getElementById('ad-profit-chart');
