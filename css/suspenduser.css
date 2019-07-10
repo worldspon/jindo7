@@ -114,6 +114,14 @@ main {
     vertical-align: middle;
 }
 
+    .detail-date {
+        padding: 10px 18px;
+        border: 1px solid #70309e;
+        border-radius: 3px;
+        color: white;
+        background: #70309e;
+    }
+
 
 @media screen and (max-width: 1440px){
     main {

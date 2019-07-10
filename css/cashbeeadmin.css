@@ -78,6 +78,93 @@ main {
     padding: 25px 10px;
 }
 
+/***************** cash lockpoint box start *****************/
+
+.heading-lock {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.tb-lockpoint-box {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.common-lockpoint-box {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #b2b2b2;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: #efefef;
+}
+
+.common-lockpoint-box th {
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+    .cl-num {
+        width: 100px;
+    }
+
+    .cl-identy {
+        width: 200px;
+    }
+
+    .cl-date {
+        width: 260px;
+    }
+
+    .cl-card {
+        width: 200px;
+    }
+    
+    .cl-tid {
+        width: 180px;
+    }
+
+.cashbee-lockpoint-box {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.cashbee-lockpoint-box > tr:nth-child(2n) {
+    background: #f2f2f2;
+}
+
+.tb-lockpoint-box > .cashbee-lockpoint-box tr:hover {
+    background: #eaedf8;
+}
+
+.cashbee-lockpoint-box td {
+    padding: 20px 10px;
+    vertical-align: middle;
+}
+
+    .btn-point-confirm {
+        padding: 5px 12px;
+        border-radius: 5px;
+        border: 1px solid #662d91;
+        color: #662d91;
+        background: transparent;
+        cursor: pointer;
+        outline: none;
+    }
+    .btn-point-confirm:hover {
+        color: #fff;
+        background: #662d91;
+    }
+
+/***************** cash lockpoint box end *****************/
+
+
+/***************** cash recharge box start *****************/
+
 .search-id-box {
     display: flex;
     justify-content: center;
@@ -140,7 +227,7 @@ main {
     }
 
     .cg-card, .cg-tid {
-        width:250px;
+        width: 250px;
     }
 
 .cashbee-history-box {
@@ -148,6 +235,7 @@ main {
     font-size: 1.1rem;
     color: #444;
 }
+
 .cashbee-history-box > tr:nth-child(even) {
     background: #f2f2f2;
 }
@@ -160,6 +248,8 @@ main {
     padding: 20px 10px;
     vertical-align: middle;
 }
+
+/***************** cash recharge box end *****************/
 
 
 @media screen and (max-width: 1440px){
