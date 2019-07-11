@@ -95,6 +95,10 @@ main {
     box-sizing: border-box;
 }
 
+    .su-reason {
+        width: 300px;
+    }
+
 
 .suspend-history-box {
     text-align: center;
@@ -122,6 +126,20 @@ main {
         background: #70309e;
     }
 
+    .btn-clear {
+        padding: 10px 15px;
+        border: 1px solid #70309e;
+        border-radius: 3px;
+        line-height: 1.1em;
+        color: #70309e;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .btn-clear:hover {
+        color: white;
+        background: #70309e;
+    }
 
 @media screen and (max-width: 1440px){
     main {
