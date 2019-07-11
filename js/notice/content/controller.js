@@ -24,7 +24,9 @@ class EventList {
 
     static bindDeleteButtonClickEvent() {
         const deleteButton = document.querySelector('.btn-del');
-        deleteButton.addEventListener('click', EventLogic.deleteContent);
+        if( deleteButton !== null ) {
+            deleteButton.addEventListener('click', EventLogic.deleteContent);
+        }
     }
 }
 
