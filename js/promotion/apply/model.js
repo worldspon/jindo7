@@ -53,9 +53,9 @@ class EventLogic {
         const colorSelectBox = document.querySelector('.ad-color');
         const colorValue = colorSelectBox.options[colorSelectBox.selectedIndex].value;
 
-        
-        if( periodValue !== '' && colorValue !== '' ) {
-            const adTextArea = document.querySelector('.ad-text-space');
+        const adTextArea = document.querySelector('.ad-text-space');
+
+        if( periodValue !== '' && colorValue !== '' &&  adTextArea.value.trim() !== '') {
             const sendObject = {
                 chat : adTextArea.value.trim().replace(/\n/g, ''), 
                 colorKey : colorValue, 
@@ -75,6 +75,8 @@ class EventLogic {
             }, () => {
                 Dynamic.catchError('서버와 통신이 원활하지않습니다.');
             })
+        } else {
+            Dynamic.catchError('모든 항목을 입력해주세요.');
         }
     }
 }

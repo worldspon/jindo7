@@ -1,5 +1,5 @@
 import { EventLogic } from './model.js';
-import { View } from './/view.js';
+import { View } from './view.js';
 
 class Init {
     static bindEvent() {
