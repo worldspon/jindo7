@@ -3,7 +3,7 @@ import { Dynamic } from './controller.js';
 const communicationURL = 'http://192.168.0.24:8080/change/password';
 
 class Communication {
-    static postPromise() {
+    static postPromise(url, sendObject) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open('POST', url);

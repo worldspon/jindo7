@@ -4,6 +4,7 @@ import { View } from './view.js';
 class Init {
     static bindEvent() {
         EventList.bindSendMailEvent();
+        EventList.bindInputEnterEvent();
     }
 }
 
@@ -32,6 +33,17 @@ class EventList {
         const sendButton = document.querySelector('.send-email');
 
         sendButton.addEventListener('click', EventLogic.sendMail);
+    }
+
+    static bindInputEnterEvent() {
+        const inputBox = document.querySelector('.smart-id');
+
+        inputBox.addEventListener('keydown', (e) => {
+            if( e.keyCode === 13 ) {
+                const sendButton = document.querySelector('.send-email');
+                sendButton.dispatchEvent(new Event('click'));
+            }
+        })
     }
 }
 
