@@ -115,7 +115,7 @@ main {
             display: none;
         }
 
-        .ad-oneline-content-box > a {
+        .ad-oneline-content-box > span {
             font-size: 1.3rem;
             width: 100%;
             color: #555;
@@ -388,7 +388,7 @@ main {
         margin-left: 5px;
     }
 
-    .ad-oneline-content-box > a {
+    .ad-oneline-content-box > span {
         font-weight: 600;
     }
 
