@@ -1,7 +1,7 @@
 import { Dynamic } from './controller.js';
 
 const communicationURL = 'http://192.168.0.24:8080/promotion/request';
-const basicPrice = 17;
+const basicPrice = document.querySelector('.detail-price').dataset.basicPrice;
 
 class Communication {
 
@@ -13,7 +13,7 @@ class Communication {
             xhr.onload = () => resolve(xhr.responseText);
             xhr.onerror = () => reject(xhr.statusText);
             xhr.send(JSON.stringify(sendObject));
-        })
+        });
     }
 
 }
