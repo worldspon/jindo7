@@ -22,7 +22,7 @@ class Communication {
             trademark : uerId
         };
         // 통신 url 정의
-        const communicationURL = `http://192.168.0.24:8080//history/${searchURL.url}`;
+        const communicationURL = `http://192.168.0.24:8080/history/${searchURL.url}`;
 
         const promiseObject = this.asyncPostPromise(communicationURL, JSON.stringify(sendObject));
 
