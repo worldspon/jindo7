@@ -99,6 +99,10 @@ main {
         width: 300px;
     }
 
+    .editable-data {
+        cursor: pointer;
+    }
+
 
 .suspend-history-box {
     text-align: center;
