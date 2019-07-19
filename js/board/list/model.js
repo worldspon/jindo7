@@ -31,8 +31,8 @@ class Communication {
 class EventLogic {
     static userSubMenu(e) {
         const coordinate = {
-            x : e.clientX,
-            y : e.clientY
+            x : e.pageX,
+            y : e.pageY
         }
         Dynamic.createSubMenu(coordinate, e.target);
     }
@@ -43,7 +43,7 @@ class EventLogic {
             blockDays : null,
             memo : null
         };
-        const textAreaValue = document.getElementById('memo').value;
+        const textAreaValue = document.getElementById('memo').value.trim();
         if( textAreaValue === '' ) {
             Dynamic.catchError('정지 사유를 입력해주세요.');
         } else if( confirm('정말로 정지하시겠습니까?') ) {
@@ -65,7 +65,7 @@ class EventLogic {
                 Dynamic.catchError(resultData.msg);
 
                 if( resultData.errorCode === 0 ) {
-                    document.querySelector('.user-block-modal').remove();
+                    window.location.reload();
                 }
             }, () => {
                 Dynamic.catchError('서버와 통신이 원활하지않습니다.');

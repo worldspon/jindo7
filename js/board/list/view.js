@@ -44,9 +44,14 @@ class View {
 
     static createUserBlockModal(target) {
         const subMenu = document.querySelector('.user-sub-menu');
+        const prevModal = document.querySelector('.user-modal-background');
 
         if( subMenu !== null ) {
             subMenu.remove();
+        }
+
+        if(prevModal !== null) {
+            prevModal.remove();
         }
 
         const body = document.querySelector('body');
@@ -83,7 +88,6 @@ class View {
 
     static destroyUserBlockModal(target) {
         target.parentNode.parentNode.parentNode.remove();
-        target.parentNode.parentNode.remove();
     }
 
     static viewAlert(msg) {
