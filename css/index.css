@@ -1,3 +1,7 @@
+body {
+    height: 100%;
+}
+
 main {
     display: -ms-grid;
     display: grid;
@@ -7,6 +11,65 @@ main {
     grid-template-rows: repeat(4, auto);
     grid-row-gap: 20px;
     padding:20px;
+}
+
+.modal-backgruond {
+    width: 100%;
+    height: 100%;
+    position : absolute;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 998;
+}
+.modal-box {
+    display: flex;
+    position : absolute;
+    justify-content: center;
+    top: 20%;
+    width: 100%;
+    z-index: 999;
+}
+
+.modal {
+    background-color: white;
+    width: 60%;
+    max-width: 500px;
+    padding: 30px 40px;
+    border-radius: 15px;
+}
+
+.modal-header {
+    color: red;
+    font-weight: 700;
+    line-height: 1.5;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.modal-body > p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-indent: 5px;
+}
+
+.modal-body > p > span {
+    font-weight: 1.3rem;
+    font-weight: 600;
+}
+
+.button-box {
+    width: 100%;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.close-modal, .move-directq {
+    background-color: #683b93;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 /* profit-box start */

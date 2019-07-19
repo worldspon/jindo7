@@ -166,4 +166,14 @@ class AdprofitChart {
     }
 }
 
-export { communicationURL, currentDate, Communication, AdprofitChart };
+class EventLogic {
+    static closeModal() {
+        const modalBackground = document.querySelector('.modal-backgruond');
+        const modal = document.querySelector('.modal-box');
+
+        modalBackground.remove();
+        modal.remove();
+    }
+}
+
+export { communicationURL, currentDate, Communication, AdprofitChart, EventLogic };

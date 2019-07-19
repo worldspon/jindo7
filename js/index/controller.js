@@ -1,4 +1,4 @@
-import { communicationURL, currentDate, Communication, AdprofitChart } from './model.js';
+import { communicationURL, currentDate, Communication, AdprofitChart, EventLogic } from './model.js';
 import { ErrorView, AdProfitView, NoticeView, FaqView, GameView } from './view.js';
 
 class Init {
@@ -59,6 +59,12 @@ class EventList {
     // error catch -> alret view 호출
     static catchError(msg) {
         ErrorView.alertView(msg);
+    }
+
+    static bindCloseModalEvent() {
+        const closeButton = document.querySelector('.close-modal');
+
+        closeButton.addEventListener('click', EventLogic.closeModal);
     }
 }
 
