@@ -73,7 +73,7 @@ class View {
             </div>
             <p class="block-user">대상유저 : ${target.dataset.id}</p>
             <label for="memo">재제사유</label>
-            <textarea id="memo" placeholder="사유를 적어주세요."></textarea>
+            <textarea id="memo" placeholder="사유를 적어주세요." maxlength="600"></textarea>
             <div class="user-block-button-box">
                 <button class="modal-cancel">취소</button>
                 <button class="modal-confirm" data-id="${target.dataset.id}">확인</button>
