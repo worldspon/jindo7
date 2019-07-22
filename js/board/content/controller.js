@@ -9,11 +9,32 @@ class Init {
         EventList.bindCommentRegisterClickEvent();
         EventList.setCommentList();
     }
+
 }
 
 class Dynamic {
+    static createSubMenu(coordinate, target) {
+        View.createSubMenu(coordinate, target);
+    }
+
+    static destroySubMenu(e) {
+        View.destroySubMenu(e);
+    }
+
+    static createUserBlockModal(e) {
+        View.createUserBlockModal(e.target);
+    }
+
+    static destroyUserBlockModal(e) {
+        View.destroyUserBlockModal(e.target);
+    }
+
     static createCommentList(data) {
         View.createCommentList(data);
+    }
+
+    static blockUserMessage() {
+        View.viewAlert('게시판 이용이 제한된 사용자입니다.');
     }
 
     static catchError(msg) {
@@ -22,6 +43,52 @@ class Dynamic {
 }
 
 class EventList {
+    static bindUserSubMenuEvent() {
+        const users = document.querySelectorAll('.user-smart-id');
+
+        for( const user of users ) {
+            user.addEventListener('click', EventLogic.userSubMenu);
+        }
+    }
+    
+    static bindUserBlockModalEvent() {
+        const userBlockButton = document.querySelector('.user-block'); 
+
+        userBlockButton.addEventListener('click', Dynamic.createUserBlockModal);
+    }
+
+    static bindModalCancelEvent() {
+        const modalCancelButton = document.querySelector('.modal-cancel');
+        modalCancelButton.addEventListener('click', Dynamic.destroyUserBlockModal);
+    }
+
+    static bindMemoPreventEnter() {
+        const textArea = document.getElementById('memo');
+
+        textArea.addEventListener('keydown', (e) => {
+            if( e.keyCode === 13 ){
+                e.preventDefault();
+            }
+        })
+    }
+
+    static bindUserBlockEvent() {
+        const modalConfirmButton = document.querySelector('.modal-confirm');
+        modalConfirmButton.addEventListener('click', EventLogic.userBlock);
+    }
+
+    static bindUserClear() {
+        const userClearButton = document.querySelector('.user-clear');
+
+        userClearButton.addEventListener('click', EventLogic.userClear);
+    }
+
+    static bindCloseSubMenuEvent() {
+        const closeSubMenu = document.querySelector('.close-sub-menu');
+
+        closeSubMenu.addEventListener('click', Dynamic.destroySubMenu);
+    }
+
     static bindListButtonClickEvent() {
         const listButton = document.querySelector('.btn-board-list');
         listButton.addEventListener('click', EventLogic.locationPreviousPage);
@@ -44,7 +111,10 @@ class EventList {
     static bindCommentRegisterClickEvent() {
         const commentRegisterButton = document.querySelector('.board-reply-upload');
 
-        commentRegisterButton.addEventListener('click', EventLogic.checkCommentLength);
+        const user = document.querySelector('.user-smart-id');
+        const writerBlock = Boolean(parseInt(user.dataset.blocked));
+
+        commentRegisterButton.addEventListener('click', writerBlock ? EventLogic.checkCommentLength : Dynamic.blockUserMessage);
     }
 
     static setCommentList(page = 0) {

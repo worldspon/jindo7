@@ -8,6 +8,77 @@ main {
     grid-row-gap: 20px;
     padding: 20px 0px;
 }
+.user-sub-menu {
+    font-size: 1.2rem;
+    font-weight: 600;
+    position: absolute;
+    background-color: white;
+    border: 2px solid #444;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+    z-index: 998;
+}
+
+.user-sub-menu > div {
+    padding: 7px;
+}
+
+.user-sub-menu > div:first-child {
+    border-bottom: 2px solid black;
+}
+
+.user-modal-background {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top:25%;
+    font-size: 1.3rem;
+    z-index: 999
+}
+
+.user-smart-id {
+    cursor: pointer;
+}
+
+.user-block-modal {
+    width: 80%;
+    max-width: 500px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.radio-box {
+    margin-bottom: 5px;
+}
+
+.block-user {
+    margin-bottom: 5px;
+}
+
+#memo {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+    margin: 5px 0;
+    resize: none;
+    outline: none;
+}
+
+.user-block-button-box {
+    text-align: right;
+}
+
+.user-block-button-box > button {
+    background-color: transparent;
+    padding: 3px 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
 .board-common-box {
     display: flex;
@@ -94,6 +165,32 @@ main {
 .write-down-reply-box {
     border: 1px solid #939393;
     margin: 20px 0 35px;
+    position: relative;
+}
+
+.freeze-reply {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background-color: #625e59;
+}
+
+.block-notice-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.block-notice {
+    color: #7718f1;
+    font-size: 1.6rem;
+    font-weight: 600;
+    opacity: 1;
 }
 
 .reply-detail-box {
