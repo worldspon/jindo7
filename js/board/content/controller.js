@@ -2,6 +2,15 @@ import { EventLogic } from './model.js';
 import { View } from './view.js';
 
 class Init {
+
+    static checkBlockUser() {
+        const user = document.querySelector('.user-smart-id');
+        const writerBlock = Boolean(parseInt(user.dataset.blocked));
+
+        if( writerBlock ) {
+           View.createReplyBlockBox(); 
+        }
+    }
     static bindEvent() {
         EventList.bindListButtonClickEvent();
         EventList.bindDeleteButtonClickEvent();
@@ -114,7 +123,7 @@ class EventList {
         const user = document.querySelector('.user-smart-id');
         const writerBlock = Boolean(parseInt(user.dataset.blocked));
 
-        commentRegisterButton.addEventListener('click', writerBlock ? EventLogic.checkCommentLength : Dynamic.blockUserMessage);
+        commentRegisterButton.addEventListener('click', writerBlock ? Dynamic.blockUserMessage : EventLogic.checkCommentLength);
     }
 
     static setCommentList(page = 0) {

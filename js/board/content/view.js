@@ -1,6 +1,21 @@
 import { EventList } from './controller.js'
 
 class View {
+    static createReplyBlockBox() {
+        const parentNode = document.querySelector('.write-down-reply-box');
+
+        const firstDiv = document.createElement('div');
+        firstDiv.classList.add('freeze-reply');
+
+        const secondDiv = document.createElement('div');
+        secondDiv.classList.add('block-notice-box');
+        secondDiv.innerHTML = 
+        `<p class="block-notice">댓글 작성이 금지된 유저입니다.</p>`;
+
+        parentNode.appendChild(firstDiv);
+        parentNode.appendChild(secondDiv);
+    }
+
     static createSubMenu(coordinate, target) {
         const prevSubMenu = document.querySelector('.user-sub-menu');
         const isBlocked = Boolean(parseInt(target.dataset.blocked));
