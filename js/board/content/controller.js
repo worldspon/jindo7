@@ -4,7 +4,7 @@ import { View } from './view.js';
 class Init {
 
     static checkBlockUser() {
-        const user = document.querySelector('.user-smart-id');
+        const user = document.querySelector('.own-smart-name');
         const writerBlock = Boolean(parseInt(user.dataset.blocked));
 
         if( writerBlock ) {
@@ -22,21 +22,6 @@ class Init {
 }
 
 class Dynamic {
-    static createSubMenu(coordinate, target) {
-        View.createSubMenu(coordinate, target);
-    }
-
-    static destroySubMenu(e) {
-        View.destroySubMenu(e);
-    }
-
-    static createUserBlockModal(e) {
-        View.createUserBlockModal(e.target);
-    }
-
-    static destroyUserBlockModal(e) {
-        View.destroyUserBlockModal(e.target);
-    }
 
     static createCommentList(data) {
         View.createCommentList(data);
@@ -52,51 +37,6 @@ class Dynamic {
 }
 
 class EventList {
-    static bindUserSubMenuEvent() {
-        const users = document.querySelectorAll('.user-smart-id');
-
-        for( const user of users ) {
-            user.addEventListener('click', EventLogic.userSubMenu);
-        }
-    }
-    
-    static bindUserBlockModalEvent() {
-        const userBlockButton = document.querySelector('.user-block'); 
-
-        userBlockButton.addEventListener('click', Dynamic.createUserBlockModal);
-    }
-
-    static bindModalCancelEvent() {
-        const modalCancelButton = document.querySelector('.modal-cancel');
-        modalCancelButton.addEventListener('click', Dynamic.destroyUserBlockModal);
-    }
-
-    static bindMemoPreventEnter() {
-        const textArea = document.getElementById('memo');
-
-        textArea.addEventListener('keydown', (e) => {
-            if( e.keyCode === 13 ){
-                e.preventDefault();
-            }
-        })
-    }
-
-    static bindUserBlockEvent() {
-        const modalConfirmButton = document.querySelector('.modal-confirm');
-        modalConfirmButton.addEventListener('click', EventLogic.userBlock);
-    }
-
-    static bindUserClear() {
-        const userClearButton = document.querySelector('.user-clear');
-
-        userClearButton.addEventListener('click', EventLogic.userClear);
-    }
-
-    static bindCloseSubMenuEvent() {
-        const closeSubMenu = document.querySelector('.close-sub-menu');
-
-        closeSubMenu.addEventListener('click', Dynamic.destroySubMenu);
-    }
 
     static bindListButtonClickEvent() {
         const listButton = document.querySelector('.btn-board-list');
@@ -120,7 +60,7 @@ class EventList {
     static bindCommentRegisterClickEvent() {
         const commentRegisterButton = document.querySelector('.board-reply-upload');
 
-        const user = document.querySelector('.user-smart-id');
+        const user = document.querySelector('.own-smart-name');
         const writerBlock = Boolean(parseInt(user.dataset.blocked));
 
         commentRegisterButton.addEventListener('click', writerBlock ? Dynamic.blockUserMessage : EventLogic.checkCommentLength);

@@ -33,7 +33,6 @@ main {
     display: flex;
     justify-content: center;
     position: absolute;
-    top:25%;
     font-size: 1.3rem;
     z-index: 999
 }

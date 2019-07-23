@@ -49,8 +49,8 @@ class View {
                 <td>${el.trademark}</td>
                 <td class="editable-data" data-id="${el.id}" data-memo="${el.blockMemo}">${el.blockMemo}</td>
                 <td>${el.blockCount}</td>
-                <td>${el.startDate}</td>
-                <td>${el.endDate}</td>
+                <td>${el.startDate.slice(0,el.startDate.indexOf('/'))}<br>${el.startDate.slice(el.startDate.indexOf('/')+1)}</td>
+                <td>${el.endDate.slice(0,el.endDate.indexOf('/'))}<br>${el.endDate.slice(el.endDate.indexOf('/')+1)}</td>
                 <td>
                     <span class="detail-date">${el.blockDay}일</span>
                     <button class="btn-clear">해제</button>
