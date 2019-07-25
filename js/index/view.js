@@ -1,4 +1,40 @@
-class AdProfitView {
+import { EventList } from './controller.js';
+
+class View {
+    static renderBlockInfoModal(data) {
+        const body = document.querySelector('body');
+        const modalBox = document.createElement('div');
+        modalBox.classList.add('modal-box');
+        modalBox.innerHTML = 
+        `<div class="modal">
+            <p class="modal-header">이용 제한 조치 안내</p>
+            <div class="modal-body">
+                <p>대상 : <span>${data.trademark}</span></p>
+                <p>사유 : <span>${data.blockMemo}</span></p>
+                <p>시작일시 : <span>${data.startDate}</span></p>
+                <p>종료일시 : <span>${data.endDate}</span></p>
+                <p>정지기간 : <span>${data.period}일</span></p>
+                <p>제재조치 : <span>게시판 이용 제한</span></p>
+            </div>
+            <div class="button-box">
+                <button class="pause-modal" data-id="${data.trademark}">3일 후에 다시보기</button>
+                <a href="./directq.html"><button class="move-directq">1:1 문의</button></a>
+                <button class="close-modal">확인</button>
+            </div>
+        </div>`;
+        const modalBackground = document.createElement('div');
+        modalBackground.classList.add('modal-backgruond');
+
+        body.appendChild(modalBox);
+        body.appendChild(modalBackground);
+        const windowHeight = window.innerHeight;
+        const bodyHeight = document.querySelector('body').offsetHeight;
+        modalBackground.style.height = windowHeight >= bodyHeight ? windowHeight : bodyHeight + 'px';
+        EventList.bindModalHeightResizeEvent();
+        EventList.bindPauseBlockModalEvent();
+        EventList.bindCloseModalEvent();
+    }
+
     // 광고수익금 날짜 표현
     static renderMonth(currentDate) {
         const prevMonthTitle = document.querySelector('.prev-month > .profit-left');
@@ -7,7 +43,6 @@ class AdProfitView {
         currentMonthTitle.innerText = `${currentDate.month}월 총 광고수익금`;
         prevMonthTitle.innerText = `${prevMonth}월 총 광고수익금`;
     }
-
     // 상단 광고수익금 데이터 표현
     static renderAdprofitText(data) {
         const prevMonthValue = document.querySelector('.prev-month > .profit-right');
@@ -19,7 +54,6 @@ class AdProfitView {
         changePercentageValue.innerText = data.comparePercentage;
         changePercentageValue.style.color = parseFloat(data.comparePercentage) >= 0 ? 'green' : 'red';
     }
-
     // 광고수익금 차트 데이터 표현
     static renderAdprofitChart(chartData) {
         const chartTag = document.getElementById("index-profit-chart").getContext("2d");
@@ -64,9 +98,6 @@ class AdProfitView {
             }
         });
     }
-}
-
-class NoticeView {
 
     // 공지사항 데이터 표현
     static renderNotice(data) {
@@ -83,9 +114,6 @@ class NoticeView {
             </div>`;
         }
     }
-}
-
-class FaqView {
 
     // FAQ 데이터 표현
     static renderFaq(data) {
@@ -101,9 +129,6 @@ class FaqView {
             </div>`;
         }
     }
-}
-
-class GameView {
 
     // 좀비레이스 데이터 표현
     static raceTableRender(date, data) {
@@ -323,13 +348,11 @@ class GameView {
 
         dropTable.innerHTML = dropTableHTML;
     }
-}
 
-class ErrorView {
     // error 발생시 alert 표현
-    static alertView(msg) {
+    static viewAlert(msg) {
         alert(msg);
     }
 }
 
-export { ErrorView, AdProfitView, NoticeView, FaqView, GameView };
+export { View };

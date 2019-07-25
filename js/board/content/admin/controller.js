@@ -59,9 +59,7 @@ class EventList {
     }
 
     static bindUserBlockModalEvent() {
-        console.log('bind');
         const userBlockButton = document.querySelector('.user-block'); 
-        console.log(userBlockButton);
 
         userBlockButton.addEventListener('click', Dynamic.createUserBlockModal);
     }

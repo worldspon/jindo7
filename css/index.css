@@ -17,6 +17,7 @@ main {
     width: 100%;
     height: 100%;
     position : absolute;
+    top: 0;
     background-color: black;
     opacity: 0.6;
     z-index: 998;
@@ -63,13 +64,17 @@ main {
     text-align: right;
 }
 
-.close-modal, .move-directq {
+.close-modal, .move-directq, .pause-modal {
     background-color: #683b93;
     color: white;
     border-radius: 5px;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+}
+
+.pause-modal {
+    float: left;
 }
 
 /* profit-box start */

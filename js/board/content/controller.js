@@ -11,6 +11,7 @@ class Init {
            View.createReplyBlockBox(); 
         }
     }
+
     static bindEvent() {
         EventList.bindListButtonClickEvent();
         EventList.bindDeleteButtonClickEvent();
@@ -18,7 +19,6 @@ class Init {
         EventList.bindCommentRegisterClickEvent();
         EventList.setCommentList();
     }
-
 }
 
 class Dynamic {
@@ -53,7 +53,6 @@ class EventList {
 
     static bindCommentInputEvent() {
         const commentInputBox = document.querySelector('.reply-some-words');
-
         commentInputBox.addEventListener('input', EventLogic.commentSizeCheck);
     }
 

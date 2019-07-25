@@ -1,11 +1,13 @@
-import { Init,EventList } from './controller.js';
+import { Init, Dynamic } from './controller.js';
 
 const communicationURL = {
+    block : 'http://192.168.0.24:8080/main/blockInformation',
     adprofit : 'http://192.168.0.24:8080/main/adprofit',
     notice : 'http://192.168.0.24:8080/main/notice',
     faq : 'http://192.168.0.24:8080/main/faq',
     game : 'http://192.168.0.24:8080/main/game'
 }
+
 
 const currentDate = {
     month : new Date().getMonth()+1,
@@ -38,9 +40,13 @@ const promiseProxy = new Proxy(promiseResultValue, {
             endPromise += el[resultCount];
         }
 
-        if(endPromise >= 4 && el.rejectCount >= 1) {
+        if( endPromise === 4 ) {
+            Init.userBlockInfo();
+        }
+
+        if(endPromise === 5 && el.rejectCount >= 1) {
             setTimeout(()=>{
-                EventList.catchError('서버와 통신이 원활하지않습니다.');
+                Dynamic.catchError('서버와 통신이 원활하지않습니다.');
             },1000);
         }
 
@@ -49,7 +55,7 @@ const promiseProxy = new Proxy(promiseResultValue, {
 });
 
 class Communication {
-    static asyncGetPromise(url) {
+    static getPromise(url) {
         return new Promise((resolve, reject)=>{
             const xhr = new XMLHttpRequest();
             xhr.open('GET',url);
@@ -58,42 +64,70 @@ class Communication {
             xhr.send();
         });
     }
+}
 
-    static setPromiseResult(type, url) {
-        const promiseResult = this.asyncGetPromise(url);
-        promiseResult.then((result)=>{
-            const resultData = JSON.parse(result);
-            if(type === 'adprofit' && resultData.errorCode === 0) {
-                AdprofitData.convertAdprofitMonthData(resultData);
-                AdprofitChart.convertAdprofitChartData(resultData);
-                Init.adProfitTextRender(adprofitMonthData);
-                Init.adProfitChartRender(adprofitChartData);
-                promiseProxy.resolveCount++;
-            } else if(type === 'notice' && resultData.errorCode === 0) {
-                Init.noticeRender(resultData.noticeList);
-                promiseProxy.resolveCount++;
-            } else if(type === 'faq' && resultData.errorCode === 0) {
-                Init.faqRender(resultData.faqList);
-                promiseProxy.resolveCount++;
-            } else if(type === 'game') {
-                Init.gameRender(resultData);
-                promiseProxy.resolveCount++;
-            } else {
-                promiseProxy.rejectCount++;
+class Logic {
+
+    static checkCookie(userId) {
+        const cookieNameArray = Logic.getCookieName();
+
+        for(const el of cookieNameArray) {
+            if( el.toUpperCase() === userId.toUpperCase() ) {
+                return false;
             }
-        }, ()=>{
+        }
+        return true;
+    }
+
+    static getCookieName() {
+        const cookies = document.cookie;
+        const cookieArray = cookies.split(';');
+        for(const [index, value] of cookieArray.entries()) {
+            cookieArray[index] = value.trim();
+            const equalIndex = cookieArray[index].indexOf('=');
+            cookieArray[index] = cookieArray[index].slice(0,equalIndex);
+        }
+
+        return cookieArray;
+    }
+
+    static checkBlock(object) {
+        return Object.keys(object).length === 0 ? false : true;
+    }
+
+    static userBlockInfoData() {
+        const promiseResult = Communication.getPromise(communicationURL.block);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            if( Logic.checkBlock(resultData) && Logic.checkCookie(resultData.trademark) ) {
+                Dynamic.renderBlockInfoModal(resultData);
+            }
+            promiseProxy.resolveCount++;
+        }, () => {
             promiseProxy.rejectCount++;
         })
     }
-}
 
-class AdprofitData {
+    // 광고수익금 비동기통신
+    static adProfitData() {
+        const promiseResult = Communication.getPromise(communicationURL.adprofit);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Logic.convertAdprofitMonthData(resultData);
+            Logic.convertAdprofitChartData(resultData);
+            Dynamic.adProfitTextRender(adprofitMonthData);
+            Dynamic.adProfitChartRender(adprofitChartData);
+            promiseProxy.resolveCount++;
+        }, () => {
+            promiseProxy.rejectCount++;
+        })
+    }
 
     // 상단 수익금 모델 형식으로 변환
     static convertAdprofitMonthData(resultData) {
-        adprofitMonthData.currentMonth = this.currencyFormat(resultData.totalForecast);
-        adprofitMonthData.prevMonth = this.currencyFormat(resultData.totalClosing);
-        adprofitMonthData.comparePercentage = this.convertPercentage(resultData.totalClosing, resultData.totalForecast)
+        adprofitMonthData.currentMonth = Logic.currencyFormat(resultData.totalForecast);
+        adprofitMonthData.prevMonth = Logic.currencyFormat(resultData.totalClosing);
+        adprofitMonthData.comparePercentage = Logic.convertPercentage(resultData.totalClosing, resultData.totalForecast)
     }
 
     // 화폐 형식으로 변환 함수
@@ -107,9 +141,6 @@ class AdprofitData {
         
         return Math.abs(convertData) === Infinity ? '-' : `${convertData.toFixed(2)}%`;
     }
-}
-
-class AdprofitChart {
 
     // 차트 데이터 형식으로 변환
     static convertAdprofitChartData(resultData) {
@@ -137,6 +168,45 @@ class AdprofitChart {
         adprofitChartData.valueArray.push(null);
     }
 
+    static noticeData() {
+        const promiseResult = Communication.getPromise(communicationURL.notice);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.noticeRender(resultData.noticeList);
+            promiseProxy.resolveCount++;
+        }, () => {
+            promiseProxy.rejectCount++;
+        })
+    }
+
+    static faqData() {
+        const promiseResult = Communication.getPromise(communicationURL.faq);
+
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.faqRender(resultData.faqList);
+            promiseProxy.resolveCount++;
+        })
+    }
+
+    static gameData() {
+        const promiseResult = Communication.getPromise(communicationURL.game);
+        promiseResult.then((result) => {
+            const resultData = JSON.parse(result);
+            Dynamic.gameRender(resultData);
+            promiseProxy.resolveCount++;
+        }, () => {
+            promiseProxy.rejectCount++;
+        })
+    }
+
+    // canvas tag 생성
+    static createChartTag() {
+        const chartBox = document.querySelector('.profit-chart-content');
+        chartBox.innerHTML = `<canvas id='index-profit-chart' style='height:${Logic.setChartHeight()}px;'></canvas>`;
+        return document.getElementById("index-profit-chart").getContext("2d");
+    }
+
     // window width에 맞춰서 canvas height 지정
     static setChartHeight() {
         if(window.innerWidth <= 500){
@@ -148,25 +218,31 @@ class AdprofitChart {
         }
     }
 
-    // canvas tag 생성
-    static createChartTag() {
-        const chartBox = document.querySelector('.profit-chart-content');
-        chartBox.innerHTML = `<canvas id='index-profit-chart' style='height:${this.setChartHeight()}px;'></canvas>`;
-        return document.getElementById("index-profit-chart").getContext("2d");
-    }
+    static calcAfterThreeDays() {
+        const nowDate = Date.now();
+        const threeDaysMilliSecond = 259200000;
+        const afterThreeDate = new Date(nowDate + threeDaysMilliSecond);
 
-    // resize event bind
-    static chartResizeEvent(chartObject) {
-        window.addEventListener('resize', ()=>{
-            const chartHeight = this.setChartHeight();
-            const chartTag = document.getElementById("index-profit-chart");
-            chartTag.style.height = chartHeight+'px';
-            chartObject.update();
-        });
+        return afterThreeDate.toUTCString();
+
     }
 }
 
 class EventLogic {
+    static modalHeightResize() {
+        const modalBackground = document.querySelector('.modal-backgruond');
+        const windowHeight = window.innerHeight;
+        const bodyHeight = document.querySelector('body').offsetHeight;
+        modalBackground.style.height = windowHeight >= bodyHeight ? windowHeight : bodyHeight + 'px';
+    }
+
+    static pauseBlockModal(e) {
+        const userId = e.target.dataset.id;
+        const expireDate = Logic.calcAfterThreeDays();
+        document.cookie = `${userId}=${userId};expires=${expireDate}`;
+        EventLogic.closeModal();
+    }
+
     static closeModal() {
         const modalBackground = document.querySelector('.modal-backgruond');
         const modal = document.querySelector('.modal-box');
@@ -174,6 +250,7 @@ class EventLogic {
         modalBackground.remove();
         modal.remove();
     }
+
 }
 
-export { communicationURL, currentDate, Communication, AdprofitChart, EventLogic };
+export { Logic, currentDate, EventLogic };

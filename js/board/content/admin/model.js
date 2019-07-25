@@ -79,7 +79,6 @@ class EventLogic {
         if( confirm(`${userId}님의 정지를 해제하시겠습니까?`) ) {
             const promiseResult = Communication.getPromise(communicationURL.clear + `${userId}`);
 
-            console.log(promiseResult);
             promiseResult.then((result) => {
                 const resultData = JSON.parse(result);
 

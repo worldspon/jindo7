@@ -1,4 +1,4 @@
-import { Init, EventList } from './controller.js';
+import { Init } from './controller.js';
 
 Init.adProfitSection();
 Init.noticeSection();

@@ -19,8 +19,8 @@ class View {
     static createCommentList(data) {
         let commentHTML = ``;
         for(const el of data.commentList) {
-            commentHTML += `
-            <div class='board-reply-history border-bottom'>
+            commentHTML += 
+            `<div class='board-reply-history border-bottom'>
                 <div class='own-smart-name' data-comment-id="${el.commentId}" data-comment-unique-id="${el.commentUniqueId}">
                     <span class="user-smart-id" data-blocked="${el.block}">${el.userName}</span>
                     <span class="reply-input-size">(0 / 500)</span>
@@ -42,14 +42,18 @@ class View {
         EventList.bindCommentModifyCancelEvent();
         EventList.bindCommentDeleteEvent();
         EventList.bindPaginationEvent();
+
+        const renderFinishDiv = document.getElementById('render-finish');
+        renderFinishDiv.dataset.render = 'true';
+        renderFinishDiv.dispatchEvent(new Event('click'));
     }
 
     static createCommentPagination(data) {
         const paginationObject = data.pagination;
         let paginationHTML = ``;
 
-        paginationHTML = `
-        <div class='pagination'>
+        paginationHTML = 
+        `<div class='pagination'>
             <img class="first-btn page-btn pagination-element" id="first-btn" src="/images/first.png" alt="" data-page-no='${paginationObject.firstPage}'>
             <img class="prev-btn page-btn pagination-element" id="prev-btn" src="/images/prev.png" alt="" data-page-no='${paginationObject.prevPage}'>
             <ul class='pagination-inner'>`;
@@ -61,8 +65,8 @@ class View {
             </a>`;
         }
 
-        paginationHTML += `
-            </ul>
+        paginationHTML += 
+            `</ul>
             <img class="next-btn page-btn pagination-element" id="next-btn" src="/images/next.png" alt="" data-page-no='${paginationObject.nextPage}'>
             <img class="last-btn page-btn pagination-element" id="last-btn" src="/images/last.png" alt="" data-page-no='${paginationObject.lastPage}'>
         </div>`;

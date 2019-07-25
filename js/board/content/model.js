@@ -252,6 +252,10 @@ class EventLogic {
     }
 
     static paginationEvent(e) {
+        const subMenu = document.querySelector('.user-sub-menu');
+        if( subMenu !== null ) {
+            subMenu.remove();
+        }
         const pageNumber = e.target.dataset.pageNo;
         EventLogic.commentList(pageNumber);
     }

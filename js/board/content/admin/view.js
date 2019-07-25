@@ -43,7 +43,6 @@ class View {
     }
 
     static createUserBlockModal(target) {
-        const modalHeight = target.parentNode.style.top;
         const subMenu = document.querySelector('.user-sub-menu');
         const prevModal = document.querySelector('.user-modal-background');
 

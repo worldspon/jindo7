@@ -8,6 +8,10 @@ main {
     grid-row-gap: 20px;
     padding: 20px 0px;
 }
+
+#render-finish {
+    visibility: hidden;
+}
 .user-sub-menu {
     font-size: 1.2rem;
     font-weight: 600;

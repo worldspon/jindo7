@@ -1,6 +1,13 @@
 import { Init } from './controller.js'
 
-window.addEventListener('load', function()
-{
+const renderFinishDiv = document.getElementById('render-finish');
+const renderBool = new Boolean(renderFinishDiv.dataset.render);
+
+renderFinishDiv.addEventListener('click', ()=>{
     Init.bindEvent();
 });
+
+if( renderBool ) {
+    Init.bindEvent();
+}
+
