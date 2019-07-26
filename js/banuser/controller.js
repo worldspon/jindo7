@@ -12,8 +12,16 @@ class Dynamic {
         View.createBanUserBox(data);
     }
 
+    static createUserBlockModal() {
+        View.createUserBlockModal();
+    }
+
     static createBanUserTable(data) {
         View.createBanUserTable(data);
+    }
+    
+    static destroyUserBlockModal(e) {
+        View.destroyUserBlockModal(e.target);
     }
 
     static catchError(msg) {
@@ -30,6 +38,32 @@ class EventList {
     static bindSearchInputEnterEvent() {
         const searchInput = document.getElementById('suspend-user-id');
         searchInput.addEventListener('keydown', EventLogic.searchInputEnter);
+    }
+
+    static bindBlockUserRegisterEvent() {
+        const blockRegisterButton = document.querySelector('.block-user-register');
+
+        blockRegisterButton.addEventListener('click', Dynamic.createUserBlockModal);
+    }
+
+    static bindMemoPreventEnter() {
+        const textArea = document.getElementById('memo');
+
+        textArea.addEventListener('keydown', (e) => {
+            if( e.keyCode === 13 ){
+                e.preventDefault();
+            }
+        })
+    }
+
+    static bindModalCancelEvent() {
+        const modalCancelButton = document.querySelector('.modal-cancel');
+        modalCancelButton.addEventListener('click', Dynamic.destroyUserBlockModal);
+    }
+
+    static bindUserBlockEvent() {
+        const modalConfirmButton = document.querySelector('.modal-confirm');
+        modalConfirmButton.addEventListener('click', EventLogic.findUser);
     }
 
     static bindTableDataEditEvent() {

@@ -73,7 +73,6 @@ class EventList {
     static bindUserClear() {
         const userClearButton = document.querySelector('.user-clear');
 
-        console.log('bind');
         userClearButton.addEventListener('click', EventLogic.userClear);
     }
 }

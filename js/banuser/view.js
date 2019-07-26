@@ -6,12 +6,16 @@ class View {
         const searchDiv = document.createElement('div');
         searchDiv.classList.add('suspend-id-box');
         searchDiv.innerHTML = 
-        `<input type="search" id="suspend-user-id" placeholder="스마트아이디 입력">
-        <button class="btn-suspend-id">검색</button>`;
+        `<div class="search-box">
+            <input type="search" id="suspend-user-id" placeholder="스마트아이디 입력">
+            <button class="btn-suspend-id">검색</button>
+        </div>
+        <button class="block-user-register">정지회원등록</button>`;
 
         parentNode.appendChild(searchDiv);
         EventList.bindSearchBanUserEvent();
         EventList.bindSearchInputEnterEvent();
+        EventList.bindBlockUserRegisterEvent();
 
         View.createBanUserTable(data);
     }
@@ -67,9 +71,54 @@ class View {
         EventList.bindBanClearEvent();
     }
 
+    static createUserBlockModal() {
+        const prevModal = document.querySelector('.user-modal-background');
+
+        if(prevModal !== null) {
+            prevModal.remove();
+        }
+
+        const body = document.querySelector('body');
+        const blockModal = document.createElement('div')
+        blockModal.classList.add('user-modal-background');
+
+        blockModal.innerHTML = 
+        `<div class="user-block-modal">
+            <div class="radio-box">
+                <span>정지기간 : </span>
+                <input type="radio" id="block-day" name="block-period" value="1" checked="true">
+                <label for="block-day">1일</label>
+            
+                <input type="radio" id="block-week" name="block-period" value="7">
+                <label for="block-week">7일</label>
+            
+                <input type="radio" id="block-month" name="block-period" value="30">
+                <label for="block-month">30일</label>
+            </div>
+            <p class="block-user">대상유저 : <input class="user-id-input" type="text"></p>
+            <label for="memo">재제사유</label>
+            <textarea id="memo" placeholder="사유를 적어주세요." maxlength="600"></textarea>
+            <div class="user-block-button-box">
+                <button class="modal-cancel">취소</button>
+                <button class="modal-confirm">확인</button>
+            </div>
+        </div>`;
+
+        blockModal.style.top = (window.innerHeight * 0.25) + scrollY + 'px';
+        body.appendChild(blockModal);
+        EventList.bindMemoPreventEnter();
+        EventList.bindUserBlockEvent();
+        EventList.bindModalCancelEvent();
+    }
+
+    static destroyUserBlockModal(target) {
+        target.parentNode.parentNode.parentNode.remove();
+    }
+
     static viewAlert(msg) {
         alert(msg);
     }
 }
+
 
 export { View };

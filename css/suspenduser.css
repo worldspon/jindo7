@@ -9,6 +9,53 @@ main {
     padding: 20px 0px;
 }
 
+.user-modal-background {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    font-size: 1.3rem;
+    z-index: 999
+}
+
+.user-block-modal {
+    width: 80%;
+    max-width: 500px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.radio-box {
+    margin-bottom: 5px;
+}
+
+.block-user {
+    margin-bottom: 5px;
+}
+
+#memo {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+    margin: 5px 0;
+    resize: none;
+    outline: none;
+}
+
+.user-block-button-box {
+    text-align: right;
+}
+
+.user-block-button-box > button {
+    background-color: transparent;
+    padding: 3px 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .suspenduser-common-box {
     -ms-grid-column: 2;
     grid-column: 2;
@@ -52,9 +99,13 @@ main {
 
 .suspend-id-box {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
     font-size: 1.2rem;
+}
+
+.search-box {
+    display: inline-block;
+    margin: 0 auto;
 }
 
 .suspend-id-box input {
@@ -66,7 +117,7 @@ main {
     border: 1px solid #777;
 }
 
-.btn-suspend-id {
+.btn-suspend-id, .block-user-register {
     padding: 10px 20px;
     border: none;
     border-radius: 3px;
