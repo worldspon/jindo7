@@ -1,6 +1,7 @@
 import { Dynamic, EventList } from './controller.js';
 import { chart } from './view.js';
 
+// 최초 통신 시 모든 데이터 저장 변수
 let parseJSONData;
 
 // 현재 차트가 표현하는 일자
@@ -9,8 +10,10 @@ const currentDate = {
     month : new Date().getMonth()+1,
     day : new Date().getDate()
 }
-const communicationURL = 'http://192.168.0.24:8081/adprofit/fetch';
 
+const communicationURL = 'http://192.168.0.24:8080/adprofit/fetch';
+
+// VIEW PONIT 별 첫번째 CHART DATA 저장 변수
 const firstChartData = {
     mobileLabel : [],
     mobileValue : [],
@@ -20,6 +23,7 @@ const firstChartData = {
     pcValue : []
 };
 
+// VIEW PONIT 별 두번째 CHART DATA 저장 변수
 const lastChartData = {
     mobileLabel : [],
     mobileValue : [],
@@ -29,6 +33,7 @@ const lastChartData = {
     pcValue : []
 };
 
+// VIEW POINT 별 CHART LABEL 저장 변수
 const labelArray = {
     mobile : [],
     tablet : [],
@@ -48,11 +53,13 @@ class Communication {
 }
 
 class EventLogic {
+
+    // 광고수익금 DATA 비동기 통신
     static getAdprofitData() {
         const promiseResult = Communication.getPromise(communicationURL);
 
-        promiseResult.then((data)=>{
-            parseJSONData = JSON.parse(data);
+        promiseResult.then((result)=>{
+            parseJSONData = JSON.parse(result);
             EventLogic.setTopAdprofitData();
             EventLogic.setSelectBoxData();
             EventLogic.setLineChartData();
@@ -60,11 +67,13 @@ class EventLogic {
             EventLogic.setComparisonData();
             EventList.bindSelectBoxChangeEvent();
         }, () => {
-            console.log('err');
+            Dynamic.catchError('서버와 통신이 원활하지않습니다.');
         });
     }
 
+    // 현재 선택 월 수익 DATA 가공 및 RENDER 함수 호출
     static setTopAdprofitData() {
+
         const profitData = {
             month : currentDate.month,
             monthTotalProfit : 0, 
@@ -80,17 +89,21 @@ class EventLogic {
         for(const deduction of renderAdprofitData.deduction) {
             profitData.monthDeductionProfit += deduction;
         }
+
         profitData.monthPureProfit = profitData.monthTotalProfit - profitData.monthDeductionProfit;
 
         Dynamic.topAdprofitText(profitData);
     }
 
+    // SELECT BOX 내부 DATA 및 마크업 생성
     static setSelectBoxData(lastSelectBoxSelected = {year : 'select', month : null}) {
+
         const selectBoxData = {
             month : currentDate.month,
             firstSelectBox : null,
             lastSelectBox : null
         };
+
         let selectBoxHTML = ``;
 
         for(const year of parseJSONData.year) {
@@ -119,6 +132,7 @@ class EventLogic {
         Dynamic.setSelectBox(selectBoxData);
     }
 
+    // LINE CHART DATA 가공, RENDER 함수 호출
     static setLineChartData(lastSelectBoxSelected = {year : 'select', month : null}) {
         for(const key in firstChartData) {
             firstChartData[key] = [];
@@ -254,33 +268,7 @@ class EventLogic {
         Dynamic.setLineChart(firstChartData, lastChartData, labelArray);
     }
 
-    static updateSelect() {
-        const firstSelectBoxOptions = document.querySelectorAll('.data-select-box')[0].childNodes;
-        const lastSelectBoxOptions = document.querySelectorAll('.data-select-box')[1].childNodes;
-        const lastSelectBoxSelected = {
-            year : 'select', 
-            month : null
-        }
-
-        for(const option of firstSelectBoxOptions) {
-            if(option.selected === true) {
-                currentDate.year = parseInt(option.dataset.year);
-                currentDate.month = parseInt(option.dataset.month);
-            }
-        }
-
-        for(const option of lastSelectBoxOptions) {
-            if(option.selected === true && option.value !== 'select') {
-                lastSelectBoxSelected.year = parseInt(option.dataset.year);
-                lastSelectBoxSelected.month = parseInt(option.dataset.month);
-            }
-        }
-
-        EventLogic.setTopAdprofitData();
-        EventLogic.setSelectBoxData(lastSelectBoxSelected);
-        EventLogic.setLineChartData(lastSelectBoxSelected);
-    }
-
+    // BAR CHART DATA 가공, RENDER 함수 호출
     static setBarChartData() {
         const barChartObject = {
             thisMonth : 0,
@@ -328,6 +316,7 @@ class EventLogic {
         Dynamic.setBarChart(barChartObject);
     }
 
+    // 수익 비교 DATA 가공, RENDER 함수 호출
     static setComparisonData() {
         const comparisonData = {
             maxThisMonth : 0,
@@ -371,6 +360,7 @@ class EventLogic {
         Dynamic.setComparisonBox(comparisonData);
     }
 
+    // WINDOW RESIZE -> CHART HEIGHT RESIZE
     static windowResizeEvent() {
         const chartBox = document.getElementById('ad-profit-chart');
 
@@ -393,6 +383,34 @@ class EventLogic {
             chart.data.datasets[1].data = lastChartData.pcValue;
             chart.update();
         }
+    }
+
+    // SELECT BOX CHANGE -> PROFIT, CHART DATA CHANGE
+    static updateSelect() {
+        const firstSelectBoxOptions = document.querySelectorAll('.data-select-box')[0].childNodes;
+        const lastSelectBoxOptions = document.querySelectorAll('.data-select-box')[1].childNodes;
+        const lastSelectBoxSelected = {
+            year : 'select', 
+            month : null
+        }
+
+        for(const option of firstSelectBoxOptions) {
+            if(option.selected === true) {
+                currentDate.year = parseInt(option.dataset.year);
+                currentDate.month = parseInt(option.dataset.month);
+            }
+        }
+
+        for(const option of lastSelectBoxOptions) {
+            if(option.selected === true && option.value !== 'select') {
+                lastSelectBoxSelected.year = parseInt(option.dataset.year);
+                lastSelectBoxSelected.month = parseInt(option.dataset.month);
+            }
+        }
+
+        EventLogic.setTopAdprofitData();
+        EventLogic.setSelectBoxData(lastSelectBoxSelected);
+        EventLogic.setLineChartData(lastSelectBoxSelected);
     }
 }
 

@@ -29,11 +29,11 @@ main {
     .adlist-title-box {
         display: -ms-grid;
         display: grid;
-        -ms-grid-columns: 130px 1fr 130px 130px 130px;
-        grid-template-columns: 130px 1fr 130px 130px 130px;
+        -ms-grid-columns: 100px 130px 1fr 130px 130px 130px;
+        grid-template-columns: 100px 130px 1fr 130px 130px 130px;
         -ms-grid-rows: 1;
         grid-template-rows: 1;
-        padding: 0px 45px 20px;
+        padding: 0px 25px 20px;
         border-bottom: 1px solid #aaa;
         color: #333;
         font-size: 1.3rem;
@@ -47,7 +47,8 @@ main {
         grid-row: 1;
         text-align: center;
     }
-    .ad-content {
+
+    .user-id {
         -ms-grid-column: 2;
         grid-column: 2;
         -ms-grid-row: 1;
@@ -55,15 +56,15 @@ main {
         text-align: center;
     }
 
-    .end-date {
+    .ad-content {
         -ms-grid-column: 3;
         grid-column: 3;
         -ms-grid-row: 1;
         grid-row: 1;
         text-align: center;
     }
-    
-    .ad-progress {
+
+    .end-date {
         -ms-grid-column: 4;
         grid-column: 4;
         -ms-grid-row: 1;
@@ -71,9 +72,17 @@ main {
         text-align: center;
     }
     
-    .ad-adjust {
+    .ad-progress {
         -ms-grid-column: 5;
         grid-column: 5;
+        -ms-grid-row: 1;
+        grid-row: 1;
+        text-align: center;
+    }
+    
+    .ad-adjust {
+        -ms-grid-column: 6;
+        grid-column: 6;
         -ms-grid-row: 1;
         grid-row: 1;
         text-align: center;
@@ -82,11 +91,11 @@ main {
     .adlist-content {
         display: -ms-grid;
         display: grid;
-        -ms-grid-columns: 130px 1fr 130px 130px 130px;
-        grid-template-columns: 130px 1fr 130px 130px 130px;
+        -ms-grid-columns: 100px 130px 1fr 130px 130px 130px;
+        grid-template-columns: 100px 130px 1fr 130px 130px 130px;
         -ms-grid-rows : 1;
         grid-template-rows: 1;
-        padding: 25px 45px;
+        padding: 25px;
     }
 
     .ad-request-date-box {
@@ -101,17 +110,29 @@ main {
         color : #555;
     }
 
+    .ad-user-id-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -ms-grid-column: 2;
+        grid-column: 2;
+        -ms-grid-row: 1;
+        grid-row: 1;
+        font-size: 1.2rem;
+        color : #555;
+    }
+
     .ad-oneline-content-box {
         display: flex;
         align-items: center;
-        -ms-grid-column: 2;
-        grid-column: 2;
+        -ms-grid-column: 3;
+        grid-column: 3;
         -ms-grid-row: 1;
         grid-row: 1;
         overflow: hidden;
         padding-left: 50px;
     }
-        .m-ad-date-box {
+        .m-ad-date-box, .m-ad-user-id-box {
             display: none;
         }
 
@@ -125,8 +146,8 @@ main {
         display: flex;
         align-items: center;
         justify-content: center;
-        -ms-grid-column: 3;
-        grid-column: 3;
+        -ms-grid-column: 4;
+        grid-column: 4;
         -ms-grid-row: 1;
         grid-row: 1;
         font-size: 1.2rem;
@@ -137,8 +158,8 @@ main {
         display: flex;
         align-items: center;
         justify-content: center;
-        -ms-grid-column: 4;
-        grid-column: 4;
+        -ms-grid-column: 6;
+        grid-column: 6;
         -ms-grid-row: 1;
         grid-row: 1;
         font-size: 1.2rem;
@@ -290,6 +311,7 @@ main {
     }
 
 @media screen and (max-width: 1440px) {
+
     main {
         -ms-grid-columns: 100%;
         grid-template-columns: 100%;
@@ -311,7 +333,7 @@ main {
         padding: 40px;
     }
 
-    .request-date, .end-date, .ad-request-date-box, .ad-end-date-box {
+    .request-date, .user-id, .ad-user-id-box, .end-date, .ad-request-date-box, .ad-end-date-box {
         display: none;
     }
 
@@ -357,7 +379,7 @@ main {
         padding-left: 0;
     }
 
-    .m-ad-date-box {
+    .m-ad-date-box, .m-ad-user-id-box {
         display: block;
         color: #777;
         font-size: 1.2rem;
@@ -506,7 +528,7 @@ main {
         -ms-grid-columns: 1fr 60px 70px;
         grid-template-columns: 1fr 60px 70px;
     }
-    .m-ad-date-box {
+    .m-ad-date-box, .m-ad-user-id-box {
         font-size: 1.1rem;
     }
 

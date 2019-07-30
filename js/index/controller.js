@@ -3,11 +3,6 @@ import { View } from './view.js';
 
 class Init {
 
-    // 유저 BLOCK 유무 비동기통신 호출
-    static userBlockInfo() {
-        Logic.userBlockInfoData();
-    }
-
     // 광고수익금 비동기통신 호출
     static adProfitSection() {
         Logic.adProfitData();
@@ -23,17 +18,19 @@ class Init {
         Logic.faqData();
     }
 
-    // game 비동기통신 호출
+    // GAME 비동기통신 호출
     static gameSection() {
         Logic.gameData();
+    }
+
+    // 유저 BLOCK 유무 비동기통신 호출
+    static userBlockInfo() {
+        Logic.userBlockInfoData();
     }
 }
 
 class Dynamic {
 
-    static renderBlockInfoModal(data) {
-        View.renderBlockInfoModal(data);
-    }
     // 비동기 완료시 상단 광고수익 데이터 표시
     static adProfitTextRender(data) {
         View.renderMonth(currentDate);
@@ -43,8 +40,8 @@ class Dynamic {
     // 비동기 완료시 광고수익 차트 데이터 표시
     static adProfitChartRender(data) {
         Logic.createChartTag();
-        const chartObject = View.renderAdprofitChart(data);
-        EventList.bindChartResizeEvent(chartObject);
+        View.renderAdprofitChart(data);
+        EventList.bindChartResizeEvent();
     }
 
     // 비동기 완료시 공지사항 데이터 표시
@@ -65,6 +62,11 @@ class Dynamic {
         View.dropTableRender(currentDate, data.drop);
     }
 
+    // BLOCK MODAL VIEW 함수 호출
+    static renderBlockInfoModal(data) {
+        View.renderBlockInfoModal(data);
+    }
+
     // error catch -> alret view 호출
     static catchError(msg) {
         View.viewAlert(msg);
@@ -73,25 +75,24 @@ class Dynamic {
 
 class EventList {
 
-    static bindChartResizeEvent(chartObject) {
-        window.addEventListener('resize', ()=>{
-            const chartHeight = Logic.setChartHeight();
-            const chartTag = document.getElementById("index-profit-chart");
-            chartTag.style.height = chartHeight+'px';
-            chartObject.update();
-        });
+    // 완성된 CHART 객체에 RESIZE 이벤트 추가
+    static bindChartResizeEvent() {
+        window.addEventListener('resize', EventLogic.chartResize);
     }
 
+    // BLOCK MODAL BACKGROUND RESIZE EVENT BIND
     static bindModalHeightResizeEvent() {
         window.addEventListener('resize', EventLogic.modalHeightResize);
     }
 
+    // BLOCK MODAL PAUSE EVENT BIND
     static bindPauseBlockModalEvent() {
         const pauseButton = document.querySelector('.pause-modal');
 
         pauseButton.addEventListener('click', EventLogic.pauseBlockModal);
     }
-
+    
+    // BLOCK MODAL CLOSE EVENT BIND
     static bindCloseModalEvent() {
         const closeButton = document.querySelector('.close-modal');
 

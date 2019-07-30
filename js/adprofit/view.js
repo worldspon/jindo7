@@ -3,9 +3,9 @@ import { EventList } from './controller.js';
 let chart;
 
 class View {
-    static renderTopAdprofitText(data) {
 
-        const currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0});
+    // 광고 수익금 DATA RENDER
+    static renderTopAdprofitText(data) {
 
         const totalTitle = document.querySelector('.total-profit > .profit-left');
         const totalProfitData = document.querySelector('.total-profit > .profit-right');
@@ -15,13 +15,21 @@ class View {
         const pureProfitData = document.querySelector('.pure-profit > .profit-right');
 
         totalTitle.innerText = `${data.month}월 최고수익`;
-        totalProfitData.innerText = `${currencyFormat.format(data.monthTotalProfit)}`;
+        totalProfitData.innerText = `${View.convertCurrencyFormat(data.monthTotalProfit)}`;
         deductionTitle.innerText = `${data.month}월 차감액`;
-        deductionProfitData.innerText = `${currencyFormat.format(data.monthDeductionProfit)}`;
+        deductionProfitData.innerText = `${View.convertCurrencyFormat(data.monthDeductionProfit)}`;
         pureTitle.innerHTML = `${data.month}월 순수익`;
-        pureProfitData.innerHTML = `${currencyFormat.format(data.monthPureProfit)}`;
+        pureProfitData.innerHTML = `${View.convertCurrencyFormat(data.monthPureProfit)}`;
     }
 
+    // 광고 수익금 DATA를 화폐 형식으로 변경 후 RETURN
+    static convertCurrencyFormat(data) {
+        const currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0});
+
+        return currencyFormat.format(data);
+    }
+
+    // SELECT BOX RENDER
     static renderSelectBox(data) {
         const adprofitChartHeadLine = document.querySelector('.adprofit-chart-header > h3');
         adprofitChartHeadLine.innerText = `${data.month}월 광고수익금`;
@@ -31,6 +39,7 @@ class View {
         selectBox[1].innerHTML = data.lastSelectBox;
     }
 
+    // LINE CHART RENDER, RESIZE EVENT BIND 함수 호출
     static renderLineChart(firstChartData, lastChartData, labelArray) {
         const lineChartBox = document.querySelector('.adprofit-chart-content');
         const chartHeight = window.innerWidth <= 500 ? 200 : window.innerWidth <= 960 ? 300 : 500;
@@ -91,10 +100,10 @@ class View {
             }
         });
 
-
         EventList.bindWindowResizeEvent();
     }
 
+    // BAR CHART RENDER
     static renderBarChart(barChartData) {
         const thisMonth = new Date().getMonth()+1;
         const lastMonth = thisMonth === 1 ? 12 : thisMonth-1;
@@ -150,6 +159,7 @@ class View {
         });
     }
 
+    // 수익비교 RENDER
     static renderComparisonBox(comparisonData) {
         const currencyFormat = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'USD', minimumFractionDigits: 0});
 
@@ -174,6 +184,10 @@ class View {
         monthMaxAvgValue.innerText = currencyFormat.format(comparisonData.maxAvgProfit);
         monthMinAvgValue.innerText = currencyFormat.format(comparisonData.minAvgProfit);
         monthAvgValue.innerText = currencyFormat.format(comparisonData.avgProfit);
+    }
+
+    static viewAlert(msg) {
+        alert(msg);
     }
 }
 
