@@ -8,8 +8,8 @@ class Init {
 }
 
 class Dynamic {
-    static viewAlert(msg) {
-        View.catchError(msg);
+    static catchError(msg) {
+        View.viewAlert(msg);
     }
 }
 
