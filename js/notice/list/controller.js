@@ -4,6 +4,7 @@ import { View } from './view.js';
 class Init {
     static bindEvent() {
         EventList.bindSearchButtonClickEvent();
+        // INPUT ENTER KEY EVENT BIND
         EventList.bindSearchInputKeyEvent();
     }
 }

@@ -29,6 +29,8 @@ class Communication {
 }
 
 class EventLogic {
+
+    // SUB MENU X, Y 좌표 추출 및 RENDER 함수 호출
     static userSubMenu(e) {
         const coordinate = {
             x : e.pageX,
@@ -37,26 +39,7 @@ class EventLogic {
         Dynamic.createSubMenu(coordinate, e.target);
     }
 
-    static userClear(e) {
-        const userId = e.target.dataset.id;
-
-        if( confirm(`${userId}님의 정지를 해제하시겠습니까?`) ) {
-            const promiseResult = Communication.getPromise(communicationURL.clear + `${userId}`);
-
-            promiseResult.then((result) => {
-                const resultData = JSON.parse(result);
-
-                Dynamic.catchError(resultData.msg);
-
-                if( resultData.errorCode === 0 ) {
-                    window.location.reload();
-                }
-            }, () => {
-                Dynamic.catchError('서버와 통신이 원활하지않습니다');
-            })
-        }
-    }
-
+    // USER BLOCK EVENT
     static userBlock(e) {
         const sendObject = {
             trademark : null,
@@ -90,6 +73,27 @@ class EventLogic {
             }, () => {
                 Dynamic.catchError('서버와 통신이 원활하지않습니다.');
             });
+        }
+    }
+
+    // USER BLOCK CLEAR EVENT
+    static userClear(e) {
+        const userId = e.target.dataset.id;
+
+        if( confirm(`${userId}님의 정지를 해제하시겠습니까?`) ) {
+            const promiseResult = Communication.getPromise(communicationURL.clear + `${userId}`);
+
+            promiseResult.then((result) => {
+                const resultData = JSON.parse(result);
+
+                Dynamic.catchError(resultData.msg);
+
+                if( resultData.errorCode === 0 ) {
+                    window.location.reload();
+                }
+            }, () => {
+                Dynamic.catchError('서버와 통신이 원활하지않습니다');
+            })
         }
     }
 }

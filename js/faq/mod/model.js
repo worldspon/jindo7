@@ -54,7 +54,6 @@ class Handler {
         sendObject.id = contentId;
         sendObject.question = title;
         sendObject.answer = content;
-        console.log(sendObject);
     }
     
     static confirmModify() {

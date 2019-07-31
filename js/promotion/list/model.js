@@ -2,7 +2,6 @@ import { Dynamic, EventList } from './controller.js';
 
 const communicationURL = {
     promotionModify : 'http://192.168.0.24:8080/promotion/modify',
-    promotionStateChange : 'http://192.168.0.24:8080/promotion/state/change'
 };
 
 class Communication {
@@ -32,13 +31,14 @@ class EventLogic {
 
     static searchEnterEvent(e) {
         if( e.keyCode === 13 ) {
-            e.target.parentNode.children[2].dispatchEvent(new Event('click'));
+            EventLogic.searchEvent();
         }
     }
 
+    // 한줄광고 수정
     static promotionModify(e) {
         const eventTarget = e.target;
-        const targetContent = eventTarget.parentNode.parentNode.children[1].children[1];
+        const targetContent = eventTarget.parentNode.parentNode.children[2].children[2];
         if( eventTarget.innerText === '수정' ) {
 
             targetContent.dataset.previousText = targetContent.innerText;
@@ -86,6 +86,7 @@ class EventLogic {
         }
     }
 
+    // 한줄광고 80자 LENGTH CHECK
     static checkPromotionLength(e) {
         const keyCode = e.keyCode;
         if(e.target.innerText.length > 80 && EventLogic.functionalKeyCodeValidation(keyCode) ) {
@@ -94,43 +95,12 @@ class EventLogic {
         }
     }
 
+    // 방향키, BACKSPACE, CAPSLOCK, HOME, END, DELETE 제외
     static functionalKeyCodeValidation(keyCode) {
         if(keyCode === 8 || keyCode === 16 || keyCode === 17 || keyCode === 20 || (keyCode >= 35 && keyCode <= 40) || keyCode === 46) {
             return false;
         }
         return true;
-    }
-
-    static stateChange(e) {
-        const eventTarget = e.target
-        const selectBox = eventTarget.previousSibling.previousSibling;
-        if( EventLogic.selectBoxNullCheck(eventTarget) ) {
-            const sendObject = {
-                uniqueId : eventTarget.parentNode.parentNode.dataset.uniqueId,
-                state : selectBox.options[selectBox.selectedIndex].value
-            }
-
-            const promiseResult = Communication.postPromise(communicationURL.promotionStateChange, sendObject);
-
-            promiseResult.then((result) => {
-                const resultData = JSON.parse(result);
-                Dynamic.catchError(resultData.msg);
-
-                if( resultData.errorCode === 0 ) {
-                    window.location = './adlist.html';
-                }
-
-            }, () => {
-                Dynamic.catchError('서버와 통신이 원활하지않습니다.');
-            })
-        } else {
-            Dynamic.catchError('옵션을 선택해주세요.');
-        }
-    }
-
-    static selectBoxNullCheck(eventTarget) {
-        const selectBox = eventTarget.previousSibling.previousSibling;
-        return selectBox.options[selectBox.selectedIndex].value === '' ? false : true;
     }
 }
 

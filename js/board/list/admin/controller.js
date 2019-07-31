@@ -8,8 +8,15 @@ class Init {
 }
 
 class Dynamic {
+
+    // SUB MENU RENDER 함수 호출
     static createSubMenu(coordinate, target) {
         View.createSubMenu(coordinate, target);
+    }
+
+    
+    static destroyUserBlockModal(e) {
+        View.destroyUserBlockModal(e.target);
     }
 
     static destroySubMenu(e) {
@@ -20,16 +27,14 @@ class Dynamic {
         View.createUserBlockModal(e.target);
     }
 
-    static destroyUserBlockModal(e) {
-        View.destroyUserBlockModal(e.target);
-    }
-
     static catchError(msg) {
         View.viewAlert(msg);
     }
 }
 
 class EventList {
+
+    // USER ID CLICK -> ADMIN SUBMENU RENDER EVENT BIND
     static bindUserSubMenuEvent() {
         const users = document.querySelectorAll('.board-content-writer');
 
@@ -55,6 +60,7 @@ class EventList {
         userBlockButton.addEventListener('click', Dynamic.createUserBlockModal);
     }
 
+    // MEMO ENTER KEY PREVENT EVENT BIND
     static bindMemoPreventEnter() {
         const textArea = document.getElementById('memo');
 
@@ -64,7 +70,7 @@ class EventList {
             }
         })
     }
-
+    
     static bindUserBlockEvent() {
         const modalConfirmButton = document.querySelector('.modal-confirm');
         modalConfirmButton.addEventListener('click', EventLogic.userBlock);

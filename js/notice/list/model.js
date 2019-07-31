@@ -12,6 +12,7 @@ class EventLogic {
         }
     }
 
+    // INPUT ENTER KEY PRESS -> SEARCH
     static searchInputKeyEvent(e) {
         const searchBtn = document.querySelector('.search-btn');
         if( e.keyCode === 13 ) {

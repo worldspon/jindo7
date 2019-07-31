@@ -6,7 +6,6 @@ class Init {
         EventList.bindSearchEvent();
         EventList.bindSearchEnterEvent();
         EventList.bindPromotionModify();
-        EventList.bindStateChange();
     }
 }
 
@@ -37,17 +36,11 @@ class EventList {
         }
     }
 
+    // 광고 내용 80자 제한 경고 EVENT BIND
     static bindCheckLength(target) {
         target.addEventListener('keydown', EventLogic.checkPromotionLength);
     }
 
-    static bindStateChange() {
-        const changeButton = document.querySelectorAll('.check-confirm');
-
-        for(const button of changeButton) {
-            button.addEventListener('click', EventLogic.stateChange);
-        }
-    }
 }
 
 export { Init, Dynamic, EventList };

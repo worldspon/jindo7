@@ -1,6 +1,8 @@
 import { EventList } from './controller.js'
 
 class View {
+
+    // SUB MENU RENDER
     static createSubMenu(coordinate, target) {
         const prevSubMenu = document.querySelector('.user-sub-menu');
         const isBlocked = Boolean(parseInt(target.dataset.blocked));
