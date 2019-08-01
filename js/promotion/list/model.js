@@ -1,7 +1,7 @@
 import { Dynamic, EventList } from './controller.js';
 
 const communicationURL = {
-    promotionModify : 'http://192.168.0.24:8080/promotion/modify',
+    promotionModify : '/promotion/modify',
 };
 
 class Communication {
@@ -25,7 +25,7 @@ class EventLogic {
         if( searchKeyword === '' ) {
             Dynamic.catchError('검색어를 입력해주세요.');
         } else {
-            // window.location.href = `/board/0/${searchKeyword}`;
+            location.href = `/promotion/0/${searchKeyword}`;
         }
     }
 
@@ -67,7 +67,7 @@ class EventLogic {
                     const resultData = JSON.parse(result);
                     Dynamic.catchError(resultData.msg);
                     if(resultData.errorCode === 0) {
-                        window.location.href = './adlist.html';
+                        location.href = '/promotion';
                     }
                     targetContent.innerText = targetContent.dataset.previousText;
         

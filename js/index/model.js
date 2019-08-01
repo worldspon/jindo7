@@ -2,11 +2,11 @@ import { Init, Dynamic } from './controller.js';
 import { chartObject } from './view.js';
 
 const communicationURL = {
-    block : 'http://192.168.0.24:8080/main/blockInformation',
-    adprofit : 'http://192.168.0.24:8080/main/adprofit',
-    notice : 'http://192.168.0.24:8080/main/notice',
-    faq : 'http://192.168.0.24:8080/main/faq',
-    game : 'http://192.168.0.24:8080/main/game'
+    block : '/main/blockInformation',
+    adprofit : '/main/adprofit',
+    notice : '/main/notice',
+    faq : '/main/faq',
+    game : '/main/game'
 }
 
 // 현재월 일 정보 저장 객체

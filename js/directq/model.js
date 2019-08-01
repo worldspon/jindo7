@@ -1,6 +1,6 @@
 import { Dynamic } from './controller.js';
 
-const communicationURL = 'http://192.168.0.24:8080/myQ/directQ';
+const communicationURL = '/myQ/directQ';
 
 class Communication {
     static postPromise(url, sendObject) {
@@ -25,7 +25,7 @@ class EventLogic {
                 const resultData = JSON.parse(result);
                 if( resultData.errorCode === 0 ) {
                     Dynamic.catchError(resultData.msg);
-                    // window.location.href='/myq.html';
+                    window.location.href = '/myQ';
                 } else {
                     Dynamic.catchError(resultData.msg);
                 }

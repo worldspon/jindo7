@@ -1,9 +1,9 @@
 import { Dynamic } from './controller.js';
 
 const communicationURL = {
-    lockPointList : 'http://192.168.0.24:8080/cashbee/lockpoint',
-    cashbeeList : 'http://192.168.0.24:8080/cashbee/list',
-    lockPointClear : 'http://192.168.0.24:8080/cashbee/lockpoint/lift/'
+    lockPointList : '/cashbee/lockpoint',
+    cashbeeList : '/cashbee/list',
+    lockPointClear : '/cashbee/lockpoint/lift/'
 }
 
 class Communication {

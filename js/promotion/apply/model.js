@@ -1,6 +1,6 @@
 import { Dynamic } from './controller.js';
 
-const communicationURL = 'http://192.168.0.24:8080/promotion/request';
+const communicationURL = '/promotion/request';
 const basicPrice = document.querySelector('.detail-price').dataset.basicPrice;
 
 class Communication {
@@ -70,7 +70,7 @@ class EventLogic {
                 Dynamic.catchError(resultData.msg);
 
                 if(resultData.errorCode === 0 ){
-                    window.location = './adlist';
+                    location.href = '/promotion';
                 }
             }, () => {
                 Dynamic.catchError('서버와 통신이 원활하지않습니다.');

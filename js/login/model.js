@@ -34,11 +34,11 @@ class Communication {
 class Handler {
 
     static loginPromiseStart() {
-        Communication.getPublicKeyPromise('http://192.168.0.24:8080/login/getPublicKey')
+        Communication.getPublicKeyPromise('/login/getPublicKey')
         .then( data => {
             const publicKey = JSON.parse(data).publicKey;
             Handler.encrypt(publicKey);
-            Communication.postPromise('http://192.168.0.24:8080/login', JSON.stringify(user))
+            Communication.postPromise('/login', JSON.stringify(user))
             .then( data => {
                 const communicationResult = JSON.parse(data);
                 if(communicationResult.errorCode === 0) {

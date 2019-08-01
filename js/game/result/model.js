@@ -185,7 +185,7 @@ class Handler {
     
     // 통신 종료 후 rendering 함수 호출
     static getData(gameType, date) {
-        const data = Communication.asyncGetTableData(`http://192.168.0.24:8080/game/${gameType}/${date}`);
+        const data = Communication.asyncGetTableData(`/game/${gameType}/${date}`);
         data.then( result => {
             promiseProxy.resolveCount++;
             if(gameType === 'zombieRace') {

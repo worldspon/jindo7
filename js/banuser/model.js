@@ -1,12 +1,12 @@
 import { Dynamic, EventList } from './controller.js';
 
 const communicationURL = {
-    block : 'http://192.168.0.24:8080/blockUser/setBlock',
-    findUser : 'http://192.168.0.24:8080/findUser/',
-    list : 'http://192.168.0.24:8080/blockUser/list',
-    search : 'http://192.168.0.24:8080/blockUser/',
-    memo : 'http://192.168.0.24:8080/blockUser/memo',
-    clear : 'http://192.168.0.24:8080/blockUser/clear/'
+    block : '/blockUser/setBlock',
+    findUser : '/findUser/',
+    list : '/blockUser/list',
+    search : '/blockUser/',
+    memo : '/blockUser/memo',
+    clear : '/blockUser/clear/'
 }
 
 class Communication {

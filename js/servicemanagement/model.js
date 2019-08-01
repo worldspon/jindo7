@@ -10,24 +10,24 @@ const pointChangeState = {
 }
 
 const communicationURL = {
-    point : 'http://192.168.0.24:8081/management/point',
-    pointChange : 'http://192.168.0.24:8081/management/point/change',
-    memo : 'http://192.168.0.24:8081/management/point/memo',
-    p2p : 'http://192.168.0.24:8081/management/p2p',
-    p2pConflict : 'http://192.168.0.24:8081/management/p2p/conflict',
-    p2pResolution : 'http://192.168.0.24:8081/management/p2p/conflict/resolution',
-    findPw : 'http://192.168.0.24:8081/management/find/password',
-    adList : 'http://192.168.0.24:8081/management/ad',
-    adFindAccount : 'http://192.168.0.24:8081/management/ad/find/account',
-    adListAdd : 'http://192.168.0.24:8081/management/ad/add',
-    adListDelete : 'http://192.168.0.24:8081/management/ad/delete',
-    adModifyRead : 'http://192.168.0.24:8081/management/ad/read',
-    adModify : 'http://192.168.0.24:8081/management/ad/modify',
-    server : 'http://192.168.0.24:8081/management/server',
-    serverAdd : 'http://192.168.0.24:8081/management/server/add',
-    serverModifyRead : 'http://192.168.0.24:8081/management/server/read',
-    serverModify : 'http://192.168.0.24:8081/management/server/modify',
-    serverListDelete : 'http://192.168.0.24:8081/management/server/delete'
+    point : '/management/point',
+    pointChange : '/management/point/change',
+    memo : '/management/point/memo',
+    p2p : '/management/p2p',
+    p2pConflict : '/management/p2p/conflict',
+    p2pResolution : '/management/p2p/conflict/resolution',
+    findPw : '/management/find/password',
+    adList : '/management/ad',
+    adFindAccount : '/management/ad/find/account',
+    adListAdd : '/management/ad/add',
+    adListDelete : '/management/ad/delete',
+    adModifyRead : '/management/ad/read',
+    adModify : '/management/ad/modify',
+    server : '/management/server',
+    serverAdd : '/management/server/add',
+    serverModifyRead : '/management/server/read',
+    serverModify : '/management/server/modify',
+    serverListDelete : '/management/server/delete'
 }
 
 class Communication {

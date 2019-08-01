@@ -2,10 +2,10 @@ import { Dynamic, EventList } from './controller.js'
 
 // 통신 URL 객체
 const gameURL = {
-    '좀비레이스' : 'http://192.168.0.24:8080/game/myBet/zombieRace',
-    '좀비격투' : 'http://192.168.0.24:8080/game/myBet/zombieFight',
-    '좀비격파' : 'http://192.168.0.24:8080/game/myBet/zombieBreak',
-    '좀비낙하' : 'http://192.168.0.24:8080/game/myBet/zombieDrop'
+    '좀비레이스' : '/game/myBet/zombieRace',
+    '좀비격투' : '/game/myBet/zombieFight',
+    '좀비격파' : '/game/myBet/zombieBreak',
+    '좀비낙하' : '/game/myBet/zombieDrop'
 }
 
 class Communication {

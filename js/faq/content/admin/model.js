@@ -25,7 +25,7 @@ class Handler {
             const resultData = JSON.parse(result);
             if(resultData.errorCode === 0) {
                 Dynamic.catchError(resultData.msg);
-                window.location.href = 'http://127.0.0.1:8887/faq.html';
+                window.location.href = '/faq';
             } else {
                 Dynamic.catchError(resultData.msg);
             }

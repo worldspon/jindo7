@@ -1,6 +1,6 @@
 import { Dynamic } from './controller.js';
 
-const communicationURL = 'http://192.168.0.24:8080/find/password';
+const communicationURL = '/find/password';
 
 class Communication {
     static postPromise(url, sendObject) {

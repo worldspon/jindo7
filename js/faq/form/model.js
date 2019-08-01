@@ -5,11 +5,13 @@ const sendObject = {
 	answer : null
 };
 
+const communicationURL = `/faq/write`
+
 class Communication {
-    static asyncPostPromise(data) {
+    static postPromise(data, url) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://192.168.0.24:8080/faq/write');
+            xhr.open('POST', url);
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.onload = () => resolve(xhr.responseText);
             xhr.onerror = () => reject(xhr.statusText);
@@ -35,12 +37,12 @@ class Handler {
     }
 
     static getPromiseResult() {
-        const promiseResult = Communication.asyncPostPromise(sendObject);
+        const promiseResult = Communication.postPromise(sendObject, communicationURL);
         promiseResult.then((result) => {
             const resultData = JSON.parse(result);
             if(resultData.errorCode === 0) {
                 Dynamic.catchError(resultData.msg);
-                window.location.href = 'http://127.0.0.1:8887/faq.html';
+                window.location.href = '/faq';
             } else {
                 Dynamic.catchError(resultData.msg);
             }

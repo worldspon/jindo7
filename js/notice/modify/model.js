@@ -1,6 +1,6 @@
 import { Dynamic } from './controller.js';
 
-const communicationURL = 'http://192.168.0.24:8080/notice/modify';
+const communicationURL = '/notice/modify';
 
 class Communication {
     static postPromise(url, sendObject) {
@@ -29,7 +29,7 @@ class EventLogic {
             const resultData = JSON.parse(result);
             if(resultData.errorCode === 0) {
                 Dynamic.catchError(resultData.msg);
-                // window.location.href = 'http://worldspon.net/notice/0/ALL/';
+                location.href = '/notice';
             } else {
                 Dynamic.catchError(resultData.msg);
             }

@@ -1,6 +1,6 @@
 import { Dynamic } from './controller.js';
 
-const communicationURL = 'http://192.168.0.24:8080/board/write';
+const communicationURL = '/board/write';
 
 
 class Communication {
@@ -26,7 +26,7 @@ class EventLogic {
                 const resultData = JSON.parse(result);
                 Dynamic.catchError(resultData.msg);
                 if( resultData.errorCode === 0 ) {
-                    window.location.href = './board.html';
+                    window.location.href = `/board/content/${resultData.boardId}`;
                 } else {
                     Dynamic.catchError(resultData.msg)
                 }

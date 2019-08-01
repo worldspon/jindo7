@@ -1,10 +1,10 @@
 import { Dynamic } from './controller.js';
 
 const communicationURL = {
-    boardDelete : `http://192.168.0.24:8080/board/delete`,
-    commentWrite : `http://192.168.0.24:8080/board/comment/write`,
-    commentModify : `http://192.168.0.24:8080/board/comment/modify`,
-    commentDelete : `http://192.168.0.24:8080/board/comment/delete`
+    boardDelete : `/board/delete`,
+    commentWrite : `/board/comment/write`,
+    commentModify : `/board/comment/modify`,
+    commentDelete : `/board/comment/delete`
 }
 
 class Communication {
@@ -54,7 +54,7 @@ class EventLogic {
                 const resultData = JSON.parse(result);
                 Dynamic.catchError(resultData.msg);
                 if( resultData.errorCode === 0 ) {
-                    window.location.href = './board.html';
+                    window.location.href = '/board';
                 }
 
             }, () => {
@@ -139,7 +139,7 @@ class EventLogic {
     static commentList(page) {
         const boardId = document.querySelector('.individual-board-title').dataset.boardId;
         const boardUniqueId = document.querySelector('.individual-board-title').dataset.uniqueId
-        const promiseResult = Communication.getPromise(`http://192.168.0.24:8080/board/${boardId}/${boardUniqueId}/commentList/${page}`);
+        const promiseResult = Communication.getPromise(`/board/${boardId}/${boardUniqueId}/commentList/${page}`);
 
         promiseResult.then((result)=>{
             const resultData = JSON.parse(result);

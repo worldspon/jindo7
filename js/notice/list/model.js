@@ -8,7 +8,7 @@ class EventLogic {
         if( searchKeyword === '' ) {
             Dynamic.catchError('검색어를 입력해주세요.');
         } else {
-            window.location.href = `/notice/${0}/ALL/${searchKeyword}`;
+            location.href = `/notice/${0}/ALL/${searchKeyword}`;
         }
     }
 

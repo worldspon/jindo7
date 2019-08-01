@@ -1,7 +1,7 @@
 import { Dynamic } from './controller.js';
 
 const communicationURL = {
-    promotionStateChange : 'http://192.168.0.24:8080/promotion/state/change'
+    promotionStateChange : '/promotion/state/change'
 };
 
 class Communication {
@@ -38,7 +38,7 @@ class EventLogic {
                     Dynamic.catchError(resultData.msg);
     
                     if( resultData.errorCode === 0 ) {
-                        window.location = './adlist.html';
+                        location.href = '/promotion';
                     }
     
                 }, () => {

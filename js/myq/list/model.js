@@ -22,7 +22,7 @@ class EventLogic {
 
         if(Handler.inputLengthCheck(searchInput.value)) {
             const searchKeyword = Handler.encodeKeyword(searchInput.value.trim());
-            console.log(searchKeyword);
+            location.href = `/myQ/ALL/0/${searchKeyword}`;
         } else {
             Dynamic.catchError('검색어를 입력해주세요.');
         }

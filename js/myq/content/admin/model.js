@@ -82,7 +82,7 @@ class EventLogic {
             const answerContent = document.querySelector('.note-editable').innerHTML;
     
             const sendObject = new modifyAnswerObject(qid, aid, answerContent);
-            const promiseResult = Communication.postPromise('http://192.168.0.24:8080/myQ/answers/modify', sendObject);
+            const promiseResult = Communication.postPromise('/myQ/answers/modify', sendObject);
             promiseResult.then((result)=>{
                 const resultData = JSON.parse(result);
                 if(resultData.errorCode === 0) {
@@ -109,7 +109,7 @@ class EventLogic {
     static deleteAnswerSend() {
         const aid = document.querySelector('.myq-content-title').dataset.id;
         const sendObject = new deleteAnswerObject(aid);
-        const promiseResult = Communication.postPromise('http://192.168.0.24:8080/myQ/answers/delete', sendObject);
+        const promiseResult = Communication.postPromise('/myQ/answers/delete', sendObject);
         promiseResult.then((result)=>{
             const resultData = JSON.parse(result);
             if(resultData.errorCode === 0) {
@@ -130,7 +130,7 @@ class EventLogic {
             const answerContent = document.querySelector('.note-editable').innerHTML;
     
             const sendObject = new newAnswerObject(qid, answerContent);
-            const promiseResult = Communication.postPromise('http://192.168.0.24:8080/myQ/answers/create', sendObject);
+            const promiseResult = Communication.postPromise('/myQ/answers/create', sendObject);
             promiseResult.then((result)=>{
                 const resultData = JSON.parse(result);
                 if(resultData.errorCode === 0) {

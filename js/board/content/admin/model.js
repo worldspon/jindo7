@@ -1,8 +1,8 @@
 import { Dynamic } from './controller.js';
 
 const communicationURL = {
-    block : 'http://192.168.0.24:8080/blockUser/setBlock',
-    clear : 'http://192.168.0.24:8080/blockUser/clear/'
+    block : '/blockUser/setBlock',
+    clear : '/blockUser/clear/'
 }
 
 class Communication {
