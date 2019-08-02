@@ -45,7 +45,13 @@ class View {
 
         const renderFinishDiv = document.getElementById('render-finish');
         renderFinishDiv.dataset.render = 'true';
-        renderFinishDiv.dispatchEvent(new Event('click'));
+        try {
+            renderFinishDiv.dispatchEvent(new Event('click'));
+        } catch (error) {
+            const event = document.createEvent('Event');
+            event.initEvent('click', true, true);
+            renderFinishDiv.dispatchEvent(event);
+        }
     }
 
     static createCommentPagination(data) {

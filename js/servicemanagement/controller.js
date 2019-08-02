@@ -14,7 +14,13 @@ class Init {
 
     static firstCommunication() {
         const pointButton = document.querySelector('.s-peer');
-        pointButton.dispatchEvent(new Event('click'));
+        try {
+            pointButton.dispatchEvent(new Event('click'));
+        } catch (error) {
+            const event = document.createEvent('Event');
+            event.initEvent('click', true, true);
+            pointButtonrenderFinishDiv.dispatchEvent(event);
+        }
     }
 }
 

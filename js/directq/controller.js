@@ -15,7 +15,7 @@ class Dynamic {
 
 class EventList {
     static bindHelpButtonClickEvent() {
-        const helpButton =  document.querySelector('.btn-help');
+        const helpButton = document.querySelector('.btn-help');
 
         helpButton.addEventListener('click', EventLogic.helpButtonClickEvent);
     }

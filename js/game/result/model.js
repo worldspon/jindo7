@@ -1,29 +1,7 @@
 import { Dynamic } from "./controller.js";
 
-const promiseResultValue = {resolveCount : 0, rejectCount : 0};
-
-// promise 결과를 저장 -> reject가 하나라도 있으면
-// 모든 통신이 끝나고 alert 표현
-const promiseProxy = new Proxy(promiseResultValue, {
-
-    set(el, result, count) {
-
-        el[result] = count;
-        let endPromise = 0;
-
-        for(let resultCount in el) {
-            endPromise += el[resultCount];
-        }
-
-        if(endPromise >= 8 && el.rejectCount >= 1) {
-            setTimeout(()=>{
-                Dynamic.catchError('서버와 통신이 원활하지않습니다.');
-            },1000);
-        }
-
-        return true;
-    }
-});
+// 통신이 원활하지 않을시 최초 1회만 Alert 표현하기 위한 Flag
+let communicationErrorFlag = true;
 
 // 타이머 계산을 위한 time model
 const timeModel = {
@@ -187,7 +165,6 @@ class Handler {
     static getData(gameType, date) {
         const data = Communication.asyncGetTableData(`/game/${gameType}/${date}`);
         data.then( result => {
-            promiseProxy.resolveCount++;
             if(gameType === 'zombieRace') {
                 if(date === 'today') {
                     const resultData = JSON.parse(result).zombieRace;
@@ -226,7 +203,10 @@ class Handler {
                 }
             }
         }, () => {
-            promiseProxy.rejectCount++;
+            if( communicationErrorFlag ) {
+                communicationErrorFlag = false;
+                Dynamic.catchError('서버와 통신이 원활하지않습니다.');
+            }
         })
     }
 }
@@ -297,7 +277,13 @@ class EventLogic {
     static escEvent(e) {
         // ESC 버튼 클릭시 모달 닫음
         if(e.keyCode === 27) {
-            document.querySelector('.md-close-btn').dispatchEvent(new Event('click'));
+            try {
+                document.querySelector('.md-close-btn').dispatchEvent(new Event('click'));
+            } catch (error) {
+                const event = document.createEvent('Event');
+                event.initEvent('click', true, true);
+                document.querySelector('.md-close-btn').dispatchEvent(event);
+            }
         }
     }
 }

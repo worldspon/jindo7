@@ -41,7 +41,13 @@ class EventList {
         inputBox.addEventListener('keydown', (e) => {
             if( e.keyCode === 13 ) {
                 const sendButton = document.querySelector('.send-email');
-                sendButton.dispatchEvent(new Event('click'));
+                try {
+                    sendButton.dispatchEvent(new Event('click'));
+                } catch (error) {
+                    const event = document.createEvent('Event');
+                    event.initEvent('click', true, true);
+                    sendButton.dispatchEvent(event);
+                }
             }
         })
     }

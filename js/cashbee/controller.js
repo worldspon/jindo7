@@ -48,7 +48,13 @@ class EventList {
         searchInput.addEventListener('keydown', (e) => {
             if( e.keyCode === 13 ) {
                 const searchButton = document.querySelector('.btn-search-id');
-                searchButton.dispatchEvent(new Event('click'));
+                try {
+                    searchButton.dispatchEvent(new Event('click'));
+                } catch (error) {
+                    const event = document.createEvent('Event');
+                    event.initEvent('click', true, true);
+                    searchButton.dispatchEvent(event);
+                }
             }
         })
     }

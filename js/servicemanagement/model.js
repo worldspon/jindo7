@@ -145,7 +145,13 @@ class EventLogic {
         pointListState.state = parseInt(active.dataset.state);
 
         if( dateInputValue === '' ) {
-            active.dispatchEvent(new Event('click'));
+            try {
+                active.dispatchEvent(new Event('click'));
+            } catch (error) {
+                const event = document.createEvent('Event');
+                event.initEvent('click', true, true);
+                active.dispatchEvent(event);
+            }
         } else if( selectedOption === 'request' ) {
             const promiseResult = Communication.postPromise(pointListState, communicationURL.point);
             promiseResult.then((result) => {
@@ -281,11 +287,29 @@ class EventLogic {
                 Dynamic.catchError(resultData.msg);
                 EventLogic.memoBoxDestroy(e);
                 if( pointListState.state === 0 ) {
-                    document.querySelector('.apply-list').dispatchEvent(new Event('click'));
+                    try {
+                        document.querySelector('.apply-list').dispatchEvent(new Event('click'));
+                    } catch (error) {
+                        const event = document.createEvent('Event');
+                        event.initEvent('click', true, true);
+                        document.querySelector('.apply-list').dispatchEvent(event);
+                    }
                 } else if( pointListState.state === 1 ) {
-                    document.querySelector('.confirm-list').dispatchEvent(new Event('click'));
+                    try {
+                        document.querySelector('.confirm-list').dispatchEvent(new Event('click'));
+                    } catch (error) {
+                        const event = document.createEvent('Event');
+                        event.initEvent('click', true, true);
+                        document.querySelector('.confirm-list').dispatchEvent(event);
+                    }
                 } else if( pointListState.state === 2 ) {
-                    document.querySelector('.cancel-list').dispatchEvent(new Event('click'));
+                    try {
+                        document.querySelector('.cancel-list').dispatchEvent(new Event('click'));
+                    } catch (error) {
+                        const event = document.createEvent('Event');
+                        event.initEvent('click', true, true);
+                        document.querySelector('.cancel-list').dispatchEvent(event);
+                    }
                 }
             } else {
                 Dynamic.catchError(resultData.msg);
@@ -377,9 +401,21 @@ class EventLogic {
                 if( resultData.errorCode === 6 ) {
                     Dynamic.catchError(resultData.msg);
                     if( e.target.dataset.state === '1' ) {
-                        document.querySelector('.confirm-list').dispatchEvent(new Event('click'));
+                        try {
+                            document.querySelector('.confirm-list').dispatchEvent(new Event('click'));
+                        } catch (error) {
+                            const event = document.createEvent('Event');
+                            event.initEvent('click', true, true);
+                            document.querySelector('.confirm-list').dispatchEvent(event);
+                        }
                     } else if ( e.target.dataset.state === '2' ) {
-                        document.querySelector('.cancel-list').dispatchEvent(new Event('click'));
+                        try {
+                            document.querySelector('.cancel-list').dispatchEvent(new Event('click'));
+                        } catch (error) {
+                            const event = document.createEvent('Event');
+                            event.initEvent('click', true, true);
+                            document.querySelector('.cancel-list').dispatchEvent(event);
+                        }
                     }
                 } else {
                     Dynamic.catchError(resultData.msg);
@@ -454,7 +490,13 @@ class EventLogic {
                 const buttonList = document.querySelector('.state-btn-box').children;
                 for(const button of buttonList) {
                     if(button.classList.contains('alive')) {
-                        button.dispatchEvent(new Event('click'));
+                        try {
+                            button.dispatchEvent(new Event('click'));
+                        } catch (error) {
+                            const event = document.createEvent('Event');
+                            event.initEvent('click', true, true);
+                            button.dispatchEvent(event);
+                        }
                     }
                 }
             }, () => {

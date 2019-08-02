@@ -47,7 +47,13 @@ class Handler {
                     Dynamic.catchError(communicationResult.msg);
                     document.querySelector('.input-pw').focus();
                     document.querySelector('.input-pw').value = '';
-                    document.querySelector('.input-pw').dispatchEvent(new Event('input'));
+                    try {
+                        document.querySelector('.input-pw').dispatchEvent(new Event('input'));
+                    } catch (error) {
+                        const event = document.createEvent('Event');
+                        event.initEvent('input', true, true);
+                        document.querySelector('.input-pw').dispatchEvent(event);
+                    }
                 }
             })
         }, () => {

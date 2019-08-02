@@ -9,6 +9,12 @@ const communicationURL = {
     game : '/main/game'
 }
 
+// 비동기통신 종료 COUNT
+const communicationResult = 0;
+
+// 비동기통신 ERROR 발생시 최초 1회만 ALERT 표현하기 위한 FLAG
+const communicationErrorFlag = true;
+
 // 현재월 일 정보 저장 객체
 const currentDate = {
     month : new Date().getMonth()+1,
@@ -28,39 +34,6 @@ const adprofitChartData = {
     valueArray : []
 }
 
-// PROMISE 종료 결과 저장 객체
-const promiseResultValue = { resolveCount : 0, rejectCount : 0 };
-
-// DATA PROMISE 통신이 끝나면 BLOCK 유저 검증 통신 호출
-// 모든 통신 종료 후 REJECT가 하나라도 있으면 ALERT
-const promiseProxy = new Proxy(promiseResultValue, {
-
-    set(el, result, count) {
-
-        el[result] = count;
-
-        let endPromise = 0;
-
-        for(let resultCount in el) {
-            endPromise += el[resultCount];
-        }
-
-        // 모든 RENDER 통신이 완료되면 회원 BLOCK 유무 확인
-        if( endPromise === 4 ) {
-            Init.userBlockInfo();
-        }
-
-        // 모든 통신이 완료되고 REJECT 통신이 하나라도 있으면 ALERT 표출
-        if(endPromise === 5 && el.rejectCount >= 1) {
-            setTimeout(()=>{
-                Dynamic.catchError('서버와 통신이 원활하지않습니다.');
-            },1000);
-        }
-
-        return true;
-    }
-});
-
 class Communication {
     static getPromise(url) {
         return new Promise((resolve, reject)=>{
@@ -75,6 +48,19 @@ class Communication {
 
 class Logic {
 
+    static callUserBlockInfo() {
+        if( communicationResult === 4 ) {
+            Init.userBlockInfo();
+        }
+    }
+
+    static communicationErrorAlert() {
+        if( communicationErrorFlag ) {
+            communicationErrorFlag = false;
+            Dynamic.catchError('서버와 통신이 원활하지않습니다.');
+        }
+    }
+
     // 광고수익금 DATA 비동기통신
     static adProfitData() {
         const promiseResult = Communication.getPromise(communicationURL.adprofit);
@@ -86,9 +72,11 @@ class Logic {
             // 광고수익금 RENDER 함수 호출
             Dynamic.adProfitTextRender(adprofitMonthData);
             Dynamic.adProfitChartRender(adprofitChartData);
-            promiseProxy.resolveCount++;
+            communicationResult++;
+            callUserBlockInfo();
         }, () => {
-            promiseProxy.rejectCount++;
+            communicationResult++;
+            communicationErrorAlert();
         })
     }
 
@@ -162,9 +150,12 @@ class Logic {
 
             // 공지사항 RENDER 함수 호출
             Dynamic.noticeRender(resultData.noticeList);
-            promiseProxy.resolveCount++;
+            communicationResult++;
+            callUserBlockInfo();
+
         }, () => {
-            promiseProxy.rejectCount++;
+            communicationResult++;
+            communicationErrorAlert();
         })
     }
 
@@ -177,9 +168,11 @@ class Logic {
 
             // FAQ RENDER 함수 호출
             Dynamic.faqRender(resultData.faqList);
-            promiseProxy.resolveCount++;
+            communicationResult++;
+            callUserBlockInfo();
         }, ()=>{
-            promiseProxy.rejectCount++;
+            communicationResult++;
+            communicationErrorAlert();
         })
     }
 
@@ -191,9 +184,11 @@ class Logic {
 
             // GAME RENDER 함수 호출
             Dynamic.gameRender(resultData);
-            promiseProxy.resolveCount++;
+            communicationResult++;
+            callUserBlockInfo();
         }, () => {
-            promiseProxy.rejectCount++;
+            communicationResult++;
+            communicationErrorAlert();
         })
     }
 
@@ -207,9 +202,8 @@ class Logic {
             if( Logic.checkBlock(resultData) && Logic.checkCookie(resultData.trademark) ) {
                 Dynamic.renderBlockInfoModal(resultData);
             }
-            promiseProxy.resolveCount++;
         }, () => {
-            promiseProxy.rejectCount++;
+            console.log('ERROR : BLOCK USER INFO COMMUNICATION');
         })
     }
 

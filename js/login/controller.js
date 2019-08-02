@@ -49,7 +49,13 @@ class EventList {
             View.showTooltipText(EventLogic.checkCapslock(event));
 
             if (event.keyCode == 13) {
-                document.querySelector('.submit-btn').dispatchEvent(new Event('click'));
+                try {
+                    document.querySelector('.submit-btn').dispatchEvent(new Event('click'));
+                } catch (error) {
+                    const event = document.createEvent('Event');
+                    event.initEvent('click', true, true);
+                    document.querySelector('.submit-btn').dispatchEvent(event);
+                }
             } 
         })
     }

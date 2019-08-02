@@ -16,7 +16,13 @@ class EventLogic {
     static searchInputKeyEvent(e) {
         const searchBtn = document.querySelector('.search-btn');
         if( e.keyCode === 13 ) {
-            searchBtn.dispatchEvent(new Event('click'));
+            try {
+                searchBtn.dispatchEvent(new Event('click'));   
+            } catch (error) {
+                const event = document.createEvent('Event');
+                event.initEvent('click', true, true);
+                searchBtn.dispatchEvent(event);
+            }
         }
     }
 }

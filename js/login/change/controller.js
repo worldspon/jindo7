@@ -39,7 +39,13 @@ class EventList {
         confirmInput.addEventListener('keydown', (e) => {
             if(e.keyCode === 13) {
                 const changeButton = document.querySelector('.btn-change-pw');
-                changeButton.dispatchEvent(new Event('click'));
+                try {
+                    changeButton.dispatchEvent(new Event('click'));
+                } catch (error) {
+                    const event = document.createEvent('Event');
+                    event.initEvent('click', true, true);
+                    changeButton.dispatchEvent(event);
+                }
             }
         })
     }
