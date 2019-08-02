@@ -3,6 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: {
+    common: './js/common/common.js',
     adprofit: './js/adprofit/adprofit.js',
     banuser: './js/banuser/banuser.js',
     boardcontent: './js/board/content/boardcontent.js',

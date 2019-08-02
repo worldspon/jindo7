@@ -11,7 +11,7 @@ const currentDate = {
     day : new Date().getDate()
 }
 
-const communicationURL = '/adprofit/fetch';
+const communicationURL = 'http://192.168.0.24:8080/adprofit/fetch';
 
 // VIEW PONIT 별 첫번째 CHART DATA 저장 변수
 const firstChartData = {

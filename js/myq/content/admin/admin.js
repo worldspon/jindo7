@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import { Init } from './controller.js';
 
 if(document.querySelector('.answer-wrapper') !== null) {
