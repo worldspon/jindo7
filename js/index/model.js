@@ -10,7 +10,7 @@ const communicationURL = {
 }
 
 // 비동기통신 종료 COUNT
-const communicationResult = 0;
+let communicationResult = 0;
 
 // 비동기통신 ERROR 발생시 최초 1회만 ALERT 표현하기 위한 FLAG
 const communicationErrorFlag = true;
