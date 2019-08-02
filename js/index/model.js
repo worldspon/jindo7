@@ -73,7 +73,7 @@ class Logic {
             Dynamic.adProfitTextRender(adprofitMonthData);
             Dynamic.adProfitChartRender(adprofitChartData);
             communicationResult++;
-            callUserBlockInfo();
+            Logic.callUserBlockInfo();
         }, () => {
             communicationResult++;
             communicationErrorAlert();
@@ -151,7 +151,7 @@ class Logic {
             // 공지사항 RENDER 함수 호출
             Dynamic.noticeRender(resultData.noticeList);
             communicationResult++;
-            callUserBlockInfo();
+            Logic.callUserBlockInfo();
 
         }, () => {
             communicationResult++;
@@ -169,7 +169,7 @@ class Logic {
             // FAQ RENDER 함수 호출
             Dynamic.faqRender(resultData.faqList);
             communicationResult++;
-            callUserBlockInfo();
+            Logic.callUserBlockInfo();
         }, ()=>{
             communicationResult++;
             communicationErrorAlert();
@@ -185,7 +185,7 @@ class Logic {
             // GAME RENDER 함수 호출
             Dynamic.gameRender(resultData);
             communicationResult++;
-            callUserBlockInfo();
+            Logic.callUserBlockInfo();
         }, () => {
             communicationResult++;
             communicationErrorAlert();
