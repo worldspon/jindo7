@@ -243,13 +243,13 @@ class Logic {
         return cookieArray;
     }
 
-    // 3일(72H) 후 시간을 계산하여 UTC String으로 반환
+    // 3일(72H) 후 시간을 계산하여 String으로 반환
     static calcAfterThreeDays() {
         const nowDate = Date.now();
         const threeDaysMilliSecond = 259200000;
         const afterThreeDate = new Date(nowDate + threeDaysMilliSecond);
 
-        return afterThreeDate.toUTCString();
+        return afterThreeDate.toString();
     }
 }
 

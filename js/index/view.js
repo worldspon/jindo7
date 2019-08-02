@@ -342,7 +342,7 @@ class View {
             </div>
             <div class="button-box">
                 <button class="pause-modal" data-id="${data.trademark}">3일 후에 다시보기</button>
-                <a href="./directq.html"><button class="move-directq">1:1 문의</button></a>
+                <a href="/myQ/directQ"><button class="move-directq">1:1 문의</button></a>
                 <button class="close-modal">확인</button>
             </div>
         </div>`;

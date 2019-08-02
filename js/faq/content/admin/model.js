@@ -8,7 +8,7 @@ class Communication {
     static postPromise(data) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://192.168.0.24:8080/faq/delete');
+            xhr.open('POST', '/faq/delete');
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.onload = () => resolve(xhr.responseText);
             xhr.onerror = () => reject(xhr.statusText);
