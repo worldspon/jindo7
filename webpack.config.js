@@ -36,7 +36,7 @@ module.exports = {
     promotionapply: ['@babel/polyfill', './js/promotion/apply/promotionapply.js'],
     promotionlist: ['@babel/polyfill', './js/promotion/list/promotionlist.js'],
     promotionlistadmin: ['@babel/polyfill', './js/promotion/list/admin/admin.js'],
-    servicemanagement: ['@babel/polyfill', './js/servicemanagement/servicemanagement.js'],
+    servicemanagement: ['@babel/polyfill', './js/servicemanagement/servicemanagement.js']
   },
   output: {
     filename: '[name].bundle.js',
