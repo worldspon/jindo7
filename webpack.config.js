@@ -3,6 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: {
+    jsencrypt: ['@babel/polyfill', './js/jsencrypt.js'],
     common: ['@babel/polyfill', './js/common/common.js'],
     adprofit: ['@babel/polyfill', './js/adprofit/adprofit.js'],
     banuser: ['@babel/polyfill', './js/banuser/banuser.js'],

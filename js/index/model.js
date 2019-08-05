@@ -278,8 +278,8 @@ class EventLogic {
         const modalBackground = document.querySelector('.modal-backgruond');
         const modal = document.querySelector('.modal-box');
 
-        modalBackground.remove();
-        modal.remove();
+        modalBackground.parentNode.removeChild(modalBackground);
+        modal.parentNode.removeChild(modal);
     }
 
 }
