@@ -6,6 +6,7 @@ class View {
     static setPointBox(data, state) {
         const nowYear = new Date().getFullYear();
         const parentDiv = document.querySelector('.serviceadmin-content-box');
+
         parentDiv.innerHTML = 
         `<div class="apply-btn-box">
             <button class="apply-list active" data-state="0">신청 내역</button>
@@ -58,6 +59,21 @@ class View {
         </thead>
         <tbody class="point-list-box">`;
 
+        if( data.length === 0 ) {
+            tableInnerHTML = 
+            `</tbody>
+                <span style="display:block; text-align: center; font-size: 1.5rem; font-weight: bold; color: red;">신청내역이 없습니다.</span>
+            </table>`;
+
+            table.innerHTML = tableInnerHTML;
+
+            parentDiv.appendChild(table);
+    
+            window.dispatchEvent(new Event('resize'));
+
+            return;
+        }
+
         for(const el of data) {
             tableInnerHTML +=
             `<tr>
@@ -100,6 +116,7 @@ class View {
         table.innerHTML = tableInnerHTML;
 
         parentDiv.appendChild(table);
+
         window.dispatchEvent(new Event('resize'));
     }
     // POINT EVENT

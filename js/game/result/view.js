@@ -200,6 +200,7 @@ class View {
                 <td>준비중</td>
                 <td>준비중</td>
                 <td>준비중</td>
+                <td>준비중</td>
             </tr>`;
 
             count++;
@@ -214,6 +215,7 @@ class View {
                 <td>${el.count > fiveGameTurn ? '준비중' : el.result[2]}</td>
                 <td>${el.count > fiveGameTurn ? '준비중' : el.result[3]}</td>
                 <td>${el.count > fiveGameTurn ? '준비중' : el.result[4]}</td>
+                <td>${el.count > fiveGameTurn ? '준비중' : el.result[5]}</td>
             </tr>`;
 
             count++;
@@ -385,7 +387,7 @@ class View {
         `<thead>
             <tr class="th-row row">
                 <th class="first-tab">회차</th>
-                <th colspan="5">당첨번호</th>
+                <th colspan="6">당첨번호</th>
             </tr>
         </thead>`;
 
@@ -393,6 +395,7 @@ class View {
             dropTableMarkupText +=
             `<tr class="tb-row row">
                 <th class="first-tab">${dropData[0].count+1}</th>
+                <td>준비중</td>
                 <td>준비중</td>
                 <td>준비중</td>
                 <td>준비중</td>
@@ -410,6 +413,7 @@ class View {
                 <td>${el.count > fiveGameTurn ? '준비중' : el.result[2]}</td>
                 <td>${el.count > fiveGameTurn ? '준비중' : el.result[3]}</td>
                 <td>${el.count > fiveGameTurn ? '준비중' : el.result[4]}</td>
+                <td>${el.count > fiveGameTurn ? '준비중' : el.result[5]}</td>
             </tr>`;
         }
 
@@ -534,7 +538,7 @@ class View {
         `<thead>
             <tr class="th-row row">
                 <th class="first-tab">회차</th>
-                <th colspan="5">당첨번호</th>
+                <th colspan="6">당첨번호</th>
             </tr>
         </thead>`;
 
@@ -547,6 +551,7 @@ class View {
                 <td>${el.result[2]}</td>
                 <td>${el.result[3]}</td>
                 <td>${el.result[4]}</td>
+                <td>${el.result[5]}</td>
             </tr>`;
         }
 

@@ -13,7 +13,7 @@ const communicationURL = {
 let communicationResult = 0;
 
 // 비동기통신 ERROR 발생시 최초 1회만 ALERT 표현하기 위한 FLAG
-const communicationErrorFlag = true;
+let communicationErrorFlag = true;
 
 // 현재월 일 정보 저장 객체
 const currentDate = {
@@ -76,7 +76,7 @@ class Logic {
             Logic.callUserBlockInfo();
         }, () => {
             communicationResult++;
-            communicationErrorAlert();
+            Logic.communicationErrorAlert();
         })
     }
 
@@ -155,7 +155,7 @@ class Logic {
 
         }, () => {
             communicationResult++;
-            communicationErrorAlert();
+            Logic.communicationErrorAlert();
         })
     }
 
@@ -172,7 +172,7 @@ class Logic {
             Logic.callUserBlockInfo();
         }, ()=>{
             communicationResult++;
-            communicationErrorAlert();
+            Logic.communicationErrorAlert();
         })
     }
 
@@ -188,7 +188,7 @@ class Logic {
             Logic.callUserBlockInfo();
         }, () => {
             communicationResult++;
-            communicationErrorAlert();
+            Logic.communicationErrorAlert();
         })
     }
 

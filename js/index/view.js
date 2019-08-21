@@ -289,12 +289,14 @@ class View {
                 <th>3번좀비</th>
                 <th>4번좀비</th>
                 <th>5번좀비</th>
+                <th>6번좀비</th>
             </tr>`;
 
         if(data[0].count !== 288) {
             dropTableHTML +=
             `<tr class='game-table-row'>
                 <th class='col'>${data[0].count+1}</th>
+                <td>준비중</td>
                 <td>준비중</td>
                 <td>준비중</td>
                 <td>준비중</td>
@@ -312,6 +314,7 @@ class View {
                 <td>${el.result[2]}</td>
                 <td>${el.result[3]}</td>
                 <td>${el.result[4]}</td>
+                <td>${el.result[5]}</td>
             </tr>`;
 
             if(index === 3) {
