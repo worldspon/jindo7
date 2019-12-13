@@ -1,6 +1,7 @@
 class View {
-    // 게임머니 기록 테이블
-    static renderGameMoneyTable(data) {
+    // 게임머니, 실버 기록 테이블
+    static renderGameMoneyTable(data, type) {
+        console.log(type);
         View.removeTable();
         const tableParent = document.querySelector('.moneyhistory-content-box');
         const tableNode = document.createElement('table');
@@ -15,7 +16,7 @@ class View {
                 <th class="gm-name">닉네임</th>
                 <th>코드</th>
                 <th>게임회차</th>
-                <th>획득게임머니</th>
+                <th>획득${type}</th>
                 <th>전</th>
                 <th>후</th>
                 <th class="gm-memo">메모</th>

@@ -2,8 +2,8 @@ import { EvnetLogic } from './model.js';
 import { View } from './view.js';
 
 class Init {
-    static createGameMoneyTable(data) {
-        View.renderGameMoneyTable(data);
+    static createGameMoneyTable(data, type) {
+        View.renderGameMoneyTable(data, type);
     }
     static createEtcTable(data, type) {
         View.renderEtcTable(data, type);

@@ -7,6 +7,7 @@ const searchURL = {
 
 class Communication {
     static asyncPostPromise(url, sendObject) {
+        console.log(sendObject);
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open('POST', url);
@@ -17,20 +18,26 @@ class Communication {
         });
     }
 
-    static getPromiseresult(uerId) {
+    static getPromiseresult(userId) {
         const sendObject = {
-            trademark : uerId
+            trademark : userId
         };
+
         // 통신 url 정의
-        const communicationURL = `/history/${searchURL.url}`;
+        const communicationURL = `http://192.168.0.24:8082/history/${searchURL.url}`;
 
         const promiseObject = this.asyncPostPromise(communicationURL, JSON.stringify(sendObject));
 
         promiseObject.then((data) => {
             const resultData = JSON.parse(data);
+            console.log(resultData);
             if(searchURL.url === 'money') {
-                Init.createGameMoneyTable(resultData.moneyHistory);
-            } else if(searchURL.url === 'point') {
+                Init.createGameMoneyTable(resultData.moneyHistory, '게임머니');
+            } else if(searchURL.url === 'silver') {
+                console.log("INIT");
+                Init.createGameMoneyTable(resultData.silverHistory, '실버');
+            }
+             else if(searchURL.url === 'point') {
                 Init.createEtcTable(resultData.pointHistory, '포인트');
             } else if(searchURL.url === 'coin') {
                 Init.createEtcTable(resultData.coinHistory, '스폰');

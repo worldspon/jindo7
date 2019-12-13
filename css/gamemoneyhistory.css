@@ -27,7 +27,8 @@ main {
 }
 
 .myasset-content-box button {
-    width: 24%;
+    /* width: 15%; */
+    width: 100%;
     padding: 15px 0;
     border:none;
     border-radius: 5px;
@@ -36,6 +37,10 @@ main {
     background: #666;
     outline: none;
     cursor: pointer;
+}
+
+.myasset-content-box button:not(:last-child) {
+    margin-right: 10px;
 }
 
 .myasset-content-box button.on {
